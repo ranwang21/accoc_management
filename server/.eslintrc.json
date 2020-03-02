@@ -4,6 +4,7 @@
   "rules": {
     "prettier/prettier": "error",
     "no-console": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-process-exit": "off"
   }
 }
