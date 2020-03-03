@@ -1,0 +1,52 @@
+
+Voici les conventions, regles et methodologie de travail qu'on a choisi.
+
+
+	Convention codes:
+		
+		- nom de table : 
+			PascalCase, pas de pluriel (Ex: User)
+		
+		- attributs: 
+			snake_case, minuscule (Ex: role_id)
+		
+		- variable: 
+			camelCase  (Ex: userId)
+		
+		- constante:
+			snake_case, MAJUSCULE
+		
+		- classes:
+			PascalCase   (Ex: User)
+		
+		- nom de package: 
+			minuscule (Ex: manager)
+		
+		- classe dans package: CamelCase + NomPackage (Ex: UserManager)
+		
+		- ordre des attributs database:
+			id		
+			foreign keys
+			autre attributs
+		
+		
+		- nom de fonction, variable, constante, classe et package doivent etre CLAIRES et SIMPLES
+		- annotation obligatoires pour chaque fonctions.
+		
+		
+		
+	Methodologie de travail:
+		
+		- Pair programming pour push, peux pas push dans le git sans consulter et se faire aprouver par son collegues
+		- Scrum meetings 5min + voir tickets
+		- Sprint de 1 semaine pour avoir une application fonctionnelle a chaque semaine
+	
+	
+	Horaire d'un jour exemple:
+		0. Arriver MAX 8h30
+		1. voir board de Trello 
+		2. faire un git pull
+		3. Scrum meeting
+		4. Sprint analyse
+		5. Coder
+	
