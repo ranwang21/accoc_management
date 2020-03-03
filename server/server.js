@@ -1,6 +1,5 @@
 const express = require('express')
 const dotenv = require('dotenv')
-const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const connectDB = require('./config/db')
 
@@ -10,7 +9,7 @@ const app = express()
 dotenv.config({ path: './config/config.env' })
 
 // MIDDLEWARES
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(morgan('dev'))
 
 // MAIN ROUTES
