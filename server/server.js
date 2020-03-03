@@ -1,22 +1,35 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
+const morgan = require('morgan')
+const connectDB = require('./config/db')
 
 const app = express()
 
 // LOAD ENV VARS
 dotenv.config({ path: './config/config.env' })
 
+// MIDDLEWARES
 app.use(bodyParser.json())
+app.use(morgan('dev'))
 
 // MAIN ROUTES
 app.get('/', (req, res) => {
   res.send("La Maison d'Aurore API")
 })
 
+// CONNECT TO DATABASE
+connectDB()
+
 // CONNECT TO SERVER
 const PORT = process.env.PORT || 8080
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log('Server listening on: http://localhost:%s', PORT)
+})
+
+// HANDLE UNHANDLED PROMISE REJECTIONS
+process.on('unhandledRejection', err => {
+  console.log('Error:', err.message)
+  // CLOSE SERVER & EXIT PROCESS
+  server.close(() => process.exit(1))
 })
