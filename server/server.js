@@ -1,21 +1,31 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
-const connectDB = require('./config/db')
+const errorHandler = require('./middlewares/error')
+const connectDB = require('./configs/db')
 
 const app = express()
 
 // LOAD ENV VARS
-dotenv.config({ path: './config/config.env' })
+dotenv.config({ path: './configs/config.env' })
 
 // MIDDLEWARES
 app.use(express.json())
 app.use(morgan('dev'))
 
+// ROUTE FILES
+const roles = require('./routes/roles')
+
+// MOUNT ROUTERS
+app.use('/roles', roles)
+
 // MAIN ROUTES
 app.get('/', (req, res) => {
   res.send("La Maison d'Aurore API")
 })
+
+// ERROR HANDLER MIDDLEWARE
+app.use(errorHandler)
 
 // CONNECT TO DATABASE
 connectDB()
