@@ -1,86 +1,67 @@
 const ErrorResponse = require('../utils/ErrorResponse')
+const asyncHandler = require('../middlewares/async')
 const Role = require('../models/Role')
 
 // @desc     Get all roles
 // @route    GET /roles
 // @access   Private
-exports.getRoles = async (req, res, next) => {
-  try {
-    const roles = await Role.find()
-    res.status(200).json(roles)
-  } catch (err) {
-    next(err)
-  }
-}
+exports.getRoles = asyncHandler(async (req, res) => {
+  const roles = await Role.find()
+  res.status(200).json(roles)
+})
 
 // @desc    Get single role
 // @route   GET /routes/:id
 // @access  Private
-exports.getRole = async (req, res, next) => {
-  try {
-    const role = await Role.findById(req.params.id)
+exports.getRole = asyncHandler(async (req, res, next) => {
+  const role = await Role.findById(req.params.id)
 
-    if (!role) {
-      return next(
-        new ErrorResponse(`Role not found with ID: ${req.params.id}`, 404)
-      )
-    }
-
-    res.status(200).json(role)
-  } catch (err) {
-    next(err)
+  if (!role) {
+    return next(
+      new ErrorResponse(`Role not found with ID: ${req.params.id}`, 404)
+    )
   }
-}
+
+  res.status(200).json(role)
+})
 
 // @desc    Create new role
 // @route   POST /routes
 // @access  Private
-exports.createRole = async (req, res, next) => {
-  try {
-    const role = await Role.create(req.body)
-    res.status(201).json(role)
-  } catch (err) {
-    next(err)
-  }
-}
+exports.createRole = asyncHandler(async (req, res) => {
+  const role = await Role.create(req.body)
+  res.status(201).json(role)
+})
 
 // @desc    Update role
 // @route   PUT /routes/:id
 // @access  Private
-exports.updateRole = async (req, res, next) => {
-  try {
-    const role = await Role.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    })
+exports.updateRole = asyncHandler(async (req, res, next) => {
+  const role = await Role.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  })
 
-    if (!role) {
-      return next(
-        new ErrorResponse(`Role not found with ID: ${req.params.id}`, 404)
-      )
-    }
-
-    res.status(200).json(role)
-  } catch (err) {
-    next(err)
+  if (!role) {
+    return next(
+      new ErrorResponse(`Role not found with ID: ${req.params.id}`, 404)
+    )
   }
-}
+
+  res.status(200).json(role)
+})
 
 // @desc    Delete role
 // @route   DELETE /routes/:id
 // @access  Private
-exports.deleteRole = async (req, res, next) => {
-  try {
-    const role = await Role.findByIdAndDelete(req.params.id)
+exports.deleteRole = asyncHandler(async (req, res, next) => {
+  const role = await Role.findByIdAndDelete(req.params.id)
 
-    if (!role) {
-      return next(
-        new ErrorResponse(`Role not found with ID: ${req.params.id}`, 404)
-      )
-    }
-
-    res.status(200).json(role)
-  } catch (err) {
-    next(err)
+  if (!role) {
+    return next(
+      new ErrorResponse(`Role not found with ID: ${req.params.id}`, 404)
+    )
   }
-}
+
+  res.status(200).json(role)
+})
