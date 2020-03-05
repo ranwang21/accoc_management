@@ -12,16 +12,19 @@ dotenv.config({ path: './configs/config.env' })
 // MIDDLEWARES
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(express.static('public'))
 
 // ROUTE FILES
 const roles = require('./routes/roles')
+const classrooms = require('./routes/classrooms')
 
 // MOUNT ROUTERS
 app.use('/roles', roles)
+app.use('/classrooms', classrooms)
 
-// MAIN ROUTES
+// MAIN ROUTE
 app.get('/', (req, res) => {
-  res.send("La Maison d'Aurore API")
+  res.sendFile('index.html')
 })
 
 // ERROR HANDLER MIDDLEWARE
