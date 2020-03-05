@@ -23,7 +23,25 @@ module.exports = {
       {
         test: /\.html$/,
         use: [{ loader: "html-loader", options: { minimize: false } }]
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|gif|ico)$/,
+        use: [
+          'file-loader?name=[name].[ext]'
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
+      },
     ]
   },
   plugins: [
