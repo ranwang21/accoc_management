@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Header extends Component {
-    render() {
-        const isConnected = this.props.isConnected;
+    render () {
+        const isConnected = this.props.isConnected
         return (
-            <div>
-
-            </div>
-        );
+            <div />
+        )
     }
 }
 
-export default Header;
+export default Header
