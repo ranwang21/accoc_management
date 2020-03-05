@@ -9,8 +9,12 @@ class Main extends Component {
     componentDidMount () {}
 
     render () {
+        const isConnected = this.props.isConnected
         return (
-            <div />
+            <main>
+                <h1>MAIN</h1>
+                <p> Connected: {isConnected} </p>
+            </main>
         )
     }
 }
