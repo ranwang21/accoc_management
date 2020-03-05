@@ -29,8 +29,7 @@ body {
 	background-position: center;
 	background-size: contain;
 	background-clip: content-box;
-	transition: all 0.3s;
-	#app {
+	#root {
 		width: 100vw;
 		height: 100vh;
 		background-color: rgba(105, 105, 105, 0.973);
