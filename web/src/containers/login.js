@@ -1,60 +1,69 @@
 import React, { Component } from 'react'
 import { Input, Select, Textarea } from '../components/form-options'
+const LoginConfig = require('../forms-files/login.json')
 
 class Application extends Component {
     constructor () {
         super()
 
         this.state = {
-            loginConfig: null,
-            values: {},
-            response: null
+            loginConfig: null
         }
-
-        // this.onhandleFieldOnChange = this.onhandleFieldOnChange.bind(this)
-        // this.onhandleBtnClickEvent = this.onhandleBtnClickEvent.bind(this)
+        this.onInputChange = this.onInputChange.bind(this)
     }
 
     componentDidMount () {
-        fetch('login.json', { method: 'GET' })
-            .then(response => response.json())
-            .then(response => {
-                this.setState({
-                    loginConfig: response
-                })
-            })
+        this.fetchUsers()
     }
 
-    onhandleFieldOnChange (event) {
+    fetchUsers () {
         this.setState({
-            values: Object.assign(this.state.values, { [event.target.name]: event.target.value })
+            loginConfig: LoginConfig
         })
     }
 
-    buildFormInfos () {
-        const buildFormInfos = {
-            fields: this.state.config.forms[this.state.formIndex].fields,
-            changeEvent: this.onhandleFieldOnChange,
-            clickEvent: this.onhandleBtnClickEvent
+    onInputChange (event) {
+        console.log(event.target.value)
+    }
+
+    buildFields ({ id, attributes, type, label, required }) {
+        let field = null
+        switch (attributes) {
+        case 'input':
+            field = <Input label={label} type={type} id={id} changeEvent={this.onInputChange} />
+            break
+        case 'select':
+            field = <Select />
+            break
+        case 'textarea':
+            field = <Textarea />
+            break
         }
-        return buildFormInfos
+
+        return field
     }
 
     render () {
-        const config = this.state.loginConfig
-        const formIndex = this.state.formIndex
-        const response = this.state.response
-        const title = (config !== null) ? config.title : 'Formulaire Remplie'
-        const formTitle = (config !== null) ? ((formIndex + 1) + ': Formulaire ' + config.forms[formIndex].header) : ''
-        const formInfos = (config !== null) ? this.buildFormInfos() : null
+        const loginConfig = this.state.loginConfig
+        const error = 'Une erreur est survenu lors du chargement du formulaire'
         return (
-            <div className='application'>
-                <h1>{title}</h1>
-                <h3>{formTitle}</h3>
-                {(formIndex === 0 && formInfos !== null) && <Input formsInfos={formInfos} />}
-                {(formIndex === 1 && formInfos !== null) && <Select formsInfos={formInfos} />}
-                {(formIndex === 2 && formInfos !== null) && <Textarea formsInfos={formInfos} />}
-                {(response !== null) && <p>{JSON.stringify(response, null, 4)}</p>}
+            <div className='login'>
+                {loginConfig !== null ? (
+                    loginConfig.map(loginConfig => {
+                        const { attributes, type, label, required } = loginConfig
+                        return (
+                            <div key={label}>
+                                <p>Label: {label}</p>
+                                <p>Attributes: {attributes}</p>
+                                <p>Type: {type}</p>
+                                <p>Required: {required ? 'true' : 'false'}</p>
+                                <hr />
+                            </div>
+                        )
+                    })
+                ) : (
+                    <p>{error}</p>
+                )}
             </div>
         )
     }
