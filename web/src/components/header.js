@@ -4,7 +4,10 @@ class Header extends Component {
     render () {
         const isConnected = this.props.isConnected
         return (
-            <div />
+            <header>
+                <h1>HEADER</h1>
+                <p> Connected: {isConnected} </p>
+            </header>
         )
     }
 }
