@@ -1,14 +1,12 @@
 [
     {
         "id": "loginEmail",
-        "attribute": "input",
         "type": "text",
         "label": "Email or Username",
         "required": true
     },
     {
         "id": "loginPassword",
-        "attribute": "input",
         "type": "password",
         "label": "Mot de passe",
         "required": true

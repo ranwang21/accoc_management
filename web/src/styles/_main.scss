@@ -4,65 +4,112 @@ header {
 	background-color: rgba($color: $primaryColor, $alpha: 0.5) !important;
 	div {
 		justify-content: space-between;
-	}
-	.logo {
-		height: 80px;
-		transition: all 0.5s;
-		&:hover {
-			background-color: none;
+		min-height: 100% !important;
+		button:first-of-type {
+			background-image: url(../pictures/logo.png);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			height: 100%;
+			width: 13em;
+			border-radius: 5px;
 		}
-	}
-	.logout {
-		button span:first-of-type {
-			font-size: 0.7em;
+		.logout {
 			color: $blackTrans;
+			display: flex;
+			align-items: center;
+			font-size: 1em;
 			font-weight: bold;
 			transition: all 0.5s;
-		}
-		.text {
-			margin-right: 5px;
+			p {
+				margin-right: 5px;
+			}
+			svg {
+				font-size: 1.5em;
+			}
 		}
 	}
 }
 main {
-	background-color: rgba($color: $primaryColor, $alpha: 0.2);
+	height: 75vh;
 }
-footer {
+.footer {
 	position: absolute;
 	bottom: 0;
 	width: 100vw;
 	height: 15vh;
-	padding: 10px 0;
-	background-color: rgba($color: $primaryColor, $alpha: 0.5);
-	box-shadow: 0px 0 10px rgba(0, 0, 0, 0.6);
 	display: flex;
-	justify-content: space-around;
-	transition: all 0.3s;
-	div {
-		transition: all 0.5s;
+	flex-wrap: wrap;
+	padding: 0 5em !important;
+	background-color: rgba($color: $primaryColor, $alpha: 0.5);
+	> div {
+		padding: 0em 2em;
+		width: calc(100% / 3);
+		height: auto;
+		&:first-of-type {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			> div {
+				display: flex;
+				flex-wrap: wrap;
+				ul {
+					text-align: left;
+					list-style: none;
+				}
+			}
+		}
+		&:nth-child(2) {
+			box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.6);
+		}
 	}
 }
 
 @include responsive(phone) {
 	header {
-		.logo {
-			height: 60px;
+		div {
+			.logout {
+				p {
+					display: none;
+				}
+				svg {
+					font-size: 4em;
+				}
+			}
 		}
-		.logout .text {
+	}
+	.footer {
+		padding: 0 1em !important;
+		align-items: center;
+		> div {
+			width: 100%;
+			padding: 1em 1em;
+			h2 {
+				display: none;
+			}
+			> div {
+				flex-direction: column;
+			}
+		}
+		.map {
 			display: none;
 		}
 	}
-
-	footer {
-		padding: 3px 0;
-		flex-direction: column;
-		align-items: center;
-	}
-	.map {
-		display: none;
-	}
 }
 @include responsive(tablet) {
+	.footer {
+		padding: 0 2em !important;
+		> div {
+			width: 50%;
+			padding: 1em 1em;
+			> div {
+				flex-direction: column;
+			}
+		}
+		.map {
+			display: none;
+		}
+	}
 }
 @include responsive(desktop) {
 }
