@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../styles/_main.scss'
 import Header from '../components/header'
 import Main from './main'
 import Footer from '../components/footer'

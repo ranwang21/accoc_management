@@ -13,7 +13,7 @@ class Main extends Component {
         return (
             <main>
                 <h1>MAIN</h1>
-                <p> Connected: {isConnected} </p>
+                <p> Connected: {isConnected ? 'true' : 'false'} </p>
             </main>
         )
     }

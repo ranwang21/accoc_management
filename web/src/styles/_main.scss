@@ -1,0 +1,13 @@
+@import "./base";
+header {
+	height: 10vh;
+	background-color: rgba($color: $primaryColor, $alpha: 0.5);
+}
+main {
+	height: 75vh;
+	background-color: rgba($color: $primaryColor, $alpha: 0.2);
+}
+footer {
+	height: 15vh;
+	background-color: rgba($color: $primaryColor, $alpha: 0.5);
+}

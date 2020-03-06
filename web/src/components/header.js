@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import logo from '../pictures/logo.png'
 
 class Header extends Component {
     render () {
@@ -6,7 +7,9 @@ class Header extends Component {
         return (
             <header>
                 <h1>HEADER</h1>
-                <p> Connected: {isConnected} </p>
+                <img src={logo} />
+                <p> Connected: {isConnected ? 'true' : 'false'} </p>
+                <p> Process.Env: {process.env.NODE_ENV} </p>
             </header>
         )
     }
