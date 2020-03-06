@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Login from './login'
 
 class Main extends Component {
     constructor () {
@@ -9,11 +10,10 @@ class Main extends Component {
     componentDidMount () {}
 
     render () {
-        const isConnected = this.props.isConnected
+        // const isConnected = this.props.isConnected
         return (
             <main>
-                <h1>MAIN</h1>
-                <p> Connected: {isConnected ? 'true' : 'false'} </p>
+                <Login />
             </main>
         )
     }
