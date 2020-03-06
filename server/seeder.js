@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const Role = require('./models/Role')
 const Day = require('./models/Day')
 const Classroom = require('./models/Classroom')
+const ClassroomSchedule = require('./models/ClassroomSchedule')
 
 // CONNECT TO DB
 mongoose.connect(
@@ -47,6 +48,7 @@ const deleteData = async () => {
     await Role.deleteMany()
     await Day.deleteMany()
     await Classroom.deleteMany()
+    await ClassroomSchedule.deleteMany()
     console.log('Data Destroyed...')
     process.exit()
   } catch (err) {

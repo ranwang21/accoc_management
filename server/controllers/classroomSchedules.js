@@ -4,9 +4,17 @@ const ClassroomSchedule = require('../models/ClassroomSchedule')
 
 // @desc     Get all classroom schedules
 // @route    GET /classroom-schedules
+// @route    GET /classrooms/:classroomId/classroom-schedules
 // @access   Private
 exports.getclassroomSchedules = asyncHandler(async (req, res) => {
-  const classroomSchedules = await ClassroomSchedule.find().populate({
+  let query
+
+  if (req.params.classroomId) {
+    query = ClassroomSchedule.findOne({ id_classroom: req.params.classroomId })
+  } else {
+    query = ClassroomSchedule.find()
+  }
+  const classroomSchedules = await query.populate({
     path: 'id_day',
     select: 'title'
   })
@@ -36,19 +44,6 @@ exports.getclassroomSchedule = asyncHandler(async (req, res, next) => {
   res.status(200).json(classroomSchedule)
 })
 
-// @desc    Create new classroom schedule
-// @route   POST /classroom-schedules
-// @access  Private
-exports.createclassroomSchedule = asyncHandler(async (req, res) => {
-  const classroomSchedule = await (
-    await ClassroomSchedule.create(req.body)
-  ).populate({
-    path: 'id_day',
-    select: 'title'
-  })
-  res.status(201).json(classroomSchedule)
-})
-
 // @desc    Update classroom schedule
 // @route   PUT /classroom-schedules/:id
 // @access  Private
@@ -75,24 +70,4 @@ exports.updateclassroomSchedule = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json(classroomSchedule)
-})
-
-// @desc    Delete classroom schedule
-// @route   DELETE /classroom-schedules/:id
-// @access  Private
-exports.deleteclassroomSchedule = asyncHandler(async (req, res, next) => {
-  const classroomSchedule = await ClassroomSchedule.findByIdAndDelete(
-    req.params.id
-  )
-
-  if (!classroomSchedule) {
-    return next(
-      new ErrorResponse(
-        `classroomSchedule not found with ID: ${req.params.id}`,
-        404
-      )
-    )
-  }
-
-  res.status(204).json()
 })

@@ -2,22 +2,16 @@ const express = require('express')
 const {
   getclassroomSchedules,
   getclassroomSchedule,
-  createclassroomSchedule,
-  updateclassroomSchedule,
-  deleteclassroomSchedule
+  updateclassroomSchedule
 } = require('../controllers/classroomSchedules')
 
-const router = express.Router()
+const router = express.Router({ mergeParams: true })
 
-router
-  .route('/')
-  .get(getclassroomSchedules)
-  .post(createclassroomSchedule)
+router.route('/').get(getclassroomSchedules)
 
 router
   .route('/:id')
   .get(getclassroomSchedule)
   .put(updateclassroomSchedule)
-  .delete(deleteclassroomSchedule)
 
 module.exports = router
