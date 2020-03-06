@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ClassroomSchedule = require('../models/ClassroomSchedule')
 
 const ClassroomSchema = new mongoose.Schema({
   title: {
@@ -17,6 +18,18 @@ const ClassroomSchema = new mongoose.Schema({
     type: Number,
     required: false
   }
+})
+
+// CREATE A CLASSROOM SCHEDULE MODEL AFTER POST
+ClassroomSchema.post('save', async (doc, next) => {
+  await ClassroomSchedule.create({ id_classroom: doc._id })
+  next()
+})
+
+// CASCADE DELETE SCHEDULE WHEN CLASSROOM IS DELETED
+ClassroomSchema.post('remove', async (doc, next) => {
+  await ClassroomSchedule.deleteMany({ id_classroom: doc._id })
+  next()
 })
 
 module.exports = mongoose.model('Classroom', ClassroomSchema)

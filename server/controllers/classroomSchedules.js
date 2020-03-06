@@ -6,7 +6,10 @@ const ClassroomSchedule = require('../models/ClassroomSchedule')
 // @route    GET /classroom-schedules
 // @access   Private
 exports.getclassroomSchedules = asyncHandler(async (req, res) => {
-  const classroomSchedules = await ClassroomSchedule.find()
+  const classroomSchedules = await ClassroomSchedule.find().populate({
+    path: 'id_day',
+    select: 'title'
+  })
   res.status(200).json(classroomSchedules)
 })
 
@@ -14,7 +17,12 @@ exports.getclassroomSchedules = asyncHandler(async (req, res) => {
 // @route   GET /classroom-schedules/:id
 // @access  Private
 exports.getclassroomSchedule = asyncHandler(async (req, res, next) => {
-  const classroomSchedule = await ClassroomSchedule.findById(req.params.id)
+  const classroomSchedule = await ClassroomSchedule.findById(
+    req.params.id
+  ).populate({
+    path: 'id_day',
+    select: 'title'
+  })
 
   if (!classroomSchedule) {
     return next(
@@ -32,7 +40,12 @@ exports.getclassroomSchedule = asyncHandler(async (req, res, next) => {
 // @route   POST /classroom-schedules
 // @access  Private
 exports.createclassroomSchedule = asyncHandler(async (req, res) => {
-  const classroomSchedule = await ClassroomSchedule.create(req.body)
+  const classroomSchedule = await (
+    await ClassroomSchedule.create(req.body)
+  ).populate({
+    path: 'id_day',
+    select: 'title'
+  })
   res.status(201).json(classroomSchedule)
 })
 
@@ -42,12 +55,15 @@ exports.createclassroomSchedule = asyncHandler(async (req, res) => {
 exports.updateclassroomSchedule = asyncHandler(async (req, res, next) => {
   const classroomSchedule = await ClassroomSchedule.findByIdAndUpdate(
     req.params.id,
-    req.body.id_day,
+    req.body,
     {
       new: true,
       runValidators: true
     }
-  )
+  ).populate({
+    path: 'id_day',
+    select: 'title'
+  })
 
   if (!classroomSchedule) {
     return next(
