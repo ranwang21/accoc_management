@@ -8,7 +8,7 @@ class MainContainer extends Component {
     constructor () {
         super()
         this.state = {
-            isConnected: false
+            isConnected: true
         }
     }
 

@@ -1,0 +1,18 @@
+{
+    "title": "Login",
+    "fieldLength": 2,
+    "fields": [
+        {
+            "attribute": "input",
+            "type": "text",
+            "label": "Email or Username",
+            "required": true
+        },
+        {
+            "attribute": "input",
+            "type": "password",
+            "label": "Mot de passe",
+            "required": true
+        }
+    ]
+}
