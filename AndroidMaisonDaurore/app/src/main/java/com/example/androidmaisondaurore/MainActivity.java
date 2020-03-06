@@ -1,4 +1,4 @@
-package com.example.androidmaisondaurore.controllers;
+package com.example.androidmaisondaurore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
