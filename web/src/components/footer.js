@@ -8,7 +8,6 @@ class Footer extends Component {
     }
 
     render () {
-        const lang = this.props.lang
         const langFile = this.getLangFile()
         return (
             <Container className='footer' maxWidth={false}>
