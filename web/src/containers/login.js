@@ -62,6 +62,7 @@ class Application extends Component {
                 success: true,
                 showSnack: true
             })
+            this.props.handleConnectedEvent()
         } else {
             this.setState({
                 error: true,
@@ -120,7 +121,6 @@ class Application extends Component {
 
                         <ThemeProvider theme={theme}>
                             {loginConfig !== null && (this.buildFields(loginConfig, langFile))}
-
                             <Button
                                 onClick={this.handleBtnClick}
                                 variant='contained'

@@ -22,14 +22,14 @@ class Footer extends Component {
             <ThemeProvider theme={theme}>
                 <Container className='footer' maxWidth={false}>
                     <div className='adresse'>
-                        <h2>{langFile.adresseHead}</h2>
+                        <h2>{langFile.adresse.head}</h2>
                         <div>
-                            <h3>{langFile.adresseTitle} </h3>
+                            <h3>{langFile.adresse.title} </h3>
                             <ul>
-                                <li>{langFile.adresseRoad}</li>
-                                <li>{langFile.adresseCp}</li>
-                                <li>{langFile.adresseCityState}</li>
-                                <li>{langFile.adresseCountry}</li>
+                                <li>{langFile.adresse.road}</li>
+                                <li>{langFile.adresse.cp}</li>
+                                <li>{langFile.adresse.cityState}</li>
+                                <li>{langFile.adresse.country}</li>
                             </ul>
                         </div>
                     </div>
@@ -40,14 +40,14 @@ class Footer extends Component {
                             color='secondary'
                             size='medium'
                             fullWidth={false}
-                        >{langFile.contactUs}
+                        >{langFile.contact.contactUs}
                         </Button>
                         <Button
                             variant='contained'
                             color='secondary'
                             size='medium'
                             fullWidth={false}
-                        >{langFile.aboutUs}
+                        >{langFile.contact.aboutUs}
                         </Button>
                     </div>
                 </Container>
