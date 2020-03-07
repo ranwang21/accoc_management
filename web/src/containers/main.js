@@ -11,9 +11,11 @@ class Main extends Component {
 
     render () {
         // const isConnected = this.props.isConnected
+        const lang = this.props.lang
         return (
             <main>
-                <Login />
+                <h1>{lang}</h1>
+                <Login lang={lang} />
             </main>
         )
     }

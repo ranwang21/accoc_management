@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Button } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import '../styles/_footer.scss'
+
 const theme = createMuiTheme({
     palette: {
         secondary: {
@@ -9,20 +11,25 @@ const theme = createMuiTheme({
     }
 })
 class Footer extends Component {
-    render () {
-        return (
+    getLangFile () {
+        return require('../lang/' + this.props.lang + '/footer.json')
+    }
 
+    render () {
+        const lang = this.props.lang
+        const langFile = this.getLangFile()
+        return (
             <ThemeProvider theme={theme}>
                 <Container className='footer' maxWidth={false}>
                     <div className='adresse'>
-                        <h2>La maison d'aurore</h2>
+                        <h2>{langFile.adresseHead}</h2>
                         <div>
-                            <h3>Adresse: </h3>
+                            <h3>{langFile.adresseTitle} </h3>
                             <ul>
-                                <li>4816, rue Garnier (coin Gilford)</li>
-                                <li>H2J 4B4</li>
-                                <li>Montreal, Quebec</li>
-                                <li>CANADA</li>
+                                <li>{langFile.adresseRoad}</li>
+                                <li>{langFile.adresseCp}</li>
+                                <li>{langFile.adresseCityState}</li>
+                                <li>{langFile.adresseCountry}</li>
                             </ul>
                         </div>
                     </div>
@@ -33,14 +40,14 @@ class Footer extends Component {
                             color='secondary'
                             size='medium'
                             fullWidth={false}
-                        >Nous Contacter
+                        >{langFile.contactUs}
                         </Button>
                         <Button
                             variant='contained'
                             color='secondary'
                             size='medium'
                             fullWidth={false}
-                        >A propos de nous
+                        >{langFile.aboutUs}
                         </Button>
                     </div>
                 </Container>

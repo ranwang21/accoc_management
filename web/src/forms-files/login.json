@@ -1,14 +1,12 @@
-[
-    {
+{
+    "email": {
         "id": "loginEmail",
         "type": "text",
-        "label": "Email or Username",
         "required": true
     },
-    {
+    "password": {
         "id": "loginPassword",
         "type": "password",
-        "label": "Mot de passe",
         "required": true
     }
-]
+}

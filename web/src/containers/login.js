@@ -4,13 +4,9 @@ import LockIcon from '@material-ui/icons/LockRounded'
 import LockOpenIcon from '@material-ui/icons/LockOpenRounded'
 import { Container, TextField, Button } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert from '@material-ui/lab/Alert'
+import Snack from '../components/snack'
 const LoginConfig = require('../forms-files/login.json')
 
-function Alert (props) {
-    return <MuiAlert elevation={6} variant='filled' {...props} />
-}
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -25,17 +21,20 @@ const theme = createMuiTheme({
 class Application extends Component {
     constructor () {
         super()
-
         this.state = {
             loginConfig: null,
+            success: false,
             error: false,
-            success: false
+            showSnack: false
         }
         this.email = null
         this.password = null
-        this.messageError = 'Email ou Mot de pass incorrect'
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleBtnClick = this.handleBtnClick.bind(this)
+    }
+
+    getLangFile () {
+        return require('../lang/' + this.props.lang + '/login.json')
     }
 
     componentDidMount () {
@@ -57,12 +56,11 @@ class Application extends Component {
     }
 
     handleBtnClick () {
-        console.log('Email: ' + this.email)
-        console.log('Password: ' + this.password)
         if (this.validateInput()) {
             this.setState({
                 error: false,
-                success: true
+                success: true,
+                showSnack: true
             })
         } else {
             this.setState({
@@ -78,57 +76,51 @@ class Application extends Component {
             : this.password = event.target.value
     }
 
-    buildFields ({ id, type, label }) {
+    buildInput (field, label, errorMessage) {
         const error = this.state.error
         return (
             <TextField
                 error={error}
-                key={id}
-                id={id}
+                key={field.id}
+                id={field.id}
                 label={label}
-                type={type}
+                type={field.type}
                 color='primary'
-                helperText={error && this.messageError}
+                helperText={error && errorMessage}
                 variant='outlined'
                 onChange={this.handleInputChange}
-                required
+                required={field.required}
             />
         )
     }
 
     render () {
-        const loginConfig = this.state.loginConfig
-        const error = 'Une erreur est survenu lors du chargement du formulaire'
+        const langFile = this.getLangFile()
+
+        const { loginConfig, success, showSnack } = this.state
         return (
             <div className='login'>
                 <Container maxWidth='sm'>
-                    <h1>Connexion</h1>
+                    <h1>{langFile.title}</h1>
                     <form className='' noValidate autoComplete='off'>
 
                         <ThemeProvider theme={theme}>
-                            {
-                                loginConfig !== null
-                                    ? loginConfig.map((field) => this.buildFields(field))
-                                    : <p>{error}</p>
-                            }
+                            {loginConfig !== null && (this.buildInput(loginConfig.email, langFile.emailLabel, langFile.messageErrorLogin))}
+                            {loginConfig !== null && (this.buildInput(loginConfig.password, langFile.passwordLabel, langFile.messageErrorLogin))}
                             <Button
                                 onClick={this.handleBtnClick}
                                 variant='contained'
                                 color='secondary'
                                 size='medium'
                                 fullWidth={false}
-                                startIcon={this.state.success ? <LockOpenIcon /> : <LockIcon />}
+                                startIcon={success ? <LockOpenIcon /> : <LockIcon />}
                             >
-                                {!this.state.success && 'Se connecter'}
+                                {!success && langFile.buttonLabel}
                             </Button>
 
                         </ThemeProvider>
                     </form>
-                    <Snackbar open={this.state.success} autoHideDuration={6000}>
-                        <Alert severity='success'>
-                            This is a success message!
-                        </Alert>
-                    </Snackbar>
+                    <Snack show={showSnack} message={langFile.messageSnack} severity='success' />
                 </Container>
             </div>
         )
