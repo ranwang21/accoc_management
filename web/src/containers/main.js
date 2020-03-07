@@ -14,8 +14,7 @@ class Main extends Component {
         const lang = this.props.lang
         return (
             <main>
-                <h1>{lang}</h1>
-                <Login lang={lang} />
+                {!this.props.isConnected && <Login lang={lang} handleConnectedEvent={this.props.onhandleLogInClick} />}
             </main>
         )
     }

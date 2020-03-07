@@ -1,3 +1,8 @@
 {
-    "logOutText": "Se déconnecter"
+    "logOutText": "Se déconnecter",
+    "modal": {
+        "title": "Confirmation",
+        "cancel": "Annuler",
+        "confirm": "Confirmer"
+    }
 }

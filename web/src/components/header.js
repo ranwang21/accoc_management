@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
-import LogOutIcon from '@material-ui/icons/PowerSettingsNewOutlined'
 import LangDropDown from './lang-dropdown'
+import LogOutButton from './logout'
 import '../styles/_header.scss'
 
 class Header extends Component {
@@ -20,10 +20,7 @@ class Header extends Component {
                     <div className='right-head'>
                         <LangDropDown lang={lang} onValueChanged={this.props.handleLangChangedClick} />
                         {isConnected && (
-                            <IconButton className='logout'>
-                                <p className='text'>{langFile.logOutText}</p>
-                                <LogOutIcon />
-                            </IconButton>
+                            <LogOutButton lang={langFile} handleConfirmEvent={this.props.onhandleLogOutClick} />
                         )}
                     </div>
                 </Toolbar>
