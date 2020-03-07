@@ -76,21 +76,35 @@ class Application extends Component {
             : this.password = event.target.value
     }
 
-    buildInput (field, label, errorMessage) {
+    buildFields (fields, lang) {
         const error = this.state.error
         return (
-            <TextField
-                error={error}
-                key={field.id}
-                id={field.id}
-                label={label}
-                type={field.type}
-                color='primary'
-                helperText={error && errorMessage}
-                variant='outlined'
-                onChange={this.handleInputChange}
-                required={field.required}
-            />
+            <>
+                <TextField
+                    error={error}
+                    key={fields.email.id}
+                    id={fields.email.id}
+                    label={lang.emailLabel}
+                    type={fields.email.type}
+                    color='primary'
+                    helperText={error && lang.messageErrorLogin}
+                    variant='outlined'
+                    onChange={this.handleInputChange}
+                    required={fields.email.required}
+                />
+                <TextField
+                    error={error}
+                    key={fields.password.id}
+                    id={fields.password.id}
+                    label={lang.passwordLabel}
+                    type={fields.password.type}
+                    color='primary'
+                    helperText={error && lang.messageErrorLogin}
+                    variant='outlined'
+                    onChange={this.handleInputChange}
+                    required={fields.password.required}
+                />
+            </>
         )
     }
 
@@ -105,8 +119,8 @@ class Application extends Component {
                     <form className='' noValidate autoComplete='off'>
 
                         <ThemeProvider theme={theme}>
-                            {loginConfig !== null && (this.buildInput(loginConfig.email, langFile.emailLabel, langFile.messageErrorLogin))}
-                            {loginConfig !== null && (this.buildInput(loginConfig.password, langFile.passwordLabel, langFile.messageErrorLogin))}
+                            {loginConfig !== null && (this.buildFields(loginConfig, langFile))}
+
                             <Button
                                 onClick={this.handleBtnClick}
                                 variant='contained'
