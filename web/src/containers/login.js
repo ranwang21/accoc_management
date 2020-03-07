@@ -1,22 +1,9 @@
 import React, { Component } from 'react'
 import '../styles/_login.scss'
 import LockIcon from '@material-ui/icons/LockRounded'
-import LockOpenIcon from '@material-ui/icons/LockOpenRounded'
 import { Container, TextField, Button } from '@material-ui/core'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Snack from '../components/snack'
 const LoginConfig = require('../forms-files/login.json')
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: 'rgba(0, 0, 0, 0.8)'
-        },
-        secondary: {
-            main: 'rgb(1, 144, 147)'
-        }
-    }
-})
 
 class Application extends Component {
     constructor () {
@@ -27,8 +14,8 @@ class Application extends Component {
             error: false,
             showSnack: false
         }
-        this.email = null
-        this.password = null
+        this.email = ''
+        this.password = ''
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleBtnClick = this.handleBtnClick.bind(this)
     }
@@ -58,7 +45,8 @@ class Application extends Component {
             this.setState({
                 error: false,
                 success: true,
-                showSnack: true
+                showSnack: true,
+                enableSubmit: false
             })
             this.props.handleConnectedEvent()
         } else {
@@ -70,13 +58,28 @@ class Application extends Component {
     }
 
     handleInputChange (event) {
-        (event.target.type === 'text')
+        ((event.target.type === 'text')
             ? this.email = event.target.value
-            : this.password = event.target.value
+            : this.password = event.target.value)
+
+        this.checkEmptyInput()
     }
 
-    buildFields (fields, lang) {
+    checkEmptyInput () {
+        if (this.email.length === 0 || this.password.length === 0) {
+            this.setState({
+                enableSubmit: false
+            })
+        } else {
+            this.setState({
+                enableSubmit: true
+            })
+        }
+    }
+
+    buildFields (lang) {
         const error = this.state.error
+        const fields = this.state.loginConfig
         return (
             <>
                 <TextField
@@ -116,21 +119,19 @@ class Application extends Component {
                 <Container maxWidth='sm'>
                     <h1>{langFile.title}</h1>
                     <form className='' noValidate autoComplete='off'>
-
-                        <ThemeProvider theme={theme}>
-                            {loginConfig !== null && (this.buildFields(loginConfig, langFile))}
+                        {loginConfig !== null && (this.buildFields(langFile))}
+                        {this.state.enableSubmit && (
                             <Button
                                 onClick={this.handleBtnClick}
                                 variant='contained'
                                 color='secondary'
                                 size='medium'
                                 fullWidth={false}
-                                startIcon={success ? <LockOpenIcon /> : <LockIcon />}
+                                startIcon={<LockIcon />}
                             >
                                 {!success && langFile.buttonLabel}
                             </Button>
-
-                        </ThemeProvider>
+                        )}
                     </form>
                     <Snack show={showSnack} message={langFile.messageSnack} severity='success' />
                 </Container>
