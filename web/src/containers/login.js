@@ -48,17 +48,13 @@ class Application extends Component {
         // Email and password to test
         const trueEmail = 'admin@gmail.com'
         const truePassword = 'abc123...'
-
         const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-
         if (!mailformat.test(this.email)) return false
         else if (this.email !== trueEmail || this.password !== truePassword) return false
         else return true
     }
 
     handleBtnClick () {
-        console.log('Email: ' + this.email)
-        console.log('Password: ' + this.password)
         if (this.validateInput()) {
             this.setState({
                 error: false,
