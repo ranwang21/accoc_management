@@ -63,5 +63,5 @@ exports.deleteClassroom = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(classroom)
+  res.status(204).json()
 })

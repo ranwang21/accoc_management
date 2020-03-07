@@ -17,10 +17,12 @@ app.use(express.static('public'))
 // ROUTE FILES
 const roles = require('./routes/roles')
 const classrooms = require('./routes/classrooms')
+const days = require('./routes/days')
 
 // MOUNT ROUTERS
 app.use('/roles', roles)
 app.use('/classrooms', classrooms)
+app.use('/days', days)
 
 // MAIN ROUTE
 app.get('/', (req, res) => {

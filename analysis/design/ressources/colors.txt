@@ -1,4 +1,0 @@
-primary color: rgb(1, 144, 147), #019193
-secondary color: rgb(128, 185, 50), #80b932
-font color: rgb(100, 108, 121), #646c79
-fade or hover color: rgb(240, 240, 240), #f0f0f0

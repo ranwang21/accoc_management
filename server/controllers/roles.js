@@ -63,5 +63,5 @@ exports.deleteRole = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(role)
+  res.status(204).json()
 })
