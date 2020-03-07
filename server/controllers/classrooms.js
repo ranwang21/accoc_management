@@ -55,13 +55,15 @@ exports.updateClassroom = asyncHandler(async (req, res, next) => {
 // @route   DELETE /classrooms/:id
 // @access  Private
 exports.deleteClassroom = asyncHandler(async (req, res, next) => {
-  const classroom = await Classroom.findByIdAndDelete(req.params.id)
+  const classroom = await Classroom.findById(req.params.id)
 
   if (!classroom) {
     return next(
       new ErrorResponse(`Classroom not found with ID: ${req.params.id}`, 404)
     )
   }
+
+  classroom.remove()
 
   res.status(204).json()
 })
