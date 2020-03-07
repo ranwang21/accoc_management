@@ -9,10 +9,10 @@ const LoginConfig = require('../forms-files/login.json')
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: 'rgb(1, 144, 147)'
+            main: 'rgba(0, 0, 0, 0.8)'
         },
         secondary: {
-            main: '#f44336'
+            main: 'rgb(1, 144, 147)'
         }
     }
 })
@@ -89,7 +89,7 @@ class Application extends Component {
                             }
                             <Button
                                 variant='contained'
-                                color='primary'
+                                color='secondary'
                                 size='medium'
                                 fullWidth={false}
                                 startIcon={<LockIcon />}
