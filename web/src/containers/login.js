@@ -4,8 +4,13 @@ import LockIcon from '@material-ui/icons/LockRounded'
 import LockOpenIcon from '@material-ui/icons/LockOpenRounded'
 import { Container, TextField, Button } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 const LoginConfig = require('../forms-files/login.json')
 
+function Alert (props) {
+    return <MuiAlert elevation={6} variant='filled' {...props} />
+}
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -23,12 +28,14 @@ class Application extends Component {
 
         this.state = {
             loginConfig: null,
-            error: false
+            error: false,
+            success: false
         }
         this.email = null
         this.password = null
         this.messageError = 'Email ou Mot de pass incorrect'
         this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleBtnClick = this.handleBtnClick.bind(this)
     }
 
     componentDidMount () {
@@ -41,9 +48,26 @@ class Application extends Component {
         // Email and password to test
         const trueEmail = 'admin@gmail.com'
         const truePassword = 'abc123...'
-        if (this.email !== trueEmail && this.password !== truePassword) {
+
+        const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+
+        if (!mailformat.test(this.email)) return false
+        else if (this.email !== trueEmail || this.password !== truePassword) return false
+        else return true
+    }
+
+    handleBtnClick () {
+        console.log('Email: ' + this.email)
+        console.log('Password: ' + this.password)
+        if (this.validateInput()) {
             this.setState({
-                error: true
+                error: false,
+                success: true
+            })
+        } else {
+            this.setState({
+                error: true,
+                success: false
             })
         }
     }
@@ -88,17 +112,23 @@ class Application extends Component {
                                     : <p>{error}</p>
                             }
                             <Button
+                                onClick={this.handleBtnClick}
                                 variant='contained'
                                 color='secondary'
                                 size='medium'
                                 fullWidth={false}
-                                startIcon={<LockIcon />}
+                                startIcon={this.state.success ? <LockOpenIcon /> : <LockIcon />}
                             >
-                                Se connecter
+                                {!this.state.success && 'Se connecter'}
                             </Button>
 
                         </ThemeProvider>
                     </form>
+                    <Snackbar open={this.state.success} autoHideDuration={6000}>
+                        <Alert severity='success'>
+                            This is a success message!
+                        </Alert>
+                    </Snackbar>
                 </Container>
             </div>
         )
