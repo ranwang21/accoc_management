@@ -7,30 +7,42 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 <a class=text-info data-toggle=collapse data-parent=#accordion-Roles href=#collapse-Roles-GetAllRoles><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get All Roles</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/roles</h4></a></div><div id=collapse-Roles-GetAllRoles class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all roles from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>[
+{{URL}}/roles</h4></a></div><div id=collapse-Roles-GetAllRoles class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all roles from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"count": 4,
+"data": [
 {
-"_id": "5e5f0969b703b248cc453359",
-"title": "Admin",
+"_id": "5e64321334707c42f0c41fed",
+"title": "admin",
 "__v": 0
 },
 {
-"_id": "5e5f0e6f7575674aa06e157a",
-"title": "Collaborater",
+"_id": "5e64321334707c42f0c41fee",
+"title": "collaborater",
 "__v": 0
 },
 {
-"_id": "5e5f11427b91f74c508bcc46",
-"title": "Parents",
+"_id": "5e64321334707c42f0c41fef",
+"title": "parent",
+"__v": 0
+},
+{
+"_id": "5e64321334707c42f0c41ff0",
+"title": "child",
 "__v": 0
 }
-]</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Roles-GetSingleRole><div class=panel-heading><small class="pull-right text-muted">raw</small>
+]
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Roles-GetSingleRole><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-info data-toggle=collapse data-parent=#accordion-Roles href=#collapse-Roles-GetSingleRole><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Single Role</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/roles/5e5f0969b703b248cc453359</h4></a></div><div id=collapse-Roles-GetSingleRole class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single role by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
-"_id": "5e5f0969b703b248cc453359",
-"title": "Admin",
+{{URL}}/roles/5e64321334707c42f0c41fed</h4></a></div><div id=collapse-Roles-GetSingleRole class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single role by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"data": {
+"_id": "5e64321334707c42f0c41fed",
+"title": "admin",
 "__v": 0
+}
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-success" id=jump-Roles-CreateNewRole><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-success data-toggle=collapse data-parent=#accordion-Roles href=#collapse-Roles-CreateNewRole><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Create New Role</strong> &nbsp;|&nbsp;
 <strong class="request-method border-success">POST</strong>
@@ -41,7 +53,7 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 <a class=text-warning data-toggle=collapse data-parent=#accordion-Roles href=#collapse-Roles-UpdateRole><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update Role</strong> &nbsp;|&nbsp;
 <strong class="request-method border-warning">PUT</strong>
 &nbsp;
-{{URL}}/roles/5e5f0969b703b248cc453359</h4></a></div><div id=collapse-Roles-UpdateRole class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Update single role in database.</small><br><br><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+{{URL}}/roles/5e5f0969b703b248cc453359</h4></a></div><div id=collapse-Roles-UpdateRole class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Update single role in database.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td></table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
 "title": "Admin"
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-danger" id=jump-Roles-DeleteRole><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-danger data-toggle=collapse data-parent=#accordion-Roles href=#collapse-Roles-DeleteRole><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Delete Role</strong> &nbsp;|&nbsp;
@@ -54,35 +66,52 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 <a class=text-info data-toggle=collapse data-parent=#accordion-Classrooms href=#collapse-Classrooms-GetAllClassrooms><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get All Classrooms</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/classrooms</h4></a></div><div id=collapse-Classrooms-GetAllClassrooms class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all classrooms from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>[
+{{URL}}/classrooms</h4></a></div><div id=collapse-Classrooms-GetAllClassrooms class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all classrooms from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"count": 4,
+"data": [
 {
-"_id": "5e61717fc5213510c8a706b7",
-"title": "Classroom 1",
+"_id": "5e64321334707c42f0c41ff9",
+"title": "classroom 2",
 "phone": "450-222-2222",
-"seat": 25,
+"seat": 22,
 "__v": 0
 },
 {
-"_id": "5e6171a3c5213510c8a706b8",
-"title": "Classroom 2",
+"_id": "5e64321334707c42f0c41ffb",
+"title": "classroom 4",
+"phone": "450-444-4444",
+"seat": 44,
 "__v": 0
 },
 {
-"_id": "5e6172361fefef1afc3c753d",
-"title": "Classroom TEST",
-"phone": "4501111111",
+"_id": "5e64321334707c42f0c41ffa",
+"title": "classroom 3",
+"phone": "450-333-3333",
+"seat": 33,
+"__v": 0
+},
+{
+"_id": "5e64321334707c42f0c41ff8",
+"title": "classroom 1",
+"phone": "450-111-1111",
+"seat": 11,
 "__v": 0
 }
-]</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Classrooms-GetSingleClassroom><div class=panel-heading><small class="pull-right text-muted">raw</small>
+]
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Classrooms-GetSingleClassroom><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-info data-toggle=collapse data-parent=#accordion-Classrooms href=#collapse-Classrooms-GetSingleClassroom><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Single Classroom</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/classrooms/5e61717fc5213510c8a706b7</h4></a></div><div id=collapse-Classrooms-GetSingleClassroom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single classroom by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
-"_id": "5e61717fc5213510c8a706b7",
-"title": "Classroom 1",
-"phone": "450-222-2222",
-"seat": 25,
+{{URL}}/classrooms/5e6425ef2ec078221079f5d8</h4></a></div><div id=collapse-Classrooms-GetSingleClassroom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single classroom by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"data": {
+"_id": "5e6425ef2ec078221079f5d8",
+"title": "classroom 1",
+"phone": "450-111-1111",
+"seat": 11,
 "__v": 0
+}
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-success" id=jump-Classrooms-CreateNewClassroom><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-success data-toggle=collapse data-parent=#accordion-Classrooms href=#collapse-Classrooms-CreateNewClassroom><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Create New Classroom</strong> &nbsp;|&nbsp;
 <strong class="request-method border-success">POST</strong>
@@ -109,65 +138,48 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 <a class=text-info data-toggle=collapse data-parent=#accordion-Days href=#collapse-Days-GetAllDays><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get All Days</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/days</h4></a></div><div id=collapse-Days-GetAllDays class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all days from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>[
+{{URL}}/days</h4></a></div><div id=collapse-Days-GetAllDays class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all days from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"count": 3,
+"data": [
 {
-"_id": "5e61a870f6fde8420c5b9822",
-"title": "Lundi",
+"_id": "5e6425ef2ec078221079f5d1",
+"title": "lundi",
 "value": 1,
 "__v": 0
 },
 {
-"_id": "5e61a879f6fde8420c5b9823",
-"title": "Mardi",
-"value": 2,
-"__v": 0
-},
-{
-"_id": "5e61a87ff6fde8420c5b9824",
-"title": "Mercredi",
+"_id": "5e6425ef2ec078221079f5d3",
+"title": "mercredi",
 "value": 3,
 "__v": 0
 },
 {
-"_id": "5e61a884f6fde8420c5b9825",
-"title": "Jeudi",
-"value": 4,
-"__v": 0
-},
-{
-"_id": "5e61a88df6fde8420c5b9826",
-"title": "Vendredi",
-"value": 5,
-"__v": 0
-},
-{
-"_id": "5e61a892f6fde8420c5b9827",
-"title": "Samedi",
-"value": 6,
-"__v": 0
-},
-{
-"_id": "5e61a898f6fde8420c5b9828",
-"title": "Dimanche",
-"value": 7,
+"_id": "5e6425ef2ec078221079f5d2",
+"title": "mardi",
+"value": 2,
 "__v": 0
 }
-]</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Days-GetSingleDay><div class=panel-heading><small class="pull-right text-muted">raw</small>
+]
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Days-GetSingleDay><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-info data-toggle=collapse data-parent=#accordion-Days href=#collapse-Days-GetSingleDay><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Single Day</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/days/5e61a884f6fde8420c5b9825</h4></a></div><div id=collapse-Days-GetSingleDay class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single day by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
-"_id": "5e61a884f6fde8420c5b9825",
-"title": "Jeudi",
-"value": 4,
+{{URL}}/days/5e6425ef2ec078221079f5d3</h4></a></div><div id=collapse-Days-GetSingleDay class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single day by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"data": {
+"_id": "5e6425ef2ec078221079f5d3",
+"title": "mercredi",
+"value": 3,
 "__v": 0
+}
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-success" id=jump-Days-CreateNewDay><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-success data-toggle=collapse data-parent=#accordion-Days href=#collapse-Days-CreateNewDay><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Create New Day</strong> &nbsp;|&nbsp;
 <strong class="request-method border-success">POST</strong>
 &nbsp;
 {{URL}}/days</h4></a></div><div id=collapse-Days-CreateNewDay class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Add new day to database. Must be authenticated and must be admin.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
-"title": "Dimanche",
-"value": 7
+"title": "lundi",
+"value": 1
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-warning" id=jump-Days-UpdateDay><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-warning data-toggle=collapse data-parent=#accordion-Days href=#collapse-Days-UpdateDay><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update Day</strong> &nbsp;|&nbsp;
 <strong class="request-method border-warning">PUT</strong>
@@ -185,64 +197,80 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 <a class=text-info data-toggle=collapse data-parent=#accordion-ClassroomSchedules href=#collapse-ClassroomSchedules-GetAllClassroomSchedules><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get All Classroom Schedules</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/classroom-schedules</h4></a></div><div id=collapse-ClassroomSchedules-GetAllClassroomSchedules class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all roles from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>[
+{{URL}}/classroom-schedules</h4></a></div><div id=collapse-ClassroomSchedules-GetAllClassroomSchedules class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all roles from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"count": 2,
+"data": [
 {
 "id_day": [
 {
-"_id": "5e62c7a0c89a2f3e78c1207a",
-"title": "lundi"
+"_id": "5e6433a7193b5a42ac53e844",
+"title": "mardi",
+"value": 2
 },
 {
-"_id": "5e62c7a0c89a2f3e78c1207e",
-"title": "vendredi"
+"_id": "5e6433a7193b5a42ac53e846",
+"title": "jeudi",
+"value": 4
 }
 ],
-"_id": "5e62c7a0c89a2f3e78c12086",
-"id_classroom": "5e62c7a0c89a2f3e78c12083",
+"_id": "5e6433a7193b5a42ac53e84e",
+"id_classroom": "5e6433a7193b5a42ac53e84b",
 "__v": 0
 },
 {
 "id_day": [],
-"_id": "5e62c7a0c89a2f3e78c12085",
-"id_classroom": "5e62c7a0c89a2f3e78c12082",
+"_id": "5e6433a7193b5a42ac53e851",
+"id_classroom": "5e6433a7193b5a42ac53e84a",
 "__v": 0
 }
-]</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-ClassroomSchedules-GetSingleClassroomSchedules><div class=panel-heading><small class="pull-right text-muted">raw</small>
+]
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-ClassroomSchedules-GetSingleClassroomSchedules><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-info data-toggle=collapse data-parent=#accordion-ClassroomSchedules href=#collapse-ClassroomSchedules-GetSingleClassroomSchedules><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Single Classroom Schedules</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/classroom-schedules/5e62c7a0c89a2f3e78c12086</h4></a></div><div id=collapse-ClassroomSchedules-GetSingleClassroomSchedules class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single Classroom Schedules by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+{{URL}}/classroom-schedules/5e6433a7193b5a42ac53e84e</h4></a></div><div id=collapse-ClassroomSchedules-GetSingleClassroomSchedules class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single Classroom Schedules by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"data": {
 "id_day": [
 {
-"_id": "5e62c7a0c89a2f3e78c1207a",
-"title": "lundi"
+"_id": "5e6433a7193b5a42ac53e844",
+"title": "mardi",
+"value": 2
 },
 {
-"_id": "5e62c7a0c89a2f3e78c1207e",
-"title": "vendredi"
+"_id": "5e6433a7193b5a42ac53e846",
+"title": "jeudi",
+"value": 4
 }
 ],
-"_id": "5e62c7a0c89a2f3e78c12086",
-"id_classroom": "5e62c7a0c89a2f3e78c12083",
+"_id": "5e6433a7193b5a42ac53e84e",
+"id_classroom": "5e6433a7193b5a42ac53e84b",
 "__v": 0
+}
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-ClassroomSchedules-GetSchedulesForClassroom><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-info data-toggle=collapse data-parent=#accordion-ClassroomSchedules href=#collapse-ClassroomSchedules-GetSchedulesForClassroom><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Schedules For Classroom</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/classrooms/5e62c7a0c89a2f3e78c12083/classroom-schedules</h4></a></div><div id=collapse-ClassroomSchedules-GetSchedulesForClassroom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get the specific schedules for a classroom</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+{{URL}}/classrooms/5e6433a7193b5a42ac53e84b/classroom-schedules</h4></a></div><div id=collapse-ClassroomSchedules-GetSchedulesForClassroom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get the specific schedules for a classroom</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+"success": true,
+"data": {
 "id_day": [
 {
-"_id": "5e62c7a0c89a2f3e78c1207a",
-"title": "lundi"
+"_id": "5e6433a7193b5a42ac53e844",
+"title": "mardi",
+"value": 2
 },
 {
-"_id": "5e62c7a0c89a2f3e78c1207e",
-"title": "vendredi"
+"_id": "5e6433a7193b5a42ac53e846",
+"title": "jeudi",
+"value": 4
 }
 ],
-"_id": "5e62c7a0c89a2f3e78c12086",
-"id_classroom": "5e62c7a0c89a2f3e78c12083",
+"_id": "5e6433a7193b5a42ac53e84e",
+"id_classroom": "5e6433a7193b5a42ac53e84b",
 "__v": 0
+}
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-warning" id=jump-ClassroomSchedules-UpdateClassroomSchedules><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-warning data-toggle=collapse data-parent=#accordion-ClassroomSchedules href=#collapse-ClassroomSchedules-UpdateClassroomSchedules><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update Classroom Schedules</strong> &nbsp;|&nbsp;
 <strong class="request-method border-warning">PUT</strong>
@@ -256,4 +284,4 @@ if(IsJsonString(html)){var obj=JSON.parse(html);var formattedJson=JSON.stringify
 function IsJsonString(str){try{JSON.parse(str);}catch(e){return false;}
 return true;}
 String.prototype.replaceAll=function(replaceThis,withThis){var re=new RegExp(RegExp.quote(replaceThis),"g");return this.replace(re,withThis);};RegExp.quote=function(str){return str.replace(/([.?*+^$[\]\\(){}-])/g,"\\$1");};function syntaxHighlight(json){json=json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,function(match){var cls='number';if(/^"/.test(match)){if(/:$/.test(match)){cls='key';}else{cls='string';}}else if(/true|false/.test(match)){cls='boolean';}else if(/null/.test(match)){cls='null';}
-return '<span class="'+cls+'">'+match+'</span>';});}</script><br><br><footer class="navbar-default navbar-fixed-bottom"><div class=container-fluid><div class="span12 text-center"><span>Made with <em class=love-color>&#9829;</em> by <a href=https://github.com/thedevsaddam target=_blank class=text-muted>thedevsaddam</a> | Generated at: 2020-03-06 17:46:22 by <a href=https://github.com/thedevsaddam/docgen target=_blank class=text-muted>docgen</a></span></div></div></footer>
+return '<span class="'+cls+'">'+match+'</span>';});}</script><br><br><footer class="navbar-default navbar-fixed-bottom"><div class=container-fluid><div class="span12 text-center"><span>Made with <em class=love-color>&#9829;</em> by <a href=https://github.com/thedevsaddam target=_blank class=text-muted>thedevsaddam</a> | Generated at: 2020-03-07 19:28:13 by <a href=https://github.com/thedevsaddam/docgen target=_blank class=text-muted>docgen</a></span></div></div></footer>
