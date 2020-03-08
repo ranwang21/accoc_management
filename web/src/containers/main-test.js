@@ -3,6 +3,7 @@ import '../styles/_main.scss'
 import Header from '../components/header'
 import Main from './main'
 import Footer from '../components/footer'
+import Loading from '../components/loading'
 import Snack from '../components/snack'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
@@ -21,8 +22,9 @@ class MainContainer extends Component {
         super()
         this.state = {
             lang: 'fr',
-            isConnected: false,
-            showSnack: false
+            isConnected: true,
+            showSnack: false,
+            showLoading: false
         }
         this.onLangChanged = this.onLangChanged.bind(this)
         this.onLogInClick = this.onLogInClick.bind(this)
@@ -52,14 +54,24 @@ class MainContainer extends Component {
         console.log('Connexion .. .. ..')
         this.setState({
             isConnected: true,
-            showSnack: true
+            showSnack: true,
+            showLoading: true
         })
+        this.showConnectedLoading()
     }
 
     handleCloseSnack (event) {
         this.setState({
             showSnack: false
         })
+    }
+
+    showConnectedLoading () {
+        setTimeout(() => {
+            this.setState({
+                showLoading: false
+            })
+        }, 6000)
     }
 
     render () {
@@ -70,6 +82,7 @@ class MainContainer extends Component {
             <>
                 <ThemeProvider theme={theme}>
                     <Header lang={lang} handleLangChangedClick={this.onLangChanged} isConnected={this.state.isConnected} onhandleLogOutClick={this.onLogOutClick} />
+                    {this.state.showLoading && <Loading lang={lang} />}
                     <Main lang={lang} isConnected={this.state.isConnected} onhandleLogInClick={this.onLogInClick} />
                     <Footer lang={lang} />
                     <Snack show={this.state.showSnack} message={messageSnack} onClose={this.handleCloseSnack} severity='success' />
