@@ -7,11 +7,14 @@ const {
   deleteRole
 } = require('../controllers/roles')
 
+const Role = require('../models/Role')
+const advancedResults = require('../middlewares/advancedResults')
+
 const router = express.Router()
 
 router
   .route('/')
-  .get(getRoles)
+  .get(advancedResults(Role), getRoles)
   .post(createRole)
 
 router

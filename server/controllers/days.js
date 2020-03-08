@@ -6,8 +6,7 @@ const Day = require('../models/Day')
 // @route    GET /days
 // @access   Private
 exports.getDays = asyncHandler(async (req, res) => {
-  const days = await Day.find()
-  res.status(200).json(days)
+  res.status(200).json(res.advancedResults)
 })
 
 // @desc    Get single day
@@ -22,7 +21,10 @@ exports.getDay = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(day)
+  res.status(200).json({
+    success: true,
+    data: day
+  })
 })
 
 // @desc    Create new day
@@ -30,7 +32,10 @@ exports.getDay = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.createDay = asyncHandler(async (req, res) => {
   const day = await Day.create(req.body)
-  res.status(201).json(day)
+  res.status(201).json({
+    success: true,
+    data: day
+  })
 })
 
 // @desc    Update day
@@ -48,7 +53,10 @@ exports.updateDay = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(day)
+  res.status(200).json({
+    success: true,
+    data: day
+  })
 })
 
 // @desc    Delete day

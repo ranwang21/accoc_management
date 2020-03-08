@@ -7,6 +7,9 @@ const {
   deleteClassroom
 } = require('../controllers/classrooms')
 
+const Classroom = require('../models/Classroom')
+const advancedResults = require('../middlewares/advancedResults')
+
 // INCLUDE OTHER RESOURCE ROUTERS
 const classroomSchedulesRouter = require('./classroomSchedules')
 
@@ -17,7 +20,7 @@ router.use('/:classroomId/classroom-schedules', classroomSchedulesRouter)
 
 router
   .route('/')
-  .get(getClassrooms)
+  .get(advancedResults(Classroom), getClassrooms)
   .post(createClassroom)
 
 router

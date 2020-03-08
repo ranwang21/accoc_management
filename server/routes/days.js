@@ -7,11 +7,14 @@ const {
   deleteDay
 } = require('../controllers/days')
 
+const Day = require('../models/Day')
+const advancedResults = require('../middlewares/advancedResults')
+
 const router = express.Router()
 
 router
   .route('/')
-  .get(getDays)
+  .get(advancedResults(Day), getDays)
   .post(createDay)
 
 router
