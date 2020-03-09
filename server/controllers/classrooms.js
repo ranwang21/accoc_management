@@ -6,8 +6,7 @@ const Classroom = require('../models/Classroom')
 // @route    GET /classrooms
 // @access   Private
 exports.getClassrooms = asyncHandler(async (req, res) => {
-  const classrooms = await Classroom.find()
-  res.status(200).json(classrooms)
+  res.status(200).json(res.advancedResults)
 })
 
 // @desc    Get single classroom
@@ -22,7 +21,10 @@ exports.getClassroom = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(classroom)
+  res.status(200).json({
+    success: true,
+    data: classroom
+  })
 })
 
 // @desc    Create new classroom
@@ -30,7 +32,10 @@ exports.getClassroom = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.createClassroom = asyncHandler(async (req, res) => {
   const classroom = await Classroom.create(req.body)
-  res.status(201).json(classroom)
+  res.status(201).json({
+    success: true,
+    data: classroom
+  })
 })
 
 // @desc    Update classroom
@@ -48,7 +53,10 @@ exports.updateClassroom = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(classroom)
+  res.status(200).json({
+    success: true,
+    data: classroom
+  })
 })
 
 // @desc    Delete classroom

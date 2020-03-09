@@ -7,18 +7,20 @@ const ClassroomSchedule = require('../models/ClassroomSchedule')
 // @route    GET /classrooms/:classroomId/classroom-schedules
 // @access   Private
 exports.getclassroomSchedules = asyncHandler(async (req, res) => {
-  let query
-
   if (req.params.classroomId) {
-    query = ClassroomSchedule.findOne({ id_classroom: req.params.classroomId })
+    const classroomSchedules = await ClassroomSchedule.findOne({
+      id_classroom: req.params.classroomId
+    }).populate({
+      path: 'id_day',
+      select: 'title value'
+    })
+    res.status(200).json({
+      success: true,
+      data: classroomSchedules
+    })
   } else {
-    query = ClassroomSchedule.find()
+    res.status(200).json(res.advancedResults)
   }
-  const classroomSchedules = await query.populate({
-    path: 'id_day',
-    select: 'title'
-  })
-  res.status(200).json(classroomSchedules)
 })
 
 // @desc    Get single classroom schedule
@@ -29,7 +31,7 @@ exports.getclassroomSchedule = asyncHandler(async (req, res, next) => {
     req.params.id
   ).populate({
     path: 'id_day',
-    select: 'title'
+    select: 'title value'
   })
 
   if (!classroomSchedule) {
@@ -41,7 +43,10 @@ exports.getclassroomSchedule = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(classroomSchedule)
+  res.status(200).json({
+    success: true,
+    data: classroomSchedule
+  })
 })
 
 // @desc    Update classroom schedule
@@ -57,7 +62,7 @@ exports.updateclassroomSchedule = asyncHandler(async (req, res, next) => {
     }
   ).populate({
     path: 'id_day',
-    select: 'title'
+    select: 'title value'
   })
 
   if (!classroomSchedule) {
@@ -69,5 +74,8 @@ exports.updateclassroomSchedule = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(classroomSchedule)
+  res.status(200).json({
+    success: true,
+    data: classroomSchedule
+  })
 })
