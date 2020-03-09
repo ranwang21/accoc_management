@@ -56,9 +56,9 @@
 32-->D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:25:27-74
 33            </intent-filter>
 34        </activity>
-35        <activity android:name="com.example.myapplication.MainActivity" />
-35-->D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:9-50
-35-->D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:19-47
+35        <activity android:name="com.example.myapplication.LoginActivity" />
+35-->D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:9-51
+35-->D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:19-48
 36
 37        <provider
 37-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\ydjemani\.gradle\caches\transforms-2\files-2.1\58629c19fa6c616abd60edc0d2bb07b8\lifecycle-process-2.2.0\AndroidManifest.xml:25:9-29:43

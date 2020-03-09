@@ -124,10 +124,10 @@ category#android.intent.category.LAUNCHER
 ADDED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:25:17-77
 	android:name
 		ADDED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:25:27-74
-activity#com.example.myapplication.MainActivity
-ADDED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:9-50
+activity#com.example.myapplication.LoginActivity
+ADDED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:9-51
 	android:name
-		ADDED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:19-47
+		ADDED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml:28:19-48
 uses-sdk
 INJECTED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\workspace-android\la_maison_d_aurore\android\app\src\main\AndroidManifest.xml
