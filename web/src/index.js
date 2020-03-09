@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Main from './containers/main'
+import './styles/index.scss'
+import MainContainer from './containers/main-test'
 
 ReactDOM.render(
-    <Main />,
-    document.getElementById('app')
+    <MainContainer />,
+    document.getElementById('root')
 )

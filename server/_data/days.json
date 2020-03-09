@@ -1,0 +1,30 @@
+[
+  {
+    "title": "lundi",
+    "value": 1
+  },
+  {
+    "title": "mardi",
+    "value": 2
+  },
+  {
+    "title": "mercredi",
+    "value": 3
+  },
+  {
+    "title": "jeudi",
+    "value": 4
+  },
+  {
+    "title": "vendredi",
+    "value": 5
+  },
+  {
+    "title": "samedi",
+    "value": 6
+  },
+  {
+    "title": "dimanche",
+    "value": 7
+  }
+]

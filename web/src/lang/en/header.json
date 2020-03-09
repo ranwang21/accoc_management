@@ -1,0 +1,8 @@
+{
+    "logOutText": "Log out",
+    "modal": {
+        "title": "Confirmation",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+    }
+}

@@ -1,0 +1,10 @@
+@import "./base";
+main {
+	height: 75vh;
+}
+@include responsive(phone) {
+}
+@include responsive(tablet) {
+}
+@include responsive(desktop) {
+}
