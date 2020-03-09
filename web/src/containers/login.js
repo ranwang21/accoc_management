@@ -31,6 +31,16 @@ class Application extends Component {
     }
 
     validateInput () {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(data =>
+                this.setState({
+                    users: data,
+                    isLoading: false
+                })
+            )
+            .catch(error => this.setState({ error, isLoading: false }))
+
         // Email and password to test
         const trueEmail = 'admin@gmail.com'
         const truePassword = 'abc123...'
