@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Login from './login'
+import Dashbord from './dashbord-container'
 
 class Main extends Component {
     constructor () {
@@ -10,11 +11,15 @@ class Main extends Component {
     componentDidMount () {}
 
     render () {
-        // const isConnected = this.props.isConnected
+        const isConnected = this.props.isConnected
         const lang = this.props.lang
         return (
             <main>
-                {!this.props.isConnected && <Login lang={lang} handleConnectedEvent={this.props.onhandleLogInClick} />}
+                {
+                    this.props.isConnected
+                        ? <Dashbord lang={lang} isConnected={isConnected} />
+                        : <Login lang={lang} handleConnectedEvent={this.props.onhandleLogInClick} />
+                }
             </main>
         )
     }

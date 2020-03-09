@@ -1,25 +1,14 @@
-@mixin keyframes($animationName) {
-	@-webkit-keyframes #{$animationName} {
-		@content;
-	}
-	@-moz-keyframes #{$animationName} {
-		@content;
-	}
-	@-ms-keyframes #{$animationName} {
-		@content;
-	}
-	@keyframes #{$animationName} {
-		@content;
-	}
-}
-
+@import "./base";
 .loading {
+	background-color: rgba($color: #000000, $alpha: 0.7);
+	position: absolute;
 	width: 100%;
-	height: 100%;
+	height: 75%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	z-index: 5;
 	.tree {
 		width: 30%;
 		height: 30%;

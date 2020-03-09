@@ -1,0 +1,26 @@
+@import "./base";
+
+.dashbord {
+	//background-color: $primaryColor;
+	display: grid;
+	padding: 2em 0;
+	grid-template-columns: 1fr 3fr;
+	grid-template-rows: 18em auto;
+	grid-template-areas:
+		"calendar main"
+		"side main";
+	> div {
+	}
+	.calendar {
+		background-color: red;
+		grid-area: calendar;
+	}
+	.side-menu {
+		background-color: blue;
+		grid-area: side;
+	}
+	.menu {
+		background-color: green;
+		grid-area: main;
+	}
+}
