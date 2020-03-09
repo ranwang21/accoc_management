@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container } from '@material-ui/core'
 import SideMenu from '../components/side-menu'
+import Table from '../components/Table'
 import '../styles/_dashbord.scss'
 
 class Dashbord extends Component {
@@ -21,9 +22,10 @@ class Dashbord extends Component {
                     <h1>Calendar</h1>
                 </div>
                 <SideMenu className='side-menu' userType={userType} lang={lang} />
-                <div className='menu' lang={lang}>
+                {/* <div className='menu' lang={lang}>
                     <h1>DashBord</h1>
-                </div>
+                </div> */}
+                <Table lang={lang} userType={userType} />
             </Container>
         )
     }
