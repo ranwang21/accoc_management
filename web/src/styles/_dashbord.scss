@@ -16,8 +16,9 @@
 		grid-area: calendar;
 	}
 	.side-menu {
-		background-color: blue;
-		grid-area: side;
+		background-color: $backgroundPrimary;
+        grid-area: side;
+        border-radius: $borderRadiusMain;
 	}
 	.menu {
 		background-color: green;

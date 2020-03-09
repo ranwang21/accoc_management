@@ -1,5 +1,10 @@
 {
-    "validation": "Validate a Sign Up",
-    "createAdmin": "Create an Admin Account",
-    "createParentCollab": "Create a compte for Parent or Collaborator"
+    "admin": {
+        "validation": "Validate a Sign Up",
+        "createAdmin": "Create an Admin Account",
+        "createParentCollab": "Create a compte for Parent or Collaborator"
+    },
+    "others": {
+        "seeProfile": "See Profile"
+    }
 }

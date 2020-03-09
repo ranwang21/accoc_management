@@ -1,5 +1,10 @@
 {
-    "validation": "Validation des Inscriptions",
-    "createAdmin": "Créer un Compte Admin",
-    "createParentCollab": "Créer un Compte Parent ou Collaborateur"
+    "admin": {
+        "validation": "Validation des Inscriptions",
+        "createAdmin": "Créer un Compte Admin",
+        "createParentCollab": "Créer un Compte Parent ou Collaborateur"
+    },
+    "others": {
+        "seeProfile": "Voir Profile"
+    }
 }

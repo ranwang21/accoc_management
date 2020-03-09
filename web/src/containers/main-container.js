@@ -23,6 +23,7 @@ class MainContainer extends Component {
         this.state = {
             lang: 'fr',
             isConnected: true,
+            userType: 'admin',
             showSnack: false,
             showLoading: false
         }
@@ -78,12 +79,13 @@ class MainContainer extends Component {
         const lang = this.state.lang
         const langFile = this.getLangFile()
         const messageSnack = this.state.isConnected ? langFile.logInSnack : langFile.logOutSnack
+        const userType = this.state.userType
         return (
             <>
                 <ThemeProvider theme={theme}>
                     <Header lang={lang} handleLangChangedClick={this.onLangChanged} isConnected={this.state.isConnected} onhandleLogOutClick={this.onLogOutClick} />
                     {this.state.showLoading && <Loading lang={lang} />}
-                    <Main lang={lang} isConnected={this.state.isConnected} onhandleLogInClick={this.onLogInClick} />
+                    <Main lang={lang} userType={userType} isConnected={this.state.isConnected} onhandleLogInClick={this.onLogInClick} />
                     <Footer lang={lang} />
                     <Snack show={this.state.showSnack} message={messageSnack} onClose={this.handleCloseSnack} severity='success' />
                 </ThemeProvider>

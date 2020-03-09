@@ -13,11 +13,12 @@ class Main extends Component {
     render () {
         const isConnected = this.props.isConnected
         const lang = this.props.lang
+        const userType = this.props.userType
         return (
             <main>
                 {
                     this.props.isConnected
-                        ? <Dashbord lang={lang} isConnected={isConnected} />
+                        ? <Dashbord lang={lang} isConnected={isConnected} userType={userType} />
                         : <Login lang={lang} handleConnectedEvent={this.props.onhandleLogInClick} />
                 }
             </main>
