@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-<<<<<<< HEAD:android/app/build/intermediates/bundle_manifest/debug/processDebugManifest/bundle-manifest/AndroidManifest.xml
-    package="com.example.myapplication"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="29" />
-=======
     package="com.example.myapplication">
->>>>>>> master:android/app/src/main/AndroidManifest.xml
 
     <dist:module dist:instant="true" />
 
@@ -23,13 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-<<<<<<< HEAD:android/app/build/intermediates/bundle_manifest/debug/processDebugManifest/bundle-manifest/AndroidManifest.xml
-        android:theme="@style/AppTheme" >
-        <activity android:name="com.example.myapplication.MainActivity" >
-=======
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
->>>>>>> master:android/app/src/main/AndroidManifest.xml
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
