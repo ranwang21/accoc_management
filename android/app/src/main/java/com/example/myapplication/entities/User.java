@@ -7,23 +7,24 @@ public class User {
     String first_name;
     String last_name;
     String sex;
-    String adress;
+    String address;
     String birthday;
     String img_url;
     String password;
     public User() {
     }
-    public User(String _id, String id_role, String first_name, String last_name, String sex, String adress, String birthday, String img_url, String password) {
+    public User(String _id, String id_role, String first_name, String last_name, String sex, String address, String birthday, String img_url, String password) {
         this._id = _id;
         this.id_role = id_role;
         this.first_name = first_name;
         this.last_name = last_name;
         this.sex = sex;
-        this.adress = adress;
+        this.address = address;
         this.birthday = birthday;
         this.img_url = img_url;
         this.password = password;
     }
+
     public String get_id() {
         return _id;
     }
@@ -54,11 +55,11 @@ public class User {
     public void setSex(String sex) {
         this.sex = sex;
     }
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
     public String getBirthday() {
         return birthday;
