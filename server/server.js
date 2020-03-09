@@ -29,14 +29,12 @@ const roles = require('./routes/roles')
 const classrooms = require('./routes/classrooms')
 const days = require('./routes/days')
 const classroomSchedules = require('./routes/classroomSchedules')
-const logins = require('./routes/logins')
 
 // MOUNT ROUTERS
 app.use('/roles', roles)
 app.use('/classrooms', classrooms)
 app.use('/days', days)
 app.use('/classroom-schedules', classroomSchedules)
-app.use('/logins', logins)
 
 // MAIN ROUTE
 app.get('/', (req, res) => {
