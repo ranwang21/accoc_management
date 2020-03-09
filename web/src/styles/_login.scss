@@ -1,0 +1,36 @@
+@import "./base";
+
+.login {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	> div {
+		background-color: rgba($color: $primaryColor, $alpha: 0.5);
+		padding: 3em;
+		border-radius: 1em;
+		form {
+			display: flex;
+			flex-direction: column;
+			> div {
+				margin: 1.5em 0;
+			}
+			button {
+				width: 50%;
+				color: rgba($color: black, $alpha: 1);
+			}
+		}
+	}
+}
+@include responsive(phone) {
+	.login {
+		> div {
+			padding: 1em;
+			width: 95%;
+			form {
+				button {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

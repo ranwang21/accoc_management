@@ -6,8 +6,7 @@ const Role = require('../models/Role')
 // @route    GET /roles
 // @access   Private
 exports.getRoles = asyncHandler(async (req, res) => {
-  const roles = await Role.find()
-  res.status(200).json(roles)
+  res.status(200).json(res.advancedResults)
 })
 
 // @desc    Get single role
@@ -22,7 +21,10 @@ exports.getRole = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(role)
+  res.status(200).json({
+    success: true,
+    data: role
+  })
 })
 
 // @desc    Create new role
@@ -30,7 +32,10 @@ exports.getRole = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.createRole = asyncHandler(async (req, res) => {
   const role = await Role.create(req.body)
-  res.status(201).json(role)
+  res.status(201).json({
+    success: true,
+    data: role
+  })
 })
 
 // @desc    Update role
@@ -48,7 +53,10 @@ exports.updateRole = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(role)
+  res.status(200).json({
+    success: true,
+    data: role
+  })
 })
 
 // @desc    Delete role
@@ -63,5 +71,5 @@ exports.deleteRole = asyncHandler(async (req, res, next) => {
     )
   }
 
-  res.status(200).json(role)
+  res.status(204).json()
 })

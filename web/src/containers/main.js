@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Login from './login'
 
 class Main extends Component {
     constructor () {
@@ -9,8 +10,12 @@ class Main extends Component {
     componentDidMount () {}
 
     render () {
+        // const isConnected = this.props.isConnected
+        const lang = this.props.lang
         return (
-            <div />
+            <main>
+                {!this.props.isConnected && <Login lang={lang} handleConnectedEvent={this.props.onhandleLogInClick} />}
+            </main>
         )
     }
 }

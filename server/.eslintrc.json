@@ -6,6 +6,8 @@
     "no-console": "off",
     "no-unused-vars": "warn",
     "no-process-exit": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-useless-escape": "off",
+    "no-underscore-dangle": "off"
   }
 }
