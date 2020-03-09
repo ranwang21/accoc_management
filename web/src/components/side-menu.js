@@ -1,14 +1,24 @@
 import React, { Component } from 'react'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 
 import '../styles/_header.scss'
 
 class SideMenu extends Component {
+    constructor () {
+        super()
+        this.state = {
+            sideMenuSelected: ''
+        }
+    }
+
     getLangFile () {
         return require('../lang/' + this.props.lang + '/side-menu.json')
+    }
+
+    onClickMenu () {
+        // we change side menu selected here
     }
 
     renderSideMenuContent (userType) {

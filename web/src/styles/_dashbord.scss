@@ -16,12 +16,13 @@
 		grid-area: calendar;
 	}
 	.side-menu {
-		background-color: $backgroundPrimary;
-        grid-area: side;
+        background-color: $backgroundPrimary;
         border-radius: $borderRadiusMain;
+        grid-area: side;
 	}
 	.menu {
-		background-color: green;
+        background-color: $backgroundPrimary;
+        border-radius: $borderRadiusMain;
 		grid-area: main;
 	}
 }
