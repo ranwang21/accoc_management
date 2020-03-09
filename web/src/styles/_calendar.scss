@@ -1,0 +1,19 @@
+@import "./base";
+.calendar-style {
+	> div {
+		border-radius: 10px;
+		width: 100%;
+		border: none;
+		background-color: $otherColor;
+		> div button:nth-child(3) {
+			text-transform: uppercase !important;
+			font-weight: bold;
+		}
+		> div > div > div button {
+			height: 3em;
+			border-radius: 5em;
+			transition: all 0.1s;
+			font-weight: bold;
+		}
+	}
+}

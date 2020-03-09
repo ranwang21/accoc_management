@@ -12,7 +12,8 @@ class Application extends Component {
             loginConfig: null,
             success: false,
             error: false,
-            showSnack: false
+            showSnack: false,
+            users: null
         }
         this.email = ''
         this.password = ''
@@ -30,17 +31,19 @@ class Application extends Component {
         })
     }
 
-    validateInput () {
-        fetch('https://jsonplaceholder.typicode.com/users')
+    validateUser () {
+        this.email = 'admin@gmail.com'
+        fetch('http://localhost:8080/logins?email=' + this.email)
             .then(response => response.json())
-            .then(data =>
+            .then(data => (
                 this.setState({
-                    users: data,
-                    isLoading: false
+                    users: data
                 })
-            )
-            .catch(error => this.setState({ error, isLoading: false }))
+            ))
+        console.log(this.state.users)
+    }
 
+    validateInput () {
         // Email and password to test
         const trueEmail = 'admin@gmail.com'
         const truePassword = 'abc123...'
@@ -121,6 +124,7 @@ class Application extends Component {
     }
 
     render () {
+        console.log(this.state.users)
         const langFile = this.getLangFile()
 
         const { loginConfig, success, showSnack } = this.state
