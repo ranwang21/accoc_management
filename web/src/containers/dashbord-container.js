@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container } from '@material-ui/core'
+import SideMenu from '../components/side-menu'
 import '../styles/_dashbord.scss'
 
 class Dashbord extends Component {
@@ -18,9 +19,7 @@ class Dashbord extends Component {
                 <div className='calendar'>
                     <h1>Calendar</h1>
                 </div>
-                <div className='side-menu'>
-                    <h1>Side Menu</h1>
-                </div>
+                <SideMenu className='side-menu' />
                 <div className='menu'>
                     <h1>DashBord</h1>
                 </div>
