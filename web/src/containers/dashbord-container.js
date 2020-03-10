@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Container } from '@material-ui/core'
 import Schedule from '../components/calendar'
+import SideMenu from '../components/side-menu'
+import Table from '../components/Table'
 import '../styles/_dashbord.scss'
 
 function formatDate (date) {
@@ -32,17 +34,18 @@ class Dashbord extends Component {
         // const lang = this.props.lang
         const date = formatDate(this.state.date)
         console.log(date)
+        const userType = this.props.userType
+        const lang = this.props.lang
         return (
             <Container className='dashbord' maxWidth={false}>
                 <div className='calendar'>
                     <Schedule date={this.state.date} handleDateChange={this.onhandleDateChange} />
                 </div>
-                <div className='side-menu'>
-                    <h1>Side Menu</h1>
-                </div>
-                <div className='menu'>
-                    <h1>Date Selected: {date}</h1>
-                </div>
+                <SideMenu className='side-menu' userType={userType} lang={lang} />
+                {/* <div className='menu' lang={lang}>
+                    <h1>DashBord</h1>
+                </div> */}
+                <Table lang={lang} userType={userType} />
             </Container>
         )
     }
