@@ -71,7 +71,7 @@ public class LoginManager {
      *
      * @param context
      * @param email
-     * @return ArrayList<Login>
+     * @return Login
      */
     public static Login getByEmail(Context context, String email) {
         Login login = null;

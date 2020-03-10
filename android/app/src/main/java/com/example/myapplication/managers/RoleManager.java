@@ -44,7 +44,7 @@ public class RoleManager {
      * getById return a Role by id from DataBase
      *
      * @param context
-     * @return ArrayList<Role>
+     * @return Role
      */
     public static Role getById(Context context, int id) {
         Role role = null;
@@ -63,7 +63,7 @@ public class RoleManager {
      *
      * @param context
      * @param title
-     * @return ArrayList<Role>
+     * @return Role
      */
     public static Role getById(Context context, String title) {
         Role role = null;

@@ -6,11 +6,11 @@ public class Schedule {
     String id_user;
     String id_classroom;
     String date;
-    String is_absent;
+    int is_absent;
     String comment;
     public Schedule() {
     }
-    public Schedule(String _id, String id_user, String id_classroom, String date, String is_absent, String comment) {
+    public Schedule(String _id, String id_user, String id_classroom, String date, int is_absent, String comment) {
         this._id = _id;
         this.id_user = id_user;
         this.id_classroom = id_classroom;
@@ -42,10 +42,10 @@ public class Schedule {
     public void setDate(String date) {
         this.date = date;
     }
-    public String getIs_absent() {
+    public int getIs_absent() {
         return is_absent;
     }
-    public void setIs_absent(String is_absent) {
+    public void setIs_absent(int is_absent) {
         this.is_absent = is_absent;
     }
     public String getComment() {
