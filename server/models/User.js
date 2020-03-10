@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     enum: ['male', 'female', 'non-binary']
   },
-  adress: {
+  address: {
     type: String,
     required: true,
     trim: true
