@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
 import { AppBar } from '@material-ui/core'
 
-import '../styles/_table.scss'
+import '../styles/_table-list-menu.scss'
 
 class Table extends Component {
     getLangFile () {
@@ -37,7 +37,7 @@ class Table extends Component {
                 <div>
                     {this.renderUserButtons(userType)}
                 </div>
-                <div class='search-container'>
+                <div className='search-container'>
                     <input className='search-input' type='text' placeholder={this.renderSearchBarPlaceHolder().searchbar} />
                     <SearchIcon className='search-icon' />
                 </div>

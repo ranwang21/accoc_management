@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { TableHead, Table, TableBody, TableRow, TableCell, TableFooter, TableContainer } from '@material-ui/core'
+import { TableHead, Table, TableBody, TableRow, TableCell, TableFooter, TableContainer, Button } from '@material-ui/core'
+import IconInfo from '@material-ui/icons/InfoOutlined'
+import '../styles/_table-list.scss'
 
 const userList = [
     { idUser: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
@@ -9,7 +11,7 @@ const userList = [
     { idUser: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' }
 ]
 
-const acteurs = [
+const actors = [
     { idUser: '1', roleLable: 'admin', firstName: 'admin', lastName: 'ADMINISTRATEUR', isValid: true },
 
     { idUser: '2', roleLable: 'only_parent', firstName: 'parent_1', lastName: 'P_NAME_1', isValid: true },
@@ -47,48 +49,79 @@ class TableListContainerTest extends Component {
         }
     }
 
+    buildHeader () {
+        return (
+            <TableHead>
+                <TableRow>
+                    <TableCell>CELLULE 1</TableCell>
+                    <TableCell>CELLULE 2</TableCell>
+                    <TableCell>CELLULE 3</TableCell>
+                    <TableCell>CELLULE 4</TableCell>
+                </TableRow>
+            </TableHead>
+        )
+    }
+
+    buildBody () {
+        return (
+            <TableBody className='body'>
+                {actors.map(actor => (
+                    <TableRow key={actor.idUser} hover>
+                        <TableCell>actor.idUser</TableCell>
+                        <TableCell>val_2</TableCell>
+                        <TableCell>
+                            <Button
+                                onClick={this.handleBtnClick}
+                                variant='outlined'
+                                color='secondary'
+                                size='small'
+                                fullWidth={false}
+                                startIcon={<IconInfo />}
+                            >
+                                Voir detail
+                            </Button>
+                        </TableCell>
+                        <TableCell>val_3</TableCell>
+                    </TableRow>)
+                )}
+            </TableBody>
+        )
+    }
+
+    getButton (name) {
+        return (
+            <Button
+                onClick={this.handleBtnClick}
+                variant='outlined'
+                color='secondary'
+                size='large'
+                fullWidth={false}
+            >
+                {name}
+            </Button>
+        )
+    }
+
     render () {
         return (
             <>
-                <TableContainer>
-                    <Table className='tabletrg'>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>CELLULE 1</TableCell>
-                                <TableCell>CELLULE 2</TableCell>
-                                <TableCell>CELLULE 3</TableCell>
-                                <TableCell>CELLULE 4</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow hover>
-                                <TableCell>val_1</TableCell>
-                                <TableCell>val_2</TableCell>
-                                <TableCell>val_3</TableCell>
-                                <TableCell>val_4</TableCell>
-                            </TableRow>
-                            <TableRow hover>
-                                <TableCell>val_1</TableCell>
-                                <TableCell>val_2</TableCell>
-                                <TableCell>val_3</TableCell>
-                                <TableCell>val_4</TableCell>
-                            </TableRow>
-                            <TableRow hover>
-                                <TableCell>val_1</TableCell>
-                                <TableCell>val_2</TableCell>
-                                <TableCell>val_3</TableCell>
-                                <TableCell>val_4</TableCell>
-                            </TableRow>
-                            <TableRow hover>
-                                <TableCell>val_1</TableCell>
-                                <TableCell>val_2</TableCell>
-                                <TableCell>val_3</TableCell>
-                                <TableCell>val_4</TableCell>
-                            </TableRow>
-                        </TableBody>
-                        <TableFooter />
-                    </Table>
-                </TableContainer>
+                <div className='table-list'>
+                    <div className='head'>
+                        {this.getButton('Role')}
+                        {this.getButton('Nom')}
+                        {this.getButton('Prenom')}
+                        {this.getButton('Detail')}
+                        {this.getButton('Validation')}
+                    </div>
+                    <div className='body'>
+                        <div>okok</div>
+                        <div>okok</div>
+                        <div>okok</div>
+                        <div>okok</div>
+                        <div>okok</div>
+                        <div>okok</div>
+                    </div>
+                </div>
             </>
         )
     }
