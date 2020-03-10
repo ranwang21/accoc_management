@@ -19,7 +19,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Main-Activity. */
-                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
