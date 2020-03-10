@@ -1,33 +1,20 @@
 import React, { Component } from 'react'
-import { Calendar } from '@material-ui/pickers/views/Calendar/Calendar'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'
+import '../styles/_calendar.scss'
 
 class CalendarD extends Component {
-    constructor () {
-        super()
-        this.state = {
-            date: new Date()
-        }
-    }
-
-    handleDateChange (date) {
-        this.setState({
-            date: date
-        })
-    }
-    ;
     render () {
         return (
-            <div>
+            <div className='calendar-style'>
                 <Calendar
-                    firstDayOfWeek={1}
-                    date={this.state.date}
-                    onChange={(date, isFinish) => {}}
-                    classes={{}}
-                    utils={{}}
+                    onChange={this.props.handleDateChange}
+                    value={this.props.date}
+                    onClick
                 />
             </div>
         )
     }
-}
+};
 
 export default CalendarD

@@ -7,7 +7,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	padding: 0 5em !important;
-	background-color: rgba($color: $primaryColor, $alpha: 0.5);
+	background-color: $primaryColor;
 	> div {
 		padding: 0em 1em;
 		width: calc(100% / 3);

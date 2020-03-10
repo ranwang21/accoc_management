@@ -1,7 +1,7 @@
 @import "./base";
 header {
 	height: 10vh;
-	background-color: rgba($color: $primaryColor, $alpha: 0.5) !important;
+	background-color: $primaryColor !important;
 	div {
 		justify-content: space-between;
 		min-height: 100% !important;
