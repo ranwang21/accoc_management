@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 public class GetJson {
 
-    public static String get(String json, String routes) {
+    public static String get( String routes) {
         String response = null;
         HttpGetRequest httpGetRequest = new HttpGetRequest();
         try {

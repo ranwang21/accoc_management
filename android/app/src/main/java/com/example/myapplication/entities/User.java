@@ -10,10 +10,9 @@ public class User {
     String address;
     String birthday;
     String img_url;
-    String password;
     public User() {
     }
-    public User(String _id, String id_role, String first_name, String last_name, String sex, String address, String birthday, String img_url, String password) {
+    public User(String _id, String id_role, String first_name, String last_name, String sex, String address, String birthday, String img_url) {
         this._id = _id;
         this.id_role = id_role;
         this.first_name = first_name;
@@ -22,7 +21,6 @@ public class User {
         this.address = address;
         this.birthday = birthday;
         this.img_url = img_url;
-        this.password = password;
     }
 
     public String get_id() {
@@ -72,11 +70,5 @@ public class User {
     }
     public void setImg_url(String img_url) {
         this.img_url = img_url;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

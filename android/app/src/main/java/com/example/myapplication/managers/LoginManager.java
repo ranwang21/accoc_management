@@ -24,6 +24,7 @@ public class LoginManager {
     private static final String queryGetAll = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where id like ?";
     private static final String queryGetByEmail = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where email like ?";
+    private static final String queryGetByEmailAndPassword = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where email like ? and password like ?";
     /**
      * getAll return all Login from DataBase
      *
