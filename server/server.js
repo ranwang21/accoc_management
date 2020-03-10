@@ -32,6 +32,8 @@ const classrooms = require('./routes/classrooms')
 const days = require('./routes/days')
 const classroomSchedules = require('./routes/classroomSchedules')
 const auth = require('./routes/auth')
+const logins = require('./routes/logins')
+const users = require('./routes/users')
 
 // MOUNT ROUTERS
 app.use('/roles', roles)
@@ -39,6 +41,8 @@ app.use('/classrooms', classrooms)
 app.use('/days', days)
 app.use('/classroom-schedules', classroomSchedules)
 app.use('/auth', auth)
+app.use('/logins', logins)
+app.use('/users', users)
 
 // MAIN ROUTE
 app.get('/', (req, res) => {

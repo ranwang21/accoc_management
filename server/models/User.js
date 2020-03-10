@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Login = require('./Login')
 
 const UserSchema = new mongoose.Schema({
   id_role: {
@@ -189,6 +190,12 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+})
+
+// CASCADE DELETE LOGIN WHEN USER IS DELETED
+UserSchema.post('remove', async (doc, next) => {
+  await Login.deleteMany({ id_user: doc._id })
+  next()
 })
 
 module.exports = mongoose.model('User', UserSchema)

@@ -20,22 +20,6 @@ const sendTokenResponse = (login, statusCode, res) => {
     .json({ success: true, token })
 }
 
-// @desc     Register user
-// @route    POST /auth/register
-// @access   public
-exports.register = asyncHandler(async (req, res) => {
-  const { id_user, email, password } = req.body
-
-  const login = await Login.create({
-    id_user,
-    email,
-    password,
-    is_active: false
-  })
-
-  sendTokenResponse(login, 200, res)
-})
-
 // @desc     Login user
 // @route    POST /auth/login
 // @access   public
