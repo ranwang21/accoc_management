@@ -17,11 +17,9 @@ import java.util.ArrayList;
 public class UserManager {
 
     /**
-     * PRODUCT TABLE FIELDS
+     * User TABLE FIELDS
      */
-//    String birthday;
-//    String img_url;
-//    String password;
+
     private static final String ID = "id";
     private static final String ID_ROLE = "id_role";
     private static final String FIRST_NAME = "first_name";
@@ -31,13 +29,12 @@ public class UserManager {
     private static final String BIRTHDAY = "birthday";
     private static final String IMG_URL = "img_url";
     /**
-     * PRODUCT TABLE'S QUERIES
+     * User TABLE'S QUERIES
      */
     private static final String queryGetAll = "select * from " + DataBaseHelper.USER_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id like ?";
     private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where role_id like ?";
-    private static final String queryGetByEmail = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where email like ?";
-    private static final String queryGetByEmailAndPassword = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where email like ? and password like ?";
+
     /**
      * getAll return all users from DataBase
      *
@@ -57,8 +54,7 @@ public class UserManager {
                     cursor.getString(4),
                     cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7),
-                    cursor.getString(8))
+                    cursor.getString(7))
             );
         }
         ConnectionBD.close();
@@ -85,8 +81,7 @@ public class UserManager {
                     cursor.getString(4),
                     cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7),
-                    cursor.getString(8));
+                    cursor.getString(7));
         }
         ConnectionBD.close();
         return user;
@@ -111,8 +106,7 @@ public class UserManager {
                     cursor.getString(4),
                     cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7),
-                    cursor.getString(8))
+                    cursor.getString(7))
             );
         }
         ConnectionBD.close();
