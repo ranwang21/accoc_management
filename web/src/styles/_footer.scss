@@ -50,7 +50,8 @@
 
 @include responsive(phone) {
 	.footer {
-		padding: 0 1em !important;
+		height: 10vh;
+		padding: 0 0.5em !important;
 		align-items: center;
 		> div {
 			width: 50%;

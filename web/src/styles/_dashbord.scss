@@ -4,25 +4,32 @@
 	display: grid;
 	padding: 1.5em 0;
 	grid-template-columns: 1fr 3fr;
-	grid-template-rows: auto auto;
+	grid-template-rows: auto auto 1fr;
 	grid-template-areas:
 		"calendar main"
-		"side main";
+		"side main"
+		"none main";
 	transition: all 0.2s;
+	grid-column-gap: 0.5em;
+	grid-row-gap: 0.5em;
 	> div {
 		background-color: $backgroundPrimary;
-		border-radius: 0.5em;
 		border-radius: $borderRadiusMain;
 		padding: 0.5em;
+		min-width: 25em;
 	}
 	.calendar {
 		padding: 0em;
 		grid-area: calendar;
-		margin: 0 0.5em 0.25em 0;
 	}
 	.side-menu {
 		grid-area: side;
-		margin: 0.25em 0.5em 0 0;
+		ul {
+			height: 100%;
+			> div {
+				height: calc(100% / 3);
+			}
+		}
 	}
 	.menu {
 		grid-area: main;

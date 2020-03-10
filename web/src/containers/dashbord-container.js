@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container } from '@material-ui/core'
 import Schedule from '../components/calendar'
 import SideMenu from '../components/side-menu'
-import Table from '../components/Table'
+import Table from './Table'
 import '../styles/_dashbord.scss'
 
 function formatDate (date) {
