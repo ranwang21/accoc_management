@@ -17,6 +17,7 @@
         "@material-ui/icons": "^4.9.1",
         "@material-ui/lab": "^4.0.0-alpha.45",
         "dotenv": "^8.2.0",
+        "google-map-react": "^1.1.6",
         "material-ui-search-bar": "^0.4.2",
         "material-ui-search-bar-enhanced": "^0.5.5",
         "react": "^16.6.3",
