@@ -1,10 +1,14 @@
 @import "./base";
 main {
-	height: 75vh;
+	max-height: 80vh;
+	overflow-y: auto;
 }
 @include responsive(phone) {
 }
 @include responsive(tablet) {
 }
 @include responsive(desktop) {
+	main {
+		max-height: 75vh;
+	}
 }

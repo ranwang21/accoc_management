@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import TableListMenu from './table-list-menu'
-import '../styles/_footer.scss'
+import TableListMenu from '../components/table-list-menu'
+import TableListContainer from '../components/table-list-container-test'
+import '../styles/_table.scss'
 
 class Table extends Component {
     getLangFile () {
@@ -8,10 +9,11 @@ class Table extends Component {
     }
 
     render () {
-        const lang = this.getLangFile()
+        // const lang = this.getLangFile()
         return (
             <div className='menu table'>
                 <TableListMenu lang={this.props.lang} userType={this.props.userType} />
+                <TableListContainer />
             </div>
         )
     }
