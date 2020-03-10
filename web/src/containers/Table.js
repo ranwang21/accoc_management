@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TableListMenu from '../components/table-list-menu'
-import TableListContainer from '../components/table-list-container'
+import TableListContainer from '../components/table-list-container-test'
 import '../styles/_table.scss'
 
 class Table extends Component {
