@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Maison D\'aurore</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,11 +13,20 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">send</string>
+
+
     <string name="menu_logout">logout</string>
     <string name="menu_presence">Presence</string>
     <string name="menu_listes_enfants">Listes  enfants</string>
     <string name="menu_listes_collaborateurs">Listes de collaborateur</string>
     <string name="menu_historique">Historiques</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_remember">Remember Me</string>
+    <string name="txt_forgot_password">Forgot Password</string>
+    <string name="txt_connecter">Connecter</string>
+    <string name="txt_admin">Admin</string>
+    <string name="txt_mail">maisonauror@gmail.com</string>
 
 
 </resources>
