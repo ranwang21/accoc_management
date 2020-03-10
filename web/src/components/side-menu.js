@@ -36,11 +36,11 @@ class SideMenu extends Component {
     render () {
         const userType = this.props.userType
         return (
-            <div>
-                <List className='side-menu' aria-label='main mailbox folders'>
+            <>
+                <List aria-label='main mailbox folders'>
                     {this.renderSideMenuContent(userType)}
                 </List>
-            </div>
+            </>
         )
     }
 }

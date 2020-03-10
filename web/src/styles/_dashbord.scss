@@ -10,7 +10,7 @@
 		"side main";
 	transition: all 0.2s;
 	> div {
-		background-color: rgba($color: #ffff, $alpha: 0.3);
+		background-color: $backgroundPrimary;
 		border-radius: 0.5em;
 		border-radius: $borderRadiusMain;
 		padding: 0.5em;
@@ -21,12 +21,10 @@
 		margin: 0 0.5em 0.25em 0;
 	}
 	.side-menu {
-		background-color: $backgroundPrimary;
 		grid-area: side;
 		margin: 0.25em 0.5em 0 0;
 	}
 	.menu {
-		background-color: $backgroundPrimary;
 		grid-area: main;
 	}
 }

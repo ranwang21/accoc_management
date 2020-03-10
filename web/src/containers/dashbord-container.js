@@ -41,11 +41,12 @@ class Dashbord extends Component {
                 <div className='calendar'>
                     <Schedule date={this.state.date} handleDateChange={this.onhandleDateChange} />
                 </div>
-                <SideMenu className='side-menu' userType={userType} lang={lang} />
-                {/* <div className='menu' lang={lang}>
-                    <h1>DashBord</h1>
-                </div> */}
-                <Table lang={lang} userType={userType} />
+                <div className='side-menu'>
+                    <SideMenu userType={userType} lang={lang} />
+                </div>
+                <div className='menu' lang={lang}>
+                    <Table lang={lang} userType={userType} />
+                </div>
             </Container>
         )
     }
