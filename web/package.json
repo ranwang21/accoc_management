@@ -22,7 +22,8 @@
         "material-ui-search-bar-enhanced": "^0.5.5",
         "react": "^16.6.3",
         "react-calendar": "^3.0.0",
-        "react-dom": "^16.6.3"
+        "react-dom": "^16.6.3",
+        "simple-react-calendar": "^2.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.1.6",

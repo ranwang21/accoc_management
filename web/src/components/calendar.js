@@ -11,6 +11,7 @@ class CalendarD extends Component {
                     onChange={this.props.handleDateChange}
                     value={this.props.date}
                     onClick
+                    locale={this.props.lang}
                 />
             </div>
         )
