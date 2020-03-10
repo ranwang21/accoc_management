@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
 const errorHandler = require('./middlewares/error')
 const connectDB = require('./configs/db')
 
@@ -23,18 +24,25 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(express.static('public'))
+app.use(cookieParser())
 
 // ROUTE FILES
 const roles = require('./routes/roles')
 const classrooms = require('./routes/classrooms')
 const days = require('./routes/days')
 const classroomSchedules = require('./routes/classroomSchedules')
+const auth = require('./routes/auth')
+const logins = require('./routes/logins')
+const users = require('./routes/users')
 
 // MOUNT ROUTERS
 app.use('/roles', roles)
 app.use('/classrooms', classrooms)
 app.use('/days', days)
 app.use('/classroom-schedules', classroomSchedules)
+app.use('/auth', auth)
+app.use('/logins', logins)
+app.use('/users', users)
 
 // MAIN ROUTE
 app.get('/', (req, res) => {
