@@ -18,6 +18,7 @@
         "@material-ui/lab": "^4.0.0-alpha.45",
         "dotenv": "^8.2.0",
         "material-ui-search-bar": "^0.4.2",
+        "material-ui-search-bar-enhanced": "^0.5.5",
         "react": "^16.6.3",
         "react-calendar": "^3.0.0",
         "react-dom": "^16.6.3"

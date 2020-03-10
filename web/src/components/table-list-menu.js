@@ -4,10 +4,9 @@ import List from '@material-ui/core/List'
 import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
-import IconButton from '@material-ui/core/IconButton'
 import { AppBar } from '@material-ui/core'
 
-import '../styles/_footer.scss'
+import '../styles/_table.scss'
 
 class Table extends Component {
     getLangFile () {
@@ -34,19 +33,15 @@ class Table extends Component {
         const placecholders = this.renderSearchBarPlaceHolder()
 
         return (
-            <AppBar position='static'>
-                <List className='table' aria-label='main mailbox folders'>
-                    <ButtonGroup color='primary' aria-label='outlined primary button group'>
-                        {this.renderUserButtons(userType)}
-                    </ButtonGroup>
-                    <InputBase
-                        placeholder={placecholders.searchbar}
-                    />
-                    <IconButton type='submit' aria-label='search'>
-                        <SearchIcon />
-                    </IconButton>
-                </List>
-            </AppBar>
+            <div className='table-menu'>
+                <div>
+                    {this.renderUserButtons(userType)}
+                </div>
+                <div class='search-container'>
+                    <input className='search-input' type='text' placeholder={this.renderSearchBarPlaceHolder().searchbar} />
+                    <SearchIcon className='search-icon' />
+                </div>
+            </div>
         )
     }
 }
