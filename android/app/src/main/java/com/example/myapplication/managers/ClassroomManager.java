@@ -25,6 +25,7 @@ public class ClassroomManager {
     private static final String queryGetById = "select * from " + DataBaseHelper.CLASSROOM_TABLE_NAME + " where id like ?";
     private static final String queryGetByTitle = "select * from " + DataBaseHelper.CLASSROOM_TABLE_NAME + " where title like ?";
     private static final String queryGetByPhone = "select * from " + DataBaseHelper.CLASSROOM_TABLE_NAME + " where phone like ?";
+
     /**
      * getAll return all Classroom from DataBase
      *
@@ -46,6 +47,7 @@ public class ClassroomManager {
         ConnectionBD.close();
         return classrooms;
     }
+
     /**
      * getById return a Classroom by id from DataBase
      *
@@ -67,6 +69,7 @@ public class ClassroomManager {
         ConnectionBD.close();
         return classroom;
     }
+
     /**
      * getById return a Classroom by title from DataBase
      *
@@ -88,7 +91,9 @@ public class ClassroomManager {
         }
         ConnectionBD.close();
         return classroom;
-    }    /**
+    }
+
+    /**
      * getById return a Classroom by phone from DataBase
      *
      * @param context
@@ -110,6 +115,7 @@ public class ClassroomManager {
         ConnectionBD.close();
         return classroom;
     }
+
     /**
      * Insert Classroom in DataBase
      *
@@ -125,6 +131,7 @@ public class ClassroomManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.CLASSROOM_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update Classroom in Database
      *
@@ -139,6 +146,7 @@ public class ClassroomManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.CLASSROOM_TABLE_NAME, contentValues, ID + " = " + classroom.get_id(), null);
     }
+
     /**
      * Delete Classroom from DataBase
      *

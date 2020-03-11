@@ -1,14 +1,13 @@
 package com.example.myapplication.services;
 
 
-
 import com.example.myapplication.helpers.DataBaseHelper;
 
 import java.util.concurrent.ExecutionException;
 
 
 public class DeleteJson {
-    public static String delete( String routes) {
+    public static String delete(String routes) {
         String response = null;
         HttpDeleteRequest httpDeleteRequest = new HttpDeleteRequest();
         try {

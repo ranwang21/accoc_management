@@ -6,9 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 
 public class HttpPostRequest extends AsyncTask<String, Void, String> {
@@ -16,6 +16,7 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD = "POST";
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;
+
     @Override
     protected String doInBackground(String... params) {
         String stringUrl = params[0];
@@ -29,7 +30,7 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
             //Create a URL object holding our url
             URL myUrl = new URL(stringUrl);
             //Create a connection
-            HttpURLConnection connection = (HttpURLConnection)
+            HttpURLConnection connection = ( HttpURLConnection )
                     myUrl.openConnection();
             //Set methods and timeouts
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -42,7 +43,7 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
             //Connect to our url
             connection.connect();
             OutputStream os = connection.getOutputStream();
-            byte[] input = strToSend.getBytes("utf-8");
+            byte[] input = strToSend.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
 //            PrintWriter pw = new PrintWriter(connection.getOutputStream());
 //            pw.print(strToSend);
@@ -69,6 +70,7 @@ public class HttpPostRequest extends AsyncTask<String, Void, String> {
         }
         return result;
     }
+
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
     }

@@ -18,6 +18,15 @@
     <string name="menu_listes_enfants">Listes  enfants</string>
     <string name="menu_listes_collaborateurs">Listes de collaborateur</string>
     <string name="menu_historique">Historiques</string>
+    <string name="fragments_listes_des_collaborateurs">Fragments listes des collaborateurs</string>
+    <string name="listes_presence" />
+    <string name="fragments_listes_des_enfants" />
+    <string name="salle_1">salle 1</string>
+    <string name="salle_3">salle 3</string>
+    <string name="salle_2">salle 2</string>
+    <string name="salle_4">salle 4</string>
+    <string name="todo">TODO</string>
+    <string name="logoback" />
 
 
 </resources>

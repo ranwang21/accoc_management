@@ -21,6 +21,7 @@ public class RoleManager {
     private static final String queryGetAll = "select * from " + DataBaseHelper.ROLE_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.ROLE_TABLE_NAME + " where id like ?";
     private static final String queryGetByTitle = "select * from " + DataBaseHelper.ROLE_TABLE_NAME + " where title like ?";
+
     /**
      * getAll return all Role from DataBase
      *
@@ -40,6 +41,7 @@ public class RoleManager {
         ConnectionBD.close();
         return roles;
     }
+
     /**
      * getById return a Role by id from DataBase
      *
@@ -58,7 +60,9 @@ public class RoleManager {
         }
         ConnectionBD.close();
         return role;
-    }    /**
+    }
+
+    /**
      * getById return a Role by title from DataBase
      *
      * @param context
@@ -78,6 +82,7 @@ public class RoleManager {
         ConnectionBD.close();
         return role;
     }
+
     /**
      * Insert Role in DataBase
      *
@@ -91,6 +96,7 @@ public class RoleManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.ROLE_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update Role in Database
      *
@@ -103,6 +109,7 @@ public class RoleManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.ROLE_TABLE_NAME, contentValues, ID + " = " + role.get_id(), null);
     }
+
     /**
      * Delete Role from DataBase
      *
