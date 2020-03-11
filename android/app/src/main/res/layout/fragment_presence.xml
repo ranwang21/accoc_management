@@ -16,6 +16,6 @@
         android:layout_height="match_parent"
         android:choiceMode="multipleChoiceModal"
         android:clickable="true"
-        android:focusable="auto" />
+        android:focusable="true" />
 
 </LinearLayout>
