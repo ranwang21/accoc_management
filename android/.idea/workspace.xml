@@ -10,27 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68fc3bf8-8791-4e03-9fb8-20c721f2ee9a" name="Default Changelist" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/la_maison_d_aurore.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules/app.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/fragments/Acceuil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/logo_part_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_acceuil.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/gc.properties" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/EvaluationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" />
@@ -107,7 +93,6 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/ConnectionBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/ConnectionBD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/DeleteJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/DeleteJson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/GetJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/GetJson.java" afterDir="false" />
-<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_lock_open_black_24dp.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_person_black_24dp.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shapeemail.xml" afterDir="false" />
@@ -146,7 +131,7 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-=======
+
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/HttpDeleteRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/HttpDeleteRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/HttpGetRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/HttpGetRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/HttpPostRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/services/HttpPostRequest.java" afterDir="false" />
@@ -166,11 +151,12 @@
       <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-=======
+
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/InconsistencyHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/InconsistencyHelper.java" afterDir="false" />
->>>>>>> 57a11771f284bfe9ab79a2f3851ecd9710deeabf
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/ScheduleHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/ScheduleHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_acceuil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_acceuil.xml" afterDir="false" />
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -210,26 +196,26 @@
       </state>
     </system>
   </component>
-<<<<<<< HEAD
-=======
+
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-<<<<<<< HEAD
+
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/DataBaseHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
-<<<<<<< HEAD
               <caret line="17" column="58" lean-forward="true" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
-=======
+            </state>
+          </provider>
+        </entry>
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="560">
               <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
->>>>>>> yannick
-=======
+
+
               <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
             </state>
           </provider>
         </entry>
@@ -237,33 +223,37 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/entities/Inconsistency.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
+
             <state relative-caret-position="85">
-<<<<<<< HEAD
+
               <caret line="5" column="23" lean-forward="true" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-=======
+            </state>
             <state relative-caret-position="1280">
               <caret line="81" column="22" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
->>>>>>> yannick
-=======
+
+
               <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
+
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/InconsistencyHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
+
             <state relative-caret-position="408">
               <caret line="24" column="83" selection-start-line="24" selection-start-column="83" selection-end-line="24" selection-end-column="83" />
-=======
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
+
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/fragments/ListesCollaborateurs.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="420">
@@ -280,18 +270,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="420">
               <caret line="29" selection-start-line="29" selection-end-line="29" />
->>>>>>> yannick
-=======
+            </state>
             <state relative-caret-position="384">
               <caret line="24" column="249" selection-start-line="24" selection-start-column="249" selection-end-line="24" selection-end-column="249" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
-<<<<<<< HEAD
-=======
+
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -346,30 +334,30 @@
               </folding>
             </state>
           </provider>
->>>>>>> yannick
+
         </entry>
       </file>
     </leaf>
   </component>
->>>>>>> 57a11771f284bfe9ab79a2f3851ecd9710deeabf
+
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
         <option value="Class" />
-<<<<<<< HEAD
+
         <option value="resourceFile" />
-=======
+
         <option value="valueResourceFile" />
         <option value="layoutResourceFile" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-<<<<<<< HEAD
+
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -396,7 +384,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/StartActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/shapelogin.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/LoginActivity.java" />
-<<<<<<< HEAD
+
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/DataBaseHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/entities/Classroom.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/entities/Schedule.java" />
@@ -415,11 +403,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/ClassroomHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/ScheduleHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/InconsistencyHelper.java" />
-=======
+
         <option value="$PROJECT_DIR$/app/src/main/res/layout/login_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main3.xml" />
->>>>>>> yannick
+
       </list>
     </option>
   </component>
@@ -429,32 +417,33 @@
     <option name="width" value="1384" />
     <option name="height" value="745" />
   </component>
-=======
+
   <component name="ProjectId" id="1YxUvsqRSUu1elbJh6DZoSjZq9i" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true"/>
+    <ConfirmationsSetting value="2" id="Add" />
+
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-<<<<<<< HEAD
-=======
+
+
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
       <pane id="Scope" />
       <pane id="PackagesPane" />
-=======
->>>>>>> yannick
+
+
       <pane id="ProjectPane" />
-=======
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
+
       <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
               <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
-<<<<<<< HEAD
+
               <item name="app" type="feadf853:AndroidModuleNode" />
             </path>
             <path>
@@ -486,10 +475,10 @@
               <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-<<<<<<< HEAD
+
               <item name="myapplication" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="managers" type="462c0819:PsiDirectoryNode" />
-=======
+
               <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="example" type="462c0819:PsiDirectoryNode" />
               <item name="myapplication" type="462c0819:PsiDirectoryNode" />
@@ -503,16 +492,16 @@
               <item name="example" type="462c0819:PsiDirectoryNode" />
               <item name="myapplication" type="462c0819:PsiDirectoryNode" />
               <item name="fragments" type="462c0819:PsiDirectoryNode" />
->>>>>>> yannick
+
             </path>
             <path>
               <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-<<<<<<< HEAD
+
               <item name="myapplication" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
-=======
+
               <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="example" type="462c0819:PsiDirectoryNode" />
               <item name="myapplication" type="462c0819:PsiDirectoryNode" />
@@ -549,7 +538,7 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
->>>>>>> yannick
+
             </path>
             <path>
               <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
@@ -572,42 +561,38 @@
             </path>
             <path>
               <item name="My Application" type="1abcf292:AndroidViewProjectNode" />
-=======
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-<<<<<<< HEAD
+
       <pane id="Scope" />
       <pane id="PackagesPane" />
-=======
+
       <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="Scope" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
     </panes>
   </component>
->>>>>>> 57a11771f284bfe9ab79a2f3851ecd9710deeabf
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="D:/home/programme/sdk" />
-<<<<<<< HEAD
     <property name="last_opened_file_path" value="D:/MockUp android Maison d'aurore/ressource/icon_projet/BaseActivityDemo-master" />
-<<<<<<< HEAD
-=======
+
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi" />
->>>>>>> yannick
+
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
-=======
+
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -710,7 +695,6 @@
     </task>
     <servers />
   </component>
-<<<<<<< HEAD
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -723,21 +707,18 @@
         </entry>
       </map>
     </option>
-=======
+  </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-<<<<<<< HEAD
-<<<<<<< HEAD
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49929875" visible="true" weight="0.32942432" />
-=======
+
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49929875" visible="true" weight="0.25100672" />
->>>>>>> yannick
-=======
+
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49929875" visible="true" weight="0.32942432" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
       <window_info id="Structure" order="2" sideWeight="0.50070125" side_tool="true" weight="0.32459676" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" sideWeight="0.50070125" side_tool="true" weight="0.32594085" />
@@ -752,29 +733,27 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32719395" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-<<<<<<< HEAD
-<<<<<<< HEAD
       <window_info anchor="bottom" id="Build" order="7" weight="0.32936078" />
-=======
+
       <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.32936078" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
       <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32936078" />
-=======
+
       <window_info anchor="bottom" id="Build" order="7" weight="0.32960895" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32960895" />
->>>>>>> yannick
+
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.3295302" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-<<<<<<< HEAD
+
       <window_info anchor="right" id="Preview" order="5" weight="0.2468017" />
-=======
+
       <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.24697986" />
->>>>>>> yannick
+
     </layout>
     <layout-to-restore>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
@@ -804,13 +783,18 @@
       <window_info anchor="right" id="Preview" order="5" weight="0.2468017" />
     </layout-to-restore>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="editorHistoryManager">
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-=======
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
@@ -819,12 +803,12 @@
             <element signature="e#480#498#0" expanded="true" />
             <element signature="e#715#745#0" expanded="true" />
           </folding>
->>>>>>> yannick
+
         </state>
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml">
       <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
@@ -889,7 +873,10 @@
           <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-=======
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main2.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_send.xml" />
     <entry file="file://$PROJECT_DIR$/local.properties">
@@ -968,12 +955,11 @@
           <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
           <folding>
             <element signature="e#1245#1264#0" expanded="true" />
->>>>>>> yannick
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/fragments/Presence.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="474">
@@ -1052,7 +1038,7 @@
       <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-=======
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -1112,14 +1098,14 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/user_profile_image_background.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_logout.xml">
       <provider editor-type-id="android-designer2" />
->>>>>>> yannick
+
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1160,7 +1146,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1164">
           <caret line="74" column="15" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
-=======
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_person_black_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1206,14 +1194,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="21" column="81" selection-start-line="21" selection-start-column="81" selection-end-line="21" selection-end-column="81" />
->>>>>>> yannick
+
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/managers/EvaluationManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="592">
@@ -1245,7 +1233,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-876">
           <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
-=======
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shapeemail.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -1264,7 +1254,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="14" selection-start-line="14" selection-end-line="14" />
->>>>>>> yannick
+
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1277,7 +1267,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
+
         <state relative-caret-position="119">
           <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
         </state>
@@ -1322,7 +1312,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" selection-start-line="16" selection-end-line="28" selection-end-column="5" />
-=======
+        </state>
         <state relative-caret-position="260">
           <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
@@ -1352,14 +1342,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="29" selection-start-line="29" selection-end-line="29" />
->>>>>>> yannick
+
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/entities/Login.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1398,21 +1388,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-=======
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/fragments/ListesEnfants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="29" selection-start-line="29" selection-end-line="29" />
->>>>>>> yannick
+
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
-<<<<<<< HEAD
+
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/entities/Schedule.java">
-=======
+
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_listes_collaborateurs.xml">
       <provider editor-type-id="android-designer2" />
@@ -1424,13 +1416,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_listes_enfants.xml">
       <provider editor-type-id="android-designer2" />
->>>>>>> yannick
+
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
         </state>
       </provider>
-<<<<<<< HEAD
+
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/LoginHelper.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1458,10 +1450,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/myapplication/helpers/InconsistencyHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
+
         <state relative-caret-position="408">
           <caret line="24" column="83" selection-start-line="24" selection-start-column="83" selection-end-line="24" selection-end-column="83" />
-=======
+        </state>
+      </provider>
+
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login_activity.xml">
       <provider editor-type-id="android-designer2" />
@@ -1494,11 +1488,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="523">
           <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
->>>>>>> yannick
-=======
+        </state>
         <state relative-caret-position="384">
           <caret line="24" column="249" selection-start-line="24" selection-start-column="249" selection-end-line="24" selection-end-column="249" />
->>>>>>> 107e9ec79f7ca6c3062ca2cdd4dc9f541acadcd2
+
           <folding>
             <element signature="e#1169#1188#0" expanded="true" />
             <element signature="e#1463#1481#0" expanded="true" />
@@ -1506,7 +1499,7 @@
         </state>
       </provider>
     </entry>
->>>>>>> 57a11771f284bfe9ab79a2f3851ecd9710deeabf
+
   </component>
   <component name="masterDetails">
     <states>
