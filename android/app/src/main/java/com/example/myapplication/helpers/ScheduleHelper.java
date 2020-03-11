@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ScheduleHelper {
 
     public static void getFromAPI(SQLiteDatabase db) {
-        String json = GetJson.get("/users");
+        String json = GetJson.get("/schedules");
         if (json != null) {
             Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<Schedule>>() {
