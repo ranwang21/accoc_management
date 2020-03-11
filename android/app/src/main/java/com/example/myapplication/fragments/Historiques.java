@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.R;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.example.myapplication.R;
 
 
 public class Historiques extends Fragment {
@@ -20,6 +20,7 @@ public class Historiques extends Fragment {
         //change R.layout.yourlayoutfilename for each of your fragments
         return inflater.inflate(R.layout.fragment_historique, container, false);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

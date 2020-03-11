@@ -1,8 +1,10 @@
 {
     "admin": {
+        "allUsers": "Listes",
         "validation": "Validation des Inscriptions",
         "createAdmin": "Créer un Compte Admin",
-        "createParentCollab": "Créer un Compte Parent ou Collaborateur"
+        "createParentCollab": "Créer un Compte Parent ou Collaborateur",
+        "classroomManagement": "Gestion des salles"
     },
     "others": {
         "seeProfile": "Voir Profile"

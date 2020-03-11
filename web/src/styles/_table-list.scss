@@ -1,0 +1,23 @@
+@import "./base";
+
+.table-list {
+    //background-color: $otherColor;
+    margin: 1em 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 0, 0, 0.123);
+    .head{
+        height: 7%;
+        display: flex;
+        > *{
+            flex-grow: 1;
+        }
+    }
+    .body{
+        height: auto;
+        max-height: 90%;
+        overflow: auto;
+        background-color: rgba(255, 0, 0, 0.123);
+    }
+}

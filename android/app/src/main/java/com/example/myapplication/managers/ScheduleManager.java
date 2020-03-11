@@ -28,6 +28,7 @@ public class ScheduleManager {
     private static final String queryGetByIdUser = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where id_user like ?";
     private static final String queryGetByIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where id_classroom like ?";
     private static final String queryGetByDate = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ?";
+
     /**
      * getAll return all Schedule from DataBase
      *
@@ -51,6 +52,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
     /**
      * getById return a Schedule by id from DataBase
      *
@@ -74,6 +76,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedule;
     }
+
     /**
      * getById return all Schedule by id_user from DataBase
      *
@@ -98,6 +101,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
     /**
      * getById return all Schedule by id_classroom from DataBase
      *
@@ -122,6 +126,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
     /**
      * getById return all Schedule by date from DataBase
      *
@@ -146,6 +151,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
     /**
      * Insert Schedule in DataBase
      *
@@ -163,6 +169,7 @@ public class ScheduleManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update Schedule in Database
      *
@@ -179,6 +186,7 @@ public class ScheduleManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, ID + " = " + schedule.get_id(), null);
     }
+
     /**
      * Delete Schedule from DataBase
      *

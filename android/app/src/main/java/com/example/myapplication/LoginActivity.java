@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import com.example.myapplication.entities.Login;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 
 public class LoginActivity extends AppCompatActivity {
 

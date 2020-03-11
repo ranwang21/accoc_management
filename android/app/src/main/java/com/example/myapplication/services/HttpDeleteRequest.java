@@ -13,6 +13,7 @@ public class HttpDeleteRequest extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD = "DELETE";
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;
+
     @Override
     protected String doInBackground(String... params) {
         String stringUrl = params[0];
@@ -26,7 +27,7 @@ public class HttpDeleteRequest extends AsyncTask<String, Void, String> {
             //Create a URL object holding our url
             URL myUrl = new URL(stringUrl);
             //Create a connection
-            HttpURLConnection connection = (HttpURLConnection)
+            HttpURLConnection connection = ( HttpURLConnection )
                     myUrl.openConnection();
             //Set methods and timeouts
 //            connection.setDoOutput(true);
@@ -62,6 +63,7 @@ public class HttpDeleteRequest extends AsyncTask<String, Void, String> {
         }
         return result;
     }
+
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
     }

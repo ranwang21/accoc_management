@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container } from '@material-ui/core'
 import Schedule from '../components/calendar'
 import SideMenu from '../components/side-menu'
-import Table from './Table'
+import Table from './table'
 import '../styles/_dashbord.scss'
 
 function formatDate (date) {
@@ -39,7 +39,7 @@ class Dashbord extends Component {
         return (
             <Container className='dashbord' maxWidth={false}>
                 <div className='calendar'>
-                    <Schedule date={this.state.date} handleDateChange={this.onhandleDateChange} />
+                    <Schedule lang={lang} date={this.state.date} handleDateChange={this.onhandleDateChange} />
                 </div>
                 <div className='side-menu'>
                     <SideMenu userType={userType} lang={lang} />

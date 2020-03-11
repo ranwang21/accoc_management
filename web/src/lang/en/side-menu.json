@@ -1,8 +1,10 @@
 {
     "admin": {
-        "validation": "Validate a Sign Up",
+        "allUsers": "Lists",
+        "validation": "Registration validation",
         "createAdmin": "Create an Admin Account",
-        "createParentCollab": "Create a compte for Parent or Collaborator"
+        "createParentCollab": "Create a Parent or Collaborator Account",
+        "classroomManagement": "Classroom management"
     },
     "others": {
         "seeProfile": "See Profile"

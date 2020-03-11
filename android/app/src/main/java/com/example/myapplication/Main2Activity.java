@@ -4,6 +4,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.myapplication.fragments.Acceuil;
+import com.example.myapplication.fragments.Historiques;
+import com.example.myapplication.fragments.ListesCollaborateurs;
+import com.example.myapplication.fragments.ListesEnfants;
+import com.example.myapplication.fragments.Logout;
+import com.example.myapplication.fragments.Presence;
+import com.google.android.material.navigation.NavigationView;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,13 +19,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.example.myapplication.fragments.Historiques;
-import com.example.myapplication.fragments.ListesCollaborateurs;
-import com.example.myapplication.fragments.ListesEnfants;
-import com.example.myapplication.fragments.Logout;
-import com.example.myapplication.fragments.Presence;
-import com.google.android.material.navigation.NavigationView;
 
 
 public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +39,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         //Add this line of code here to open the default selected menu on app start time.
         ShowFragment(R.id.nav_home);
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -47,12 +49,14 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -65,6 +69,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void ShowFragment(int itemId) {
         Fragment fragment = null;
         switch (itemId) {
@@ -83,6 +88,11 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             case R.id.nav_historique:
                 fragment = new Historiques();
                 break;
+           /* default R.id.nav_acceuil
+                fragment=new Acceuil();*/
+            case R.id.nav_acceuil:
+                fragment=new Acceuil();
+            break;
         }
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -92,6 +102,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

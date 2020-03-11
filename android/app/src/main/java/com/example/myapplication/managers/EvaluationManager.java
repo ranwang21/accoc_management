@@ -22,6 +22,7 @@ public class EvaluationManager {
     private static final String queryGetAll = "select * from " + DataBaseHelper.EVALUATION_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.EVALUATION_TABLE_NAME + " where id like ?";
     private static final String queryGetByIdSchedule = "select * from " + DataBaseHelper.EVALUATION_TABLE_NAME + " where id_schedule like ?";
+
     /**
      * getAll return all Evaluation from DataBase
      *
@@ -41,6 +42,7 @@ public class EvaluationManager {
         ConnectionBD.close();
         return evaluations;
     }
+
     /**
      * getById return a Evaluation by id from DataBase
      *
@@ -60,6 +62,7 @@ public class EvaluationManager {
         ConnectionBD.close();
         return evaluation;
     }
+
     /**
      * getById return a Evaluation by id_schedule from DataBase
      *
@@ -80,6 +83,7 @@ public class EvaluationManager {
         ConnectionBD.close();
         return evaluation;
     }
+
     /**
      * Insert Evaluation in DataBase
      *
@@ -93,6 +97,7 @@ public class EvaluationManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.EVALUATION_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update Evaluation in Database
      *
@@ -105,6 +110,7 @@ public class EvaluationManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.EVALUATION_TABLE_NAME, contentValues, ID + " = " + evaluation.get_id(), null);
     }
+
     /**
      * Delete Role from DataBase
      *
