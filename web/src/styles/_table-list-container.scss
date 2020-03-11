@@ -1,0 +1,28 @@
+@import "./base";
+
+.table-list {
+	//background-color: $otherColor;
+	margin: 1em 0;
+	display: flex;
+	max-height: 100%;
+	flex-direction: column;
+	thead {
+		height: 7%;
+	}
+	tbody {
+		.valid {
+		}
+		.MuiToggleButtonGroup-grouped {
+			padding: 0px 22px;
+		}
+		.isValid.Mui-selected {
+			background-color: rgba(69, 221, 69, 0.644);
+		}
+		.isNotValid.Mui-selected {
+			background-color: rgba(255, 0, 0, 0.63);
+			.MuiSvgIcon-colorError {
+				color: rgba(0, 0, 0, 0.8);
+			}
+		}
+	}
+}

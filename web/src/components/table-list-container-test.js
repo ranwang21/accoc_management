@@ -67,7 +67,7 @@ class TableListContainerTest extends Component {
             <TableBody className='body'>
                 {actors.map(actor => (
                     <TableRow key={actor.idUser} hover>
-                        <TableCell>actor.idUser</TableCell>
+                        <TableCell>{actor.idUser}</TableCell>
                         <TableCell>val_2</TableCell>
                         <TableCell>
                             <Button
@@ -107,19 +107,15 @@ class TableListContainerTest extends Component {
             <>
                 <div className='table-list'>
                     <div className='head'>
-                        {this.getButton('Role')}
+                        {/* this.getButton('Role')}
                         {this.getButton('Nom')}
                         {this.getButton('Prenom')}
                         {this.getButton('Detail')}
-                        {this.getButton('Validation')}
+                        {this.getButton('Validation') */}
+                        {this.buildHeader()}
                     </div>
                     <div className='body'>
-                        <div>okok</div>
-                        <div>okok</div>
-                        <div>okok</div>
-                        <div>okok</div>
-                        <div>okok</div>
-                        <div>okok</div>
+                        {this.buildBody()}
                     </div>
                 </div>
             </>
