@@ -1,7 +1,5 @@
 package com.example.myapplication.services;
 
-import android.util.Log;
-
 import com.example.myapplication.helpers.DataBaseHelper;
 
 import java.util.concurrent.ExecutionException;

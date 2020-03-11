@@ -26,6 +26,7 @@ public class InconsistencyManager {
     private static final String queryGetByIdSchedule = "select * from " + DataBaseHelper.INCONSISTENCY_TABLE_NAME + " where id_schedule like ?";
     private static final String queryGetByIdChild = "select * from " + DataBaseHelper.INCONSISTENCY_TABLE_NAME + " where id_child like ?";
     private static final String queryGetByIdCollaborator = "select * from " + DataBaseHelper.INCONSISTENCY_TABLE_NAME + " where id_collaborator like ?";
+
     /**
      * getAll return all Inconsistency from DataBase
      *
@@ -47,6 +48,7 @@ public class InconsistencyManager {
         ConnectionBD.close();
         return inconsistencies;
     }
+
     /**
      * getById return a Inconsistency by id from DataBase
      *
@@ -68,6 +70,7 @@ public class InconsistencyManager {
         ConnectionBD.close();
         return inconsistency;
     }
+
     /**
      * getByIdSchedule return a Inconsistency by id_schedule from DataBase
      *
@@ -90,6 +93,7 @@ public class InconsistencyManager {
         ConnectionBD.close();
         return inconsistency;
     }
+
     /**
      * getByIdChild return all Inconsistency by id_child from DataBase
      *
@@ -111,7 +115,9 @@ public class InconsistencyManager {
         }
         ConnectionBD.close();
         return inconsistencies;
-    }    /**
+    }
+
+    /**
      * getByIdCollaborator return all Inconsistency by id_collaborator from DataBase
      *
      * @param context
@@ -133,6 +139,7 @@ public class InconsistencyManager {
         ConnectionBD.close();
         return inconsistencies;
     }
+
     /**
      * Insert Inconsistency in DataBase
      *
@@ -148,6 +155,7 @@ public class InconsistencyManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.INCONSISTENCY_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update Inconsistency in Database
      *
@@ -162,6 +170,7 @@ public class InconsistencyManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.INCONSISTENCY_TABLE_NAME, contentValues, ID + " = " + inconsistency.get_id(), null);
     }
+
     /**
      * Delete Inconsistency from DataBase
      *
