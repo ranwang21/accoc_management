@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button, ButtonGroup } from '@material-ui/core'
-import SearchIcon from '@material-ui/icons/Search'
 import Switch from '@material-ui/core/Switch'
 import Collapse from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
@@ -60,23 +59,26 @@ class Table extends Component {
                         {this.buildButton(lang.parent, variables.actors.parent)}
                         {this.buildButton(lang.collaborator, variables.actors.collaborator)}
                     </ButtonGroup>
-                    <div>
-                        <Collapse in={this.state.search}>
-                            <TextField size='small' id='outlined-basic' label='par nom' variant='outlined' />
-                            <TextField size='small' id='outlined-basic' label='par prenom' variant='outlined' />
-                            <TextField size='small' id='outlined-basic' label='Outlined' variant='outlined' />
-                            <TextField size='small' id='outlined-basic' label='Outlined' variant='outlined' />
-                        </Collapse>
-                    </div>
                     <div className='search-container'>
+                        <Collapse className='search-fields' in={this.state.search}>
+                            <TextField size='small' label='par nom' variant='outlined' />
+                            <TextField size='small' label='par prenom' variant='outlined' />
+                        </Collapse>
                         <FormControlLabel
                             control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />}
                             label='Search'
                         />
                     </div>
                 </div>
-
                 <TableListContainer lang={this.props.lang} />
+                <div className='button-valider'>
+                    <Button
+                        variant='contained'
+                        color='secondary'
+                    >
+                        VALIDER
+                    </Button>
+                </div>
             </div>
         )
     }

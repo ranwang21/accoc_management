@@ -8,37 +8,80 @@
 		display: flex;
 		flex-flow: wrap row;
 		justify-content: space-between;
-		padding-bottom: 1em;
-		.btnGroup {
-		}
-
+		padding-bottom: 0.5em;
 		.search-container {
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
-
-			.search-input {
-				width: 130px;
-				border: none;
-				border-radius: $borderRadiusMain;
-				font-size: 16px;
-				background-color: white;
-				padding: 6px;
-				-webkit-transition: width 0.4s ease-in-out;
-				transition: width 0.4s ease-in-out;
-
-				/* When the input field gets focus, change its width to 100% */
-				&:hover,
-				&:focus {
-					width: 100%;
+			.search-fields {
+				padding: 0 0.5em;
+				> div > div {
+					text-align: center;
+					> div {
+						margin: 0 0.2em;
+						input {
+							padding: auto 0em;
+						}
+					}
 				}
 			}
-			.search-icon {
-				color: white;
-				&:hover {
-					cursor: pointer;
+		}
+	}
+	.table-list {
+		table {
+			thead {
+				tr {
+					th {
+						background-color: rgba($color: $primaryColor, $alpha: 0.9);
+						font-weight: bold;
+						font-size: 1.3em;
+						&:first-of-type{
+							border-radius: .5em 0 0 0;
+						}
+						&:last-of-type{
+							border-radius: 0 .5em 0 0;
+						}
+					}
 				}
 			}
+			tbody {
+				background-color: rgba($color: $secondaryColor, $alpha: 0.3);
+				td {
+					padding: 0.75em;
+					font-weight: bold;
+					font-size: 1em;
+				}
+			}
+		}
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+		&::-webkit-scrollbar-track {
+			box-shadow: inset 0 0 6px rgba($color: #0000, $alpha: 0.3);
+			-webkit-box-shadow: inset 0 0 6px rgba($color: #0000, $alpha: 0.3);
+			border-radius: 10px;
+			-webkit-border-radius: 10px;
+		}
+		&::-webkit-scrollbar-thumb {
+			-webkit-border-radius: 10px;
+			border-radius: 10px;
+			background: rgba($color: $primaryColor, $alpha: 0.8);
+			box-shadow: inset 0 0 6px rgba($color: #0000, $alpha: 0.5);
+			-webkit-box-shadow: inset 0 0 6px rgba($color: #0000, $alpha: 0.5);
+		}
+		&::-webkit-scrollbar:window-inactive {
+			width: 4px;
+		}
+		&::-webkit-scrollbar-thumb:window-inactive {
+			background: transparent;
+		}
+	}
+	.button-valider {
+		display: flex;
+		justify-content: flex-end;
+		padding: 0.5em 2em;
+		button {
+			width: 10em;
 		}
 	}
 }
@@ -46,10 +89,7 @@
 @include responsive(phone) {
 	.table {
 		.table-menu {
-			display: flex;
-			flex-flow: wrap column;
-			justify-content: space-between;
-
+			flex-direction: column;
 			.btnGroup {
 				margin: 1em auto;
 				.MuiButton-root {
