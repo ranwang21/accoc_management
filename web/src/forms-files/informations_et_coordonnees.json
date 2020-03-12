@@ -1,0 +1,38 @@
+{
+    "etape1": {
+        "fields": {
+            "titre": {
+                "id": "title",
+                "type": "checkbox",
+                "options": [
+                    "Madame",
+                    "Monsieur"
+                ],
+                "required": true
+            },
+            "dateNaissance": {
+                "id": "dateNaissance",
+                "type": "date",
+                "required": true
+            }
+        }
+    },
+    "etape2": {
+        "fields": {
+            "titre": {
+                "id": "title",
+                "type": "checkbox",
+                "options": [
+                    "Madame",
+                    "Monsieur"
+                ],
+                "required": true
+            },
+            "dateNaissance": {
+                "id": "dateNaissance",
+                "type": "date",
+                "required": true
+            }
+        }
+    }
+}

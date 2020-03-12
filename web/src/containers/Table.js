@@ -3,12 +3,13 @@ import TableListMenu from '../components/table-list-menu'
 import TableListContainer from '../components/table-list-container'
 // import ClassRoomList from '../components/classroom-list'
 import '../styles/_table.scss'
+const variables = require('../utilities/variables.json')
 
 class Table extends Component {
     constructor () {
         super()
         this.state = {
-            actorSelected: 1
+            actorSelected: variables.actors.children
         }
         this.onActorSelected = this.onActorSelected.bind(this)
     }
