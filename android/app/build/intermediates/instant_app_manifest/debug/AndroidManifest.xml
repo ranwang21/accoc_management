@@ -10,6 +10,12 @@
         android:minSdkVersion="15"
         android:targetSdkVersion="29" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <dist:module dist:instant="true" />
 
     <application
@@ -22,6 +28,9 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.myapplication.SuiviQuotidienActivity" />
+        <activity android:name="com.example.myapplication.ProfilCollabActivity" />
+        <activity android:name="com.example.myapplication.ProfilEnfantActivity" />
         <activity
             android:name="com.example.myapplication.Main2Activity"
             android:label="@string/title_activity_main2"
