@@ -21,7 +21,7 @@ public class ProfilEnfantActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profil_enfant);
-        btnSuivi = ( Button ) findViewById(R.id.btn_suivi);
+        btnSuivi = findViewById(R.id.btn_suivi);
         imgEnfant = findViewById(R.id.img_profil_kid);
         imgEnfant.setOnClickListener(new View.OnClickListener() {
             @Override

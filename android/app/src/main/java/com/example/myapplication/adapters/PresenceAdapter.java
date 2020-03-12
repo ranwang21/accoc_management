@@ -28,9 +28,9 @@ public class PresenceAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (( Activity ) context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.fragment_presence_row, parent, false);
-        TextView name = ( TextView ) convertView.findViewById(R.id.textView1);
-        CheckBox cb = ( CheckBox ) convertView.findViewById(R.id.checkBox1);
-        ImageView img = ( ImageView ) convertView.findViewById(R.id.imageView3);
+        TextView name = convertView.findViewById(R.id.textView1);
+        CheckBox cb = convertView.findViewById(R.id.checkBox1);
+        ImageView img = convertView.findViewById(R.id.imageView3);
         name.setText(modelItems.get(position));
         return convertView;
     }
