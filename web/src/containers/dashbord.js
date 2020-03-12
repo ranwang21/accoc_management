@@ -15,9 +15,11 @@ class Dashbord extends Component {
     constructor () {
         super()
         this.state = {
-            date: new Date()
+            date: new Date(),
+            menuItemSelected: 0
         }
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
+        this.onClickMenu = this.onClickMenu.bind(this)
     }
 
     componentDidMount () {}
@@ -26,6 +28,12 @@ class Dashbord extends Component {
         console.log(newDate)
         this.setState({
             date: newDate
+        })
+    }
+
+    onClickMenu (event, index) {
+        this.setState({
+            menuItemSelected: index
         })
     }
 
@@ -38,15 +46,9 @@ class Dashbord extends Component {
         const lang = this.props.lang
         return (
             <Container className='dashbord' maxWidth={false}>
-                <div className='calendar'>
-                    <Schedule lang={lang} date={this.state.date} handleDateChange={this.onhandleDateChange} />
-                </div>
-                <div className='side-menu'>
-                    <SideMenu userType={userType} lang={lang} />
-                </div>
-                <div className='menu' lang={lang}>
-                    <Table lang={lang} userType={userType} />
-                </div>
+                <Schedule lang={lang} date={this.state.date} handleDateChange={this.onhandleDateChange} />
+                <SideMenu userType={userType} lang={lang} menuItemSelected={this.state.menuItemSelected} handleClickMenu={this.onClickMenu} />
+                <Table lang={lang} userType={userType} />
             </Container>
         )
     }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@material-ui/core'
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import IsValidIcon from '@material-ui/icons/CheckTwoTone'
 import IsNotValidIcon from '@material-ui/icons/CloseTwoTone'
+import InfoIcon from '@material-ui/icons/InfoOutlined'
 import Loading from './loading'
 import '../styles/_table-list-container.scss'
 
@@ -48,16 +49,14 @@ class TableListContainer extends Component {
     constructor () {
         super()
         this.state = {
-            actors: null,
-            validations: null
+            actors: null
         }
         this.handleHeadClick = this.handleHeadClick.bind(this)
     }
 
     componentDidMount () {
         this.setState({
-            actors: actors,
-            validations: actors.map(actor => actor.isValid)
+            actors: actors
         })
         this.handleValidationChange = this.handleValidationChange.bind(this)
     }
@@ -116,7 +115,12 @@ class TableListContainer extends Component {
                 <TableCell> {actor.firstName} </TableCell>
                 <TableCell> {actor.lastName} </TableCell>
                 <TableCell>
-                    {this.getValidationValue(actor)}
+                    <Button
+                        variant='outlined'
+                        startIcon={<InfoIcon />}
+                    >
+                        Voir details
+                    </Button>
                 </TableCell>
                 <TableCell align='right'>
                     <ToggleButtonGroup

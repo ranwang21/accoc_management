@@ -34,7 +34,7 @@ class MainContainer extends Component {
     }
 
     getLangFile () {
-        return require('../lang/' + this.state.lang + '/main_container.json')
+        return require('../lang/' + this.state.lang + '/container.json')
     }
 
     onLangChanged (event) {
