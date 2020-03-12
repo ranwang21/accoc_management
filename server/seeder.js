@@ -30,6 +30,12 @@ const days = JSON.parse(
 const classrooms = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/classrooms.json`, 'utf-8')
 )
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
+)
+const logins = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/logins.json`, 'utf-8')
+)
 
 // IMPORT INTO DB
 const importData = async () => {
@@ -37,6 +43,8 @@ const importData = async () => {
     await Role.create(roles)
     await Day.create(days)
     await Classroom.create(classrooms)
+    await User.create(users)
+    await Login.create(logins)
     console.log('Data Imported...')
     process.exit()
   } catch (err) {
