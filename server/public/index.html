@@ -9,8 +9,133 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 &nbsp;
 {{URL}}/users</h4></a></div><div id=collapse-Users-GetAllUsers class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all users from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
 "success": true,
-"count": 1,
+"count": 2,
 "data": [
+{
+"id_child": [],
+"id_parent": [],
+"photo": "no-photo.jpg",
+"participation": [
+"Participation 1",
+"Participation 2",
+"Participation 3"
+],
+"volunteering": [
+"Volunteering 1",
+"Volunteering 2",
+"Volunteering 3"
+],
+"availability": [
+{
+"_id": "5e6a3e314554933864b2c3a2",
+"title": "mardi"
+},
+{
+"_id": "5e6a3e314554933864b2c3a4",
+"title": "jeudi"
+}
+],
+"interest": [
+"Interest 1",
+"Interest 2",
+"Interest 3"
+],
+"_id": "5e6a3e314554933864b2c3b2",
+"id_role": "5e6a3e314554933864b2c3c5",
+"first_name": "Marco",
+"last_name": "Orellana",
+"sex": "male",
+"address": "222 Rue Bobette",
+"birthday": "1994-12-24T00:00:00.000Z",
+"has_child": true,
+"is_subscribed": false,
+"contact": [
+{
+"_id": "5e6a9d599eb24f46e4aad928",
+"title": "Maison",
+"phone": "450-222-2222"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad929",
+"title": "Bureau",
+"phone": "514-567-8976"
+}
+],
+"membership": [
+{
+"_id": "5e6a9d599eb24f46e4aad92a",
+"question": "Question here ?",
+"response": "Response here"
+}
+],
+"expectation": "Expectation here",
+"need": "Need here",
+"involvement": [
+{
+"_id": "5e6a9d599eb24f46e4aad92b",
+"question": "Question here ?",
+"response": "Response here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad92c",
+"question": "Question 2 here ?",
+"response": "Response 2 here"
+}
+],
+"comment": "Comments here",
+"experience": "Experience here",
+"motivation": "Motivation here",
+"question": [
+{
+"_id": "5e6a9d599eb24f46e4aad92d",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad92e",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"school_info": [
+{
+"_id": "5e6a9d599eb24f46e4aad92f",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad930",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"medical_info": [
+{
+"_id": "5e6a9d599eb24f46e4aad931",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad932",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"authorization": [
+{
+"_id": "5e6a9d599eb24f46e4aad933",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad934",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"createdAt": "2020-03-12T20:36:41.666Z",
+"__v": 0
+},
 {
 "id_child": [],
 "id_parent": [],
@@ -19,13 +144,13 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 "volunteering": [],
 "availability": [],
 "interest": [],
-"_id": "5e6812883d3cb329c0ea92d0",
-"id_role": "5e681264bafb32398c34d3c8",
+"_id": "5e6a3e314554933864b2c3b1",
+"id_role": "5e6a3e314554933864b2c3c3",
 "first_name": "Fred",
 "last_name": "Gaudreau",
 "sex": "male",
 "address": "123 Rue Fleury",
-"birthday": "1992-05-06T04:00:00.000Z",
+"birthday": "1992-06-05T00:00:00.000Z",
 "contact": [],
 "membership": [],
 "involvement": [],
@@ -33,7 +158,7 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 "school_info": [],
 "medical_info": [],
 "authorization": [],
-"createdAt": "2020-03-10T22:19:52.339Z",
+"createdAt": "2020-03-12T20:36:41.663Z",
 "__v": 0
 }
 ]
@@ -41,31 +166,131 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 <a class=text-info data-toggle=collapse data-parent=#accordion-Users href=#collapse-Users-GetSingleUser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Single User</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/users/5e6812883d3cb329c0ea92d0</h4></a></div><div id=collapse-Users-GetSingleUser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single user by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+{{URL}}/users/5e6a3e314554933864b2c3b2</h4></a></div><div id=collapse-Users-GetSingleUser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single user by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
 "success": true,
 "data": {
 "id_child": [],
 "id_parent": [],
 "photo": "no-photo.jpg",
-"participation": [],
-"volunteering": [],
-"availability": [],
-"interest": [],
-"_id": "5e6812883d3cb329c0ea92d0",
-"id_role": "5e681264bafb32398c34d3c8",
-"first_name": "Fred",
-"last_name": "Gaudreau",
+"participation": [
+"Participation 1",
+"Participation 2",
+"Participation 3"
+],
+"volunteering": [
+"Volunteering 1",
+"Volunteering 2",
+"Volunteering 3"
+],
+"availability": [
+{
+"_id": "5e6a3e314554933864b2c3a2",
+"title": "mardi"
+},
+{
+"_id": "5e6a3e314554933864b2c3a4",
+"title": "jeudi"
+}
+],
+"interest": [
+"Interest 1",
+"Interest 2",
+"Interest 3"
+],
+"_id": "5e6a3e314554933864b2c3b2",
+"id_role": "5e6a3e314554933864b2c3c5",
+"first_name": "Marco",
+"last_name": "Orellana",
 "sex": "male",
-"address": "123 Rue Fleury",
-"birthday": "1992-05-06T04:00:00.000Z",
-"contact": [],
-"membership": [],
-"involvement": [],
-"question": [],
-"school_info": [],
-"medical_info": [],
-"authorization": [],
-"createdAt": "2020-03-10T22:19:52.339Z",
+"address": "222 Rue Bobette",
+"birthday": "1994-12-24T00:00:00.000Z",
+"has_child": true,
+"is_subscribed": false,
+"contact": [
+{
+"_id": "5e6a9d599eb24f46e4aad928",
+"title": "Maison",
+"phone": "450-222-2222"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad929",
+"title": "Bureau",
+"phone": "514-567-8976"
+}
+],
+"membership": [
+{
+"_id": "5e6a9d599eb24f46e4aad92a",
+"question": "Question here ?",
+"response": "Response here"
+}
+],
+"expectation": "Expectation here",
+"need": "Need here",
+"involvement": [
+{
+"_id": "5e6a9d599eb24f46e4aad92b",
+"question": "Question here ?",
+"response": "Response here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad92c",
+"question": "Question 2 here ?",
+"response": "Response 2 here"
+}
+],
+"comment": "Comments here",
+"experience": "Experience here",
+"motivation": "Motivation here",
+"question": [
+{
+"_id": "5e6a9d599eb24f46e4aad92d",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad92e",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"school_info": [
+{
+"_id": "5e6a9d599eb24f46e4aad92f",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad930",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"medical_info": [
+{
+"_id": "5e6a9d599eb24f46e4aad931",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad932",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"authorization": [
+{
+"_id": "5e6a9d599eb24f46e4aad933",
+"question": "Question 1 here",
+"response": "Response 1 here"
+},
+{
+"_id": "5e6a9d599eb24f46e4aad934",
+"question": "Question 2 here",
+"response": "Response 2 here"
+}
+],
+"createdAt": "2020-03-12T20:36:41.666Z",
 "__v": 0
 }
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-warning" id=jump-Users-UpdateUser><div class=panel-heading><small class="pull-right text-muted">raw</small>
@@ -98,18 +323,26 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 &nbsp;
 {{URL}}/logins</h4></a></div><div id=collapse-Logins-GetAllLogins class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Fetch all logins from database. Includes pagination, filtering, ect.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
 "success": true,
-"count": 1,
+"count": 2,
 "data": [
 {
-"_id": "5e6812cc3d3cb329c0ea92d1",
+"_id": "5e6a3e314554933864b2c3f2",
 "id_user": {
-"_id": "5e6812883d3cb329c0ea92d0",
-"id_role": "5e681264bafb32398c34d3c8",
-"first_name": "Fred",
-"last_name": "Gaudreau"
+"_id": "5e6a3e314554933864b2c3b2",
+"id_role": "5e6a3e314554933864b2c3c5"
+},
+"email": "marco@gmail.com",
+"is_active": false,
+"__v": 0
+},
+{
+"_id": "5e6a3e314554933864b2c3f1",
+"id_user": {
+"_id": "5e6a3e314554933864b2c3b1",
+"id_role": "5e6a3e314554933864b2c3c3"
 },
 "email": "admin@gmail.com",
-"is_active": false,
+"is_active": true,
 "__v": 0
 }
 ]
@@ -117,18 +350,16 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 <a class=text-info data-toggle=collapse data-parent=#accordion-Logins href=#collapse-Logins-GetSingleLogin><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Single Login</strong> &nbsp;|&nbsp;
 <strong class="request-method border-info">GET</strong>
 &nbsp;
-{{URL}}/logins/5e6812cc3d3cb329c0ea92d1</h4></a></div><div id=collapse-Logins-GetSingleLogin class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single login by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+{{URL}}/logins/5e6a3e314554933864b2c3f1</h4></a></div><div id=collapse-Logins-GetSingleLogin class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Get single login by ID.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
 "success": true,
 "data": {
-"_id": "5e6812cc3d3cb329c0ea92d1",
+"_id": "5e6a3e314554933864b2c3f1",
 "id_user": {
-"_id": "5e6812883d3cb329c0ea92d0",
-"id_role": "5e681264bafb32398c34d3c8",
-"first_name": "Fred",
-"last_name": "Gaudreau"
+"_id": "5e6a3e314554933864b2c3b1",
+"id_role": "5e6a3e314554933864b2c3c3"
 },
 "email": "admin@gmail.com",
-"is_active": false,
+"is_active": true,
 "__v": 0
 }
 }</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Logins-GetLoginForUser><div class=panel-heading><small class="pull-right text-muted">raw</small>
@@ -164,7 +395,7 @@ Backend API for La Maison d'Aurore to manage Courses, Rooms, Users and Authentic
 {{URL}}/logins/5e6812cc3d3cb329c0ea92d1</h4></a></div><div id=collapse-Logins-DeleteLogin class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>Delete login from database.</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON Type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
 "Status": "204 No Content"
 }</span><div class=clearfix></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class=panel-heading><h3 class=panel-title id=Authentication>Authentication
-<span class=badge>1</span></h3></div><div class=panel-body><p><p>Routes for user authentication including register, login, reset password ect.<div class=request-item><div class=panel-group id=accordion-Authentication><div class="panel panel-success" id=jump-Authentication-LoginUser><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<span class=badge>1</span></h3></div><div class=panel-body><p><p>Endpoint for user authentication including login, reset password ect.<div class=request-item><div class=panel-group id=accordion-Authentication><div class="panel panel-success" id=jump-Authentication-LoginUser><div class=panel-heading><small class="pull-right text-muted">raw</small>
 <a class=text-success data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-LoginUser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Login User</strong> &nbsp;|&nbsp;
 <strong class="request-method border-success">POST</strong>
 &nbsp;
@@ -458,4 +689,4 @@ if(IsJsonString(html)){var obj=JSON.parse(html);var formattedJson=JSON.stringify
 function IsJsonString(str){try{JSON.parse(str);}catch(e){return false;}
 return true;}
 String.prototype.replaceAll=function(replaceThis,withThis){var re=new RegExp(RegExp.quote(replaceThis),"g");return this.replace(re,withThis);};RegExp.quote=function(str){return str.replace(/([.?*+^$[\]\\(){}-])/g,"\\$1");};function syntaxHighlight(json){json=json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,function(match){var cls='number';if(/^"/.test(match)){if(/:$/.test(match)){cls='key';}else{cls='string';}}else if(/true|false/.test(match)){cls='boolean';}else if(/null/.test(match)){cls='null';}
-return '<span class="'+cls+'">'+match+'</span>';});}</script><br><br><footer class="navbar-default navbar-fixed-bottom"><div class=container-fluid><div class="span12 text-center"><span>Made with <em class=love-color>&#9829;</em> by <a href=https://github.com/thedevsaddam target=_blank class=text-muted>thedevsaddam</a> | Generated at: 2020-03-10 18:34:37 by <a href=https://github.com/thedevsaddam/docgen target=_blank class=text-muted>docgen</a></span></div></div></footer>
+return '<span class="'+cls+'">'+match+'</span>';});}</script><br><br><footer class="navbar-default navbar-fixed-bottom"><div class=container-fluid><div class="span12 text-center"><span>Made with <em class=love-color>&#9829;</em> by <a href=https://github.com/thedevsaddam target=_blank class=text-muted>thedevsaddam</a> | Generated at: 2020-03-12 16:58:13 by <a href=https://github.com/thedevsaddam/docgen target=_blank class=text-muted>docgen</a></span></div></div></footer>

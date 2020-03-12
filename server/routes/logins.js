@@ -16,7 +16,7 @@ router
   .get(
     advancedResults(Login, {
       path: 'id_user',
-      select: 'first_name last_name id_role'
+      select: 'id_role'
     }),
     getLogins
   )
