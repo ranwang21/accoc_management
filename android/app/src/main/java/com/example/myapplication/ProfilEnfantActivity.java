@@ -48,4 +48,4 @@ public class ProfilEnfantActivity extends AppCompatActivity {
             imgEnfant.setImageBitmap(imageBitmap);
         }
     }
-}
+}e
