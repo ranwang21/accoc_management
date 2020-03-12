@@ -1,0 +1,138 @@
+{
+    "etape1": {
+        "fields": {
+            "lastname": {
+                "id": "lastname",
+                "type": "text",
+                "required": true
+            },
+            "firstname": {
+                "id": "firstname",
+                "type": "text",
+                "required": true
+            },
+            "reference-number": {
+                "id": "refenrence",
+                "type": "number",
+                "required": false
+            },
+            "address": {
+                "id": "address",
+                "type": "text",
+                "required": true
+            },
+            "number-apr": {
+                "id": "number-apr",
+                "type": "number",
+                "required": false
+            },
+            "city": {
+                "id": "city",
+                "type": "text",
+                "required": true
+            },
+            "postal-code": {
+                "id": "postal",
+                "type": "text",
+                "required": true
+            },
+            "telephone": {
+                "id": "telephone",
+                "type": "text",
+                "required": true
+            },
+            "job-telephone": {
+                "id": "job-telephone",
+                "type": "text",
+                "required": false
+            },
+            "urgent-contact": {
+                "id": "urgent-contact",
+                "type": "text",
+                "required": true
+            },
+            "urgent-contact-number": {
+                "id": "urgent-contact-number",
+                "type": "text",
+                "required": true
+            },
+            "birthday": {
+                "id": "birthday",
+                "type": "date",
+                "required": true
+            },
+            "email": {
+                "id": "email",
+                "type": "email",
+                "required": true
+            }
+        }
+    },
+    "etape2": {
+        "fields": {
+            "monday1530-1730": {
+                "id": "monday",
+                "type": "checkbox"
+            },
+            "tuesday1530-1730": {
+                "id": "tuesday",
+                "type": "checkbox"
+            },
+            "wednesday1530-1730": {
+                "id": "wednesday",
+                "type": "checkbox"
+            },
+            "thursday1530-1730": {
+                "id": "thursday",
+                "type": "checkbox"
+            },
+            "journal-magique": {
+                "id": "journal-magique",
+                "type": "checkbox"
+            },
+            "collation": {
+                "id": "collation",
+                "type": "checkbox"
+            },
+            "animation": {
+                "id": "animation",
+                "type": "checkbox"
+            },
+            "atelier": {
+                "id": "atelier",
+                "type": "checkbox"
+            },
+            "prepare-collation": {
+                "id": "prepare-collation",
+                "type": "checkbox"
+            },
+            "internet": {
+                "id": "internet",
+                "type": "checkbox"
+            }
+        }
+    },
+    "etape3": {
+        "fieds": {
+            "motivation": {
+                "id": "motivation",
+                "type": "textarea",
+                "required": true
+            },
+            "experience": {
+                "id": "experience",
+                "type": "textarea",
+                "required": true
+            },
+            "comment": {
+                "id": "comment",
+                "type": "textarea",
+                "required": true
+            },
+            "where-you-heard-us": {
+                "id": "comment",
+                "type": "textarea"
+            }
+        }
+    }
+}
