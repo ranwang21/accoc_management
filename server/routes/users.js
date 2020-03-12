@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect, authorize } = require('../middlewares/auth')
 const {
   getUsers,
   getUser,
@@ -22,17 +23,19 @@ router
   .route('/')
   .get(
     advancedResults(User, {
-      path: 'availability',
+      path: 'id_role',
       select: 'title'
     }),
+    protect,
+    authorize('admin'),
     getUsers
   )
   .post(createUser)
 
 router
   .route('/:id')
-  .get(getUser)
-  .put(updateUser)
-  .delete(deleteUser)
+  .get(protect, getUser)
+  .put(protect, updateUser)
+  .delete(protect, authorize('admin'), deleteUser)
 
 module.exports = router

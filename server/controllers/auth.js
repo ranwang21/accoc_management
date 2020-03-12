@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/ErrorResponse')
 const asyncHandler = require('../middlewares/async')
 const Login = require('../models/Login')
+const User = require('../models/User')
 
 // GET TOKEN FROM MODEL, CREATE COOKIE AND SEND RESPONSE
 const sendTokenResponse = (login, statusCode, res) => {
@@ -51,4 +52,16 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   sendTokenResponse(login, 200, res)
+})
+
+// @desc     Get current logged in user
+// @route    GET /auth/user
+// @access   Private
+exports.getUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id)
+
+  res.status(200).json({
+    success: true,
+    data: user
+  })
 })

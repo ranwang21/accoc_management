@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect, authorize } = require('../middlewares/auth')
 const {
   getLogins,
   getLogin,
@@ -18,13 +19,15 @@ router
       path: 'id_user',
       select: 'id_role'
     }),
+    protect,
+    authorize('admin'),
     getLogins
   )
   .post(createLogin)
 
 router
   .route('/:id')
-  .get(getLogin)
-  .delete(deleteLogin)
+  .get(protect, getLogin)
+  .delete(protect, authorize('admin'), deleteLogin)
 
 module.exports = router
