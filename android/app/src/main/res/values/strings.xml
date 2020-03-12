@@ -42,6 +42,15 @@
     <string name="txt_suivi">Suivi Quotidien</string>
     <string name="textview">TextView</string>
 
+    <string name="txt_motivation">Motivation</string>
+    <string name="txt_autonomie">Autonomie</string>
+    <string name="txt_perseverance">Persevernce</string>
+    <string name="txt_organisation">Organisation</string>
+    <string name="txt_comportement">Comportement</string>
+    <string name="txt_difficulte">Difficultes: </string>
+    <string name="txt_force">Forces: </string>
+    <string name="txt_a_faire">Ce qu\'il reste a faire: </string>
+    <string name="txt_soumettre">Soumettre</string>
 
 
 </resources>
