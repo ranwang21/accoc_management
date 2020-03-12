@@ -8,7 +8,7 @@ class Table extends Component {
     constructor () {
         super()
         this.state = {
-            actorSelected: 'children'
+            actorSelected: 1
         }
         this.onActorSelected = this.onActorSelected.bind(this)
     }

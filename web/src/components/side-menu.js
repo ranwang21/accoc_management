@@ -23,8 +23,8 @@ class SideMenu extends Component {
             <ListItem
                 key={index}
                 button
-                onClick={event => this.props.handleClickMenu(event, index)}
-                selected={this.props.menuItemSelected === index}
+                onClick={event => this.props.handleClickMenu(event, index + 1)}
+                selected={this.props.menuItemSelected === index + 1}
             >
                 <ListItemText primary={items[item]} />
             </ListItem>)

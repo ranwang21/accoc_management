@@ -4,6 +4,12 @@ import SearchIcon from '@material-ui/icons/Search'
 
 import '../styles/_table-list-menu.scss'
 
+const menu = {
+    children: 1,
+    parent: 2,
+    collaborateur: 3
+}
+
 class Table extends Component {
     getLangFile () {
         return require('../lang/' + this.props.lang + '/table-list-menu.json')
@@ -26,9 +32,9 @@ class Table extends Component {
             <div className='table-menu'>
                 <div>
                     <ButtonGroup size='medium' color='primary' aria-label='large outlined primary button group'>
-                        {this.buildButton(lang.children, 'children')}
-                        {this.buildButton(lang.parent, 'parent')}
-                        {this.buildButton(lang.collaborator, 'collaborator')}
+                        {this.buildButton(lang.children, menu.children)}
+                        {this.buildButton(lang.parent, menu.parent)}
+                        {this.buildButton(lang.collaborator, menu.collaborateur)}
                     </ButtonGroup>
                 </div>
                 <div className='search-container'>
