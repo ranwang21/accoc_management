@@ -20,7 +20,13 @@ router.use('/:userId/logins', LoginsRouter)
 
 router
   .route('/')
-  .get(advancedResults(User), getUsers)
+  .get(
+    advancedResults(User, {
+      path: 'availability',
+      select: 'title'
+    }),
+    getUsers
+  )
   .post(createUser)
 
 router
