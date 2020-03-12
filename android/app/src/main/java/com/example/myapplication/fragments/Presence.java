@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListPopupWindow;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.PresenceAdapter;
@@ -19,19 +16,16 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import static android.widget.Toast.makeText;
-
 
 public class Presence extends Fragment {
-     List<String>listviewItems= new ArrayList<String>(Arrays.asList("one","two","three","four"));
+    List<String> listviewItems = new ArrayList<String>(Arrays.asList("one", "two", "three", "four"));
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
-        View view = inflater.inflate(R.layout.fragment_presence,container,false);
-
+        View view = inflater.inflate(R.layout.fragment_presence, container, false);
 
 
         ListView listView = view.findViewById(R.id.list_presence);
@@ -41,7 +35,7 @@ public class Presence extends Fragment {
                 android.R.layout.simple_list_item_checked,listviewItems
         );
         listView.setAdapter(listViewAdapter);*/
-        PresenceAdapter adapter = new PresenceAdapter(getActivity(),listviewItems);
+        PresenceAdapter adapter = new PresenceAdapter(getActivity(), listviewItems);
         listView.setAdapter(adapter);
         return view;
     }

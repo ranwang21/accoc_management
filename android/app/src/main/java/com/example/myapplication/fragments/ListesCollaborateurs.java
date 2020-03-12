@@ -17,17 +17,17 @@ public class ListesCollaborateurs extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
-        View view = inflater.inflate(R.layout.fragment_listes_collaborateurs,container,false);
+        View view = inflater.inflate(R.layout.fragment_listes_collaborateurs, container, false);
 
 
-        String[] listviewItems={"first thing","second thing","third thing","forth thing","fifth thing"};
+        String[] listviewItems = {"first thing", "second thing", "third thing", "forth thing", "fifth thing"};
         ListView listView = view.findViewById(R.id.list_collab);
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_1,listviewItems
+                android.R.layout.simple_list_item_activated_1, listviewItems
         );
         listView.setAdapter(listViewAdapter);
         return view;

@@ -14,23 +14,23 @@ import com.example.myapplication.R;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
+public class PresenceAdapter extends ArrayAdapter {
 
-public class PresenceAdapter extends ArrayAdapter{
+    Context context;
+    List<String> modelItems;
 
-Context context;
-List<String>modelItems;
     public PresenceAdapter(Context context, List<String> resource) {
-        super(context, R.layout.fragment_presence ,resource);
-        this.context=context;
-this.modelItems=resource;
+        super(context, R.layout.fragment_presence, resource);
+        this.context = context;
+        this.modelItems = resource;
     }
-    public View getView(int position, View convertView, ViewGroup parent){
-        LayoutInflater inflater =(( Activity )context).getLayoutInflater();
-        convertView=inflater.inflate(R.layout.fragment_presence_row,parent,false);
-        TextView name =(TextView) convertView.findViewById(R.id.textView1);
-        CheckBox cb =(CheckBox)convertView.findViewById(R.id.checkBox1);
-        ImageView img=(ImageView )convertView.findViewById(R.id.imageView3);
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (( Activity ) context).getLayoutInflater();
+        convertView = inflater.inflate(R.layout.fragment_presence_row, parent, false);
+        TextView name = convertView.findViewById(R.id.textView1);
+        CheckBox cb = convertView.findViewById(R.id.checkBox1);
+        ImageView img = convertView.findViewById(R.id.imageView3);
         name.setText(modelItems.get(position));
         return convertView;
     }
