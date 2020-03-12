@@ -22,7 +22,7 @@ class MainContainer extends Component {
         super()
         this.state = {
             lang: 'fr',
-            isConnected: true,
+            isConnected: false,
             userType: 'admin',
             showSnack: false,
             showLoading: false
