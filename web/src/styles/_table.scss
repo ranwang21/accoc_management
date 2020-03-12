@@ -1,6 +1,66 @@
-@import './base';
-.table{
-    display: flex;
-    flex-flow: column;
-    height: 100%;
+@import "./base";
+.table {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+
+	.table-menu {
+		display: flex;
+		flex-flow: wrap row;
+		justify-content: space-between;
+		padding-bottom: 1em;
+		.btnGroup {
+		}
+
+		.search-container {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+
+			.search-input {
+				width: 130px;
+				border: none;
+				border-radius: $borderRadiusMain;
+				font-size: 16px;
+				background-color: white;
+				padding: 6px;
+				-webkit-transition: width 0.4s ease-in-out;
+				transition: width 0.4s ease-in-out;
+
+				/* When the input field gets focus, change its width to 100% */
+				&:hover,
+				&:focus {
+					width: 100%;
+				}
+			}
+			.search-icon {
+				color: white;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}
+
+@include responsive(phone) {
+	.table {
+		.table-menu {
+			display: flex;
+			flex-flow: wrap column;
+			justify-content: space-between;
+
+			.btnGroup {
+				margin: 1em auto;
+				.MuiButton-root {
+					padding: 0.2em 1em;
+					font-size: 0.7rem;
+				}
+			}
+		}
+	}
+}
+@include responsive(tablet) {
+}
+@include responsive(desktop) {
 }
