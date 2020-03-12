@@ -3,6 +3,7 @@ import { Container } from '@material-ui/core'
 import Schedule from '../components/calendar'
 import SideMenu from '../components/side-menu'
 import Table from './table'
+import ClassRoom from '../components/classroom'
 import '../styles/_dashbord.scss'
 
 function formatDate (date) {
@@ -11,20 +12,14 @@ function formatDate (date) {
     return date.getFullYear() + '-' + month + '-' + day
 }
 
-const menus = {
-    lists: 1,
-    validation: 2,
-    adminAccount: 3,
-    userAccount: 4,
-    classRoomMngmnt: 5
-}
+const variables = require('../utilities/variables.json')
 
 class Dashbord extends Component {
     constructor () {
         super()
         this.state = {
             date: new Date(),
-            menuItemSelected: 1
+            menuItemSelected: variables.menus.allUsers
         }
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
         this.onClickMenu = this.onClickMenu.bind(this)
@@ -48,16 +43,17 @@ class Dashbord extends Component {
     switchToMenuSelected (lang, userType) {
         let res = (<div className='table' />)
         switch (this.state.menuItemSelected) {
-        case menus.lists:
+        case variables.menus.allUsers:
             res = (<Table lang={lang} userType={userType} />)
             break
-        case menus.validation:
+        case variables.menus.validation:
+            res = (<Table lang={lang} userType={userType} />)
             break
-        case menus.adminAccount:
+        case variables.menus.createAdmin:
             break
-        case menus.userAccount:
+        case variables.menus.createParentCollab:
             break
-        case menus.classRoomMngmnt:
+        case variables.menus.classroomManagement:
             break
         }
         return res

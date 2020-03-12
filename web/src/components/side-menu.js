@@ -5,6 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 
 import '../styles/_side-menu.scss'
 
+const variables = require('../utilities/variables.json')
+
 class SideMenu extends Component {
     getLangFile () {
         return require('../lang/' + this.props.lang + '/side-menu.json')
@@ -23,8 +25,8 @@ class SideMenu extends Component {
             <ListItem
                 key={index}
                 button
-                onClick={event => this.props.handleClickMenu(event, index + 1)}
-                selected={this.props.menuItemSelected === index + 1}
+                onClick={event => this.props.handleClickMenu(event, variables.menus[item])}
+                selected={this.props.menuItemSelected === variables.menus[item]}
             >
                 <ListItemText primary={items[item]} />
             </ListItem>)
