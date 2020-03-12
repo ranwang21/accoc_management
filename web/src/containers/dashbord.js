@@ -11,13 +11,23 @@ function formatDate (date) {
     return date.getFullYear() + '-' + month + '-' + day
 }
 
+const menus = {
+    lists: 1,
+    validation: 2,
+    adminAccount: 3,
+    userAccount: 4,
+    classRoomMngmnt: 5
+}
+
 class Dashbord extends Component {
     constructor () {
         super()
         this.state = {
-            date: new Date()
+            date: new Date(),
+            menuItemSelected: 1
         }
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
+        this.onClickMenu = this.onClickMenu.bind(this)
     }
 
     componentDidMount () {}
@@ -29,6 +39,30 @@ class Dashbord extends Component {
         })
     }
 
+    onClickMenu (event, index) {
+        this.setState({
+            menuItemSelected: index
+        })
+    }
+
+    switchToMenuSelected (lang, userType) {
+        let res = (<div className='table' />)
+        switch (this.state.menuItemSelected) {
+        case menus.lists:
+            res = (<Table lang={lang} userType={userType} />)
+            break
+        case menus.validation:
+            break
+        case menus.adminAccount:
+            break
+        case menus.userAccount:
+            break
+        case menus.classRoomMngmnt:
+            break
+        }
+        return res
+    }
+
     render () {
         // const isConnected = this.props.isConnected
         // const lang = this.props.lang
@@ -38,15 +72,9 @@ class Dashbord extends Component {
         const lang = this.props.lang
         return (
             <Container className='dashbord' maxWidth={false}>
-                <div className='calendar'>
-                    <Schedule lang={lang} date={this.state.date} handleDateChange={this.onhandleDateChange} />
-                </div>
-                <div className='side-menu'>
-                    <SideMenu userType={userType} lang={lang} />
-                </div>
-                <div className='menu' lang={lang}>
-                    <Table lang={lang} userType={userType} />
-                </div>
+                <Schedule lang={lang} date={this.state.date} handleDateChange={this.onhandleDateChange} />
+                <SideMenu userType={userType} lang={lang} menuItemSelected={this.state.menuItemSelected} handleClickMenu={this.onClickMenu} />
+                {this.switchToMenuSelected(lang, userType)}
             </Container>
         )
     }

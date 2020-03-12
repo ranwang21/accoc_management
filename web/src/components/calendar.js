@@ -6,7 +6,7 @@ import '../styles/_calendar.scss'
 class CalendarD extends Component {
     render () {
         return (
-            <div className='calendar-style'>
+            <div className='calendar'>
                 <Calendar
                     onChange={this.props.handleDateChange}
                     value={this.props.date}

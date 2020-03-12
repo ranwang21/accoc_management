@@ -79,6 +79,7 @@
 }
 @include responsive(tablet) {
 	.footer {
+		height: 12vh;
 		padding: 0 2em !important;
 		> div {
 			width: 50%;

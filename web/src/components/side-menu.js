@@ -3,22 +3,11 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
-import '../styles/_header.scss'
+import '../styles/_side-menu.scss'
 
 class SideMenu extends Component {
-    constructor () {
-        super()
-        this.state = {
-            sideMenuSelected: ''
-        }
-    }
-
     getLangFile () {
         return require('../lang/' + this.props.lang + '/side-menu.json')
-    }
-
-    onClickMenu () {
-        // we change side menu selected here
     }
 
     renderSideMenuContent (userType) {
@@ -30,17 +19,25 @@ class SideMenu extends Component {
             items = lang.others
         }
 
-        return Object.keys(items).map(key => <ListItem button key={key}><ListItemText primary={items[key]} /></ListItem>)
+        return Object.keys(items).map((item, index) =>
+            <ListItem
+                key={index}
+                button
+                onClick={event => this.props.handleClickMenu(event, index + 1)}
+                selected={this.props.menuItemSelected === index + 1}
+            >
+                <ListItemText primary={items[item]} />
+            </ListItem>)
     }
 
     render () {
         const userType = this.props.userType
         return (
-            <>
-                <List aria-label='main mailbox folders'>
+            <div className='side-menu'>
+                <List>
                     {this.renderSideMenuContent(userType)}
                 </List>
-            </>
+            </div>
         )
     }
 }

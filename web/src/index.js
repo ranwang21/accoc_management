@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.scss'
-import MainContainer from './containers/main-container'
+import MainContainer from './containers/container'
 
 ReactDOM.render(
     <MainContainer />,

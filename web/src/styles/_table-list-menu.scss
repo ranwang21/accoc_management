@@ -26,14 +26,12 @@
 }
 
 /* When the input field gets focus, change its width to 100% */
-.search-input:hover, .search-input:focus {
+.search-input:hover,
+.search-input:focus {
 	width: 100%;
 }
 
 .table-menu {
-	background-color: $primaryColor;
-	border-radius: $borderRadiusMain;
-	padding: 0.5rem;
 	display: flex;
 	flex-flow: wrap row;
 	justify-content: space-between;

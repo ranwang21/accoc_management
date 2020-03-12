@@ -1,0 +1,6 @@
+{
+    "parent": "Parents",
+    "collaborator": "Collaborators",
+    "children": "Children",
+    "searchbar": "Search"
+}
