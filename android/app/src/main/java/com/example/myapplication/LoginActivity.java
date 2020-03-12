@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.myapplication.entities.Login;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 
