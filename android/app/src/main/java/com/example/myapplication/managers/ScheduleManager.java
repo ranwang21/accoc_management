@@ -153,6 +153,18 @@ public class ScheduleManager {
     }
 
     /**
+     * Delete Schedule from DataBase
+     *
+     * @param context
+     * @param id
+     */
+    public static void delete(Context context, int id) {
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        bd.delete(DataBaseHelper.SCHEDULE_TABLE_NAME, "id = ?", new String[]{"" + id});
+        ConnectionBD.close();
+    }
+
+    /**
      * Insert Schedule in DataBase
      *
      * @param context
@@ -185,17 +197,5 @@ public class ScheduleManager {
         contentValues.put(COMMENT, schedule.getComment());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, ID + " = " + schedule.get_id(), null);
-    }
-
-    /**
-     * Delete Schedule from DataBase
-     *
-     * @param context
-     * @param id
-     */
-    public static void delete(Context context, int id) {
-        SQLiteDatabase bd = ConnectionBD.getBd(context);
-        bd.delete(DataBaseHelper.SCHEDULE_TABLE_NAME, "id = ?", new String[]{"" + id});
-        ConnectionBD.close();
     }
 }

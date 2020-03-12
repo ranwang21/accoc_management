@@ -2,15 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.myapplication">
-<<<<<<< HEAD
-=======
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
->>>>>>> 5cbffc42f3f14f3deb84ef42b02c87a0458ae15e
-    <uses-permission android:name="android.permission.INTERNET" />
-    <dist:module dist:instant="true" />
 
     <application
         android:allowBackup="true"
@@ -20,8 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name=".SuiviQuotidienActivity"></activity>
         <activity android:name=".ProfilCollabActivity" />
         <activity android:name=".ProfilEnfantActivity" />
@@ -38,5 +30,12 @@
         </activity>
         <activity android:name=".LoginActivity" />
     </application>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <dist:module dist:instant="true" />
 
 </manifest>
