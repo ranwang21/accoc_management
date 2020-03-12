@@ -1,20 +1,31 @@
 import React, { Component } from 'react'
 import TableListMenu from '../components/table-list-menu'
-import TableListContainer from '../components/table-list-container-test'
+import TableListContainer from '../components/table-list-container'
 // import ClassRoomList from '../components/classroom-list'
 import '../styles/_table.scss'
+const variables = require('../utilities/variables.json')
 
 class Table extends Component {
-    getLangFile () {
-        return require('../lang/' + this.props.lang + '/footer.json')
+    constructor () {
+        super()
+        this.state = {
+            actorSelected: variables.actors.children
+        }
+        this.onActorSelected = this.onActorSelected.bind(this)
+    }
+
+    onActorSelected (event, name) {
+        this.setState({
+            actorSelected: name
+        })
     }
 
     render () {
         // const lang = this.getLangFile()
         return (
             <div className='table'>
-                <TableListMenu lang={this.props.lang} userType={this.props.userType} />
-                <TableListContainer />
+                <TableListMenu lang={this.props.lang} userType={this.props.userType} selected={this.state.actorSelected} handleActorSelected={this.onActorSelected} />
+                <TableListContainer lang={this.props.lang} />
                 {/* <ClassRoomList lang={this.props.lang} userType={this.props.userType} /> */}
             </div>
         )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Login from './login'
-import Dashbord from './dashbord-container'
+import Dashbord from './dashbord'
 
 class Main extends Component {
     constructor () {

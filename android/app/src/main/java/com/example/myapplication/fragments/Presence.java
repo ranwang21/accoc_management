@@ -10,6 +10,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapters.PresenceAdapter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,7 +23,8 @@ import static android.widget.Toast.makeText;
 
 
 public class Presence extends Fragment {
-    String[] listviewItems={"first thing","second thing","third thing","forth thing","fifth thing"};
+     List<String>listviewItems= new ArrayList<String>(Arrays.asList("one","two","three","four"));
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
@@ -29,11 +35,14 @@ public class Presence extends Fragment {
 
 
         ListView listView = view.findViewById(R.id.list_presence);
+        /*
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_checked,listviewItems
         );
-        listView.setAdapter(listViewAdapter);
+        listView.setAdapter(listViewAdapter);*/
+        PresenceAdapter adapter = new PresenceAdapter(getActivity(),listviewItems);
+        listView.setAdapter(adapter);
         return view;
     }
 

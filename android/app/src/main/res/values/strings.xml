@@ -36,9 +36,12 @@
     <string name="salle_4">salle 4</string>
     <string name="todo">TODO</string>
     <string name="logoback" />
+    <string name="home">home</string>
     <string name="txt_profil_enfant">Detail Enfants</string>
     <string name="txt_profil_collab">Details Collaborateurs</string>
     <string name="txt_suivi">Suivi Quotidien</string>
+    <string name="textview">TextView</string>
+
 
 
 </resources>

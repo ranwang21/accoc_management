@@ -10,6 +10,9 @@ main {
 	}
 }
 @include responsive(tablet) {
+	main {
+		height: 78vh;
+	}
 }
 @include responsive(desktop) {
 }
