@@ -14,7 +14,7 @@ exports.getUsers = asyncHandler(async (req, res) => {
 // @access  Private
 exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id).populate({
-    path: 'availability',
+    path: 'id_role',
     select: 'title'
   })
 
@@ -35,7 +35,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 // @access  Public
 exports.createUser = asyncHandler(async (req, res) => {
   const user = await (await User.create(req.body)).populate({
-    path: 'availability',
+    path: 'id_role',
     select: 'title'
   })
   res.status(201).json({
@@ -52,7 +52,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     new: true,
     runValidators: true
   }).populate({
-    path: 'availability',
+    path: 'id_role',
     select: 'title'
   })
 
