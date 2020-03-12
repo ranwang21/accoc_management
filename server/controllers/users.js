@@ -32,7 +32,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
 // @desc    Create new user
 // @route   POST /users
-// @access  Private
+// @access  Public
 exports.createUser = asyncHandler(async (req, res) => {
   const user = await (await User.create(req.body)).populate({
     path: 'availability',

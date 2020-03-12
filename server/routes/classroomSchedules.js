@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect } = require('../middlewares/auth')
 const {
   getclassroomSchedules,
   getclassroomSchedule,
@@ -15,12 +16,13 @@ router.route('/').get(
     path: 'id_day',
     select: 'title value'
   }),
+  protect,
   getclassroomSchedules
 )
 
 router
   .route('/:id')
-  .get(getclassroomSchedule)
-  .put(updateclassroomSchedule)
+  .get(protect, getclassroomSchedule)
+  .put(protect, updateclassroomSchedule)
 
 module.exports = router

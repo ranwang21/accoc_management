@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect } = require('../middlewares/auth')
 const {
   getRoles,
   getRole,
@@ -14,13 +15,13 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(advancedResults(Role), getRoles)
-  .post(createRole)
+  .get(advancedResults(Role), protect, getRoles)
+  .post(protect, createRole)
 
 router
   .route('/:id')
-  .get(getRole)
-  .put(updateRole)
-  .delete(deleteRole)
+  .get(protect, getRole)
+  .put(protect, updateRole)
+  .delete(protect, deleteRole)
 
 module.exports = router

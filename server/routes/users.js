@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect } = require('../middlewares/auth')
 const {
   getUsers,
   getUser,
@@ -25,14 +26,15 @@ router
       path: 'availability',
       select: 'title'
     }),
+    protect,
     getUsers
   )
   .post(createUser)
 
 router
   .route('/:id')
-  .get(getUser)
-  .put(updateUser)
-  .delete(deleteUser)
+  .get(protect, getUser)
+  .put(protect, updateUser)
+  .delete(protect, deleteUser)
 
 module.exports = router

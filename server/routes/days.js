@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect } = require('../middlewares/auth')
 const {
   getDays,
   getDay,
@@ -14,13 +15,13 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(advancedResults(Day), getDays)
-  .post(createDay)
+  .get(advancedResults(Day), protect, getDays)
+  .post(protect, createDay)
 
 router
   .route('/:id')
-  .get(getDay)
-  .put(updateDay)
-  .delete(deleteDay)
+  .get(protect, getDay)
+  .put(protect, updateDay)
+  .delete(protect, deleteDay)
 
 module.exports = router
