@@ -18,7 +18,7 @@ public class SuiviQuotidienActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suivi_quotidien);
-        simpleRatingBar = ( RatingBar ) findViewById(R.id.first_rating); // initiate a rating bar
+        simpleRatingBar = findViewById(R.id.first_rating); // initiate a rating bar
         submitRating = findViewById(R.id.btn_soumettre);
         submitRating.setOnClickListener(new View.OnClickListener() {
             @Override
