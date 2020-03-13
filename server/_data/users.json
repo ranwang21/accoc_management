@@ -51,7 +51,7 @@
     "comment": "Comments here",
     "experience": "Experience here",
     "motivation": "Motivation here",
-    "availability": ["5e6a3e314554933864b2c3z4", "5e6a3e314554933864b2c3z2"],
+    "availability": ["5e6a3e314554933864b2c3a2", "5e6a3e314554933864b2c3a4"],
     "question": [
       {
         "question": "Question 1 here",
@@ -64,6 +64,26 @@
     ],
     "interest": ["Interest 1", "Interest 2", "Interest 3"],
     "school_info": [
+      {
+        "question": "Question 1 here",
+        "response": "Response 1 here"
+      },
+      {
+        "question": "Question 2 here",
+        "response": "Response 2 here"
+      }
+    ],
+    "medical_info": [
+      {
+        "question": "Question 1 here",
+        "response": "Response 1 here"
+      },
+      {
+        "question": "Question 2 here",
+        "response": "Response 2 here"
+      }
+    ],
+    "authorization": [
       {
         "question": "Question 1 here",
         "response": "Response 1 here"

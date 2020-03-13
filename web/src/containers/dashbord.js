@@ -54,7 +54,7 @@ class Dashbord extends Component {
         case variables.menus.createParentCollab:
             break
         case variables.menus.classroomManagement:
-            res = (<ClassRoom lang={lang} />)
+            res = (<ClassRoom lang={lang} userType={userType} />)
             break
         }
         return res

@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect, authorize } = require('../middlewares/auth')
 const {
   getClassrooms,
   getClassroom,
@@ -20,13 +21,13 @@ router.use('/:classroomId/classroom-schedules', classroomSchedulesRouter)
 
 router
   .route('/')
-  .get(advancedResults(Classroom), getClassrooms)
-  .post(createClassroom)
+  .get(advancedResults(Classroom), protect, authorize('admin'), getClassrooms)
+  .post(protect, authorize('admin'), createClassroom)
 
 router
   .route('/:id')
-  .get(getClassroom)
-  .put(updateClassroom)
-  .delete(deleteClassroom)
+  .get(protect, getClassroom)
+  .put(protect, authorize('admin'), updateClassroom)
+  .delete(protect, authorize('admin'), deleteClassroom)
 
 module.exports = router

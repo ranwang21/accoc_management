@@ -24,6 +24,9 @@ header {
 				margin: 0;
 				padding: 0.5em;
 				height: 2em;
+				.MuiOutlinedInput-input {
+					padding: 0.5em 1em;
+				}
 			}
 
 			> button.logout {
