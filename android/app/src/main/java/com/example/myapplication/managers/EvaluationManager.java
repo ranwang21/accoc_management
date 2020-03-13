@@ -85,18 +85,6 @@ public class EvaluationManager {
     }
 
     /**
-     * Delete Role from DataBase
-     *
-     * @param context
-     * @param id
-     */
-    public static void delete(Context context, int id) {
-        SQLiteDatabase bd = ConnectionBD.getBd(context);
-        bd.delete(DataBaseHelper.EVALUATION_TABLE_NAME, "id = ?", new String[]{"" + id});
-        ConnectionBD.close();
-    }
-
-    /**
      * Insert Evaluation in DataBase
      *
      * @param context
@@ -121,5 +109,17 @@ public class EvaluationManager {
         contentValues.put(ID_SCHEDULE, evaluation.getId_schedule());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.EVALUATION_TABLE_NAME, contentValues, ID + " = " + evaluation.get_id(), null);
+    }
+
+    /**
+     * Delete Role from DataBase
+     *
+     * @param context
+     * @param id
+     */
+    public static void delete(Context context, int id) {
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        bd.delete(DataBaseHelper.EVALUATION_TABLE_NAME, "id = ?", new String[]{"" + id});
+        ConnectionBD.close();
     }
 }

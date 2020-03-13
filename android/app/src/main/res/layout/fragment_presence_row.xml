@@ -5,14 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="100dp"
@@ -28,5 +20,13 @@
         android:layout_height="100dp"
         android:text="@string/textview"
         android:textSize="20sp" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="" />
 
 </LinearLayout>

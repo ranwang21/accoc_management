@@ -84,18 +84,6 @@ public class RoleManager {
     }
 
     /**
-     * Delete Role from DataBase
-     *
-     * @param context
-     * @param id
-     */
-    public static void delete(Context context, int id) {
-        SQLiteDatabase bd = ConnectionBD.getBd(context);
-        bd.delete(DataBaseHelper.ROLE_TABLE_NAME, "id = ?", new String[]{"" + id});
-        ConnectionBD.close();
-    }
-
-    /**
      * Insert Role in DataBase
      *
      * @param context
@@ -120,5 +108,17 @@ public class RoleManager {
         contentValues.put(TITLE, role.getTitle());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.ROLE_TABLE_NAME, contentValues, ID + " = " + role.get_id(), null);
+    }
+
+    /**
+     * Delete Role from DataBase
+     *
+     * @param context
+     * @param id
+     */
+    public static void delete(Context context, int id) {
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        bd.delete(DataBaseHelper.ROLE_TABLE_NAME, "id = ?", new String[]{"" + id});
+        ConnectionBD.close();
     }
 }

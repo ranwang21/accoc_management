@@ -141,18 +141,6 @@ public class InconsistencyManager {
     }
 
     /**
-     * Delete Inconsistency from DataBase
-     *
-     * @param context
-     * @param id
-     */
-    public static void delete(Context context, int id) {
-        SQLiteDatabase bd = ConnectionBD.getBd(context);
-        bd.delete(DataBaseHelper.INCONSISTENCY_TABLE_NAME, "id = ?", new String[]{"" + id});
-        ConnectionBD.close();
-    }
-
-    /**
      * Insert Inconsistency in DataBase
      *
      * @param context
@@ -181,5 +169,17 @@ public class InconsistencyManager {
         contentValues.put(ID_COLLABORATOR, inconsistency.getId_collaborator());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.INCONSISTENCY_TABLE_NAME, contentValues, ID + " = " + inconsistency.get_id(), null);
+    }
+
+    /**
+     * Delete Inconsistency from DataBase
+     *
+     * @param context
+     * @param id
+     */
+    public static void delete(Context context, int id) {
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        bd.delete(DataBaseHelper.INCONSISTENCY_TABLE_NAME, "id = ?", new String[]{"" + id});
+        ConnectionBD.close();
     }
 }
