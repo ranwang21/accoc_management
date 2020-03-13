@@ -1,4 +1,5 @@
 const express = require('express')
+const { protect, authorize } = require('../middlewares/auth')
 const {
   getRoles,
   getRole,
@@ -14,13 +15,13 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(advancedResults(Role), getRoles)
-  .post(createRole)
+  .get(advancedResults(Role), protect, authorize('admin'), getRoles)
+  .post(protect, authorize('admin'), createRole)
 
 router
   .route('/:id')
-  .get(getRole)
-  .put(updateRole)
-  .delete(deleteRole)
+  .get(protect, getRole)
+  .put(protect, authorize('admin'), updateRole)
+  .delete(protect, authorize('admin'), deleteRole)
 
 module.exports = router

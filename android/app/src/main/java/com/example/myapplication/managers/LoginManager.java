@@ -94,6 +94,18 @@ public class LoginManager {
     }
 
     /**
+     * Delete Login from DataBase
+     *
+     * @param context
+     * @param id
+     */
+    public static void delete(Context context, int id) {
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        bd.delete(DataBaseHelper.LOGIN_TABLE_NAME, "id = ?", new String[]{"" + id});
+        ConnectionBD.close();
+    }
+
+    /**
      * Insert Login in DataBase
      *
      * @param context
@@ -122,17 +134,5 @@ public class LoginManager {
         contentValues.put(PASSWORD, login.getPassword());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.LOGIN_TABLE_NAME, contentValues, ID + " = " + login.get_id(), null);
-    }
-
-    /**
-     * Delete Login from DataBase
-     *
-     * @param context
-     * @param id
-     */
-    public static void delete(Context context, int id) {
-        SQLiteDatabase bd = ConnectionBD.getBd(context);
-        bd.delete(DataBaseHelper.LOGIN_TABLE_NAME, "id = ?", new String[]{"" + id});
-        ConnectionBD.close();
     }
 }

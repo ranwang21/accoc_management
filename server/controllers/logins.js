@@ -12,7 +12,7 @@ exports.getLogins = asyncHandler(async (req, res) => {
       id_user: req.params.userId
     }).populate({
       path: 'id_user',
-      select: 'first_name last_name id_role'
+      select: 'id_role'
     })
     res.status(200).json({
       success: true,
@@ -29,7 +29,7 @@ exports.getLogins = asyncHandler(async (req, res) => {
 exports.getLogin = asyncHandler(async (req, res, next) => {
   const login = await Login.findById(req.params.id).populate({
     path: 'id_user',
-    select: 'first_name last_name id_role'
+    select: 'id_role'
   })
 
   if (!login) {
