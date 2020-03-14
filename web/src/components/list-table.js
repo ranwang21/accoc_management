@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@material-ui/core'
+import {
+    TableContainer, Table, TableHead, TableBody, TableRow, TableCell,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    Button
+} from '@material-ui/core'
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import IsValidIcon from '@material-ui/icons/CheckTwoTone'
 import IsNotValidIcon from '@material-ui/icons/CloseTwoTone'
 import InfoIcon from '@material-ui/icons/InfoOutlined'
+
 import Loading from './loading'
-import '../styles/_table-list-container.scss'
+import '../styles/_list-table.scss'
+
+const variables = require('../utilities/variables.json')
 
 const headers = [
     { id: 'role', label: 'ROLE', minWidth: 170 },
@@ -56,9 +63,12 @@ class TableListContainer extends Component {
 
     componentDidMount () {
         this.setState({
-            actors: actors
+            actors: actors,
+            showDetail: false
         })
         this.handleValidationChange = this.handleValidationChange.bind(this)
+        this.handleShowDetail = this.handleShowDetail.bind(this)
+        this.handleCloseDetail = this.handleCloseDetail.bind(this)
     }
 
     getLangFile () {
@@ -77,6 +87,18 @@ class TableListContainer extends Component {
                 }
             })
         }
+    }
+
+    handleShowDetail () {
+        this.setState({
+            showDetail: true
+        })
+    };
+
+    handleCloseDetail () {
+        this.setState({
+            showDetail: false
+        })
     }
 
     getValidationValue (actor) {
@@ -118,6 +140,7 @@ class TableListContainer extends Component {
                     <Button
                         variant='outlined'
                         startIcon={<InfoIcon />}
+                        onClick={this.handleShowDetail}
                     >
                         Voir details
                     </Button>
@@ -146,7 +169,41 @@ class TableListContainer extends Component {
         return (<TableBody>{allActors.map(actor => this.buildRow(actor))}</TableBody>)
     }
 
+    getActorSelected () {
+        let actorSelected = 'all'
+        const newList = this.state.actors
+        switch (this.props.actorSelected) {
+        case variables.actors.children:
+            actorSelected = 'children'
+            break
+        case variables.actors.parent:
+            actorSelected = 'parent'
+            break
+        case variables.actors.collaborator:
+            actorSelected = 'collaborator'
+            break
+        }
+        console.log(actorSelected)
+
+        return newList
+    }
+
+    isBurger (cuisine) {
+        return cuisine === 'Burger'
+    }
+
+    burgerJoints () {
+        const filter = this.getActorSelected()
+        let newList = null
+        if (filter.equal('all')) {
+            newList = this.state.actors
+        } else {
+            newList = this.state.actors.filter(actor => actor.roleLabel === filter)
+        }
+    }
+
     render () {
+        this.getActorSelected()
         const allActors = this.state.actors
         return (allActors !== null
             ? (
@@ -155,6 +212,39 @@ class TableListContainer extends Component {
                         {this.buildHeader()}
                         {this.buildBody(allActors)}
                     </Table>
+                    <Dialog
+                        open={this.state.showDetail}
+                        onClose={this.handleCloseDetail}
+                        scroll='paper'
+                        aria-labelledby='scroll-dialog-title'
+                        aria-describedby='scroll-dialog-description'
+                        maxWidth='sm'
+                    >
+                        <DialogTitle id='scroll-dialog-title'>Subscribe</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText
+                                id='scroll-dialog-description'
+                                tabIndex={-1}
+                            >
+                                {[...new Array(50)]
+                                    .map(
+                                        () => `Cras mattis consectetur purus sit amet fermentum.
+                                                Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                                                Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                                Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
+                                    )
+                                    .join('\n')}
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleCloseDetail} color='primary'>
+                                Cancel
+                            </Button>
+                            <Button onClick={this.handleCloseDetail} color='primary'>
+                                Subscribe
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </TableContainer>)
             : (<Loading lang={this.props.lang} />)
         )

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container } from '@material-ui/core'
 import Schedule from '../components/calendar'
 import SideMenu from '../components/side-menu'
-import Table from './table'
+import List from './list'
 import ClassRoom from '../components/classroom'
 import '../styles/_dashbord.scss'
 
@@ -44,10 +44,10 @@ class Dashbord extends Component {
         let res = (<div className='table' />)
         switch (this.state.menuItemSelected) {
         case variables.menus.allUsers:
-            res = (<Table lang={lang} userType={userType} />)
+            res = (<List lang={lang} userType={userType} />)
             break
         case variables.menus.validation:
-            res = (<Table lang={lang} userType={userType} />)
+            res = (<List lang={lang} userType={userType} />)
             break
         case variables.menus.createAdmin:
             break

@@ -6,3 +6,19 @@
 		color: rgba(255, 255, 255, 0.8);
 	}
 }
+@include responsive(phone) {
+	.side-menu {
+		ul span {
+			font-size: 1.2em;
+		}
+	}
+}
+@include responsive(tablet) {
+	.side-menu {
+		ul span {
+			font-size: 1em;
+		}
+	}
+}
+@include responsive(desktop) {
+}

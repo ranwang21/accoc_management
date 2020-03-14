@@ -4,8 +4,8 @@ import Switch from '@material-ui/core/Switch'
 import Collapse from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import TableListContainer from '../components/table-list-container'
-import '../styles/_table.scss'
+import ListTable from '../components/list-table'
+import '../styles/_list.scss'
 
 const variables = require('../utilities/variables.json')
 
@@ -13,7 +13,7 @@ class Table extends Component {
     constructor () {
         super()
         this.state = {
-            actorSelected: variables.actors.children,
+            actorSelected: variables.actors.all,
             search: false
         }
         this.onActorSelected = this.onActorSelected.bind(this)
@@ -21,7 +21,7 @@ class Table extends Component {
     }
 
     getLangFile () {
-        return require('../lang/' + this.props.lang + '/table.json')
+        return require('../lang/' + this.props.lang + '/list.json')
     }
 
     buildButton (name, key) {
@@ -52,9 +52,10 @@ class Table extends Component {
     render () {
         const lang = this.getLangFile()
         return (
-            <div className='table'>
-                <div className='table-menu'>
+            <div className='list'>
+                <div className='list-menu'>
                     <ButtonGroup className='btnGroup' size='medium' color='primary' aria-label='large outlined primary button group'>
+                        {this.buildButton(lang.all, variables.actors.all)}
                         {this.buildButton(lang.children, variables.actors.children)}
                         {this.buildButton(lang.parent, variables.actors.parent)}
                         {this.buildButton(lang.collaborator, variables.actors.collaborator)}
@@ -70,7 +71,7 @@ class Table extends Component {
                         />
                     </div>
                 </div>
-                <TableListContainer lang={this.props.lang} />
+                <ListTable lang={this.props.lang} actorSelected={this.state.actorSelected} />
                 <div className='button-valider'>
                     <Button
                         variant='contained'

@@ -32,15 +32,24 @@ class Application extends Component {
     }
 
     validateUser () {
-        this.email = 'admin@gmail.com'
-        fetch('http://localhost:8080/logins?email=' + this.email)
+        const userToSend = {
+            email: 'admin@gmail.com',
+            password: 'abc123...'
+        }
+        let response = null
+        fetch('http://localhost:8080/auth/login', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userToSend)
+        })
             .then(response => response.json())
             .then(data => (
-                this.setState({
-                    users: data
-                })
+                response = data
             ))
-        console.log(this.state.users)
+            .catch(error => console.log('error is', error))
+        console.log(response)
     }
 
     validateInput () {
@@ -124,7 +133,7 @@ class Application extends Component {
     }
 
     render () {
-        console.log(this.state.users)
+        // this.validateUser()
         const langFile = this.getLangFile()
 
         const { loginConfig, success, showSnack } = this.state
