@@ -1,15 +1,20 @@
 {
-    "menus": {
-        "allUsers": "DGFDVGSHBFNC",
-        "validation": "DHGHICSJBISKHZ",
-        "createAdmin": "POKJHSFNCKD",
-        "createParentCollab": "QSFGBCNJFDFHJ",
-        "classroomManagement": "KJHGFVDGWHSNGDH"
-    },
     "actors": {
         "all": "ORKHFBHDNBCJ",
         "children": "IJNDVFBHCD",
         "parent": "RGBGVBCHSN",
-        "collaborator": "VBGNVGCHDNXD"
+        "collaborator": "VBGNVGCHDNXD",
+        "admin": "UEHSDVHSB"
+    },
+    "menus": {
+        "allUsers": "DGFDVGSHBFNC",
+        "validation": "DHGHICSJBISKHZ",
+        "createAccount": "POKJHSFNCKD",
+        "classroomManagement": "KJHGFVDGWHSNGDH",
+        "prints": "RWFFABWSMND",
+        "childList": "UHNDBVDHNBN",
+        "profile": "GESBVDBQUJA",
+        "schedule": "SGGHZGHNSJD",
+        "logOut": "WIJSFBCHDS"
     }
 }

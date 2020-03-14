@@ -5,6 +5,15 @@ import { Container, TextField, Button } from '@material-ui/core'
 import Snack from '../components/snack'
 const LoginConfig = require('../forms-files/login.json')
 
+const role = {
+    highAdmin: 'high_admin',
+    admin: 'admin',
+    parent: 'only_parent',
+    collab: 'only_collaborator',
+    both: 'both',
+    child: 'children'
+}
+
 class Application extends Component {
     constructor () {
         super()
@@ -17,6 +26,7 @@ class Application extends Component {
         }
         this.email = ''
         this.password = ''
+        this.userRole = null
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleBtnClick = this.handleBtnClick.bind(this)
     }
@@ -57,20 +67,24 @@ class Application extends Component {
         const trueEmail = 'admin@gmail.com'
         const truePassword = 'abc123...'
         const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-        if (!mailformat.test(this.email)) return false
-        else if (this.email !== trueEmail || this.password !== truePassword) return false
-        else return true
+        let retour = false
+        if (!mailformat.test(this.email)) retour = false
+        else if (this.email !== trueEmail || this.password !== truePassword) retour = false
+        else retour = true
+        // d'ont forget to update userRole here
+        this.userRole = role.highAdmin
+        return retour
     }
 
-    handleBtnClick () {
-        if (this.validateInput()) {
+    handleBtnClick (event) {
+        if (this.validateInput() && this.userRole !== role.child) {
             this.setState({
                 error: false,
                 success: true,
                 showSnack: true,
                 enableSubmit: false
             })
-            this.props.handleConnectedEvent()
+            this.props.handleConnectedEvent(event, this.userRole)
         } else {
             this.setState({
                 error: true,

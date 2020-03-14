@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Cookie from 'react-cookies'
 import '../styles/_main.scss'
 import Header from '../components/header'
 import Main from './main'
@@ -22,8 +23,8 @@ class MainContainer extends Component {
         super()
         this.state = {
             lang: 'fr',
-            isConnected: true,
-            userType: 'admin',
+            isConnected: false,
+            userRole: null,
             showSnack: false,
             showLoading: false
         }
@@ -31,6 +32,13 @@ class MainContainer extends Component {
         this.onLogInClick = this.onLogInClick.bind(this)
         this.onLogOutClick = this.onLogOutClick.bind(this)
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
+    }
+
+    componentDidMount () {
+        this.setState({
+            isConnected: Cookie.load('isConnected'),
+            userRole: Cookie.load('userRole')
+        })
     }
 
     getLangFile () {
@@ -46,19 +54,27 @@ class MainContainer extends Component {
     onLogOutClick (event) {
         console.log('Deconnexion .. .. ..')
         this.setState({
+            userRole: null,
             isConnected: false,
             showSnack: true
         })
+
+        Cookie.remove('isConnected', { path: '/' })
+        Cookie.remove('userRole', { path: '/' })
     }
 
-    onLogInClick (event) {
+    onLogInClick (event, role) {
         console.log('Connexion .. .. ..')
         this.setState({
+            userRole: role,
             isConnected: true,
             showSnack: true,
             showLoading: true
         })
         this.showConnectedLoading()
+
+        Cookie.save('isConnected', true, { path: '/' })
+        Cookie.save('userRole', role, { path: '/' })
     }
 
     handleCloseSnack (event) {
@@ -79,15 +95,29 @@ class MainContainer extends Component {
         const lang = this.state.lang
         const langFile = this.getLangFile()
         const messageSnack = this.state.isConnected ? langFile.logInSnack : langFile.logOutSnack
-        const userType = this.state.userType
+        const userRole = this.state.userRole
         return (
             <>
                 <ThemeProvider theme={theme}>
-                    <Header lang={lang} handleLangChangedClick={this.onLangChanged} isConnected={this.state.isConnected} onhandleLogOutClick={this.onLogOutClick} />
+                    <Header
+                        lang={lang}
+                        handleLangChangedClick={this.onLangChanged}
+                    />
                     {this.state.showLoading && <Loading lang={lang} />}
-                    <Main lang={lang} userType={userType} isConnected={this.state.isConnected} onhandleLogInClick={this.onLogInClick} />
+                    <Main
+                        lang={lang}
+                        userRole={userRole}
+                        isConnected={this.state.isConnected}
+                        onhandleLogInClick={this.onLogInClick}
+                        onhandleLogOutClick={this.onLogOutClick}
+                    />
                     <Footer lang={lang} />
-                    <Snack show={this.state.showSnack} message={messageSnack} onClose={this.handleCloseSnack} severity='success' />
+                    <Snack
+                        show={this.state.showSnack}
+                        message={messageSnack}
+                        onClose={this.handleCloseSnack}
+                        severity='success'
+                    />
                 </ThemeProvider>
             </>
         )

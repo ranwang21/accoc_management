@@ -1,7 +1,30 @@
 {
-    "all": "All",
-    "parent": "Parents",
-    "collaborator": "Collaborators",
-    "children": "Children",
+    "actors": [
+        {
+            "id": "ORKHFBHDNBCJ",
+            "title": "all",
+            "label": "*"
+        },
+        {
+            "id": "IJNDVFBHCD",
+            "title": "children",
+            "label": "Children"
+        },
+        {
+            "id": "RGBGVBCHSN",
+            "title": "parent",
+            "label": "Parents"
+        },
+        {
+            "id": "VBGNVGCHDNXD",
+            "title": "collaborator",
+            "label": "Collaborators"
+        },
+        {
+            "id": "UEHSDVHSB",
+            "title": "admin",
+            "label": "Administrators"
+        }
+    ],
     "searchbar": "Search"
 }

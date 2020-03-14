@@ -24,13 +24,14 @@ class Table extends Component {
         return require('../lang/' + this.props.lang + '/list.json')
     }
 
-    buildButton (name, key) {
+    buildButton (actor) {
         return (
             <Button
-                variant={this.state.actorSelected === key ? 'contained' : 'outlined'}
-                onClick={event => this.onActorSelected(event, key)}
+                key={actor.id}
+                variant={this.state.actorSelected === actor.id ? 'contained' : 'outlined'}
+                onClick={event => this.onActorSelected(event, actor.id)}
             >
-                {name}
+                {actor.label}
             </Button>
         )
     }
@@ -55,10 +56,7 @@ class Table extends Component {
             <div className='list'>
                 <div className='list-menu'>
                     <ButtonGroup className='btnGroup' size='medium' color='primary' aria-label='large outlined primary button group'>
-                        {this.buildButton(lang.all, variables.actors.all)}
-                        {this.buildButton(lang.children, variables.actors.children)}
-                        {this.buildButton(lang.parent, variables.actors.parent)}
-                        {this.buildButton(lang.collaborator, variables.actors.collaborator)}
+                        {lang.actors.map(actor => this.buildButton(actor))}
                     </ButtonGroup>
                     <div className='search-container'>
                         <Collapse className='search-fields' in={this.state.search}>
