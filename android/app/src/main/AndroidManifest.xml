@@ -2,13 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.myapplication">
-<<<<<<< HEAD
-=======
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
->>>>>>> 5cbffc42f3f14f3deb84ef42b02c87a0458ae15e
     <uses-permission android:name="android.permission.INTERNET" />
     <dist:module dist:instant="true" />
 
