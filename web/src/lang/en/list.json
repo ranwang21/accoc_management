@@ -21,5 +21,6 @@
             "label": "Administrators"
         }
     ],
-    "searchbar": "Search"
+    "searchbar": "Search",
+    "btnValidate": "Save Changes"
 }

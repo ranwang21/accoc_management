@@ -12,6 +12,9 @@
 		> div button {
 			transition: all 0.3s;
 		}
+		> div button.MuiButton-contained {
+			color: $whiteColor;
+		}
 		.search-container {
 			display: flex;
 			justify-content: flex-end;
@@ -35,7 +38,8 @@
 		justify-content: flex-end;
 		padding: 0.5em 2em;
 		button {
-			width: 10em;
+			width: auto;
+			color: black;
 		}
 	}
 }

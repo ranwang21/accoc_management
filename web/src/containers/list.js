@@ -85,7 +85,7 @@ class Table extends Component {
                             variant='contained'
                             color='secondary'
                         >
-                            VALIDER
+                            {lang.btnValidate}
                         </Button>
                     </div>
                 )}

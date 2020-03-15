@@ -53,20 +53,16 @@ const isCollaborator = ({ roleLabel, isValid }) => ((roleLabel === 'only_collabo
 const isBoth = ({ roleLabel, isValid }) => ((roleLabel === 'only_parent' || roleLabel === 'only_collaborator' || roleLabel === 'both') && isValid === false)
 const isAdmin = ({ roleLabel }) => (roleLabel === 'admin')
 
-function getRoleFunction (role, menuSelected) {
-    if (menuSelected === variables.menus.validation) {
-        return isBoth
-    } else {
-        switch (role) {
-        case 'child':
-            return isChild
-        case 'only_parent':
-            return isParent
-        case 'only_collaborator':
-            return isCollaborator
-        case 'admin':
-            return isAdmin
-        }
+function getRoleFunction (role) {
+    switch (role) {
+    case 'child':
+        return isChild
+    case 'only_parent':
+        return isParent
+    case 'only_collaborator':
+        return isCollaborator
+    case 'admin':
+        return isAdmin
     }
 }
 
@@ -75,7 +71,8 @@ class TableListContainer extends Component {
         super()
         this.state = {
             actors: null,
-            actorsToShow: null
+            actorsToShow: null,
+            actorsForValidations: null
         }
         this.handleHeadClick = this.handleHeadClick.bind(this)
     }
@@ -87,6 +84,7 @@ class TableListContainer extends Component {
     componentDidMount () {
         this.setState({
             actors: [...actors],
+            actorsForValidations: [...actors.filter(isBoth)],
             showDetail: false
         })
         this.handleValidationChange = this.handleValidationChange.bind(this)
@@ -98,7 +96,7 @@ class TableListContainer extends Component {
         if (newValue !== null) {
             const values = newValue.split(',')
             this.setState(state => {
-                const list = state.actors
+                const list = state.actorsForValidations
                 const index = list.map(e => e.idUser).indexOf(values[0])
                 list[index].isValid = !(list[index].isValid)
                 return {
@@ -219,8 +217,12 @@ class TableListContainer extends Component {
     }
 
     updateNewActorsList () {
-        const isRole = getRoleFunction(this.getActorSelected(), this.props.menuSelected)
-        return this.state.actors !== null ? this.state.actors.filter(isRole) : null
+        if (this.props.menuSelected === variables.menus.validation) {
+            return this.state.actorsForValidations
+        } else {
+            const isRole = getRoleFunction(this.getActorSelected())
+            return this.state.actors !== null ? this.state.actors.filter(isRole) : null
+        }
     }
 
     render () {

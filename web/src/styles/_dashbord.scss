@@ -14,7 +14,7 @@
 	grid-column-gap: 0.5em;
 	grid-row-gap: 0.5em;
 	> div {
-		background-color: $backgroundPrimary;
+		background-color: rgba($color: $primaryColor, $alpha: 0.2);
 		border-radius: $borderRadiusMain;
 		padding: 0.5em;
 		min-width: 25em;
@@ -27,6 +27,8 @@
 		grid-area: side;
 	}
 	.list {
+		padding: 0em;
+		background: none;
 		height: 100%;
 		grid-area: main;
 	}

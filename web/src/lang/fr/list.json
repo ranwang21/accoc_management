@@ -21,5 +21,6 @@
             "label": "Administrateurs"
         }
     ],
-    "searchbar": "Recherche"
+    "searchbar": "Recherche",
+    "btnValidate": "Enregistrer les modifications"
 }
