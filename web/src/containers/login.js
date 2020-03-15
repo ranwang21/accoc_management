@@ -72,7 +72,7 @@ class Application extends Component {
         else if (this.email !== trueEmail || this.password !== truePassword) retour = false
         else retour = true
         // d'ont forget to update userRole here
-        this.userRole = role.highAdmin
+        this.userRole = role.admin
         return retour
     }
 

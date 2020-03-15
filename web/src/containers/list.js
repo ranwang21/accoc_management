@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Cookie from 'react-cookies'
 import { Button, ButtonGroup } from '@material-ui/core'
 import Switch from '@material-ui/core/Switch'
 import Collapse from '@material-ui/core/Collapse'
@@ -13,7 +14,7 @@ class Table extends Component {
     constructor () {
         super()
         this.state = {
-            actorSelected: variables.actors.all,
+            actorSelected: variables.actors.children,
             search: false
         }
         this.onActorSelected = this.onActorSelected.bind(this)
@@ -25,15 +26,18 @@ class Table extends Component {
     }
 
     buildButton (actor) {
-        return (
-            <Button
-                key={actor.id}
-                variant={this.state.actorSelected === actor.id ? 'contained' : 'outlined'}
-                onClick={event => this.onActorSelected(event, actor.id)}
-            >
-                {actor.label}
-            </Button>
-        )
+        const role = Cookie.load('userRole')
+        if (!(role === 'admin' && actor.title === 'admin')) {
+            return (
+                <Button
+                    key={actor.id}
+                    variant={this.state.actorSelected === actor.id ? 'contained' : 'outlined'}
+                    onClick={event => this.onActorSelected(event, actor.id)}
+                >
+                    {actor.label}
+                </Button>
+            )
+        }
     }
 
     onActorSelected (event, name) {
@@ -73,7 +77,7 @@ class Table extends Component {
                     </div>
                 )}
 
-                <ListTable lang={this.props.lang} actorSelected={this.state.actorSelected} />
+                <ListTable lang={this.props.lang} actorSelected={this.state.actorSelected} menuSelected={menuSelected} />
 
                 {menuSelected === variables.menus.validation && (
                     <div className='button-valider'>

@@ -14,20 +14,22 @@ import '../styles/_list-table.scss'
 
 const variables = require('../utilities/variables.json')
 
-const admin = [
-    { idUser: 'dfvdfvg0', roleLabel: 'admin', firstName: 'admin', lastName: 'ADMINISTRATEUR', isValid: true }
-]
-
 const actors = [
+    { idUser: 'dfvdfvg0', roleLabel: 'high_admin', firstName: 'admin', lastName: 'ADMINISTRATEUR', isValid: true },
+
+    { idUser: 'dfvdfvggt1', roleLabel: 'admin', firstName: 'admin1', lastName: 'ADMINISTRATEUR1', isValid: true },
+    { idUser: 'dfvdfvggt2', roleLabel: 'admin', firstName: 'admin2', lastName: 'ADMINISTRATEUR2', isValid: true },
+    { idUser: 'dfvdfvggt3', roleLabel: 'admin', firstName: 'admin3', lastName: 'ADMINISTRATEUR3', isValid: true },
+
     { idUser: 'dfvdfvg1', roleLabel: 'only_parent', firstName: 'parent_1', lastName: 'P_NAME_1', isValid: true },
     { idUser: 'dfvdfvg2', roleLabel: 'only_parent', firstName: 'parent_2', lastName: 'P_NAME_2', isValid: false },
     { idUser: 'dfvdfvg3', roleLabel: 'only_parent', firstName: 'parent_3', lastName: 'P_NAME_3', isValid: true },
     { idUser: 'dfvdfvg4', roleLabel: 'only_parent', firstName: 'parent_4', lastName: 'P_NAME_4', isValid: false },
 
-    { idUser: 'dfvdfvg5', roleLabel: 'only_collaborateur', firstName: 'colaborateur_1', lastName: 'C_NAME_1', isValid: false },
-    { idUser: 'dfvdfvg6', roleLabel: 'only_collaborateur', firstName: 'colaborateur_2', lastName: 'C_NAME_1', isValid: true },
-    { idUser: 'dfvdfvg7', roleLabel: 'only_collaborateur', firstName: 'colaborateur_3', lastName: 'C_NAME_1', isValid: false },
-    { idUser: 'dfvdfvg8', roleLabel: 'only_collaborateur', firstName: 'colaborateur_4', lastName: 'C_NAME_1', isValid: true },
+    { idUser: 'dfvdfvg5', roleLabel: 'only_collaborator', firstName: 'colaborateur_1', lastName: 'C_NAME_1', isValid: false },
+    { idUser: 'dfvdfvg6', roleLabel: 'only_collaborator', firstName: 'colaborateur_2', lastName: 'C_NAME_1', isValid: true },
+    { idUser: 'dfvdfvg7', roleLabel: 'only_collaborator', firstName: 'colaborateur_3', lastName: 'C_NAME_1', isValid: false },
+    { idUser: 'dfvdfvg8', roleLabel: 'only_collaborator', firstName: 'colaborateur_4', lastName: 'C_NAME_1', isValid: true },
 
     { idUser: 'dfvdfvg9', roleLabel: 'both', firstName: 'both_1', lastName: 'B_NAME_1', isValid: true },
     { idUser: 'dfvdfvg10', roleLabel: 'both', firstName: 'both_2', lastName: 'B_NAME_2', isValid: false },
@@ -45,6 +47,28 @@ const actors = [
     { idUser: 'dfvdfvg21', roleLabel: 'child', firstName: 'children_8', lastName: 'C_NAME_8', isValid: true },
     { idUser: 'dfvdfvg22', roleLabel: 'child', firstName: 'children_9', lastName: 'C_NAME_9', isValid: true }
 ]
+const isChild = ({ roleLabel }) => roleLabel === 'child'
+const isParent = ({ roleLabel, isValid }) => ((roleLabel === 'only_parent' || roleLabel === 'both') && isValid === true)
+const isCollaborator = ({ roleLabel, isValid }) => ((roleLabel === 'only_collaborator' || roleLabel === 'both') && isValid === true)
+const isBoth = ({ roleLabel, isValid }) => ((roleLabel === 'only_parent' || roleLabel === 'only_collaborator' || roleLabel === 'both') && isValid === false)
+const isAdmin = ({ roleLabel }) => (roleLabel === 'admin')
+
+function getRoleFunction (role, menuSelected) {
+    if (menuSelected === variables.menus.validation) {
+        return isBoth
+    } else {
+        switch (role) {
+        case 'child':
+            return isChild
+        case 'only_parent':
+            return isParent
+        case 'only_collaborator':
+            return isCollaborator
+        case 'admin':
+            return isAdmin
+        }
+    }
+}
 
 class TableListContainer extends Component {
     constructor () {
@@ -62,7 +86,7 @@ class TableListContainer extends Component {
 
     componentDidMount () {
         this.setState({
-            actors: actors,
+            actors: [...actors],
             showDetail: false
         })
         this.handleValidationChange = this.handleValidationChange.bind(this)
@@ -109,9 +133,11 @@ class TableListContainer extends Component {
             { id: 'role', label: 'ROLE', minWidth: 170 },
             { id: 'nom', label: lang.head.lastName, minWidth: 170 },
             { id: 'prenom', label: lang.head.firstName, minWidth: 170 },
-            { id: 'details', label: lang.head.optionDetail, minWidth: 170 },
-            { id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' }
+            { id: 'details', label: lang.head.optionDetail, minWidth: 170 }
         ]
+        const validHead = { id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' }
+        this.props.menuSelected === variables.menus.validation && headers.push(validHead)
+
         return (
             <TableHead>
                 <TableRow>
@@ -147,22 +173,24 @@ class TableListContainer extends Component {
                         Voir details
                     </Button>
                 </TableCell>
-                <TableCell align='right'>
-                    <ToggleButtonGroup
-                        size='small'
-                        value={this.getValidationValue(actor)}
-                        exclusive
-                        onChange={this.handleValidationChange}
-                        aria-label='text alignment'
-                    >
-                        <ToggleButton className='isValid' value={actor.idUser + ',' + true} aria-label='left'>
-                            <IsValidIcon color='primary' />
-                        </ToggleButton>
-                        <ToggleButton className='isNotValid' value={actor.idUser + ',' + false} aria-label='right'>
-                            <IsNotValidIcon color='error' />
-                        </ToggleButton>
-                    </ToggleButtonGroup>
-                </TableCell>
+                {this.props.menuSelected === variables.menus.validation && (
+                    <TableCell align='right'>
+                        <ToggleButtonGroup
+                            size='small'
+                            value={this.getValidationValue(actor)}
+                            exclusive
+                            onChange={this.handleValidationChange}
+                            aria-label='text alignment'
+                        >
+                            <ToggleButton className='isValid' value={actor.idUser + ',' + true} aria-label='left'>
+                                <IsValidIcon color='primary' />
+                            </ToggleButton>
+                            <ToggleButton className='isNotValid' value={actor.idUser + ',' + false} aria-label='right'>
+                                <IsNotValidIcon color='error' />
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </TableCell>
+                )}
             </TableRow>
         )
     }
@@ -172,42 +200,32 @@ class TableListContainer extends Component {
     }
 
     getActorSelected () {
-        let actorSelected = 'all'
-        const newList = this.state.actors
+        let actorSelected = ''
         switch (this.props.actorSelected) {
         case variables.actors.children:
-            actorSelected = 'children'
+            actorSelected = 'child'
             break
         case variables.actors.parent:
-            actorSelected = 'parent'
+            actorSelected = 'only_parent'
             break
         case variables.actors.collaborator:
-            actorSelected = 'collaborator'
+            actorSelected = 'only_collaborator'
+            break
+        case variables.actors.admin:
+            actorSelected = 'admin'
             break
         }
-        console.log(actorSelected)
-
-        return newList
+        return actorSelected
     }
 
-    isBurger (cuisine) {
-        return cuisine === 'Burger'
-    }
-
-    burgerJoints () {
-        const filter = this.getActorSelected()
-        let newList = null
-        if (filter.equal('all')) {
-            newList = this.state.actors
-        } else {
-            newList = this.state.actors.filter(actor => actor.roleLabel === filter)
-        }
+    updateNewActorsList () {
+        const isRole = getRoleFunction(this.getActorSelected(), this.props.menuSelected)
+        return this.state.actors !== null ? this.state.actors.filter(isRole) : null
     }
 
     render () {
         const lang = this.getLangFile()
-        this.getActorSelected()
-        const allActors = this.state.actors
+        const allActors = this.updateNewActorsList()
         return (allActors !== null
             ? (
                 <TableContainer className='table-list'>
@@ -249,7 +267,11 @@ class TableListContainer extends Component {
                         </DialogActions>
                     </Dialog>
                 </TableContainer>)
-            : (<Loading lang={this.props.lang} />)
+            : (
+                <div className='table-loading'>
+                    <Loading lang={this.props.lang} />
+                </div>
+            )
         )
     }
 }

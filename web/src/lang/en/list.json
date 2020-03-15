@@ -1,11 +1,6 @@
 {
     "actors": [
         {
-            "id": "ORKHFBHDNBCJ",
-            "title": "all",
-            "label": "*"
-        },
-        {
             "id": "IJNDVFBHCD",
             "title": "children",
             "label": "Children"

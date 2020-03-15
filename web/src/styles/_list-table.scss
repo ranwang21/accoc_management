@@ -12,6 +12,7 @@
 			tr {
 				th {
 					background-color: rgba($color: $primaryColor, $alpha: 0.9);
+					border-color: rgba($color: $primaryColor, $alpha: 0.5);
 					font-weight: bold;
 					font-size: 1.1em;
 					text-transform: uppercase;
@@ -20,15 +21,21 @@
 		}
 		tbody {
 			tr {
-				background-color: rgba($color: $primaryColor, $alpha: 0.1);
+				background-color: rgba($color: $primaryColor, $alpha: 0.2);
 				transition: all 0.2s;
 				td {
+					border-color: rgba($color: $primaryColor, $alpha: 0.5);
 					padding: 0.5em;
 					font-weight: bold;
 					font-size: 1em;
 				}
 				&:hover {
 					background-color: rgba($color: $primaryColor, $alpha: 0.3) !important;
+				}
+				&:last-child {
+					td {
+						border: none;
+					}
 				}
 			}
 			.MuiToggleButtonGroup-grouped {
@@ -67,6 +74,16 @@
 	}
 	&::-webkit-scrollbar-thumb:window-inactive {
 		background: transparent;
+	}
+}
+.table-loading {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	div {
+		border-radius: 0.5em;
+		position: relative;
 	}
 }
 
