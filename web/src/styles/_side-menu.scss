@@ -4,6 +4,7 @@
 		background-color: $primaryColor !important;
 		border-radius: 0.5em;
 		color: rgba(255, 255, 255, 0.8);
+		transition: all 0.5s;
 	}
 }
 @include responsive(phone) {

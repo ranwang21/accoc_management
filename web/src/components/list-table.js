@@ -14,16 +14,10 @@ import '../styles/_list-table.scss'
 
 const variables = require('../utilities/variables.json')
 
-const headers = [
-    { id: 'role', label: 'ROLE', minWidth: 170 },
-    { id: 'nom', label: 'NOM', minWidth: 170 },
-    { id: 'prenom', label: 'PRENOM', minWidth: 170 },
-    { id: 'details', label: 'DETAILS', minWidth: 170 },
-    { id: 'validation', label: 'VALIDATION', minWidth: 70, align: 'right' }
-]
 const admin = [
     { idUser: 'dfvdfvg0', roleLabel: 'admin', firstName: 'admin', lastName: 'ADMINISTRATEUR', isValid: true }
 ]
+
 const actors = [
     { idUser: 'dfvdfvg1', roleLabel: 'only_parent', firstName: 'parent_1', lastName: 'P_NAME_1', isValid: true },
     { idUser: 'dfvdfvg2', roleLabel: 'only_parent', firstName: 'parent_2', lastName: 'P_NAME_2', isValid: false },
@@ -56,9 +50,14 @@ class TableListContainer extends Component {
     constructor () {
         super()
         this.state = {
-            actors: null
+            actors: null,
+            actorsToShow: null
         }
         this.handleHeadClick = this.handleHeadClick.bind(this)
+    }
+
+    getLangFile () {
+        return require('../lang/' + this.props.lang + '/list-table.json')
     }
 
     componentDidMount () {
@@ -69,10 +68,6 @@ class TableListContainer extends Component {
         this.handleValidationChange = this.handleValidationChange.bind(this)
         this.handleShowDetail = this.handleShowDetail.bind(this)
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
-    }
-
-    getLangFile () {
-        return require('../lang/' + this.props.lang + '/table.json')
     }
 
     handleValidationChange (event, newValue) {
@@ -109,7 +104,14 @@ class TableListContainer extends Component {
         console.log(event.target.textContent)
     }
 
-    buildHeader () {
+    buildHeader (lang) {
+        const headers = [
+            { id: 'role', label: 'ROLE', minWidth: 170 },
+            { id: 'nom', label: lang.head.lastName, minWidth: 170 },
+            { id: 'prenom', label: lang.head.firstName, minWidth: 170 },
+            { id: 'details', label: lang.head.optionDetail, minWidth: 170 },
+            { id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' }
+        ]
         return (
             <TableHead>
                 <TableRow>
@@ -203,13 +205,14 @@ class TableListContainer extends Component {
     }
 
     render () {
+        const lang = this.getLangFile()
         this.getActorSelected()
         const allActors = this.state.actors
         return (allActors !== null
             ? (
                 <TableContainer className='table-list'>
                     <Table stickyHeader aria-label='sticky table'>
-                        {this.buildHeader()}
+                        {this.buildHeader(lang)}
                         {this.buildBody(allActors)}
                     </Table>
                     <Dialog

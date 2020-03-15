@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
+import Cookie from 'react-cookies'
 import { Container, Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
-import Schedule from '../components/calendar'
+import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
-import List from './list'
 import ClassRoom from '../components/classroom'
+import CreateAccount from '../components/create-account'
+import Profile from '../components/profile'
+import Schedule from '../components/schedule'
+import Print from '../components/print'
+import List from './list'
 import '../styles/_dashbord.scss'
 
 const variables = require('../utilities/variables.json')
 
-function formatDate (date) {
+/* function formatDate (date) {
     const month = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
     const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
     return date.getFullYear() + '-' + month + '-' + day
-}
+} */
 
 function upadteMenuSelectedByRole (role) {
     let select = null
@@ -51,8 +56,9 @@ class Dashbord extends Component {
     }
 
     componentDidMount () {
+        const userRole = Cookie.load('userRole')
         this.setState({
-            menuItemSelected: upadteMenuSelectedByRole(this.props.userRole)
+            menuItemSelected: upadteMenuSelectedByRole(userRole)
         })
     }
 
@@ -88,24 +94,27 @@ class Dashbord extends Component {
         this.props.handleLogOutEvent()
     }
 
-    switchToMenuSelected (lang, userRole) {
-        let res = (<div className='table' />)
+    switchToMenuSelected (lang) {
         switch (this.state.menuItemSelected) {
         case variables.menus.allUsers:
-            res = (<List lang={lang} userRole={userRole} />)
-            break
+            return (<List lang={lang} menuSelected={this.state.menuItemSelected} />)
         case variables.menus.validation:
-            res = (<List lang={lang} userRole={userRole} />)
-            break
-        case variables.menus.createAdmin:
-            break
-        case variables.menus.createParentCollab:
-            break
+            return (<List lang={lang} menuSelected={this.state.menuItemSelected} />)
+        case variables.menus.createAccount:
+            return (<CreateAccount />)
         case variables.menus.classroomManagement:
-            res = (<ClassRoom lang={lang} userRole={userRole} />)
-            break
+            return (<ClassRoom lang={lang} />)
+        case variables.menus.prints:
+            return (<Print lang={lang} />)
+        case variables.menus.childList:
+            return (<List lang={lang} />)
+        case variables.menus.profile:
+            return (<Profile lang={lang} />)
+        case variables.menus.schedule:
+            return (<Schedule lang={lang} />)
+        default:
+            return (<div className='table' />)
         }
-        return res
     }
 
     render () {
@@ -118,18 +127,19 @@ class Dashbord extends Component {
                 maxWidth={false}
             >
                 <SideMenu
-                    userRole={this.props.userRole}
                     lang={this.props.lang}
                     menuItemSelected={this.state.menuItemSelected}
                     handleClickMenu={this.onClickMenu}
                 />
-                <Schedule
-                    lang={this.props.lang}
-                    date={this.state.date}
-                    handleDateChange={this.onhandleDateChange}
-                />
-                {this.switchToMenuSelected(this.props.lang, this.props.userRole)}
-
+                {(this.state.menuItemSelected === variables.menus.classroomManagement || this.state.menuItemSelected === variables.menus.schedule) &&
+                (
+                    <CalendarSchedule
+                        lang={this.props.lang}
+                        date={this.state.date}
+                        handleDateChange={this.onhandleDateChange}
+                    />
+                )}
+                {this.switchToMenuSelected(this.props.lang)}
                 <Dialog
                     open={this.state.showLogOutModal}
                     onClose={this.handleCloseLogOut}

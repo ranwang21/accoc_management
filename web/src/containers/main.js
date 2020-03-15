@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import React, { Component } from 'react'
+import Cookie from 'react-cookies'
 import Login from './login'
 import Dashbord from './dashbord'
 
@@ -12,14 +13,13 @@ class Main extends Component {
     componentDidMount () {}
 
     render () {
+        const userRole = Cookie.load('userRole')
         return (
             <main>
                 {
-                    this.props.isConnected
+                    userRole
                         ? <Dashbord
                             lang={this.props.lang}
-                            isConnected={this.props.isConnected}
-                            userRole={this.props.userRole}
                             handleLogOutEvent={this.props.onhandleLogOutClick}
                         />
                         : <Login

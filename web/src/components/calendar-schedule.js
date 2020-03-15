@@ -3,7 +3,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import '../styles/_calendar.scss'
 
-class CalendarD extends Component {
+class Schedule extends Component {
     render () {
         return (
             <div className='calendar'>
@@ -18,4 +18,4 @@ class CalendarD extends Component {
     }
 };
 
-export default CalendarD
+export default Schedule

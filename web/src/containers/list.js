@@ -52,32 +52,39 @@ class Table extends Component {
 
     render () {
         const lang = this.getLangFile()
+        const menuSelected = this.props.menuSelected
         return (
             <div className='list'>
-                <div className='list-menu'>
-                    <ButtonGroup className='btnGroup' size='medium' color='primary' aria-label='large outlined primary button group'>
-                        {lang.actors.map(actor => this.buildButton(actor))}
-                    </ButtonGroup>
-                    <div className='search-container'>
-                        <Collapse className='search-fields' in={this.state.search}>
-                            <TextField size='small' label='par nom' variant='outlined' />
-                            <TextField size='small' label='par prenom' variant='outlined' />
-                        </Collapse>
-                        <FormControlLabel
-                            control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />}
-                            label='Search'
-                        />
+                {menuSelected === variables.menus.allUsers && (
+                    <div className='list-menu'>
+                        <ButtonGroup className='btnGroup' size='medium' color='primary' aria-label='large outlined primary button group'>
+                            {lang.actors.map(actor => this.buildButton(actor))}
+                        </ButtonGroup>
+                        <div className='search-container'>
+                            <Collapse className='search-fields' in={this.state.search}>
+                                <TextField size='small' label='par nom' variant='outlined' />
+                                <TextField size='small' label='par prenom' variant='outlined' />
+                            </Collapse>
+                            <FormControlLabel
+                                control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />}
+                                label='Search'
+                            />
+                        </div>
                     </div>
-                </div>
+                )}
+
                 <ListTable lang={this.props.lang} actorSelected={this.state.actorSelected} />
-                <div className='button-valider'>
-                    <Button
-                        variant='contained'
-                        color='secondary'
-                    >
-                        VALIDER
-                    </Button>
-                </div>
+
+                {menuSelected === variables.menus.validation && (
+                    <div className='button-valider'>
+                        <Button
+                            variant='contained'
+                            color='secondary'
+                        >
+                            VALIDER
+                        </Button>
+                    </div>
+                )}
             </div>
         )
     }

@@ -24,7 +24,6 @@ class MainContainer extends Component {
         this.state = {
             lang: 'fr',
             isConnected: false,
-            userRole: null,
             showSnack: false,
             showLoading: false
         }
@@ -36,8 +35,7 @@ class MainContainer extends Component {
 
     componentDidMount () {
         this.setState({
-            isConnected: Cookie.load('isConnected'),
-            userRole: Cookie.load('userRole')
+            isConnected: Cookie.load('isConnected')
         })
     }
 
@@ -54,7 +52,6 @@ class MainContainer extends Component {
     onLogOutClick (event) {
         console.log('Deconnexion .. .. ..')
         this.setState({
-            userRole: null,
             isConnected: false,
             showSnack: true
         })
@@ -66,7 +63,6 @@ class MainContainer extends Component {
     onLogInClick (event, role) {
         console.log('Connexion .. .. ..')
         this.setState({
-            userRole: role,
             isConnected: true,
             showSnack: true,
             showLoading: true
@@ -88,14 +84,13 @@ class MainContainer extends Component {
             this.setState({
                 showLoading: false
             })
-        }, 6000)
+        }, 5000)
     }
 
     render () {
         const lang = this.state.lang
         const langFile = this.getLangFile()
         const messageSnack = this.state.isConnected ? langFile.logInSnack : langFile.logOutSnack
-        const userRole = this.state.userRole
         return (
             <>
                 <ThemeProvider theme={theme}>
@@ -106,8 +101,6 @@ class MainContainer extends Component {
                     {this.state.showLoading && <Loading lang={lang} />}
                     <Main
                         lang={lang}
-                        userRole={userRole}
-                        isConnected={this.state.isConnected}
                         onhandleLogInClick={this.onLogInClick}
                         onhandleLogOutClick={this.onLogOutClick}
                     />

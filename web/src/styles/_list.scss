@@ -9,6 +9,9 @@
 		flex-flow: wrap row;
 		justify-content: space-between;
 		padding-bottom: 0.5em;
+		> div button {
+			transition: all 0.3s;
+		}
 		.search-container {
 			display: flex;
 			justify-content: flex-end;
