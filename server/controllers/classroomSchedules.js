@@ -10,9 +10,6 @@ exports.getclassroomSchedules = asyncHandler(async (req, res) => {
   if (req.params.classroomId) {
     const classroomSchedules = await ClassroomSchedule.findOne({
       id_classroom: req.params.classroomId
-    }).populate({
-      path: 'id_day',
-      select: 'title value'
     })
     res.status(200).json({
       success: true,
@@ -27,12 +24,7 @@ exports.getclassroomSchedules = asyncHandler(async (req, res) => {
 // @route   GET /classroom-schedules/:id
 // @access  Private
 exports.getclassroomSchedule = asyncHandler(async (req, res, next) => {
-  const classroomSchedule = await ClassroomSchedule.findById(
-    req.params.id
-  ).populate({
-    path: 'id_day',
-    select: 'title value'
-  })
+  const classroomSchedule = await ClassroomSchedule.findById(req.params.id)
 
   if (!classroomSchedule) {
     return next(
@@ -60,10 +52,7 @@ exports.updateclassroomSchedule = asyncHandler(async (req, res, next) => {
       new: true,
       runValidators: true
     }
-  ).populate({
-    path: 'id_day',
-    select: 'title value'
-  })
+  )
 
   if (!classroomSchedule) {
     return next(

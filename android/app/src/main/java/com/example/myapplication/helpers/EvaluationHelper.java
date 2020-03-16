@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.myapplication.entities.Evaluation;
+import com.example.myapplication.services.Data;
 import com.example.myapplication.services.GetJson;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,9 +18,10 @@ public class EvaluationHelper {
         String json = GetJson.get("/evaluations");
         if (json != null) {
             Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Evaluation>>() {
+            Type type = new TypeToken<Data<Evaluation>>() {
             }.getType();
-            ArrayList<Evaluation> evaluations = gson.fromJson(json, listType);
+            Data<Evaluation> data = gson.fromJson(json, type);
+            ArrayList<Evaluation> evaluations = data.getData();
             for (Evaluation e : evaluations) {
                 Log.d("JsonGetlistEvaluation", "id: " + e.get_id() + " title: " + e.getId_schedule());
                 db.execSQL("insert into " + DataBaseHelper.EVALUATION_TABLE_NAME + " (id, id_schedule) values " + "('" + e.get_id() + "','" + e.getId_schedule() + "')");

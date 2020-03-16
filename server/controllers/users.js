@@ -13,10 +13,7 @@ exports.getUsers = asyncHandler(async (req, res) => {
 // @route   GET /user/:id
 // @access  Private
 exports.getUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.id).populate({
-    path: 'id_role',
-    select: 'title'
-  })
+  const user = await User.findById(req.params.id)
 
   if (!user) {
     return next(
@@ -34,10 +31,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 // @route   POST /users
 // @access  Public
 exports.createUser = asyncHandler(async (req, res) => {
-  const user = await (await User.create(req.body)).populate({
-    path: 'id_role',
-    select: 'title'
-  })
+  const user = await await User.create(req.body)
   res.status(201).json({
     success: true,
     data: user
@@ -51,9 +45,6 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
-  }).populate({
-    path: 'id_role',
-    select: 'title'
   })
 
   if (!user) {

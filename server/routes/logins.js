@@ -15,19 +15,23 @@ const router = express.Router({ mergeParams: true })
 router
   .route('/')
   .get(
-    advancedResults(Login, {
-      path: 'id_user',
-      select: 'id_role'
-    }),
-    protect,
-    authorize('admin'),
+    advancedResults(Login),
+    // protect,
+    // authorize('admin'),
     getLogins
   )
   .post(createLogin)
 
 router
   .route('/:id')
-  .get(protect, getLogin)
-  .delete(protect, authorize('admin'), deleteLogin)
+  .get(
+    // protect,
+    getLogin
+  )
+  .delete(
+    // protect,
+    // authorize('admin'),
+    deleteLogin
+  )
 
 module.exports = router
