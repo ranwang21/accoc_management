@@ -10,8 +10,7 @@ import Schedule from '../components/schedule'
 import Print from '../components/print'
 import List from './list'
 import '../styles/_dashbord.scss'
-
-const variables = require('../utilities/variables.json')
+const variables = require('../utilities/variables').variables
 
 /* function formatDate (date) {
     const month = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)

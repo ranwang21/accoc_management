@@ -1,18 +1,12 @@
 import React, { Component } from 'react'
+import Crypto from 'simple-crypto-js'
 import '../styles/_login.scss'
 import LockIcon from '@material-ui/icons/LockRounded'
 import { Container, TextField, Button } from '@material-ui/core'
 import Snack from '../components/snack'
 const LoginConfig = require('../forms-files/login.json')
 
-const role = {
-    highAdmin: 'high_admin',
-    admin: 'admin',
-    parent: 'only_parent',
-    collab: 'only_collaborator',
-    both: 'both',
-    child: 'children'
-}
+const role = require('../utilities/variables').variables.role
 
 class Application extends Component {
     constructor () {
@@ -66,18 +60,23 @@ class Application extends Component {
         // Email and password to test
         const trueEmail = 'admin@gmail.com'
         const truePassword = 'abc123...'
+        const trueRole = 'high_admin'
         const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
         let retour = false
         if (!mailformat.test(this.email)) retour = false
         else if (this.email !== trueEmail || this.password !== truePassword) retour = false
+        else if (trueRole === role.child) retour = false
         else retour = true
         // d'ont forget to update userRole here
-        this.userRole = role.admin
+        this.userRole = role.highAdmin
         return retour
     }
 
     handleBtnClick (event) {
-        if (this.validateInput() && this.userRole !== role.child) {
+        if (this.validateInput()) {
+            const userToken = {
+
+            }
             this.setState({
                 error: false,
                 success: true,

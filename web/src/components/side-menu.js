@@ -12,7 +12,7 @@ import LogOutIcon from '@material-ui/icons/PowerSettingsNew'
 
 import '../styles/_side-menu.scss'
 
-const variables = require('../utilities/variables.json')
+const variables = require('../utilities/variables').variables
 
 function getMenuIcon (menu) {
     switch (menu) {

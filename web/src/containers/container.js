@@ -34,8 +34,15 @@ class MainContainer extends Component {
     }
 
     componentDidMount () {
+        const token = Cookie.load('token')
+        if (token) {
+            console.log('TOKEN')
+            console.log(token)
+        } else {
+            console.log('NO TOKEN')
+        }
         this.setState({
-            isConnected: Cookie.load('isConnected')
+            isConnected: Cookie.load('token')
         })
     }
 

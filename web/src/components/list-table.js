@@ -12,7 +12,7 @@ import InfoIcon from '@material-ui/icons/InfoOutlined'
 import Loading from './loading'
 import '../styles/_list-table.scss'
 
-const variables = require('../utilities/variables.json')
+const variables = require('../utilities/variables').variables
 
 const actors = [
     { idUser: 'dfvdfvg0', roleLabel: 'high_admin', firstName: 'admin', lastName: 'ADMINISTRATEUR', isValid: true },

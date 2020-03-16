@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import ListTable from '../components/list-table'
 import '../styles/_list.scss'
 
-const variables = require('../utilities/variables.json')
+const variables = require('../utilities/variables').variables
 
 class Table extends Component {
     constructor () {
