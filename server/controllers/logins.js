@@ -10,9 +10,6 @@ exports.getLogins = asyncHandler(async (req, res) => {
   if (req.params.userId) {
     const login = await Login.findOne({
       id_user: req.params.userId
-    }).populate({
-      path: 'id_user',
-      select: 'id_role'
     })
     res.status(200).json({
       success: true,
@@ -27,10 +24,7 @@ exports.getLogins = asyncHandler(async (req, res) => {
 // @route    GET /logins/:id
 // @access   Private
 exports.getLogin = asyncHandler(async (req, res, next) => {
-  const login = await Login.findById(req.params.id).populate({
-    path: 'id_user',
-    select: 'id_role'
-  })
+  const login = await Login.findById(req.params.id)
 
   if (!login) {
     return next(
