@@ -5,6 +5,10 @@ const { login, getUser } = require('../controllers/auth')
 const router = express.Router()
 
 router.post('/login', login)
-router.get('/user', protect, getUser)
+router.get(
+  '/user',
+  // protect,
+  getUser
+)
 
 module.exports = router
