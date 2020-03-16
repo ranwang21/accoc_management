@@ -21,15 +21,7 @@ router.use('/:userId/logins', LoginsRouter)
 
 router
   .route('/')
-  .get(
-    advancedResults(User, {
-      path: 'id_role',
-      select: 'title'
-    }),
-    protect,
-    authorize('admin'),
-    getUsers
-  )
+  .get(advancedResults(User), protect, authorize('admin'), getUsers)
   .post(createUser)
 
 router
