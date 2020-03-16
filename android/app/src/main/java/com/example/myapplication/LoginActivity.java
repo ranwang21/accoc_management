@@ -8,6 +8,11 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.entities.User;
+import com.example.myapplication.managers.UserManager;
+
+import java.util.ArrayList;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email_signin);
         edtPassword = findViewById(R.id.edt_password_signin);
         btnSignIn = findViewById(R.id.btn_signin);
+        ArrayList<User> users = UserManager.getAll(this);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
