@@ -14,15 +14,7 @@ const router = express.Router({ mergeParams: true })
 
 router
   .route('/')
-  .get(
-    advancedResults(Login, {
-      path: 'id_user',
-      select: 'id_role'
-    }),
-    protect,
-    authorize('admin'),
-    getLogins
-  )
+  .get(advancedResults(Login), protect, authorize('admin'), getLogins)
   .post(createLogin)
 
 router
