@@ -55,13 +55,13 @@ const isAdmin = ({ roleLabel }) => (roleLabel === 'admin')
 
 function getRoleFunction (role) {
     switch (role) {
-    case 'child':
+    case variables.role.child:
         return isChild
-    case 'only_parent':
+    case variables.role.parent:
         return isParent
-    case 'only_collaborator':
+    case variables.role.collab:
         return isCollaborator
-    case 'admin':
+    case variables.role.admin:
         return isAdmin
     }
 }
@@ -201,16 +201,16 @@ class TableListContainer extends Component {
         let actorSelected = ''
         switch (this.props.actorSelected) {
         case variables.actors.children:
-            actorSelected = 'child'
+            actorSelected = variables.role.child
             break
         case variables.actors.parent:
-            actorSelected = 'only_parent'
+            actorSelected = variables.role.parent
             break
         case variables.actors.collaborator:
-            actorSelected = 'only_collaborator'
+            actorSelected = variables.role.collab
             break
         case variables.actors.admin:
-            actorSelected = 'admin'
+            actorSelected = variables.role.admin
             break
         }
         return actorSelected

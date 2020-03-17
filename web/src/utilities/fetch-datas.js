@@ -18,6 +18,14 @@ function authLogin (email, password, callBack) {
         })
 }
 
+function getCurrentUser (callBack) {
+    fetch('http://localhost:8080/auth/user')
+        .then(response => response.json())
+        .then(data => {
+            callBack(data)
+        })
+}
+
 function getUser (idUser, callBack) {
     fetch('http://localhost:8080/users/' + idUser)
         .then(response => response.json())
@@ -42,45 +50,9 @@ function currentUser () {
         })
 }
 
-function createRole (label) {
-    const newRole = { title: label }
-    fetch('http://localhost:8080/roles', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newRole)
-    })
-}
-
-function updateRole (idRole, labelRole) {
-    const newRole = { title: labelRole }
-    fetch('http://localhost:8080/roles/' + idRole, {
-        method: 'put',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newRole)
-    })
-}
-
-function updateUser (idUser, idRole) {
-    const newRole = { id_role: idRole }
-    fetch('http://localhost:8080/users/' + idUser, {
-        method: 'put',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newRole)
-    })
-}
-
-function deleteRole (idRole) {
-    fetch('http://localhost:8080/roles/' + idRole, {
-        method: 'delete'
-    })
-}
-
 export default {
     authLogin,
-    createRole,
-    updateRole,
-    deleteRole,
     currentUser,
     getUser,
-    updateUser
+    getCurrentUser
 }
