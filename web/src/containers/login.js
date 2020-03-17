@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Crypto from 'simple-crypto-js'
+import Fetch from '../utilities/fetch-datas'
 import '../styles/_login.scss'
 import LockIcon from '@material-ui/icons/LockRounded'
 import { Container, TextField, Button } from '@material-ui/core'
@@ -13,10 +14,9 @@ class Application extends Component {
         super()
         this.state = {
             loginConfig: null,
-            success: false,
             error: false,
             showSnack: false,
-            users: null
+            userToken: null
         }
         this.email = ''
         this.password = ''
@@ -30,17 +30,24 @@ class Application extends Component {
     }
 
     componentDidMount () {
+        /*
+        Fetch.updateRole('5e6a3e314554933864b2c3c4', 'high_admin')
+        Fetch.updateRole('5e6a3e314554933864b2c3c5', 'only_parent')
+        Fetch.updateRole('5e6a3e314554933864b2c3c3', 'only_collaborater')
+        Fetch.updateRole('5e6a3e314554933864b2c3c6', 'both')
+        Fetch.createRole('children')
+        // Fetch.currentUser()
+        */
         this.setState({
             loginConfig: LoginConfig
         })
     }
 
-    validateUser () {
+    validateUser (email, password) {
         const userToSend = {
-            email: 'admin@gmail.com',
-            password: 'abc123...'
+            email: email,
+            password: password
         }
-        let response = null
         fetch('http://localhost:8080/auth/login', {
             method: 'post',
             headers: {
@@ -49,11 +56,15 @@ class Application extends Component {
             body: JSON.stringify(userToSend)
         })
             .then(response => response.json())
-            .then(data => (
-                response = data
-            ))
-            .catch(error => console.log('error is', error))
-        console.log(response)
+            .then(data => {
+                this.setState({
+                    error: !data.success,
+                    showSnack: !data.error && true
+                })
+                if (!data.error) {
+                    this.props.handleConnectedEvent(event, this.userRole)
+                }
+            })
     }
 
     validateInput () {
@@ -73,23 +84,22 @@ class Application extends Component {
     }
 
     handleBtnClick (event) {
+        // this.validateUser(this.email, this.password)
+        const valid = Fetch.authLogin(this.email, this.password)
+        console.log('In handleBtnClick() ==> ', valid)
+        /*
         if (this.validateInput()) {
-            const userToken = {
-
-            }
             this.setState({
                 error: false,
-                success: true,
-                showSnack: true,
-                enableSubmit: false
+                showSnack: true
             })
             this.props.handleConnectedEvent(event, this.userRole)
         } else {
             this.setState({
-                error: true,
-                success: false
+                error: true
             })
         }
+        */
     }
 
     handleInputChange (event) {
@@ -115,6 +125,7 @@ class Application extends Component {
     buildFields (lang) {
         const error = this.state.error
         const fields = this.state.loginConfig
+        this.state.userToken !== null && console.log(this.state.userToken)
         return (
             <>
                 <TextField
@@ -146,10 +157,9 @@ class Application extends Component {
     }
 
     render () {
-        // this.validateUser()
         const langFile = this.getLangFile()
 
-        const { loginConfig, success, showSnack } = this.state
+        const { loginConfig, showSnack } = this.state
         return (
             <div className='login'>
                 <Container maxWidth='sm'>
@@ -165,7 +175,7 @@ class Application extends Component {
                                 fullWidth={false}
                                 startIcon={<LockIcon />}
                             >
-                                {!success && langFile.buttonLabel}
+                                {langFile.buttonLabel}
                             </Button>
                         )}
                     </form>
