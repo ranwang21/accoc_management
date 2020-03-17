@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.User;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
 import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -19,7 +21,6 @@ public class UserManager {
     /**
      * User TABLE FIELDS
      */
-
     private static final String ID = "id";
     private static final String ID_ROLE = "id_role";
     private static final String FIRST_NAME = "first_name";
@@ -34,7 +35,6 @@ public class UserManager {
     private static final String queryGetAll = "select * from " + DataBaseHelper.USER_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id like ?";
     private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where role_id like ?";
-
     /**
      * getAll return all users from DataBase
      *
@@ -60,7 +60,6 @@ public class UserManager {
         ConnectionBD.close();
         return users;
     }
-
     /**
      * getById return  User by id from DataBase
      *
@@ -87,7 +86,6 @@ public class UserManager {
         ConnectionBD.close();
         return user;
     }
-
     /**
      * getByCategory return all users by roles from DataBase
      *
@@ -114,7 +112,6 @@ public class UserManager {
         ConnectionBD.close();
         return users;
     }
-
     /**
      * Insert user in DataBase
      *
@@ -134,7 +131,6 @@ public class UserManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.USER_TABLE_NAME, null, contentValues);
     }
-
     /**
      * Update user in Database
      *
@@ -153,24 +149,35 @@ public class UserManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.USER_TABLE_NAME, contentValues, ID + " = " + user.get_id(), null);
     }
-
     /**
      * Delete user from DataBase
      *
      * @param context
      * @param id
      */
-    public static void delete(Context context, int id) {
+    public static void delete(Context context, String id) {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.delete(DataBaseHelper.USER_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
     }
-
     public static void postToAPI(Context context, User user) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(user);
         String jsonFromApi = PostJson.post(jsonToSemd, "/users");
         User userFromApi = gson.fromJson(jsonFromApi, User.class);
         UserManager.insert(context, userFromApi);
+    }
+    public static void putToAPI(Context context, User user) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(user);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/users");
+        User userFromApi = gson.fromJson(jsonFromApi, User.class);
+        UserManager.update(context, userFromApi);
+    }
+    public static void deleteToAPI(Context context, String id) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(id);
+        String jsonFromApi = DeleteJson.delete("/users/" + id );
+        UserManager.delete(context, id);
     }
 }
