@@ -145,3 +145,22 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     data: login
   })
 })
+
+// @desc     Update Password
+// @route    PUT /auth/update-password
+// @access   Public
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  const login = await Login.findOne({ id_user: req.user.id }).select(
+    '+password'
+  )
+
+  // CHECK CURRENT PASSWORD
+  if (!(await login.matchPassword(req.body.currentPassword))) {
+    return next(new ErrorResponse('Password is incorrect', 401))
+  }
+
+  login.password = req.body.newPassword
+  await login.save()
+
+  sendTokenResponse(login, 200, res)
+})
