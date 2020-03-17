@@ -24,15 +24,15 @@ router
   .get(
     advancedResults(Classroom),
     protect,
-    authorize('admin', 'high_admin'),
+    authorize('admin', 'super_admin'),
     getClassrooms
   )
-  .post(protect, authorize('admin', 'high_admin'), createClassroom)
+  .post(protect, authorize('admin', 'super_admin'), createClassroom)
 
 router
   .route('/:id')
   .get(protect, getClassroom)
-  .put(protect, authorize('admin', 'high_admin'), updateClassroom)
-  .delete(protect, authorize('admin', 'high_admin'), deleteClassroom)
+  .put(protect, authorize('admin', 'super_admin'), updateClassroom)
+  .delete(protect, authorize('admin', 'super_admin'), deleteClassroom)
 
 module.exports = router

@@ -18,15 +18,15 @@ router
   .get(
     advancedResults(Role),
     protect,
-    authorize('admin', 'high_admin'),
+    authorize('admin', 'super_admin'),
     getRoles
   )
-  .post(protect, authorize('admin', 'high_admin'), createRole)
+  .post(protect, authorize('admin', 'super_admin'), createRole)
 
 router
   .route('/:id')
   .get(protect, getRole)
-  .put(protect, authorize('admin', 'high_admin'), updateRole)
-  .delete(protect, authorize('admin', 'high_admin'), deleteRole)
+  .put(protect, authorize('admin', 'super_admin'), updateRole)
+  .delete(protect, authorize('admin', 'super_admin'), deleteRole)
 
 module.exports = router

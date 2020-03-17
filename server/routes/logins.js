@@ -17,7 +17,7 @@ router
   .get(
     advancedResults(Login),
     protect,
-    authorize('admin', 'high_admin'),
+    authorize('admin', 'super_admin'),
     getLogins
   )
   .post(createLogin)
@@ -25,6 +25,6 @@ router
 router
   .route('/:id')
   .get(protect, getLogin)
-  .delete(protect, authorize('admin', 'high_admin'), deleteLogin)
+  .delete(protect, authorize('admin', 'super_admin'), deleteLogin)
 
 module.exports = router
