@@ -68,6 +68,21 @@ exports.getUser = asyncHandler(async (req, res) => {
   })
 })
 
+// @desc     Log user out / Clear cookie
+// @route    GET /auth/logout
+// @access   Private
+exports.logout = asyncHandler(async (req, res) => {
+  res.cookie('token', 'none', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  })
+
+  res.status(200).json({
+    success: true,
+    data: {}
+  })
+})
+
 // @desc     Forgot password
 // @route    POST /auth/forgot-password
 // @access   Public
