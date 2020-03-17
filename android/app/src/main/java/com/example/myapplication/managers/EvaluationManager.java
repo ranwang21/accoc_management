@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.Evaluation;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -102,7 +106,7 @@ public class EvaluationManager {
      * @param context
      * @param evaluation
      */
-    public void insert(Context context, Evaluation evaluation) {
+    public static void insert(Context context, Evaluation evaluation) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, evaluation.get_id());
         contentValues.put(ID_SCHEDULE, evaluation.getId_schedule());
@@ -116,10 +120,30 @@ public class EvaluationManager {
      * @param context
      * @param evaluation
      */
-    public void update(Context context, Evaluation evaluation) {
+    public static void update(Context context, Evaluation evaluation) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_SCHEDULE, evaluation.getId_schedule());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.EVALUATION_TABLE_NAME, contentValues, ID + " = " + evaluation.get_id(), null);
+    }
+    public static void postToAPI(Context context, Evaluation evaluation) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(evaluation);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/evaluations");
+        Evaluation evaluationFromApi = gson.fromJson(jsonFromApi, Evaluation.class);
+        EvaluationManager.insert(context, evaluationFromApi);
+    }
+    public static void putToAPI(Context context, Evaluation evaluation) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(evaluation);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/evaluations");
+        Evaluation evaluationFromApi = gson.fromJson(jsonFromApi, Evaluation.class);
+        EvaluationManager.update(context, evaluationFromApi);
+    }
+    public static void deleteToAPI(Context context, String id) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(id);
+        String jsonFromApi = DeleteJson.delete("/evaluations/" + id );
+        EvaluationManager.delete(context, id);
     }
 }

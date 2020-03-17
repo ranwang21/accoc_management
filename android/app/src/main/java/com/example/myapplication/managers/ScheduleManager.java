@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.Schedule;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -170,7 +174,7 @@ public class ScheduleManager {
      * @param context
      * @param schedule
      */
-    public void insert(Context context, Schedule schedule) {
+    public static void insert(Context context, Schedule schedule) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, schedule.get_id());
         contentValues.put(ID_USER, schedule.getId_user());
@@ -188,7 +192,7 @@ public class ScheduleManager {
      * @param context
      * @param schedule
      */
-    public void update(Context context, Schedule schedule) {
+    public static void update(Context context, Schedule schedule) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_USER, schedule.getId_user());
         contentValues.put(ID_CLASSROOM, schedule.getId_classroom());
@@ -197,5 +201,25 @@ public class ScheduleManager {
         contentValues.put(COMMENT, schedule.getComment());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, ID + " = " + schedule.get_id(), null);
+    }
+    public static void postToAPI(Context context, Schedule schedule) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(schedule);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/schedules");
+        Schedule scheduleFromApi = gson.fromJson(jsonFromApi, Schedule.class);
+        ScheduleManager.insert(context, scheduleFromApi);
+    }
+    public static void putToAPI(Context context, Schedule schedule) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(schedule);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/schedules");
+        Schedule scheduleFromApi = gson.fromJson(jsonFromApi, Schedule.class);
+        ScheduleManager.update(context, scheduleFromApi);
+    }
+    public static void deleteToAPI(Context context, String id) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(id);
+        String jsonFromApi = DeleteJson.delete("/schedules/" + id );
+        ScheduleManager.delete(context, id);
     }
 }

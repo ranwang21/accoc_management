@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.Inconsistency;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -158,7 +162,7 @@ public class InconsistencyManager {
      * @param context
      * @param inconsistency
      */
-    public void insert(Context context, Inconsistency inconsistency) {
+    public static void insert(Context context, Inconsistency inconsistency) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, inconsistency.get_id());
         contentValues.put(ID_SCHEDULE, inconsistency.getId_schedule());
@@ -174,12 +178,32 @@ public class InconsistencyManager {
      * @param context
      * @param inconsistency
      */
-    public void update(Context context, Inconsistency inconsistency) {
+    public static void update(Context context, Inconsistency inconsistency) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_SCHEDULE, inconsistency.getId_schedule());
         contentValues.put(ID_CHILD, inconsistency.getId_child());
         contentValues.put(ID_COLLABORATOR, inconsistency.getId_collaborator());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.INCONSISTENCY_TABLE_NAME, contentValues, ID + " = " + inconsistency.get_id(), null);
+    }
+    public static void postToAPI(Context context, Inconsistency inconsistency) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(inconsistency);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/inconsistencies");
+        Inconsistency inconsistencyFromApi = gson.fromJson(jsonFromApi, Inconsistency.class);
+        InconsistencyManager.insert(context, inconsistencyFromApi);
+    }
+    public static void putToAPI(Context context,Inconsistency inconsistency) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(inconsistency);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/inconsistencies");
+        Inconsistency inconsistencyFromApi = gson.fromJson(jsonFromApi, Inconsistency.class);
+        InconsistencyManager.update(context, inconsistencyFromApi);
+    }
+    public static void deleteToAPI(Context context, String id) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(id);
+        String jsonFromApi = DeleteJson.delete("/inconsistencies/" + id );
+        InconsistencyManager.delete(context, id);
     }
 }

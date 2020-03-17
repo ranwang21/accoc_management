@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.Role;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -101,7 +105,7 @@ public class RoleManager {
      * @param context
      * @param role
      */
-    public void insert(Context context, Role role) {
+    public static void insert(Context context, Role role) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, role.get_id());
         contentValues.put(TITLE, role.getTitle());
@@ -115,10 +119,31 @@ public class RoleManager {
      * @param context
      * @param role
      */
-    public void update(Context context, Role role) {
+    public static void update(Context context, Role role) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TITLE, role.getTitle());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.ROLE_TABLE_NAME, contentValues, ID + " = " + role.get_id(), null);
+    }
+
+    public static void postToAPI(Context context, Role role) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(role);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/roles");
+        Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
+        RoleManager.insert(context, roleFromApi);
+    }
+    public static void putToAPI(Context context, Role role) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(role);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/roles");
+        Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
+        RoleManager.update(context, roleFromApi);
+    }
+    public static void deleteToAPI(Context context, String id) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(id);
+        String jsonFromApi = DeleteJson.delete("/roles/" + id );
+        RoleManager.delete(context, id);
     }
 }

@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -54,7 +58,7 @@ public class ClassroomManager {
      * @param context
      * @return Classroom
      */
-    public static Classroom getById(Context context, int id) {
+    public static Classroom getById(Context context, String id) {
         Classroom classroom = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
@@ -122,7 +126,7 @@ public class ClassroomManager {
      * @param context
      * @param id
      */
-    public static void delete(Context context, int id) {
+    public static void delete(Context context, String id) {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.delete(DataBaseHelper.CLASSROOM_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
@@ -134,7 +138,7 @@ public class ClassroomManager {
      * @param context
      * @param classroom
      */
-    public void insert(Context context, Classroom classroom) {
+    public static void insert(Context context, Classroom classroom) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, classroom.get_id());
         contentValues.put(TITLE, classroom.getTitle());
@@ -150,12 +154,32 @@ public class ClassroomManager {
      * @param context
      * @param classroom
      */
-    public void update(Context context, Classroom classroom) {
+    public static void update(Context context, Classroom classroom) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TITLE, classroom.getTitle());
         contentValues.put(PHONE, classroom.getPhone());
         contentValues.put(SEAT, classroom.getSeat());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.CLASSROOM_TABLE_NAME, contentValues, ID + " = " + classroom.get_id(), null);
+    }
+    public static void postToAPI(Context context, Classroom classroom) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(classroom);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/classrooms");
+        Classroom classroomFromApi = gson.fromJson(jsonFromApi, Classroom.class);
+        ClassroomManager.insert(context, classroomFromApi);
+    }
+    public static void putToAPI(Context context,Classroom classroom) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(classroom);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/classrooms");
+        Classroom classroomFromApi = gson.fromJson(jsonFromApi, Classroom.class);
+        ClassroomManager.update(context, classroomFromApi);
+    }
+    public static void deleteToAPI(Context context, String id) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(id);
+        String jsonFromApi = DeleteJson.delete("/classrooms/" + id );
+        ClassroomManager.delete(context, id);
     }
 }
