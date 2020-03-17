@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Cookie from 'react-cookies'
 import '../styles/_main.scss'
 import Header from '../components/header'
 import Main from './main'
@@ -22,8 +23,7 @@ class MainContainer extends Component {
         super()
         this.state = {
             lang: 'fr',
-            isConnected: true,
-            userType: 'admin',
+            isConnected: false,
             showSnack: false,
             showLoading: false
         }
@@ -31,6 +31,19 @@ class MainContainer extends Component {
         this.onLogInClick = this.onLogInClick.bind(this)
         this.onLogOutClick = this.onLogOutClick.bind(this)
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
+    }
+
+    componentDidMount () {
+        const token = Cookie.load('token')
+        if (token) {
+            console.log('TOKEN')
+            console.log(token)
+        } else {
+            console.log('NO TOKEN')
+        }
+        this.setState({
+            isConnected: Cookie.load('token')
+        })
     }
 
     getLangFile () {
@@ -49,9 +62,12 @@ class MainContainer extends Component {
             isConnected: false,
             showSnack: true
         })
+
+        Cookie.remove('isConnected', { path: '/' })
+        Cookie.remove('userRole', { path: '/' })
     }
 
-    onLogInClick (event) {
+    onLogInClick (event, role) {
         console.log('Connexion .. .. ..')
         this.setState({
             isConnected: true,
@@ -59,6 +75,9 @@ class MainContainer extends Component {
             showLoading: true
         })
         this.showConnectedLoading()
+
+        Cookie.save('isConnected', true, { path: '/' })
+        Cookie.save('userRole', role, { path: '/' })
     }
 
     handleCloseSnack (event) {
@@ -72,22 +91,33 @@ class MainContainer extends Component {
             this.setState({
                 showLoading: false
             })
-        }, 6000)
+        }, 5000)
     }
 
     render () {
         const lang = this.state.lang
         const langFile = this.getLangFile()
         const messageSnack = this.state.isConnected ? langFile.logInSnack : langFile.logOutSnack
-        const userType = this.state.userType
         return (
             <>
                 <ThemeProvider theme={theme}>
-                    <Header lang={lang} handleLangChangedClick={this.onLangChanged} isConnected={this.state.isConnected} onhandleLogOutClick={this.onLogOutClick} />
+                    <Header
+                        lang={lang}
+                        handleLangChangedClick={this.onLangChanged}
+                    />
                     {this.state.showLoading && <Loading lang={lang} />}
-                    <Main lang={lang} userType={userType} isConnected={this.state.isConnected} onhandleLogInClick={this.onLogInClick} />
+                    <Main
+                        lang={lang}
+                        onhandleLogInClick={this.onLogInClick}
+                        onhandleLogOutClick={this.onLogOutClick}
+                    />
                     <Footer lang={lang} />
-                    <Snack show={this.state.showSnack} message={messageSnack} onClose={this.handleCloseSnack} severity='success' />
+                    <Snack
+                        show={this.state.showSnack}
+                        message={messageSnack}
+                        onClose={this.handleCloseSnack}
+                        severity='success'
+                    />
                 </ThemeProvider>
             </>
         )

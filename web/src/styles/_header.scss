@@ -24,19 +24,8 @@ header {
 				margin: 0;
 				padding: 0.5em;
 				height: 2em;
-			}
-
-			> button.logout {
-				color: $blackTrans;
-				display: flex;
-				align-items: center;
-				font-size: 1em;
-				font-weight: bold;
-				p {
-					margin-right: 5px;
-				}
-				svg {
-					font-size: 1.5em;
+				.MuiOutlinedInput-input {
+					padding: 0.5em 1em;
 				}
 			}
 		}
@@ -49,14 +38,6 @@ header {
 			> div.right-head {
 				> div.lang {
 					height: 1.5em;
-				}
-				> button.logout {
-					p {
-						display: none;
-					}
-					svg {
-						font-size: 3em;
-					}
 				}
 			}
 		}

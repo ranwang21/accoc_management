@@ -29,9 +29,9 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
 // @desc    Create new user
 // @route   POST /users
-// @access  Private
+// @access  Public
 exports.createUser = asyncHandler(async (req, res) => {
-  const user = await User.create(req.body)
+  const user = await await User.create(req.body)
   res.status(201).json({
     success: true,
     data: user

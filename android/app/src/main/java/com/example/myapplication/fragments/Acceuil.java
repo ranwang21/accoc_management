@@ -4,14 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class Acceuil extends Fragment {
+public class Acceuil extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
+    Button myBtn;
 
     @Nullable
     @Override
@@ -19,8 +23,11 @@ public class Acceuil extends Fragment {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.fragment_acceuil, container, false);
+        myBtn = ( Button ) view.findViewById(R.id.salle1);
+        myBtn = ( Button ) view.findViewById(R.id.salle2);
 
-
+        myBtn = ( Button ) view.findViewById(R.id.salle3);
+        myBtn = ( Button ) view.findViewById(R.id.salle4);
         return view;
     }
 
@@ -31,4 +38,55 @@ public class Acceuil extends Fragment {
         getActivity().setTitle("Acceuil");
     }
 
+    @Override
+    public void onClick(View view) {
+        Fragment fragment = null;
+
+        switch (view.getId()) {
+
+
+            case R.id.salle1:
+                fragment = new ListesEnfants();
+                break;
+
+            case R.id.salle2:
+                fragment = new ListesEnfants();
+                break;
+
+            case R.id.salle3:
+                fragment = new ListesEnfants();
+                break;
+
+            case R.id.salle4:
+                fragment = new ListesEnfants();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        switch (view.getId()) {
+            case R.id.salle1:
+                Toast.makeText(getActivity(), "status de la salle 1", Toast.LENGTH_SHORT).show();
+
+                break;
+            case R.id.salle2:
+                Toast.makeText(getActivity(), "status de la salle 2", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.salle3:
+                Toast.makeText(getActivity(), "status de la salle 3", Toast.LENGTH_SHORT).show();
+
+                break;
+            case R.id.salle4:
+                Toast.makeText(getActivity(), "status de la salle 4", Toast.LENGTH_SHORT).show();
+
+                break;
+            default:
+                break;
+
+        }
+        return false;
+    }
 }
