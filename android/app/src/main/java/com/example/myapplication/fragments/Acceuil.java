@@ -19,40 +19,33 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class Acceuil extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
-<<<<<<< HEAD
     Button myBtn;
-=======
     Button myBtn1;
     Button myBtn2;
     Button myBtn3;
     Button myBtn4;
-
->>>>>>> master
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.fragment_acceuil, container, false);
-<<<<<<< HEAD
         myBtn = (Button) view.findViewById(R.id.salle1);
         myBtn = (Button) view.findViewById(R.id.salle2);
         myBtn = (Button) view.findViewById(R.id.salle3);
         myBtn = (Button) view.findViewById(R.id.salle4);
-=======
-        myBtn1  = ( Button ) view.findViewById(R.id.salle1);
+        myBtn1 = (Button) view.findViewById(R.id.salle1);
         myBtn1.setOnClickListener(this);
         myBtn1.setOnLongClickListener(this);
-        myBtn2 = ( Button ) view.findViewById(R.id.salle2);
-myBtn2.setOnClickListener(this);
+        myBtn2 = (Button) view.findViewById(R.id.salle2);
+        myBtn2.setOnClickListener(this);
         myBtn2.setOnLongClickListener(this);
-        myBtn3 = ( Button ) view.findViewById(R.id.salle3);
+        myBtn3 = (Button) view.findViewById(R.id.salle3);
         myBtn3.setOnClickListener(this);
         myBtn3.setOnLongClickListener(this);
-        myBtn4 = ( Button ) view.findViewById(R.id.salle4);
+        myBtn4 = (Button) view.findViewById(R.id.salle4);
         myBtn4.setOnClickListener(this);
         myBtn4.setOnLongClickListener(this);
->>>>>>> master
         return view;
     }
     @Override
