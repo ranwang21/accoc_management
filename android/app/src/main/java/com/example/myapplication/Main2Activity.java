@@ -91,8 +91,8 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
            /* default R.id.nav_acceuil
                 fragment=new Acceuil();*/
             case R.id.nav_acceuil:
-                fragment=new Acceuil();
-            break;
+                fragment = new Acceuil();
+                break;
         }
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

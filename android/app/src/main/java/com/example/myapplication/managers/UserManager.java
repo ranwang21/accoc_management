@@ -60,6 +60,7 @@ public class UserManager {
         ConnectionBD.close();
         return users;
     }
+
     /**
      * getById return  User by id from DataBase
      *
@@ -86,6 +87,7 @@ public class UserManager {
         ConnectionBD.close();
         return user;
     }
+
     /**
      * getByCategory return all users by roles from DataBase
      *
@@ -112,6 +114,7 @@ public class UserManager {
         ConnectionBD.close();
         return users;
     }
+
     /**
      * Insert user in DataBase
      *
@@ -131,6 +134,7 @@ public class UserManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.USER_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update user in Database
      *
@@ -149,6 +153,7 @@ public class UserManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.USER_TABLE_NAME, contentValues, ID + " = " + user.get_id(), null);
     }
+
     /**
      * Delete user from DataBase
      *
@@ -160,6 +165,7 @@ public class UserManager {
         bd.delete(DataBaseHelper.USER_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
     }
+
     public static void postToAPI(Context context, User user) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(user);

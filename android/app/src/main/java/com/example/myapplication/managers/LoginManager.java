@@ -25,6 +25,7 @@ public class LoginManager {
     private static final String queryGetById = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where id like ?";
     private static final String queryGetByEmail = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where email like ?";
     private static final String queryGetByEmailAndPassword = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where email like ? and password like ?";
+
     /**
      * getAll return all Login from DataBase
      *
@@ -46,6 +47,7 @@ public class LoginManager {
         ConnectionBD.close();
         return logins;
     }
+
     /**
      * getById return a Login by id from DataBase
      *
@@ -67,6 +69,7 @@ public class LoginManager {
         ConnectionBD.close();
         return login;
     }
+
     /**
      * getById return a Login by email from DataBase
      *
@@ -89,6 +92,7 @@ public class LoginManager {
         ConnectionBD.close();
         return login;
     }
+
     /**
      * Insert Login in DataBase
      *
@@ -104,6 +108,7 @@ public class LoginManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.LOGIN_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update Login in Database
      *
@@ -118,6 +123,7 @@ public class LoginManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.LOGIN_TABLE_NAME, contentValues, ID + " = " + login.get_id(), null);
     }
+
     /**
      * Delete Login from DataBase
      *
