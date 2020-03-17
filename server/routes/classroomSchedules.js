@@ -16,13 +16,13 @@ router
   .get(
     advancedResults(ClassroomSchedule),
     protect,
-    authorize('admin'),
+    authorize('admin', 'high_admin'),
     getclassroomSchedules
   )
 
 router
   .route('/:id')
   .get(protect, getclassroomSchedule)
-  .put(protect, authorize('admin'), updateclassroomSchedule)
+  .put(protect, authorize('admin', 'high_admin'), updateclassroomSchedule)
 
 module.exports = router
