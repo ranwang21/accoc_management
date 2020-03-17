@@ -1,12 +1,33 @@
 {
-    "admin": {
-        "allUsers": "Lists",
-        "validation": "Registration validation",
-        "createAdmin": "Create an Admin Account",
-        "createParentCollab": "Create a Parent or Collaborator Account",
-        "classroomManagement": "Classroom management"
+    "highAdmin": {
+        "allUsers": "List of all actors",
+        "validation": "Validate registrations",
+        "createAccount": "Create an Account",
+        "classroomManagement": "Classroom management",
+        "prints": "Impressions",
+        "logOut": "Sign Out"
     },
-    "others": {
-        "seeProfile": "See Profile"
+    "admin": {
+        "allUsers": "List of all actors",
+        "validation": "Validate registrations",
+        "createAccount": "Create an Account",
+        "classroomManagement": "Classroom management",
+        "logOut": "Sign Out"
+    },
+    "both": {
+        "childList": "List of your children",
+        "schedule": "Consult your Schedule",
+        "profile": "Profile",
+        "logOut": "Sign Out"
+    },
+    "parent": {
+        "childList": "List of your children",
+        "profile": "Profile",
+        "logOut": "Sign Out"
+    },
+    "collaborator": {
+        "schedule": "Consult your Schedule",
+        "profile": "Profile",
+        "logOut": "Sign Out"
     }
 }

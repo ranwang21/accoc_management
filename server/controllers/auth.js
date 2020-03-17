@@ -1,6 +1,9 @@
+const crypto = require('crypto')
 const ErrorResponse = require('../utils/ErrorResponse')
+const sendEmail = require('../utils/sendEmail')
 const asyncHandler = require('../middlewares/async')
 const Login = require('../models/Login')
+const User = require('../models/User')
 
 // GET TOKEN FROM MODEL, CREATE COOKIE AND SEND RESPONSE
 const sendTokenResponse = (login, statusCode, res) => {
@@ -51,4 +54,94 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   sendTokenResponse(login, 200, res)
+})
+
+// @desc     Get current logged in user
+// @route    GET /auth/user
+// @access   Private
+exports.getUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id)
+
+  res.status(200).json({
+    success: true,
+    data: user
+  })
+})
+
+// @desc     Forgot password
+// @route    POST /auth/forgot-password
+// @access   Public
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+  const login = await Login.findOne({ email: req.body.email })
+
+  if (!login) {
+    return next(new ErrorResponse('There is no user with that email', 404))
+  }
+
+  // GET RESET TOKEN
+  const resetToken = login.getResetPasswordToken()
+
+  await login.save({ validateBeforeSave: false })
+
+  // CREATE RESET URL
+  const resetUrl = `${req.protocol}://${req.get(
+    'host'
+  )}/auth/reset-password/${resetToken}`
+
+  const message = `You are receiving this email because you (or someone else)
+   has requested the reset of a password.
+   Please make a PUT request to: \n\n ${resetUrl}`
+
+  try {
+    await sendEmail({
+      email: login.email,
+      subject: 'Password reset token',
+      message
+    })
+
+    res.status(200).json({
+      success: true,
+      data: 'Email sent'
+    })
+  } catch (err) {
+    console.log(err)
+    login.ResetPasswordToken = undefined
+    login.resetPasswordExpire = undefined
+
+    await login.save({ validateBeforeSave: false })
+
+    return next(new ErrorResponse('Email could not be sent', 500))
+  }
+})
+
+// @desc     Reset Password
+// @route    PUT /auth/reset-password/:token
+// @access   Public
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+  // GET HASHED TOKEN
+  const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex')
+
+  const login = await Login.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() }
+  })
+
+  if (!login) {
+    return next(new ErrorResponse('Invalid token', 400))
+  }
+
+  // SET NEW PASSWORD
+  login.password = req.body.password
+  login.resetPasswordToken = undefined
+  login.resetPasswordExpire = undefined
+
+  await login.save()
+
+  res.status(200).json({
+    success: true,
+    data: login
+  })
 })

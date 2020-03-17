@@ -38,7 +38,7 @@ class ClassRoom extends Component {
                     {/* TODO */}
                     <p className='child-number'>10</p>
                 </div>
-                <Button variant='outlined' color='primary' href='#outlined-buttons'>
+                <Button variant='outlined' color='primary'>
                     {lang.seeDetail}
                 </Button>
             </div>

@@ -1,0 +1,11 @@
+{
+    "head": {
+        "lastName": "last name",
+        "firstName": "first name",
+        "optionDetail": "details",
+        "optionValidation": "validations"
+    },
+    "body": {
+        "btnDetail": "see details"
+    }
+}

@@ -1,5 +1,6 @@
 @import "./base";
 .footer {
+	font-size: 1em;
 	position: absolute;
 	bottom: 0;
 	width: 100vw;
@@ -15,6 +16,7 @@
 		display: flex;
 		flex-direction: column;
 		&:first-of-type {
+			font-size: 0.7em;
 			justify-content: space-around;
 			> div {
 				display: flex;
@@ -50,6 +52,7 @@
 
 @include responsive(phone) {
 	.footer {
+		font-size: 1em;
 		height: 10vh;
 		padding: 0 0.5em !important;
 		align-items: center;
@@ -66,8 +69,8 @@
 			&:last-child {
 				button {
 					margin: 0.9em;
-					padding: 0.5em;
-					font-size: 0.75em;
+					padding: 0.3em;
+					font-size: 0.55em;
 					width: 100%;
 				}
 			}
@@ -79,6 +82,7 @@
 }
 @include responsive(tablet) {
 	.footer {
+		font-size: 0.9em;
 		height: 12vh;
 		padding: 0 2em !important;
 		> div {

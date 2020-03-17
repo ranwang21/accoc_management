@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
+import Crypto from 'simple-crypto-js'
+import Fetch from '../utilities/fetch-datas'
 import '../styles/_login.scss'
 import LockIcon from '@material-ui/icons/LockRounded'
 import { Container, TextField, Button } from '@material-ui/core'
 import Snack from '../components/snack'
 const LoginConfig = require('../forms-files/login.json')
 
+const role = require('../utilities/variables').variables.role
+
 class Application extends Component {
     constructor () {
         super()
         this.state = {
             loginConfig: null,
-            success: false,
             error: false,
             showSnack: false,
-            users: null
+            userToken: null
         }
         this.email = ''
         this.password = ''
+        this.userRole = null
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleBtnClick = this.handleBtnClick.bind(this)
     }
@@ -26,48 +30,76 @@ class Application extends Component {
     }
 
     componentDidMount () {
+        /*
+        Fetch.updateRole('5e6a3e314554933864b2c3c4', 'high_admin')
+        Fetch.updateRole('5e6a3e314554933864b2c3c5', 'only_parent')
+        Fetch.updateRole('5e6a3e314554933864b2c3c3', 'only_collaborater')
+        Fetch.updateRole('5e6a3e314554933864b2c3c6', 'both')
+        Fetch.createRole('children')
+        // Fetch.currentUser()
+        */
         this.setState({
             loginConfig: LoginConfig
         })
     }
 
-    validateUser () {
-        this.email = 'admin@gmail.com'
-        fetch('http://localhost:8080/logins?email=' + this.email)
+    validateUser (email, password) {
+        const userToSend = {
+            email: email,
+            password: password
+        }
+        fetch('http://localhost:8080/auth/login', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userToSend)
+        })
             .then(response => response.json())
-            .then(data => (
+            .then(data => {
                 this.setState({
-                    users: data
+                    error: !data.success,
+                    showSnack: !data.error && true
                 })
-            ))
-        console.log(this.state.users)
+                if (!data.error) {
+                    this.props.handleConnectedEvent(event, this.userRole)
+                }
+            })
     }
 
     validateInput () {
         // Email and password to test
         const trueEmail = 'admin@gmail.com'
         const truePassword = 'abc123...'
+        const trueRole = 'high_admin'
         const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-        if (!mailformat.test(this.email)) return false
-        else if (this.email !== trueEmail || this.password !== truePassword) return false
-        else return true
+        let retour = false
+        if (!mailformat.test(this.email)) retour = false
+        else if (this.email !== trueEmail || this.password !== truePassword) retour = false
+        else if (trueRole === role.child) retour = false
+        else retour = true
+        // d'ont forget to update userRole here
+        this.userRole = role.highAdmin
+        return retour
     }
 
-    handleBtnClick () {
+    handleBtnClick (event) {
+        // this.validateUser(this.email, this.password)
+        const valid = Fetch.authLogin(this.email, this.password)
+        console.log('In handleBtnClick() ==> ', valid)
+        /*
         if (this.validateInput()) {
             this.setState({
                 error: false,
-                success: true,
-                showSnack: true,
-                enableSubmit: false
+                showSnack: true
             })
-            this.props.handleConnectedEvent()
+            this.props.handleConnectedEvent(event, this.userRole)
         } else {
             this.setState({
-                error: true,
-                success: false
+                error: true
             })
         }
+        */
     }
 
     handleInputChange (event) {
@@ -93,6 +125,7 @@ class Application extends Component {
     buildFields (lang) {
         const error = this.state.error
         const fields = this.state.loginConfig
+        this.state.userToken !== null && console.log(this.state.userToken)
         return (
             <>
                 <TextField
@@ -124,10 +157,9 @@ class Application extends Component {
     }
 
     render () {
-        console.log(this.state.users)
         const langFile = this.getLangFile()
 
-        const { loginConfig, success, showSnack } = this.state
+        const { loginConfig, showSnack } = this.state
         return (
             <div className='login'>
                 <Container maxWidth='sm'>
@@ -143,7 +175,7 @@ class Application extends Component {
                                 fullWidth={false}
                                 startIcon={<LockIcon />}
                             >
-                                {!success && langFile.buttonLabel}
+                                {langFile.buttonLabel}
                             </Button>
                         )}
                     </form>
