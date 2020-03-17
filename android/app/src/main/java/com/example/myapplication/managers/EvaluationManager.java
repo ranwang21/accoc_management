@@ -49,7 +49,7 @@ public class EvaluationManager {
      * @param context
      * @return Evaluation
      */
-    public static Evaluation getById(Context context, int id) {
+    public static Evaluation getById(Context context, String id) {
         Evaluation evaluation = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
@@ -70,7 +70,7 @@ public class EvaluationManager {
      * @param id_schedule
      * @return Evaluation
      */
-    public static Evaluation getById(Context context, String id_schedule) {
+    public static Evaluation getByIdSchedule(Context context, String id_schedule) {
         Evaluation evaluation = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByIdSchedule, new String[]{id_schedule});
@@ -90,7 +90,7 @@ public class EvaluationManager {
      * @param context
      * @param id
      */
-    public static void delete(Context context, int id) {
+    public static void delete(Context context, String id) {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.delete(DataBaseHelper.EVALUATION_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();

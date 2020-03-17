@@ -48,7 +48,7 @@ public class RoleManager {
      * @param context
      * @return Role
      */
-    public static Role getById(Context context, int id) {
+    public static Role getById(Context context, String id) {
         Role role = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
@@ -69,7 +69,7 @@ public class RoleManager {
      * @param title
      * @return Role
      */
-    public static Role getById(Context context, String title) {
+    public static Role getByTitle(Context context, String title) {
         Role role = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByTitle, new String[]{title});
@@ -89,7 +89,7 @@ public class RoleManager {
      * @param context
      * @param id
      */
-    public static void delete(Context context, int id) {
+    public static void delete(Context context, String id) {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.delete(DataBaseHelper.ROLE_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();

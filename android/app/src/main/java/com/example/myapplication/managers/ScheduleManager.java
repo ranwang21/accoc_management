@@ -59,7 +59,7 @@ public class ScheduleManager {
      * @param context
      * @return Schedule
      */
-    public static Schedule getById(Context context, int id) {
+    public static Schedule getById(Context context, String id) {
         Schedule schedule = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
@@ -158,7 +158,7 @@ public class ScheduleManager {
      * @param context
      * @param id
      */
-    public static void delete(Context context, int id) {
+    public static void delete(Context context, String id) {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.delete(DataBaseHelper.SCHEDULE_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
