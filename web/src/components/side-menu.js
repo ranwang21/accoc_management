@@ -14,7 +14,7 @@ import '../styles/_side-menu.scss'
 
 const variables = require('../utilities/variables').variables
 
-function getMenuIcon (menu) {
+const getMenuIcon = (menu) => {
     switch (menu) {
     case variables.menus.allUsers:
         return (<ListIcon />)
@@ -37,7 +37,7 @@ function getMenuIcon (menu) {
     }
 }
 
-function getMenuItemsByRole (lang, role) {
+const getMenuItemsByRole = (lang, role) => {
     let items = {}
     switch (role) {
     case 'high_admin':
@@ -66,7 +66,7 @@ class SideMenu extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const items = getMenuItemsByRole(lang, Cookie.load('userRole'))
+        const items = getMenuItemsByRole(lang, Cookie.load('token').role)
         return (
             <div className='side-menu'>
                 <List>
@@ -77,9 +77,7 @@ class SideMenu extends Component {
                             onClick={event => this.props.handleClickMenu(event, variables.menus[item])}
                             selected={this.props.menuItemSelected === variables.menus[item]}
                         >
-                            <ListItemIcon>
-                                {getMenuIcon(variables.menus[item])}
-                            </ListItemIcon>
+                            <ListItemIcon>{getMenuIcon(variables.menus[item])}</ListItemIcon>
                             <ListItemText primary={items[item]} />
                         </ListItem>)}
                 </List>

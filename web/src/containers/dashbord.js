@@ -18,7 +18,7 @@ const variables = require('../utilities/variables').variables
     return date.getFullYear() + '-' + month + '-' + day
 } */
 
-function upadteMenuSelectedByRole (role) {
+const upadteMenuSelectedByRole = (role) => {
     let select = null
     switch (role) {
     case 'high_admin':
@@ -29,7 +29,7 @@ function upadteMenuSelectedByRole (role) {
     case 'only_parent':
         select = variables.menus.childList
         break
-    case 'only_collaborator':
+    case 'only_collaborater':
         select = variables.menus.schedule
         break
     }
@@ -50,46 +50,22 @@ class Dashbord extends Component {
         this.handleConfirmLogOut = this.handleConfirmLogOut.bind(this)
     }
 
-    getLangFile () {
-        return require('../lang/' + this.props.lang + '/dashbord.json')
-    }
+    getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
 
-    componentDidMount () {
-        const userRole = Cookie.load('userRole')
-        this.setState({
-            menuItemSelected: upadteMenuSelectedByRole(userRole)
-        })
-    }
+    componentDidMount () { this.setState({ menuItemSelected: upadteMenuSelectedByRole(Cookie.load('token').role) }) }
 
-    onhandleDateChange (newDate) {
-        console.log(newDate)
-        this.setState({
-            date: newDate
-        })
-    }
+    onhandleDateChange (newDate) { this.setState({ date: newDate }) }
 
     onClickMenu (event, index) {
-        if (index === variables.menus.logOut) {
-            this.setState({
-                showLogOutModal: true
-            })
-        } else {
-            this.setState({
-                menuItemSelected: index
-            })
-        }
+        index === variables.menus.logOut
+            ? this.setState({ showLogOutModal: true })
+            : this.setState({ menuItemSelected: index })
     }
 
-    handleCloseLogOut () {
-        this.setState({
-            showLogOutModal: false
-        })
-    }
+    handleCloseLogOut () { this.setState({ showLogOutModal: false }) }
 
     handleConfirmLogOut () {
-        this.setState({
-            showLogOutModal: false
-        })
+        this.setState({ showLogOutModal: false })
         this.props.handleLogOutEvent()
     }
 
@@ -117,42 +93,21 @@ class Dashbord extends Component {
     }
 
     render () {
-        // const isConnected = this.props.isConnected
         const lang = this.getLangFile()
-        // const date = formatDate(this.state.date)
         return (
-            <Container
-                className='dashbord'
-                maxWidth={false}
-            >
-                <SideMenu
-                    lang={this.props.lang}
-                    menuItemSelected={this.state.menuItemSelected}
-                    handleClickMenu={this.onClickMenu}
-                />
+            <Container className='dashbord' maxWidth={false}>
+                <SideMenu lang={this.props.lang} menuItemSelected={this.state.menuItemSelected} handleClickMenu={this.onClickMenu} />
+
                 {(this.state.menuItemSelected === variables.menus.classroomManagement || this.state.menuItemSelected === variables.menus.schedule) &&
-                (
-                    <CalendarSchedule
-                        lang={this.props.lang}
-                        date={this.state.date}
-                        handleDateChange={this.onhandleDateChange}
-                    />
-                )}
+                    (<CalendarSchedule lang={this.props.lang} date={this.state.date} handleDateChange={this.onhandleDateChange} />)}
+
                 {this.switchToMenuSelected(this.props.lang)}
-                <Dialog
-                    open={this.state.showLogOutModal}
-                    onClose={this.handleCloseLogOut}
-                    aria-labelledby='alert-dialog-title'
-                    aria-describedby='alert-dialog-description'
-                >
+
+                <Dialog open={this.state.showLogOutModal} onClose={this.handleCloseLogOut} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
                     <DialogTitle id='alert-dialog-title'>{lang.modal.title}</DialogTitle>
                     <DialogActions>
-                        <Button onClick={this.handleCloseLogOut} color='primary'>
-                            {lang.modal.cancel}
-                        </Button>
-                        <Button onClick={this.handleConfirmLogOut} color='primary' autoFocus>
-                            {lang.modal.confirm}
-                        </Button>
+                        <Button onClick={this.handleCloseLogOut} color='primary'> {lang.modal.cancel} </Button>
+                        <Button onClick={this.handleConfirmLogOut} color='primary' autoFocus> {lang.modal.confirm} </Button>
                     </DialogActions>
                 </Dialog>
             </Container>

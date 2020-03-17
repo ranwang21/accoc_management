@@ -1,5 +1,6 @@
 'use-strict'
-function authLogin (email, password) {
+
+function authLogin (email, password, callBack) {
     const userToSend = {
         email: email,
         password: password
@@ -13,7 +14,23 @@ function authLogin (email, password) {
     })
         .then(response => response.json())
         .then(data => {
-            getUserValidity(data)
+            callBack(data)
+        })
+}
+
+function getUser (idUser, callBack) {
+    fetch('http://localhost:8080/users/' + idUser)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                fetch('http://localhost:8080/roles/' + data.data.id_role)
+                    .then(response => response.json())
+                    .then(data2 => {
+                        if (data2.success) {
+                            callBack(data.data, data2.data.title)
+                        }
+                    })
+            }
         })
 }
 
@@ -43,21 +60,27 @@ function updateRole (idRole, labelRole) {
     })
 }
 
+function updateUser (idUser, idRole) {
+    const newRole = { id_role: idRole }
+    fetch('http://localhost:8080/users/' + idUser, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newRole)
+    })
+}
+
 function deleteRole (idRole) {
     fetch('http://localhost:8080/roles/' + idRole, {
         method: 'delete'
     })
 }
 
-function getUserValidity (datas) {
-    console.log('In getUserValidity() ==> ', datas)
-    return datas
-}
-
-module.exports = {
+export default {
     authLogin,
     createRole,
     updateRole,
     deleteRole,
-    currentUser
+    currentUser,
+    getUser,
+    updateUser
 }

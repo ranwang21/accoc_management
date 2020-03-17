@@ -21,9 +21,7 @@ class Table extends Component {
         this.handleSearchChange = this.handleSearchChange.bind(this)
     }
 
-    getLangFile () {
-        return require('../lang/' + this.props.lang + '/list.json')
-    }
+    getLangFile () { return require('../lang/' + this.props.lang + '/list.json') }
 
     buildButton (actor) {
         const role = Cookie.load('userRole')
@@ -41,17 +39,11 @@ class Table extends Component {
     }
 
     onActorSelected (event, name) {
-        this.setState({
-            actorSelected: name
-        })
+        this.setState({ actorSelected: name })
     }
 
     handleSearchChange () {
-        this.setState(state => {
-            return {
-                search: !state.search
-            }
-        })
+        this.setState(state => { return { search: !state.search } })
     };
 
     render () {
@@ -70,8 +62,7 @@ class Table extends Component {
                                 <TextField size='small' label='par prenom' variant='outlined' />
                             </Collapse>
                             <FormControlLabel
-                                control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />}
-                                label='Search'
+                                control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />} label='Search'
                             />
                         </div>
                     </div>
@@ -80,14 +71,7 @@ class Table extends Component {
                 <ListTable lang={this.props.lang} actorSelected={this.state.actorSelected} menuSelected={menuSelected} />
 
                 {menuSelected === variables.menus.validation && (
-                    <div className='button-valider'>
-                        <Button
-                            variant='contained'
-                            color='secondary'
-                        >
-                            {lang.btnValidate}
-                        </Button>
-                    </div>
+                    <div className='button-valider'><Button variant='contained' color='secondary'>{lang.btnValidate}</Button></div>
                 )}
             </div>
         )
