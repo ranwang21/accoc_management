@@ -68,6 +68,21 @@ exports.getUser = asyncHandler(async (req, res) => {
   })
 })
 
+// @desc     Log user out / Clear cookie
+// @route    GET /auth/logout
+// @access   Private
+exports.logout = asyncHandler(async (req, res) => {
+  res.cookie('token', 'none', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  })
+
+  res.status(200).json({
+    success: true,
+    data: {}
+  })
+})
+
 // @desc     Forgot password
 // @route    POST /auth/forgot-password
 // @access   Public
@@ -144,4 +159,23 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     success: true,
     data: login
   })
+})
+
+// @desc     Update Password
+// @route    PUT /auth/update-password
+// @access   Public
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  const login = await Login.findOne({ id_user: req.user.id }).select(
+    '+password'
+  )
+
+  // CHECK CURRENT PASSWORD
+  if (!(await login.matchPassword(req.body.currentPassword))) {
+    return next(new ErrorResponse('Password is incorrect', 401))
+  }
+
+  login.password = req.body.newPassword
+  await login.save()
+
+  sendTokenResponse(login, 200, res)
 })

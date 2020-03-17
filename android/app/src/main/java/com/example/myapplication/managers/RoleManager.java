@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.Role;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -48,7 +52,7 @@ public class RoleManager {
      * @param context
      * @return Role
      */
-    public static Role getById(Context context, int id) {
+    public static Role getById(Context context, String id) {
         Role role = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
@@ -69,7 +73,7 @@ public class RoleManager {
      * @param title
      * @return Role
      */
-    public static Role getById(Context context, String title) {
+    public static Role getByTitle(Context context, String title) {
         Role role = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByTitle, new String[]{title});
@@ -89,7 +93,7 @@ public class RoleManager {
      * @param context
      * @param id
      */
-    public static void delete(Context context, int id) {
+    public static void delete(Context context, String id) {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.delete(DataBaseHelper.ROLE_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
@@ -101,7 +105,7 @@ public class RoleManager {
      * @param context
      * @param role
      */
-    public void insert(Context context, Role role) {
+    public static void insert(Context context, Role role) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, role.get_id());
         contentValues.put(TITLE, role.getTitle());
@@ -115,10 +119,31 @@ public class RoleManager {
      * @param context
      * @param role
      */
-    public void update(Context context, Role role) {
+    public static void update(Context context, Role role) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TITLE, role.getTitle());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.ROLE_TABLE_NAME, contentValues, ID + " = " + role.get_id(), null);
+    }
+
+    public static void postToAPI(Context context, Role role) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(role);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/roles");
+        Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
+        RoleManager.insert(context, roleFromApi);
+    }
+    public static void putToAPI(Context context, Role role) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(role);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/roles");
+        Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
+        RoleManager.update(context, roleFromApi);
+    }
+    public static void deleteToAPI(Context context, String id) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(id);
+        String jsonFromApi = DeleteJson.delete("/roles/" + id );
+        RoleManager.delete(context, id);
     }
 }

@@ -54,7 +54,7 @@ public class LoginManager {
      * @param context
      * @return Login
      */
-    public static Login getById(Context context, int id) {
+    public static Login getById(Context context, String id) {
         Login login = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
@@ -99,7 +99,7 @@ public class LoginManager {
      * @param context
      * @param id
      */
-    public static void delete(Context context, int id) {
+    public static void delete(Context context, String id) {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.delete(DataBaseHelper.LOGIN_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
