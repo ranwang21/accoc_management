@@ -11,18 +11,23 @@ const advancedResults = require('../middlewares/advancedResults')
 
 const router = express.Router({ mergeParams: true })
 
-router
-  .route('/')
-  .get(
-    advancedResults(ClassroomSchedule),
-    protect,
-    authorize('admin', 'super_admin'),
-    getclassroomSchedules
-  )
+router.route('/').get(
+  advancedResults(ClassroomSchedule),
+  // protect,
+  // authorize('admin', 'super_admin'),
+  getclassroomSchedules
+)
 
 router
   .route('/:id')
-  .get(protect, getclassroomSchedule)
-  .put(protect, authorize('admin', 'super_admin'), updateclassroomSchedule)
+  .get(
+    // protect,
+    getclassroomSchedule
+  )
+  .put(
+    // protect,
+    // authorize('admin', 'super_admin'),
+    updateclassroomSchedule
+  )
 
 module.exports = router
