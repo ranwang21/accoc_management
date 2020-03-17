@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const errorHandler = require('./middlewares/error')
 const connectDB = require('./configs/db')
@@ -24,8 +25,9 @@ app.use(function(req, res, next) {
 // MIDDLEWARES
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(express.static('public'))
 app.use(cookieParser())
+app.use(cors({ credentials: true, origin: 'http://localhost:8081' }))
+app.use(express.static('public'))
 
 // ROUTE FILES
 const roles = require('./routes/roles')
