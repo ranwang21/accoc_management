@@ -42,7 +42,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_EVALUATION);
         // Insertions
 //        RoleHelper.getFromAPI(db);
-        UserHelper.getFromAPI(db);
+//        UserHelper.getFromAPI(db);
 //        LoginHelper.getFromAPI(db);
 //        ClassroomHelper.getFromAPI(db);
 //        ScheduleHelper.getFromAPI(db);
