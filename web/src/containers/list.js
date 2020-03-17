@@ -15,7 +15,9 @@ class Table extends Component {
         super()
         this.state = {
             actorSelected: variables.actors.children,
-            search: false
+            search: false,
+            lastNameInput: '',
+            firstNameInput: ''
         }
         this.onActorSelected = this.onActorSelected.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
@@ -58,11 +60,11 @@ class Table extends Component {
                         </ButtonGroup>
                         <div className='search-container'>
                             <Collapse className='search-fields' in={this.state.search}>
-                                <TextField size='small' label='par nom' variant='outlined' />
-                                <TextField size='small' label='par prenom' variant='outlined' />
+                                <TextField size='small' label={lang.searchLastName} variant='outlined' />
+                                <TextField size='small' label={lang.searchFirstName} variant='outlined' />
                             </Collapse>
                             <FormControlLabel
-                                control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />} label='Search'
+                                control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />} label={lang.search}
                             />
                         </div>
                     </div>
