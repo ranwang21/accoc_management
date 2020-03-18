@@ -38,7 +38,7 @@ public class Main2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //Add this line of code here to open the default selected menu on app start time.
-        ShowFragment(R.id.nav_acceuil);
+        ShowFragment(R.id.nav_home);
     }
     @Override
     public void onBackPressed() {
