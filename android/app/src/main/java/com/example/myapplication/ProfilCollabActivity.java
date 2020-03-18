@@ -11,5 +11,6 @@ public class ProfilCollabActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profil_collaborateur);
+        //TODO
     }
 }
