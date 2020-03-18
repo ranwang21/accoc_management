@@ -3,12 +3,22 @@ import { Container, Button } from '@material-ui/core'
 import '../styles/_footer.scss'
 
 class Footer extends Component {
+    constructor () {
+        super()
+        this.handleAboutClick = this.handleAboutClick.bind(this)
+    }
+
     getLangFile () {
         return require('../lang/' + this.props.lang + '/footer.json')
     }
 
+    handleAboutClick () {
+        window.location.href = 'http://maisonaurore.org/a-propos-de-nous/'
+    }
+
     render () {
         const langFile = this.getLangFile()
+
         return (
             <Container className='footer' maxWidth={false}>
                 <div className='adresse'>
@@ -26,6 +36,7 @@ class Footer extends Component {
                 <div className='map' />
                 <div className='contact'>
                     <Button
+                        onClick={this.handleEmailClick}
                         variant='contained'
                         color='secondary'
                         size='medium'
@@ -33,6 +44,7 @@ class Footer extends Component {
                     >{langFile.contact.contactUs}
                     </Button>
                     <Button
+                        onClick={this.handleAboutClick}
                         variant='contained'
                         color='secondary'
                         size='medium'
