@@ -2,6 +2,12 @@ const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+const mongoSanitize = require('express-mongo-sanitize')
+const helmet = require('helmet')
+const xss = require('xss-clean')
+const rateLimit = require('express-rate-limit')
+const hpp = require('hpp')
+const cors = require('cors')
 const errorHandler = require('./middlewares/error')
 const connectDB = require('./configs/db')
 
@@ -10,22 +16,32 @@ const app = express()
 // LOAD ENV VARS
 dotenv.config({ path: './configs/config.env' })
 
-// UNLOCK ACCESS TO FRONT-END
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  )
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
-  next()
-})
+// ENABLE CORS
+app.use(cors({ origin: true, credentials: true }))
 
 // MIDDLEWARES
 app.use(express.json())
-app.use(morgan('dev'))
 app.use(cookieParser())
+app.use(mongoSanitize())
+app.use(helmet())
+app.use(xss())
 app.use(express.static('public'))
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
+
+// RATE LIMITING
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100
+})
+
+app.use(limiter)
+
+// PREVENT HTTP PARAM POLLUTION
+app.use(hpp())
 
 // ROUTE FILES
 const roles = require('./routes/roles')
@@ -59,7 +75,11 @@ connectDB()
 // CONNECT TO SERVER
 const PORT = process.env.PORT || 8080
 const server = app.listen(PORT, () => {
-  console.log('Server listening on: http://localhost:%s', PORT)
+  console.log(
+    'Server listening on: http://localhost:%s',
+    PORT,
+    `in ${process.env.NODE_ENV}`
+  )
 })
 
 // HANDLE UNHANDLED PROMISE REJECTIONS
