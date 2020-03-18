@@ -61,10 +61,10 @@ class MainContainer extends Component {
         this.showConnectedLoading()
         const val = jwtDecode(token)
         console.log(val.id)
-        // Fetch.getCurrentUser(this.gsng)
+        Fetch.getCurrentUser(this.gsng)
         // Fetch.getUser(val.id, this.setCurrentUserInfos)
         console.log('Connexion .. .. ..')
-
+        /*
         const currentUserTest = {
             idUser: 'datas._id',
             firstName: 'datas.first_name',
@@ -72,8 +72,8 @@ class MainContainer extends Component {
             idRole: 'datas.id_role',
             role: 'super_admin'
         }
-
         Cookie.save('token', currentUserTest, { path: '/' })
+        */
     }
 
     gsng (datas) {
@@ -103,9 +103,7 @@ class MainContainer extends Component {
 
     handleCloseSnack () { this.setState({ showSnack: false }) }
 
-    showConnectedLoading () {
-        setTimeout(() => { this.setState({ showLoading: false }) }, 5000)
-    }
+    showConnectedLoading () { setTimeout(() => { this.setState({ showLoading: false }) }, 5000) }
 
     render () {
         const lang = this.state.lang

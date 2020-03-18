@@ -20,7 +20,6 @@ function authLogin (email, password, callBack) {
 
 function getCurrentUser (callBack) {
     fetch('http://localhost:8080/auth/user', {
-        method: 'GET',
         credentials: 'include'
     })
         .then(response => response.json())
