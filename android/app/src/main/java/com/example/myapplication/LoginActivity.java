@@ -22,11 +22,12 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtPassword;
     TextView tvErrorMessage;
     Button btnSignIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-       // tvErrorMessage = findViewById(R.id.tv_error_signin);
+        // tvErrorMessage = findViewById(R.id.tv_error_signin);
         edtEmail = findViewById(R.id.edt_email_signin);
         edtPassword = findViewById(R.id.edt_password_signin);
         btnSignIn = findViewById(R.id.btn_signin);
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     public boolean allFieldsRequired(String strEditText1, String strEditText2) {
         if (TextUtils.isEmpty(strEditText1)) {
             errorMessageFieldsEmpty();
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
+
     public void errorMessageFieldsEmpty() {
         tvErrorMessage.setVisibility(View.VISIBLE);
         tvErrorMessage.setText("* Enter your Email address and Password.");

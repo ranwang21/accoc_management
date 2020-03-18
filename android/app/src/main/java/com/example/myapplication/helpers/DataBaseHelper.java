@@ -27,9 +27,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SCHEDULE = ("create table " + SCHEDULE_TABLE_NAME + "(" + "id text primary key , id_user text, id_classroom text, date text, is_absent integer, comment text)");
     private static final String CREATE_TABLE_INCONSISTENCY = ("create table " + INCONSISTENCY_TABLE_NAME + "(" + "id text primary key , id_schedule text, id_child text, id_collaborator text)");
     private static final String CREATE_TABLE_EVALUATION = ("create table " + EVALUATION_TABLE_NAME + "(" + "id text primary key , id_schedule text)");
+
     public DataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Creation
@@ -49,6 +51,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 //        InconsistencyHelper.getFromAPI(db);
 //        EvaluationHelper.getFromAPI(db);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Suppressions

@@ -35,6 +35,7 @@ public class UserManager {
     private static final String queryGetAll = "select * from " + DataBaseHelper.USER_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id like ?";
     private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where role_id like ?";
+
     /**
      * getAll return all users from DataBase
      *
@@ -60,6 +61,7 @@ public class UserManager {
         ConnectionBD.close();
         return users;
     }
+
     /**
      * getById return  User by id from DataBase
      *
@@ -86,6 +88,7 @@ public class UserManager {
         ConnectionBD.close();
         return user;
     }
+
     /**
      * getByCategory return all users by roles from DataBase
      *
@@ -112,6 +115,7 @@ public class UserManager {
         ConnectionBD.close();
         return users;
     }
+
     /**
      * Insert user in DataBase
      *
@@ -131,6 +135,7 @@ public class UserManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.USER_TABLE_NAME, null, contentValues);
     }
+
     /**
      * Update user in Database
      *
@@ -149,6 +154,7 @@ public class UserManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.USER_TABLE_NAME, contentValues, ID + " = " + user.get_id(), null);
     }
+
     /**
      * Delete user from DataBase
      *
@@ -160,6 +166,7 @@ public class UserManager {
         bd.delete(DataBaseHelper.USER_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
     }
+
     public static void postToAPI(Context context, User user) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(user);
@@ -167,6 +174,7 @@ public class UserManager {
         User userFromApi = gson.fromJson(jsonFromApi, User.class);
         UserManager.insert(context, userFromApi);
     }
+
     public static void putToAPI(Context context, User user) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(user);
@@ -174,10 +182,11 @@ public class UserManager {
         User userFromApi = gson.fromJson(jsonFromApi, User.class);
         UserManager.update(context, userFromApi);
     }
+
     public static void deleteToAPI(Context context, String id) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/users/" + id );
+        String jsonFromApi = DeleteJson.delete("/users/" + id);
         UserManager.delete(context, id);
     }
 }
