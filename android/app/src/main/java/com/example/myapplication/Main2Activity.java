@@ -21,8 +21,7 @@ import com.example.myapplication.fragments.Presence;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
