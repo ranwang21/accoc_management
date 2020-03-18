@@ -21,15 +21,15 @@ const variables = require('../utilities/variables').variables
 const upadteMenuSelectedByRole = (role) => {
     let select = null
     switch (role) {
-    case 'high_admin':
-    case 'admin':
+    case variables.role.highAdmin:
+    case variables.role.admin:
         select = variables.menus.allUsers
         break
-    case 'both':
-    case 'only_parent':
+    case variables.role.both:
+    case variables.role.parent:
         select = variables.menus.childList
         break
-    case 'only_collaborater':
+    case variables.role.collab:
         select = variables.menus.schedule
         break
     }

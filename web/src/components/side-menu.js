@@ -40,19 +40,19 @@ const getMenuIcon = (menu) => {
 const getMenuItemsByRole = (lang, role) => {
     let items = {}
     switch (role) {
-    case 'high_admin':
+    case variables.role.highAdmin:
         items = lang.highAdmin
         break
-    case 'admin':
+    case variables.role.admin:
         items = lang.admin
         break
-    case 'both':
+    case variables.role.both:
         items = lang.both
         break
-    case 'only_parent':
+    case variables.role.parent:
         items = lang.parent
         break
-    case 'only_collaborator':
+    case variables.role.collaborator:
         items = lang.collaborator
         break
     }

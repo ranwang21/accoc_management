@@ -76,6 +76,14 @@
 		background: transparent;
 	}
 }
+
+.dialog {
+	.title h2 {
+		padding: 0 0 0 1em;
+		text-align: left;
+	}
+}
+
 .table-loading {
 	height: 100%;
 	display: flex;

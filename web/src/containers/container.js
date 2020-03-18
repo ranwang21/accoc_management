@@ -35,7 +35,7 @@ class MainContainer extends Component {
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
     }
 
-    componentDidMount () {}
+    componentDidMount () { }
 
     getLangFile () { return require('../lang/' + this.state.lang + '/container.json') }
 
@@ -61,9 +61,19 @@ class MainContainer extends Component {
         this.showConnectedLoading()
         const val = jwtDecode(token)
         console.log(val.id)
-        Fetch.getCurrentUser(this.gsng)
+        // Fetch.getCurrentUser(this.gsng)
         // Fetch.getUser(val.id, this.setCurrentUserInfos)
         console.log('Connexion .. .. ..')
+
+        const currentUserTest = {
+            idUser: 'datas._id',
+            firstName: 'datas.first_name',
+            lastName: 'datas.last_name',
+            idRole: 'datas.id_role',
+            role: 'super_admin'
+        }
+
+        Cookie.save('token', currentUserTest, { path: '/' })
     }
 
     gsng (datas) {
