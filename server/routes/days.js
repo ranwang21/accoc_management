@@ -17,29 +17,16 @@ router
   .route('/')
   .get(
     advancedResults(Day),
-    // authorize('admin', 'super_admin'),
-    // protect,
+    authorize('admin', 'super_admin'),
+    protect,
     getDays
   )
-  .post(
-    // protect, authorize('admin', 'super_admin'),
-    createDay
-  )
+  .post(protect, authorize('admin', 'super_admin'), createDay)
 
 router
   .route('/:id')
-  .get(
-    // protect,
-    getDay
-  )
-  .put(
-    // protect,
-    // authorize('admin', 'super_admin'),
-    updateDay
-  )
-  .delete(
-    // protect, authorize('admin', 'super_admin'),
-    deleteDay
-  )
+  .get(protect, getDay)
+  .put(protect, authorize('admin', 'super_admin'), updateDay)
+  .delete(protect, authorize('admin', 'super_admin'), deleteDay)
 
 module.exports = router
