@@ -186,6 +186,7 @@ public class InconsistencyManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.INCONSISTENCY_TABLE_NAME, contentValues, ID + " = " + inconsistency.get_id(), null);
     }
+
     public static void postToAPI(Context context, Inconsistency inconsistency) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(inconsistency);
@@ -193,17 +194,19 @@ public class InconsistencyManager {
         Inconsistency inconsistencyFromApi = gson.fromJson(jsonFromApi, Inconsistency.class);
         InconsistencyManager.insert(context, inconsistencyFromApi);
     }
-    public static void putToAPI(Context context,Inconsistency inconsistency) {
+
+    public static void putToAPI(Context context, Inconsistency inconsistency) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(inconsistency);
         String jsonFromApi = PutJson.put(jsonToSemd, "/inconsistencies");
         Inconsistency inconsistencyFromApi = gson.fromJson(jsonFromApi, Inconsistency.class);
         InconsistencyManager.update(context, inconsistencyFromApi);
     }
+
     public static void deleteToAPI(Context context, String id) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/inconsistencies/" + id );
+        String jsonFromApi = DeleteJson.delete("/inconsistencies/" + id);
         InconsistencyManager.delete(context, id);
     }
 }
