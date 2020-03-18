@@ -23,16 +23,25 @@ router
   .route('/')
   .get(
     advancedResults(User),
-    protect,
-    authorize('admin', 'super_admin'),
+    // protect,
+    // authorize('admin', 'super_admin'),
     getUsers
   )
   .post(createUser)
 
 router
   .route('/:id')
-  .get(protect, getUser)
-  .put(protect, updateUser)
-  .delete(protect, authorize('admin', 'super_admin'), deleteUser)
+  .get(
+    // protect,
+    getUser
+  )
+  .put(
+    // protect,
+    updateUser
+  )
+  .delete(
+    // protect, authorize('admin', 'super_admin'),
+    deleteUser
+  )
 
 module.exports = router

@@ -17,16 +17,28 @@ router
   .route('/')
   .get(
     advancedResults(Role),
-    protect,
-    authorize('admin', 'super_admin'),
+    // protect,
+    // authorize('admin', 'super_admin'),
     getRoles
   )
-  .post(protect, authorize('admin', 'super_admin'), createRole)
+  .post(
+    // protect, authorize('admin', 'super_admin'),
+    createRole
+  )
 
 router
   .route('/:id')
-  .get(protect, getRole)
-  .put(protect, authorize('admin', 'super_admin'), updateRole)
-  .delete(protect, authorize('admin', 'super_admin'), deleteRole)
+  .get(
+    // protect,
+    getRole
+  )
+  .put(
+    // protect, authorize('admin', 'super_admin'),
+    updateRole
+  )
+  .delete(
+    // protect, authorize('admin', 'super_admin'),
+    deleteRole
+  )
 
 module.exports = router
