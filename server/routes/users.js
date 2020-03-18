@@ -21,13 +21,18 @@ router.use('/:userId/logins', LoginsRouter)
 
 router
   .route('/')
-  .get(advancedResults(User), protect, authorize('admin'), getUsers)
+  .get(
+    advancedResults(User),
+    protect,
+    authorize('admin', 'super_admin'),
+    getUsers
+  )
   .post(createUser)
 
 router
   .route('/:id')
   .get(protect, getUser)
   .put(protect, updateUser)
-  .delete(protect, authorize('admin'), deleteUser)
+  .delete(protect, authorize('admin', 'super_admin'), deleteUser)
 
 module.exports = router

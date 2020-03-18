@@ -14,12 +14,17 @@ const router = express.Router({ mergeParams: true })
 
 router
   .route('/')
-  .get(advancedResults(Login), protect, authorize('admin'), getLogins)
+  .get(
+    advancedResults(Login),
+    protect,
+    authorize('admin', 'super_admin'),
+    getLogins
+  )
   .post(createLogin)
 
 router
   .route('/:id')
   .get(protect, getLogin)
-  .delete(protect, authorize('admin'), deleteLogin)
+  .delete(protect, authorize('admin', 'super_admin'), deleteLogin)
 
 module.exports = router

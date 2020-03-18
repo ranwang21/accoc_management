@@ -21,6 +21,8 @@
             "label": "Administrateurs"
         }
     ],
-    "searchbar": "Recherche",
+    "search": "Recherche",
+    "searchLastName": "par nom",
+    "searchFirstName": "par prénom",
     "btnValidate": "Enregistrer les modifications"
 }

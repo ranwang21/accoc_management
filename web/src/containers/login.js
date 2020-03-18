@@ -1,109 +1,56 @@
 import React, { Component } from 'react'
-import Crypto from 'simple-crypto-js'
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_login.scss'
+import Loading from '../components/loading'
 import LockIcon from '@material-ui/icons/LockRounded'
 import { Container, TextField, Button } from '@material-ui/core'
-import Snack from '../components/snack'
 const LoginConfig = require('../forms-files/login.json')
 
-const role = require('../utilities/variables').variables.role
-
-class Application extends Component {
+class Login extends Component {
     constructor () {
         super()
         this.state = {
             loginConfig: null,
             error: false,
-            showSnack: false,
-            userToken: null
+            enableSubmit: false,
+            userToken: null,
+            loading: false
         }
         this.email = ''
         this.password = ''
         this.userRole = null
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleBtnClick = this.handleBtnClick.bind(this)
+        this.validateUser = this.validateUser.bind(this)
     }
 
-    getLangFile () {
-        return require('../lang/' + this.props.lang + '/login.json')
-    }
+    getLangFile () { return require('../lang/' + this.props.lang + '/login.json') }
 
     componentDidMount () {
-        /*
-        Fetch.updateRole('5e6a3e314554933864b2c3c4', 'high_admin')
-        Fetch.updateRole('5e6a3e314554933864b2c3c5', 'only_parent')
-        Fetch.updateRole('5e6a3e314554933864b2c3c3', 'only_collaborater')
-        Fetch.updateRole('5e6a3e314554933864b2c3c6', 'both')
-        Fetch.createRole('children')
-        // Fetch.currentUser()
-        */
-        this.setState({
-            loginConfig: LoginConfig
-        })
+        this.setState({ loginConfig: LoginConfig })
     }
 
-    validateUser (email, password) {
-        const userToSend = {
-            email: email,
-            password: password
-        }
-        fetch('http://localhost:8080/auth/login', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userToSend)
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    error: !data.success,
-                    showSnack: !data.error && true
-                })
-                if (!data.error) {
-                    this.props.handleConnectedEvent(event, this.userRole)
-                }
-            })
+    validateUser (datas) {
+        if (datas.success) {
+            this.setState({ error: false, loading: false })
+            this.props.handleConnectedEvent(event, datas.token)
+        } else this.setState({ error: true, loading: false })
     }
 
-    validateInput () {
-        // Email and password to test
-        const trueEmail = 'admin@gmail.com'
-        const truePassword = 'abc123...'
-        const trueRole = 'high_admin'
+    validateEmail () {
         const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-        let retour = false
-        if (!mailformat.test(this.email)) retour = false
-        else if (this.email !== trueEmail || this.password !== truePassword) retour = false
-        else if (trueRole === role.child) retour = false
-        else retour = true
-        // d'ont forget to update userRole here
-        this.userRole = role.highAdmin
-        return retour
+        return !!mailformat.test(this.email)
     }
 
-    handleBtnClick (event) {
-        // this.validateUser(this.email, this.password)
-        const valid = Fetch.authLogin(this.email, this.password)
-        console.log('In handleBtnClick() ==> ', valid)
-        /*
-        if (this.validateInput()) {
-            this.setState({
-                error: false,
-                showSnack: true
-            })
-            this.props.handleConnectedEvent(event, this.userRole)
-        } else {
-            this.setState({
-                error: true
-            })
-        }
-        */
+    handleBtnClick () {
+        this.setState({ loading: true })
+        this.validateEmail()
+            ? Fetch.authLogin(this.email, this.password, this.validateUser)
+            : this.setState({ error: true, loading: false })
     }
 
     handleInputChange (event) {
-        ((event.target.type === 'text')
+        (event.target.type === 'text'
             ? this.email = event.target.value
             : this.password = event.target.value)
 
@@ -111,15 +58,9 @@ class Application extends Component {
     }
 
     checkEmptyInput () {
-        if (this.email.length === 0 || this.password.length === 0) {
-            this.setState({
-                enableSubmit: false
-            })
-        } else {
-            this.setState({
-                enableSubmit: true
-            })
-        }
+        (this.email.length === 0 || this.password.length === 0)
+            ? this.setState({ enableSubmit: false })
+            : this.setState({ enableSubmit: true })
     }
 
     buildFields (lang) {
@@ -139,6 +80,7 @@ class Application extends Component {
                     variant='outlined'
                     onChange={this.handleInputChange}
                     required={fields.email.required}
+                    value={this.email}
                 />
                 <TextField
                     error={error}
@@ -158,8 +100,7 @@ class Application extends Component {
 
     render () {
         const langFile = this.getLangFile()
-
-        const { loginConfig, showSnack } = this.state
+        const { loginConfig } = this.state
         return (
             <div className='login'>
                 <Container maxWidth='sm'>
@@ -179,10 +120,10 @@ class Application extends Component {
                             </Button>
                         )}
                     </form>
-                    <Snack show={showSnack} message={langFile.messageSnack} severity='success' />
+                    {this.state.loading && (<Loading lang={this.props.lang} />)}
                 </Container>
             </div>
         )
     }
 }
-export default Application
+export default Login

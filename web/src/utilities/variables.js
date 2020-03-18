@@ -1,11 +1,11 @@
 'use strict'
 const variables = {
     role: {
-        highAdmin: 'high_admin',
+        highAdmin: 'super_admin',
         admin: 'admin',
-        parent: 'only_parent',
-        collab: 'only_collaborator',
-        both: 'both',
+        parent: 'parent',
+        collab: 'collaborator',
+        both: 'collab_parent',
         child: 'children'
     },
     actors: {

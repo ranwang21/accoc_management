@@ -7,6 +7,8 @@ import Footer from '../components/footer'
 import Loading from '../components/loading'
 import Snack from '../components/snack'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import Fetch from '../utilities/fetch-datas'
+const jwtDecode = require('jwt-decode')
 
 const theme = createMuiTheme({
     palette: {
@@ -33,65 +35,76 @@ class MainContainer extends Component {
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
     }
 
-    componentDidMount () {
-        const token = Cookie.load('token')
-        if (token) {
-            console.log('TOKEN')
-            console.log(token)
-        } else {
-            console.log('NO TOKEN')
-        }
-        this.setState({
-            isConnected: Cookie.load('token')
-        })
-    }
+    componentDidMount () { }
 
-    getLangFile () {
-        return require('../lang/' + this.state.lang + '/container.json')
-    }
+    getLangFile () { return require('../lang/' + this.state.lang + '/container.json') }
 
-    onLangChanged (event) {
-        this.setState({
-            lang: event.target.value
-        })
-    }
+    onLangChanged (event) { this.setState({ lang: event.target.value }) }
 
-    onLogOutClick (event) {
+    onLogOutClick () {
         console.log('Deconnexion .. .. ..')
         this.setState({
             isConnected: false,
             showSnack: true
         })
 
-        Cookie.remove('isConnected', { path: '/' })
-        Cookie.remove('userRole', { path: '/' })
+        Cookie.remove('token', { path: '/' })
+        Cookie.remove('currentRole', { path: '/' })
     }
 
-    onLogInClick (event, role) {
-        console.log('Connexion .. .. ..')
+    onLogInClick (event, token) {
         this.setState({
             isConnected: true,
             showSnack: true,
             showLoading: true
         })
         this.showConnectedLoading()
+        const val = jwtDecode(token)
+        console.log(val.id)
+        // Fetch.getCurrentUser(this.gsng)
+        // Fetch.getUser(val.id, this.setCurrentUserInfos)
+        console.log('Connexion .. .. ..')
 
-        Cookie.save('isConnected', true, { path: '/' })
-        Cookie.save('userRole', role, { path: '/' })
+        const currentUserTest = {
+            idUser: 'datas._id',
+            firstName: 'datas.first_name',
+            lastName: 'datas.last_name',
+            idRole: 'datas.id_role',
+            role: 'super_admin'
+        }
+
+        Cookie.save('token', currentUserTest, { path: '/' })
     }
 
-    handleCloseSnack (event) {
-        this.setState({
-            showSnack: false
-        })
+    gsng (datas) {
+        console.log(datas)
     }
+
+    setCurrentUserInfos (datas, role) {
+        const currentUser = {
+            id: datas._id,
+            firstName: datas.first_name,
+            lastName: datas.last_name,
+            idRole: datas.id_role,
+            role: role
+        }
+
+        const currentUserTest = {
+            id: 'datas._id',
+            firstName: 'datas.first_name',
+            lastName: 'datas.last_name',
+            idRole: 'datas.id_role',
+            role: 'high_admin'
+        }
+
+        console.log(currentUser)
+        Cookie.save('token', currentUser, { path: '/' })
+    }
+
+    handleCloseSnack () { this.setState({ showSnack: false }) }
 
     showConnectedLoading () {
-        setTimeout(() => {
-            this.setState({
-                showLoading: false
-            })
-        }, 5000)
+        setTimeout(() => { this.setState({ showLoading: false }) }, 5000)
     }
 
     render () {
@@ -101,23 +114,11 @@ class MainContainer extends Component {
         return (
             <>
                 <ThemeProvider theme={theme}>
-                    <Header
-                        lang={lang}
-                        handleLangChangedClick={this.onLangChanged}
-                    />
+                    <Header lang={lang} handleLangChangedClick={this.onLangChanged} />
                     {this.state.showLoading && <Loading lang={lang} />}
-                    <Main
-                        lang={lang}
-                        onhandleLogInClick={this.onLogInClick}
-                        onhandleLogOutClick={this.onLogOutClick}
-                    />
+                    <Main lang={lang} onhandleLogInClick={this.onLogInClick} onhandleLogOutClick={this.onLogOutClick} />
                     <Footer lang={lang} />
-                    <Snack
-                        show={this.state.showSnack}
-                        message={messageSnack}
-                        onClose={this.handleCloseSnack}
-                        severity='success'
-                    />
+                    <Snack show={this.state.showSnack} message={messageSnack} onClose={this.handleCloseSnack} severity='success' />
                 </ThemeProvider>
             </>
         )

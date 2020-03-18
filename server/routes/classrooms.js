@@ -21,13 +21,18 @@ router.use('/:classroomId/classroom-schedules', classroomSchedulesRouter)
 
 router
   .route('/')
-  .get(advancedResults(Classroom), protect, authorize('admin'), getClassrooms)
-  .post(protect, authorize('admin'), createClassroom)
+  .get(
+    advancedResults(Classroom),
+    protect,
+    authorize('admin', 'super_admin'),
+    getClassrooms
+  )
+  .post(protect, authorize('admin', 'super_admin'), createClassroom)
 
 router
   .route('/:id')
   .get(protect, getClassroom)
-  .put(protect, authorize('admin'), updateClassroom)
-  .delete(protect, authorize('admin'), deleteClassroom)
+  .put(protect, authorize('admin', 'super_admin'), updateClassroom)
+  .delete(protect, authorize('admin', 'super_admin'), deleteClassroom)
 
 module.exports = router

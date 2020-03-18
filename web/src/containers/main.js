@@ -5,28 +5,13 @@ import Login from './login'
 import Dashbord from './dashbord'
 
 class Main extends Component {
-    constructor () {
-        super()
-        this.state = {}
-    }
-
-    componentDidMount () {}
-
     render () {
-        const userRole = Cookie.load('userRole')
+        const token = Cookie.load('token')
         return (
             <main>
-                {
-                    userRole
-                        ? <Dashbord
-                            lang={this.props.lang}
-                            handleLogOutEvent={this.props.onhandleLogOutClick}
-                        />
-                        : <Login
-                            lang={this.props.lang}
-                            handleConnectedEvent={this.props.onhandleLogInClick}
-                        />
-                }
+                {token
+                    ? <Dashbord lang={this.props.lang} handleLogOutEvent={this.props.onhandleLogOutClick} />
+                    : <Login lang={this.props.lang} handleConnectedEvent={this.props.onhandleLogInClick} />}
             </main>
         )
     }

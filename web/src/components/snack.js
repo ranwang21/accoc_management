@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 
-function Alert (props) {
-    return <MuiAlert elevation={0} variant='filled' {...props} />
-}
+const Alert = (props) => (<MuiAlert elevation={0} variant='filled' {...props} />)
+
 class Snack extends Component {
     render () {
         const message = this.props.message ? this.props.message : 'message snack is not set'
