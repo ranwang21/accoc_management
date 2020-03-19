@@ -4,7 +4,8 @@ const Login = require('./Login')
 const UserSchema = new mongoose.Schema({
   id_role: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Role'
+    ref: 'Role',
+    required: true
   },
   id_child: [
     {
@@ -38,18 +39,15 @@ const UserSchema = new mongoose.Schema({
   },
   sex: {
     type: String,
-    required: true,
     trim: true,
     enum: ['male', 'female', 'non-binary']
   },
   address: {
     type: String,
-    required: true,
     trim: true
   },
   birthday: {
-    type: Date,
-    required: true
+    type: Date
   },
   photo: {
     type: String,
