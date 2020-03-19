@@ -1,0 +1,12 @@
+@import "./base";
+
+.form-legend{
+    font-size: larger;
+}
+
+.form-group{
+    margin: 1.5rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
