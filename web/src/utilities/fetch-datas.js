@@ -7,6 +7,7 @@ function authLogin (email, password, callBack) {
     }
     fetch('http://localhost:8080/auth/login', {
         method: 'post',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -24,40 +25,17 @@ function getCurrentUser (callBack) {
     })
         .then(response => response.json())
         .then(data => {
-            callBack(data)
-        })
-}
-
-function getUser (idUser, callBack) {
-    fetch('http://localhost:8080/users/' + idUser, {
-        method: 'GET',
-        credentials: 'include'
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                fetch('http://localhost:8080/roles/' + data.data.id_role)
-                    .then(response => response.json())
-                    .then(data2 => {
-                        if (data2.success) {
-                            callBack(data.data, data2.data.title)
-                        }
-                    })
-            }
-        })
-}
-
-function currentUser () {
-    fetch('http://localhost:8080/auth/user')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
+            fetch('http://localhost:8080/roles/' + data.data.id_role, {
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(data2 => {
+                    callBack(data.data, data2.data.title)
+                })
         })
 }
 
 export default {
     authLogin,
-    currentUser,
-    getUser,
     getCurrentUser
 }

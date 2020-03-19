@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Cookie from 'react-cookies'
 import { Button, ButtonGroup } from '@material-ui/core'
 import Switch from '@material-ui/core/Switch'
 import Collapse from '@material-ui/core/Collapse'

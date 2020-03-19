@@ -1,4 +1,4 @@
 {
-    "logInSnack": "Vous êtes connecté",
-    "logOutSnack": "Vous êtes deconnecté"
+    "logInSnack": "😉 Bonjour USERNAME, vous êtes connecté 😉",
+    "logOutSnack": "😥 Vous êtes deconnecté 😥"
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Cookie from 'react-cookies'
 import { Container, Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
 import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
@@ -57,7 +56,7 @@ class Dashbord extends Component {
 
     getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
 
-    componentDidMount () { this.setState({ menuItemSelected: upadteMenuSelectedByRole(Cookie.load('token').role) }) }
+    componentDidMount () { this.setState({ menuItemSelected: upadteMenuSelectedByRole('super_admin') }) }
 
     onhandleDateChange (newDate) { this.setState({ date: newDate }) }
 
