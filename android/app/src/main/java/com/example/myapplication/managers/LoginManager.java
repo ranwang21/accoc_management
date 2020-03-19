@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.myapplication.entities.Login;
 import com.example.myapplication.helpers.DataBaseHelper;
@@ -142,9 +143,11 @@ public class LoginManager {
         public static void postToAPI(Context context, Login login) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(login);
-        String jsonFromApi = PostJson.post(jsonToSemd, "/logins");
-        Login loginFromApi = gson.fromJson(jsonFromApi, Login.class);
-        LoginManager.insert(context, loginFromApi);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/auth/login");
+            Log.d("Json", "postToAPI: "+ jsonFromApi);
+
+//        Login loginFromApi = gson.fromJson(jsonFromApi, Login.class);
+//        LoginManager.insert(context, loginFromApi);
     }
 //    public static void postToAPI(Context context, Login login) {
 //        Gson gson = new Gson();

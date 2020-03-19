@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.entities.Login;
 import com.example.myapplication.entities.User;
+import com.example.myapplication.managers.LoginManager;
 import com.example.myapplication.managers.UserManager;
 
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtPassword;
     TextView tvErrorMessage;
     Button btnSignIn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email_signin);
         edtPassword = findViewById(R.id.edt_password_signin);
         btnSignIn = findViewById(R.id.btn_signin);
-        // ArrayList<User> users = UserManager.getAll(this);
+//        Login login = new Login("admin@gmail.com", "abc123...");
+//        LoginManager.postToAPI(this, login);
+//        ArrayList<User> users = UserManager.getAll(this);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
     public boolean allFieldsRequired(String strEditText1, String strEditText2) {
         if (TextUtils.isEmpty(strEditText1)) {
             errorMessageFieldsEmpty();
@@ -51,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
-
     public void errorMessageFieldsEmpty() {
         tvErrorMessage.setVisibility(View.VISIBLE);
         tvErrorMessage.setText("* Enter your Email address and Password.");
