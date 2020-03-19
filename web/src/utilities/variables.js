@@ -12,6 +12,7 @@ const variables = {
         children: 'IJNDVFBHCD',
         parent: 'RGBGVBCHSN',
         collaborator: 'VBGNVGCHDNXD',
+        both: 'TWGSDVCHEDJH',
         admin: 'UEHSDVHSB'
     },
     menus: {

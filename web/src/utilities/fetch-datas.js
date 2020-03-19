@@ -7,8 +7,8 @@ function authLogin (email, password, callBack) {
     }
     fetch('http://localhost:8080/auth/login', {
         method: 'post',
-        credentials: 'include',
         headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(userToSend)
@@ -29,15 +29,23 @@ function logOutUser () {
         })
 }
 
-function getCurrentUser (callBack) {
+function getCurrentUser (token, callBack) {
     fetch('http://localhost:8080/auth/user', {
-        credentials: 'include'
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
     })
         .then(response => response.json())
         .then(data => {
             if (data.success === true) {
                 fetch('http://localhost:8080/roles/' + data.data.id_role, {
-                    credentials: 'include'
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + token
+                    }
                 })
                     .then(response => response.json())
                     .then(data2 => {

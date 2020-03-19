@@ -1,0 +1,89 @@
+@import "./base";
+
+.create-account {
+	background-color: rgba($color: $primaryColor, $alpha: 0.2);
+	border-radius: 0.5em;
+	.choice {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 3em;
+		justify-content: center;
+		transition: all 2s;
+		> div {
+			width: calc(100% / 3);
+			padding: 1em 0;
+			text-align: center;
+			button {
+				width: 80%;
+				max-height: 10em;
+				height: 10em;
+				transition: all 0.5s;
+				background-color: rgba($color: $primaryColor, $alpha: 0.5);
+				border: none;
+				&:hover {
+					transform: scale(1.1);
+					border-radius: 1em;
+					background-color: $primaryColor;
+					box-shadow: 7px 7px 7px 0px rgba(0, 0, 0, 0.6);
+				}
+			}
+		}
+	}
+}
+.hideDiv {
+	animation: hideDivAnimation 2s ease-in-out 0s alternate none running;
+	> div {
+		button {
+			animation: hideDivAnimation 2s ease-in-out 0s alternate none running;
+		}
+	}
+}
+.showDiv {
+	animation: showDivAnimation 2s ease-in-out 0s alternate none running;
+}
+@include keyframes(hideDivAnimation) {
+	0% {
+		width: auto;
+	}
+	100% {
+		width: 0px;
+		padding: 0;
+		display: none;
+		font-size: 0px;
+	}
+}
+@include keyframes(showDivAnimation) {
+	0% {
+		width: 0px;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
+@include responsive(phone) {
+	.create-account {
+		.choice {
+			> div {
+				width: 100%;
+				button {
+					height: 5em;
+				}
+			}
+		}
+	}
+}
+@include responsive(tablet) {
+	.create-account {
+		.choice {
+			> div {
+				width: 80%;
+				button {
+					height: 8em;
+				}
+			}
+		}
+	}
+}
+@include responsive(desktop) {
+}

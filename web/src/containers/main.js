@@ -8,7 +8,7 @@ class Main extends Component {
             <main>
                 {this.props.currentUser === null
                     ? <Login lang={this.props.lang} handleConnectedEvent={this.props.onhandleLogInClick} />
-                    : <Dashbord lang={this.props.lang} handleLogOutEvent={this.props.onhandleLogOutClick} />}
+                    : <Dashbord lang={this.props.lang} handleLogOutEvent={this.props.onhandleLogOutClick} currentUser={this.props.currentUser} />}
             </main>
         )
     }

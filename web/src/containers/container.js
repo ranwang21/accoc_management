@@ -26,7 +26,8 @@ class MainContainer extends Component {
             isConnected: false,
             showSnack: false,
             showLoading: false,
-            currentUser: null
+            currentUser: null,
+            token: null
         }
         this.onLangChanged = this.onLangChanged.bind(this)
         this.onLogInClick = this.onLogInClick.bind(this)
@@ -40,7 +41,7 @@ class MainContainer extends Component {
             isConnected: false,
             showLoading: true
         })
-        Fetch.getCurrentUser(this.setCurrentUserInfos)
+        Fetch.getCurrentUser(this.state.token, this.setCurrentUserInfos)
     }
 
     getLangFile () { return require('../lang/' + this.state.lang + '/container.json') }
@@ -69,13 +70,15 @@ class MainContainer extends Component {
         }
     }
 
-    onLogInClick () {
+    onLogInClick (event, token) {
+        console.log(token)
         console.log('Connexion .. .. ..')
         this.setState({
+            token: token,
             isConnected: false,
             showLoading: true
         })
-        Fetch.getCurrentUser(this.setCurrentUserInfos)
+        Fetch.getCurrentUser(token, this.setCurrentUserInfos)
     }
 
     onLogOutClick () {
@@ -84,7 +87,8 @@ class MainContainer extends Component {
         this.setState({
             isConnected: false,
             showSnack: true,
-            currentUser: null
+            currentUser: null,
+            token: null
         })
     }
 

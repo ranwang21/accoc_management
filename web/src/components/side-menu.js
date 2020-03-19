@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { List, ListItem, ListItemIcon, ListItemText, Badge } from '@material-ui/core'
 import ListIcon from '@material-ui/icons/FormatListBulleted'
 import ValidationIcon from '@material-ui/icons/PlaylistAddCheck'
 import CreateIcon from '@material-ui/icons/AddBoxOutlined'
@@ -65,7 +65,7 @@ class SideMenu extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const items = getMenuItemsByRole(lang, 'super_admin')
+        const items = getMenuItemsByRole(lang, this.props.currentUser.role)
         return (
             <div className='side-menu'>
                 <List>
@@ -78,6 +78,9 @@ class SideMenu extends Component {
                         >
                             <ListItemIcon>{getMenuIcon(variables.menus[item])}</ListItemIcon>
                             <ListItemText primary={items[item]} />
+                            {items[item] === items.validation && (
+                                <Badge color='primary' badgeContent={this.props.validationLength} max={99} />
+                            )}
                         </ListItem>)}
                 </List>
             </div>

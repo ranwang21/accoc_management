@@ -1,0 +1,20 @@
+{
+    "actors": [
+        {
+            "id": "RGBGVBCHSN",
+            "title": "parent",
+            "label": "Parents"
+        },
+        {
+            "id": "VBGNVGCHDNXD",
+            "title": "collaborator",
+            "label": "Collaborators"
+        },
+        {
+            "id": "UEHSDVHSB",
+            "title": "admin",
+            "label": "Administrators"
+        }
+    ],
+    "btnValidate": "Save Changes"
+}

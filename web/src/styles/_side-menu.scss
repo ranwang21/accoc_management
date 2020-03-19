@@ -1,10 +1,19 @@
 @import "./base";
 .side-menu {
-	ul .Mui-selected {
-		background-color: $primaryColor !important;
-		border-radius: 0.5em;
-		color: $whiteColor;
-		transition: all 0.5s;
+	ul {
+		.Mui-selected {
+			background-color: $primaryColor !important;
+			border-radius: 0.5em;
+			color: $whiteColor;
+			transition: all 0.5s;
+		}
+		div > span {
+			margin-right: 1em;
+			span {
+				padding: 0.5em;
+				font-size: 0.8em;
+			}
+		}
 	}
 }
 @include responsive(phone) {
