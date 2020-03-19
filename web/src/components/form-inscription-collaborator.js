@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormControl, Input, InputLabel, FormGroup, TextareaAutosize, Button, Checkbox, TextField } from '@material-ui/core'
+import { FormControlLabel, FormControl, Input, InputLabel, FormGroup, TextareaAutosize, Button, Checkbox, TextField } from '@material-ui/core'
 import '../styles/_form.scss'
 
 class FormInscriptionCollaborator extends Component {
@@ -20,7 +20,12 @@ class FormInscriptionCollaborator extends Component {
         case 'textarea':
             return <TextareaAutosize id={id} required={required} className='textarea' />
         case 'checkbox':
-            return <Checkbox value={value} />
+            return (
+                <FormControlLabel
+                    control={<Checkbox id={id} />}
+                    label={value}
+                />
+            )
         case 'date':
             return <TextField id={id} type={type} required={required} />
         default:
@@ -39,7 +44,7 @@ class FormInscriptionCollaborator extends Component {
                         const { type, id, required, value } = fields[key].fields[label]
                         return (
                             <FormGroup key={index} className='form-group'>
-                                <InputLabel className='form-label'>{labels[key][label]}</InputLabel>
+                                {type === 'checkbox' ? '' : <InputLabel>{labels[key][label]}</InputLabel>}
                                 {this.renderItemType(type, id, required, value)}
                             </FormGroup>
                         )
