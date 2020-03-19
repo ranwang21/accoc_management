@@ -5,13 +5,29 @@
     android:background="@drawable/backgroudprofil"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/backgroudprofil"
-        android:orientation="vertical">
+        android:layout_height="300dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/gradientbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="45dp"
+                android:src="@drawable/photocollaborator" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txt_sexe"
@@ -35,6 +51,9 @@
             android:textSize="21sp"
             android:textStyle="bold" />
 
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
         <TextView
             android:id="@+id/txt_adresse"
@@ -68,41 +87,7 @@
             android:textColor="#fff"
             android:textSize="21sp"
             android:textStyle="bold" />
-
-
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@drawable/gradientbackground"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/img_profil_collab"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
-                android:src="@drawable/photocollaborator" />
-
-            <TextView
-                android:id="@+id/txt_fullname_collab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="Nom collaborateur"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
 </LinearLayout>
+
