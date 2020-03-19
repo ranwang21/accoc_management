@@ -27,21 +27,20 @@ app.use(helmet())
 app.use(xss())
 app.use(express.static('public'))
 
-// Dev logging middleware
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'))
-}
-
 // RATE LIMITING
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 mins
   max: 100
 })
-
 app.use(limiter)
 
 // PREVENT HTTP PARAM POLLUTION
 app.use(hpp())
+
+// DEV LOGGING MIDDLEWARE
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 // ROUTE FILES
 const roles = require('./routes/roles')

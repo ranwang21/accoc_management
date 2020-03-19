@@ -202,6 +202,7 @@ public class ScheduleManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, ID + " = " + schedule.get_id(), null);
     }
+
     public static void postToAPI(Context context, Schedule schedule) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(schedule);
@@ -209,6 +210,7 @@ public class ScheduleManager {
         Schedule scheduleFromApi = gson.fromJson(jsonFromApi, Schedule.class);
         ScheduleManager.insert(context, scheduleFromApi);
     }
+
     public static void putToAPI(Context context, Schedule schedule) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(schedule);
@@ -216,10 +218,11 @@ public class ScheduleManager {
         Schedule scheduleFromApi = gson.fromJson(jsonFromApi, Schedule.class);
         ScheduleManager.update(context, scheduleFromApi);
     }
+
     public static void deleteToAPI(Context context, String id) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/schedules/" + id );
+        String jsonFromApi = DeleteJson.delete("/schedules/" + id);
         ScheduleManager.delete(context, id);
     }
 }

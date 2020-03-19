@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Cookie from 'react-cookies'
 import { Button, ButtonGroup } from '@material-ui/core'
 import Switch from '@material-ui/core/Switch'
 import Collapse from '@material-ui/core/Collapse'
@@ -104,9 +103,12 @@ class Table extends Component {
         this.handleSearchChange = this.handleSearchChange.bind(this)
         this.handleSearchInputChange = this.handleSearchInputChange.bind(this)
         this.onValidationChange = this.onValidationChange.bind(this)
+        this.handleBtnValidSave = this.handleBtnValidSave.bind(this)
     }
 
     componentDidMount () {
+        // Fetch all users in actors
+
         this.setState({
             actors: actors.filter(isValid),
             actorsForValidations: actors.filter(isNotValid)
@@ -116,7 +118,7 @@ class Table extends Component {
     getLangFile () { return require('../lang/' + this.props.lang + '/list.json') }
 
     buildButton (actor) {
-        const role = Cookie.load('userRole')
+        const role = 'super_admin'
         if (!(role === 'admin' && actor.title === 'admin')) {
             return (
                 <Button
@@ -147,12 +149,16 @@ class Table extends Component {
     onValidationChange (event, newValue) {
         if (newValue !== null) {
             const values = newValue.split(',')
-            this.setState(state => {
-                const list = state.actorsForValidations
-                const index = list.map(e => e.idUser).indexOf(values[0])
-                list[index].isValid = !(list[index].isValid)
-                return { list }
-            })
+            const index = this.state.actorsForValidations.map(e => e.idUser).indexOf(values[0])
+            if (index !== -1) {
+                this.setState(state => {
+                    const actorsForValidations = state.actorsForValidations
+                    actorsForValidations[index].isValid = !(actorsForValidations[index].isValid)
+                    const list = actorsForValidations.filter(e => e.isValid === true)
+                    list.length === 0 ? this.props.onRequiredValidation(false) : this.props.onRequiredValidation(true)
+                    return { actorsForValidations }
+                })
+            }
         }
     }
 
@@ -193,11 +199,20 @@ class Table extends Component {
         }
     }
 
+    handleBtnValidSave () {
+        // Fetch To update all users where there isValid become true
+        // Fetch all users in actors
+        this.setState({
+            actors: actors.filter(isValid),
+            actorsForValidations: actors.filter(isNotValid)
+        })
+        this.props.onRequiredValidation(false)
+    }
+
     render () {
         const lang = this.getLangFile()
         const allActors = this.updateNewActorsList()
         const menuSelected = this.props.menuSelected
-
         const validationsChange = this.state.actorsForValidations !== null && this.state.actorsForValidations.filter(actor => (actor.isValid === true))
 
         return (
@@ -235,7 +250,7 @@ class Table extends Component {
                 />
 
                 {(menuSelected === variables.menus.validation && validationsChange.length > 0) && (
-                    <div className='button-valider'><Button variant='contained' color='secondary'>{lang.btnValidate}</Button></div>
+                    <div className='button-valider'><Button variant='contained' color='secondary' onClick={this.handleBtnValidSave}>{lang.btnValidate}</Button></div>
                 )}
             </div>
         )

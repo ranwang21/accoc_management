@@ -14,6 +14,7 @@ import com.example.myapplication.R;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
@@ -24,36 +25,39 @@ public class Acceuil extends Fragment implements View.OnClickListener, View.OnLo
     Button myBtn2;
     Button myBtn3;
     Button myBtn4;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.fragment_acceuil, container, false);
-        myBtn = (Button) view.findViewById(R.id.salle1);
-        myBtn = (Button) view.findViewById(R.id.salle2);
-        myBtn = (Button) view.findViewById(R.id.salle3);
-        myBtn = (Button) view.findViewById(R.id.salle4);
-        myBtn1 = (Button) view.findViewById(R.id.salle1);
+        myBtn = ( Button ) view.findViewById(R.id.salle1);
+        myBtn = ( Button ) view.findViewById(R.id.salle2);
+        myBtn = ( Button ) view.findViewById(R.id.salle3);
+        myBtn = ( Button ) view.findViewById(R.id.salle4);
+        myBtn1 = ( Button ) view.findViewById(R.id.salle1);
         myBtn1.setOnClickListener(this);
         myBtn1.setOnLongClickListener(this);
-        myBtn2 = (Button) view.findViewById(R.id.salle2);
+        myBtn2 = ( Button ) view.findViewById(R.id.salle2);
         myBtn2.setOnClickListener(this);
         myBtn2.setOnLongClickListener(this);
-        myBtn3 = (Button) view.findViewById(R.id.salle3);
+        myBtn3 = ( Button ) view.findViewById(R.id.salle3);
         myBtn3.setOnClickListener(this);
         myBtn3.setOnLongClickListener(this);
-        myBtn4 = (Button) view.findViewById(R.id.salle4);
+        myBtn4 = ( Button ) view.findViewById(R.id.salle4);
         myBtn4.setOnClickListener(this);
         myBtn4.setOnLongClickListener(this);
         return view;
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Acceuil");
     }
+
     @Override
     public void onClick(View view) {
         Fragment fragment = null;
@@ -74,11 +78,17 @@ public class Acceuil extends Fragment implements View.OnClickListener, View.OnLo
                 break;
         }
         if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, fragment);
-            fragmentTransaction.commit();
-        }
+            FragmentManager fragmentManager =getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+
+            fragmentTransaction.add(R.id.acceui_layout, fragment).commit();
+            fragmentTransaction.setPrimaryNavigationFragment(fragment);
+
     }
+    }
+
     @Override
     public boolean onLongClick(View view) {
         switch (view.getId()) {

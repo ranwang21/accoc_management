@@ -7,6 +7,7 @@ function authLogin (email, password, callBack) {
     }
     fetch('http://localhost:8080/auth/login', {
         method: 'post',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -18,47 +19,38 @@ function authLogin (email, password, callBack) {
         })
 }
 
+function logOutUser () {
+    fetch('http://localhost:8080/auth/logout', {
+        credentials: 'include'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('LOGOUT RESULT: ', data.success)
+        })
+}
+
 function getCurrentUser (callBack) {
     fetch('http://localhost:8080/auth/user', {
-        method: 'GET',
         credentials: 'include'
     })
         .then(response => response.json())
         .then(data => {
-            callBack(data)
-        })
-}
-
-function getUser (idUser, callBack) {
-    fetch('http://localhost:8080/users/' + idUser, {
-        method: 'GET',
-        credentials: 'include'
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                fetch('http://localhost:8080/roles/' + data.data.id_role)
+            if (data.success === true) {
+                fetch('http://localhost:8080/roles/' + data.data.id_role, {
+                    credentials: 'include'
+                })
                     .then(response => response.json())
                     .then(data2 => {
-                        if (data2.success) {
-                            callBack(data.data, data2.data.title)
-                        }
+                        callBack(data, data2.data.title)
                     })
+            } else {
+                callBack(data, '')
             }
-        })
-}
-
-function currentUser () {
-    fetch('http://localhost:8080/auth/user')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
         })
 }
 
 export default {
     authLogin,
-    currentUser,
-    getUser,
+    logOutUser,
     getCurrentUser
 }

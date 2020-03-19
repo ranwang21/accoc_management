@@ -126,6 +126,7 @@ public class EvaluationManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.EVALUATION_TABLE_NAME, contentValues, ID + " = " + evaluation.get_id(), null);
     }
+
     public static void postToAPI(Context context, Evaluation evaluation) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(evaluation);
@@ -133,6 +134,7 @@ public class EvaluationManager {
         Evaluation evaluationFromApi = gson.fromJson(jsonFromApi, Evaluation.class);
         EvaluationManager.insert(context, evaluationFromApi);
     }
+
     public static void putToAPI(Context context, Evaluation evaluation) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(evaluation);
@@ -140,10 +142,11 @@ public class EvaluationManager {
         Evaluation evaluationFromApi = gson.fromJson(jsonFromApi, Evaluation.class);
         EvaluationManager.update(context, evaluationFromApi);
     }
+
     public static void deleteToAPI(Context context, String id) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/evaluations/" + id );
+        String jsonFromApi = DeleteJson.delete("/evaluations/" + id);
         EvaluationManager.delete(context, id);
     }
 }

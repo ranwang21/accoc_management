@@ -20,6 +20,7 @@ public class Historiques extends Fragment {
         //change R.layout.yourlayoutfilename for each of your fragments
         return inflater.inflate(R.layout.fragment_historique, container, false);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

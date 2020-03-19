@@ -133,6 +133,7 @@ public class RoleManager {
         Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
         RoleManager.insert(context, roleFromApi);
     }
+
     public static void putToAPI(Context context, Role role) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(role);
@@ -140,10 +141,11 @@ public class RoleManager {
         Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
         RoleManager.update(context, roleFromApi);
     }
+
     public static void deleteToAPI(Context context, String id) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/roles/" + id );
+        String jsonFromApi = DeleteJson.delete("/roles/" + id);
         RoleManager.delete(context, id);
     }
 }
