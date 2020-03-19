@@ -6,7 +6,10 @@ module.exports = {
         alias: {
             component: path.resolve(__dirname, 'src/component/'),
             container: path.resolve(__dirname, 'src/container/'),
-            service: path.resolve(__dirname, 'src/service/'),
+            files: path.resolve(__dirname, 'src/forms-files/'),
+            lang: path.resolve(__dirname, 'src/lang/'),
+            pictures: path.resolve(__dirname, 'src/pictures/'),
+            styles: path.resolve(__dirname, 'src/styles/'),
             utilities: path.resolve(__dirname, 'src/utilities/')
         }
     },

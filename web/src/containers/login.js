@@ -51,7 +51,7 @@ class Login extends Component {
 
     handleInputChange (event) {
         (event.target.type === 'text'
-            ? this.email = event.target.value
+            ? this.email = event.target.value.toLowerCase()
             : this.password = event.target.value)
 
         this.checkEmptyInput()

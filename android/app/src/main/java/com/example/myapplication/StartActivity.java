@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StartActivity extends AppCompatActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

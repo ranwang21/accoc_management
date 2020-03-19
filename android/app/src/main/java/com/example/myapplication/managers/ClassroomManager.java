@@ -162,6 +162,7 @@ public class ClassroomManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.CLASSROOM_TABLE_NAME, contentValues, ID + " = " + classroom.get_id(), null);
     }
+
     public static void postToAPI(Context context, Classroom classroom) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(classroom);
@@ -169,17 +170,19 @@ public class ClassroomManager {
         Classroom classroomFromApi = gson.fromJson(jsonFromApi, Classroom.class);
         ClassroomManager.insert(context, classroomFromApi);
     }
-    public static void putToAPI(Context context,Classroom classroom) {
+
+    public static void putToAPI(Context context, Classroom classroom) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(classroom);
         String jsonFromApi = PutJson.put(jsonToSemd, "/classrooms");
         Classroom classroomFromApi = gson.fromJson(jsonFromApi, Classroom.class);
         ClassroomManager.update(context, classroomFromApi);
     }
+
     public static void deleteToAPI(Context context, String id) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/classrooms/" + id );
+        String jsonFromApi = DeleteJson.delete("/classrooms/" + id);
         ClassroomManager.delete(context, id);
     }
 }

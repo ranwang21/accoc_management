@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Cookie from 'react-cookies'
-import { Container, Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
 import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
 import ClassRoom from '../components/classroom'
@@ -8,6 +7,7 @@ import CreateAccount from '../components/create-account'
 import Profile from '../components/profile'
 import Schedule from '../components/schedule'
 import Print from '../components/print'
+import Snack from '../components/snack'
 import List from './list'
 import '../styles/_dashbord.scss'
 const variables = require('../utilities/variables').variables
@@ -42,24 +42,36 @@ class Dashbord extends Component {
         this.state = {
             date: new Date(),
             menuItemSelected: variables.menus.allUsers,
-            showLogOutModal: false
+            showLogOutModal: false,
+            requiredSaveValidationChange: false,
+            showSnack: false
         }
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
         this.onClickMenu = this.onClickMenu.bind(this)
         this.handleCloseLogOut = this.handleCloseLogOut.bind(this)
         this.handleConfirmLogOut = this.handleConfirmLogOut.bind(this)
+        this.handleUpdateRequiredValidation = this.handleUpdateRequiredValidation.bind(this)
+        this.handleCloseSnack = this.handleCloseSnack.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
 
-    componentDidMount () { this.setState({ menuItemSelected: upadteMenuSelectedByRole(Cookie.load('token').role) }) }
+    componentDidMount () { this.setState({ menuItemSelected: upadteMenuSelectedByRole('super_admin') }) }
 
     onhandleDateChange (newDate) { this.setState({ date: newDate }) }
 
     onClickMenu (event, index) {
-        index === variables.menus.logOut
-            ? this.setState({ showLogOutModal: true })
-            : this.setState({ menuItemSelected: index })
+        if (!this.state.requiredSaveValidationChange) {
+            index === variables.menus.logOut
+                ? this.setState({ showLogOutModal: true })
+                : this.setState({ menuItemSelected: index })
+        } else {
+            this.setState({ showSnack: true })
+        }
+    }
+
+    handleUpdateRequiredValidation (value) {
+        this.setState({ requiredSaveValidationChange: value })
     }
 
     handleCloseLogOut () { this.setState({ showLogOutModal: false }) }
@@ -72,9 +84,9 @@ class Dashbord extends Component {
     switchToMenuSelected (lang) {
         switch (this.state.menuItemSelected) {
         case variables.menus.allUsers:
-            return (<List lang={lang} menuSelected={this.state.menuItemSelected} />)
+            return (<List lang={lang} menuSelected={this.state.menuItemSelected} onRequiredValidation={this.handleUpdateRequiredValidation} />)
         case variables.menus.validation:
-            return (<List lang={lang} menuSelected={this.state.menuItemSelected} />)
+            return (<List lang={lang} menuSelected={this.state.menuItemSelected} onRequiredValidation={this.handleUpdateRequiredValidation} />)
         case variables.menus.createAccount:
             return (<CreateAccount />)
         case variables.menus.classroomManagement:
@@ -92,10 +104,13 @@ class Dashbord extends Component {
         }
     }
 
+    handleCloseSnack () { this.setState({ showSnack: false }) }
+
     render () {
         const lang = this.getLangFile()
         return (
-            <Container className='dashbord' maxWidth={false}>
+            <div className='dashbord'>
+                <Snack show={this.state.showSnack} duration={5000} message={lang.messageRequiredSaveChangeSnack} onClose={this.handleCloseSnack} severity='warning' />
                 <SideMenu lang={this.props.lang} menuItemSelected={this.state.menuItemSelected} handleClickMenu={this.onClickMenu} />
 
                 {(this.state.menuItemSelected === variables.menus.classroomManagement || this.state.menuItemSelected === variables.menus.schedule) &&
@@ -110,7 +125,7 @@ class Dashbord extends Component {
                         <Button onClick={this.handleConfirmLogOut} color='primary' autoFocus> {lang.modal.confirm} </Button>
                     </DialogActions>
                 </Dialog>
-            </Container>
+            </div>
         )
     }
 }

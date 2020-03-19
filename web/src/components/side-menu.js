@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Cookie from 'react-cookies'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import ListIcon from '@material-ui/icons/FormatListBulleted'
 import ValidationIcon from '@material-ui/icons/PlaylistAddCheck'
@@ -66,7 +65,7 @@ class SideMenu extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const items = getMenuItemsByRole(lang, Cookie.load('token').role)
+        const items = getMenuItemsByRole(lang, 'super_admin')
         return (
             <div className='side-menu'>
                 <List>
