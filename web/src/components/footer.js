@@ -13,7 +13,7 @@ class Footer extends Component {
     }
 
     handleAboutClick () {
-        window.location.href = 'http://maisonaurore.org/a-propos-de-nous/'
+        console.log('not available')
     }
 
     render () {
@@ -36,7 +36,7 @@ class Footer extends Component {
                 <div className='map' />
                 <div className='contact'>
                     <Button
-                        onClick={this.handleEmailClick}
+                        onClick={this.handleAboutClick}
                         variant='contained'
                         color='secondary'
                         size='medium'
