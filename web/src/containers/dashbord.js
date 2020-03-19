@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
 import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
 import ClassRoom from '../components/classroom'
@@ -109,7 +109,7 @@ class Dashbord extends Component {
     render () {
         const lang = this.getLangFile()
         return (
-            <Container className='dashbord' maxWidth={false}>
+            <div className='dashbord'>
                 <Snack show={this.state.showSnack} duration={5000} message={lang.messageRequiredSaveChangeSnack} onClose={this.handleCloseSnack} severity='warning' />
                 <SideMenu lang={this.props.lang} menuItemSelected={this.state.menuItemSelected} handleClickMenu={this.onClickMenu} />
 
@@ -125,7 +125,7 @@ class Dashbord extends Component {
                         <Button onClick={this.handleConfirmLogOut} color='primary' autoFocus> {lang.modal.confirm} </Button>
                     </DialogActions>
                 </Dialog>
-            </Container>
+            </div>
         )
     }
 }

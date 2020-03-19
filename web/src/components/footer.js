@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import '../styles/_footer.scss'
 
 class Footer extends Component {
@@ -17,19 +17,19 @@ class Footer extends Component {
     }
 
     render () {
-        const langFile = this.getLangFile()
+        const lang = this.getLangFile()
 
         return (
-            <Container className='footer' maxWidth={false}>
+            <footer>
                 <div className='adresse'>
-                    <h2>{langFile.adresse.head}</h2>
+                    <h2>{lang.adresse.head}</h2>
                     <div>
-                        <h3>{langFile.adresse.title} </h3>
+                        <h3>{lang.adresse.title} </h3>
                         <ul>
-                            <li>{langFile.adresse.road}</li>
-                            <li>{langFile.adresse.cp}</li>
-                            <li>{langFile.adresse.cityState}</li>
-                            <li>{langFile.adresse.country}</li>
+                            <li>{lang.adresse.road}</li>
+                            <li>{lang.adresse.cp}</li>
+                            <li>{lang.adresse.cityState}</li>
+                            <li>{lang.adresse.country}</li>
                         </ul>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ class Footer extends Component {
                         color='secondary'
                         size='medium'
                         fullWidth={false}
-                    >{langFile.contact.contactUs}
+                    >{lang.contact.contactUs}
                     </Button>
                     <Button
                         onClick={this.handleAboutClick}
@@ -49,10 +49,10 @@ class Footer extends Component {
                         color='secondary'
                         size='medium'
                         fullWidth={false}
-                    >{langFile.contact.aboutUs}
+                    >{lang.contact.aboutUs}
                     </Button>
                 </div>
-            </Container>
+            </footer>
         )
     }
 }
