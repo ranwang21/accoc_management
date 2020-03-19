@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.entities.Login;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -111,7 +115,7 @@ public class LoginManager {
      * @param context
      * @param login
      */
-    public void insert(Context context, Login login) {
+    public static void insert(Context context, Login login) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, login.get_id());
         contentValues.put(ID_USER, login.getId_user());
@@ -127,7 +131,7 @@ public class LoginManager {
      * @param context
      * @param login
      */
-    public void update(Context context, Login login) {
+    public static void update(Context context, Login login) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_USER, login.getId_user());
         contentValues.put(EMAIL, login.getEmail());
@@ -135,4 +139,31 @@ public class LoginManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.LOGIN_TABLE_NAME, contentValues, ID + " = " + login.get_id(), null);
     }
+        public static void postToAPI(Context context, Login login) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(login);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/logins");
+        Login loginFromApi = gson.fromJson(jsonFromApi, Login.class);
+        LoginManager.insert(context, loginFromApi);
+    }
+//    public static void postToAPI(Context context, Login login) {
+//        Gson gson = new Gson();
+//        String jsonToSemd = gson.toJson(login);
+//        String jsonFromApi = PostJson.post(jsonToSemd, "/logins");
+//        Login loginFromApi = gson.fromJson(jsonFromApi, Login.class);
+//        LoginManager.insert(context, loginFromApi);
+//    }
+//    public static void putToAPI(Context context, Login login) {
+//        Gson gson = new Gson();
+//        String jsonToSemd = gson.toJson(login);
+//        String jsonFromApi = PutJson.put(jsonToSemd, "/logins");
+//        Login loginFromApi = gson.fromJson(jsonFromApi, Login.class);
+//        LoginManager.update(context, loginFromApi);
+//    }
+//    public static void deleteToAPI(Context context, String id) {
+//        Gson gson = new Gson();
+//        String jsonToSemd = gson.toJson(id);
+//        String jsonFromApi = DeleteJson.delete("/logins/" + id );
+//        LoginManager.delete(context, id);
+//    }
 }
