@@ -9,6 +9,7 @@ import Schedule from '../components/schedule'
 import Print from '../components/print'
 import Snack from '../components/snack'
 import List from './list'
+import FormInscriptionCollaborator from '../components/form-inscription-collaborator'
 import '../styles/_dashbord.scss'
 const variables = require('../utilities/variables').variables
 
@@ -88,7 +89,8 @@ class Dashbord extends Component {
         case variables.menus.validation:
             return (<List lang={lang} menuSelected={this.state.menuItemSelected} onRequiredValidation={this.handleUpdateRequiredValidation} />)
         case variables.menus.createAccount:
-            return (<CreateAccount />)
+            // return (<CreateAccount />)
+            return (<FormInscriptionCollaborator lang={lang} />)
         case variables.menus.classroomManagement:
             return (<ClassRoom lang={lang} />)
         case variables.menus.prints:
