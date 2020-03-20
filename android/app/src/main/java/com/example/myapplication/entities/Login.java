@@ -15,7 +15,10 @@ public class Login {
         this.email = email;
         this.password = password;
     }
-
+    public Login(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
     public String get_id() {
         return _id;
     }

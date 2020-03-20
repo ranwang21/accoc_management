@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from '@material-ui/core'
-import Collapse from '@material-ui/core/Collapse'
-import TextField from '@material-ui/core/TextField'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_create-account.scss'

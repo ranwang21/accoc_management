@@ -7,44 +7,20 @@
     android:orientation="vertical"
     tools:context=".SuiviQuotidienActivity">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:text="@string/txt_suivi"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="italic" />
 
-        <RatingBar
-            android:id="@+id/first_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="3"
-            android:progressTint="@color/yellow"
-            android:rating="0"
-            android:stepSize="1" />
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:padding="10dp"
-            android:text="@string/txt_motivation"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"></TextView>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="3"
-            android:progressTint="@color/yellow"
-            android:rating="0"
-            android:stepSize="1" />
 
         <TextView
             android:layout_width="200dp"
@@ -56,20 +32,22 @@
             android:textSize="25sp"
             android:textStyle="bold"></TextView>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <RatingBar
+            android:id="@+id/rt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="3"
             android:progressTint="@color/yellow"
             android:rating="0"
             android:stepSize="1" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="200dp"
@@ -81,13 +59,6 @@
             android:textSize="25sp"
             android:textStyle="bold"></TextView>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,6 +66,14 @@
             android:progressTint="@color/yellow"
             android:rating="0"
             android:stepSize="1" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="200dp"
@@ -106,13 +85,6 @@
             android:textSize="25sp"
             android:textStyle="bold"></TextView>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,6 +92,14 @@
             android:progressTint="@color/yellow"
             android:rating="0"
             android:stepSize="1" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="200dp"
@@ -130,6 +110,16 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"></TextView>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="3"
+            android:progressTint="@color/yellow"
+            android:rating="0"
+            android:stepSize="1" />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -158,15 +148,6 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/edt_difficulte"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="yanger15247"
-                android:textColorHint="@color/white"
-                android:textStyle="italic" />
-
-
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -176,6 +157,15 @@
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold"></TextView>
+
+            <EditText
+                android:id="@+id/edt_difficulte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="yanger15247"
+                android:textColorHint="@color/white"
+                android:textStyle="italic" />
+
 
             <EditText
                 android:id="@+id/edt_difficulte"
@@ -194,14 +184,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/edt_forces"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="hdhdhddjjdjdjjdjdjdj"
-                android:textColorHint="@color/white"
-                android:textStyle="italic" />
-
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -212,6 +194,14 @@
                 android:textSize="25sp"
                 android:textStyle="bold"></TextView>
 
+            <EditText
+                android:id="@+id/edt_forces"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hdhdhddjjdjdjjdjdjdj"
+                android:textColorHint="@color/white"
+                android:textStyle="italic" />
+
 
         </LinearLayout>
 
@@ -219,14 +209,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edt_a_faire"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="dhhdhdddhd"
-                android:textColorHint="@color/white"
-                android:textStyle="italic" />
 
             <TextView
                 android:layout_width="200dp"
@@ -237,6 +219,15 @@
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold"></TextView>
+
+            <EditText
+                android:id="@+id/edt_a_faire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="dhhdhdddhd"
+                android:textColorHint="@color/white"
+                android:textStyle="italic" />
+
 
         </LinearLayout>
 
@@ -260,18 +251,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
-
         </LinearLayout>
-
-
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/txt_suivi"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        android:textStyle="italic" />
 </LinearLayout>
