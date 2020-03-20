@@ -9,6 +9,8 @@ import Schedule from '../components/schedule'
 import Print from '../components/print'
 import Snack from '../components/snack'
 import List from './list'
+import Fetch from '../utilities/fetch-datas'
+import { withCookies } from 'react-cookie'
 import '../styles/_dashbord.scss'
 const variables = require('../utilities/variables').variables
 
@@ -111,6 +113,7 @@ class Dashbord extends Component {
             requiredSaveValidationChange: false,
             showSnack: false
         }
+        this.currentUser = null
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
         this.onClickMenu = this.onClickMenu.bind(this)
         this.handleCloseLogOut = this.handleCloseLogOut.bind(this)
@@ -122,9 +125,14 @@ class Dashbord extends Component {
 
     getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
 
+    getCurrentUser () {
+        const currentUser = this.props.cookies.get(variables.cookies.user)
+        return Fetch.decodeData(currentUser)
+    }
+
     componentDidMount () {
         this.setState({
-            menuItemSelected: upadteMenuSelectedByRole(this.props.currentUser.role),
+            menuItemSelected: upadteMenuSelectedByRole(this.getCurrentUser().role),
             actors: actors.filter(isValid),
             actorsForValidations: actors.filter(isNotValid)
         })
@@ -187,7 +195,6 @@ class Dashbord extends Component {
                     actors={this.state.actors}
                     actorsForValidations={this.state.actorsForValidations}
                     menuSelected={this.state.menuItemSelected}
-                    currentUser={this.props.currentUser}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
                 />)
@@ -198,12 +205,11 @@ class Dashbord extends Component {
                     actors={this.state.actors}
                     actorsForValidations={this.state.actorsForValidations}
                     menuSelected={this.state.menuItemSelected}
-                    currentUser={this.props.currentUser}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
                 />)
         case variables.menus.createAccount:
-            return (<CreateAccount lang={lang} currentUser={this.props.currentUser} />)
+            return (<CreateAccount lang={lang} />)
         case variables.menus.classroomManagement:
             return (<ClassRoom lang={lang} />)
         case variables.menus.prints:
@@ -230,7 +236,6 @@ class Dashbord extends Component {
                     lang={this.props.lang}
                     menuItemSelected={this.state.menuItemSelected}
                     handleClickMenu={this.onClickMenu}
-                    currentUser={this.props.currentUser}
                     validationLength={this.state.actorsForValidations && this.state.actorsForValidations.length}
                 />
 
@@ -252,4 +257,4 @@ class Dashbord extends Component {
         )
     }
 }
-export default Dashbord
+export default withCookies(Dashbord)

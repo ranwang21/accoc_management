@@ -27,7 +27,8 @@ const variables = {
         logOut: 'WIJSFBCHDS'
     },
     cookies: {
-        user: ''
+        user: 'APISID',
+        token: 'RIKSGD'
     }
 }
 

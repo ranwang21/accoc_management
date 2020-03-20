@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import Login from './login'
 import Dashbord from './dashbord'
+import { withCookies } from 'react-cookie'
+const variablesCookies = require('../utilities/variables').variables.cookies
 
 class Main extends Component {
     render () {
         return (
             <main>
-                {this.props.currentUser === null
+                {this.props.cookies.get(variablesCookies.user) === undefined
                     ? <Login lang={this.props.lang} handleConnectedEvent={this.props.onhandleLogInClick} />
-                    : <Dashbord lang={this.props.lang} handleLogOutEvent={this.props.onhandleLogOutClick} currentUser={this.props.currentUser} />}
+                    : <Dashbord lang={this.props.lang} handleLogOutEvent={this.props.onhandleLogOutClick} />}
             </main>
         )
     }
 }
-export default Main
+export default withCookies(Main)

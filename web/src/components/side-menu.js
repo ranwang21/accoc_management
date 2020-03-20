@@ -8,7 +8,8 @@ import DetailsIcon from '@material-ui/icons/Details'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import PrintIcon from '@material-ui/icons/Print'
 import LogOutIcon from '@material-ui/icons/PowerSettingsNew'
-
+import Fetch from '../utilities/fetch-datas'
+import { withCookies } from 'react-cookie'
 import '../styles/_side-menu.scss'
 
 const variables = require('../utilities/variables').variables
@@ -63,9 +64,14 @@ class SideMenu extends Component {
         return require('../lang/' + this.props.lang + '/side-menu.json')
     }
 
+    getCurrentUser () {
+        const currentUser = this.props.cookies.get(variables.cookies.user)
+        return Fetch.decodeData(currentUser)
+    }
+
     render () {
         const lang = this.getLangFile()
-        const items = getMenuItemsByRole(lang, this.props.currentUser.role)
+        const items = getMenuItemsByRole(lang, this.getCurrentUser().role)
         return (
             <div className='side-menu'>
                 <List>
@@ -88,4 +94,4 @@ class SideMenu extends Component {
     }
 }
 
-export default SideMenu
+export default withCookies(SideMenu)

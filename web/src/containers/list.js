@@ -5,6 +5,8 @@ import Collapse from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import ListTable from '../components/list-table'
+import Fetch from '../utilities/fetch-datas'
+import { withCookies } from 'react-cookie'
 import '../styles/_list.scss'
 
 const variables = require('../utilities/variables').variables
@@ -45,8 +47,13 @@ class Table extends Component {
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list.json') }
 
+    getCurrentUser () {
+        const currentUser = this.props.cookies.get(variables.cookies.user)
+        return Fetch.decodeData(currentUser)
+    }
+
     buildButton (actor) {
-        const role = this.props.currentUser.role
+        const role = this.getCurrentUser().role
         if (!(role === 'admin' && actor.title === 'admin')) {
             return (
                 <Button
@@ -159,4 +166,4 @@ class Table extends Component {
     }
 }
 
-export default Table
+export default withCookies(Table)

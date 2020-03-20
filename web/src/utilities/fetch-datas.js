@@ -1,6 +1,20 @@
 'use-strict'
+var jwt = require('jwt-simple')
+var secret = 'xxx'
+// TOKEN Encoder and decoder
+const decodeData = (token) => {
+    return jwt.decode(token, secret)
+}
 
-function authLogin (email, password, callBack) {
+const encodeData = (value) => {
+    return jwt.encode(value, secret)
+}
+
+const currentUserRole = (token) => {
+    return jwt.decode(token, secret).role
+}
+
+const authLogin = (email, password, callBack) => {
     const userToSend = {
         email: email,
         password: password
@@ -19,7 +33,7 @@ function authLogin (email, password, callBack) {
         })
 }
 
-function logOutUser () {
+const logOutUser = () => {
     fetch('http://localhost:8080/auth/logout', {
         credentials: 'include'
     })
@@ -29,7 +43,7 @@ function logOutUser () {
         })
 }
 
-function getCurrentUser (token, callBack) {
+const getCurrentUser = (token, callBack) => {
     fetch('http://localhost:8080/auth/user', {
         headers: {
             Accept: 'application/json',
@@ -49,7 +63,7 @@ function getCurrentUser (token, callBack) {
                 })
                     .then(response => response.json())
                     .then(data2 => {
-                        callBack(data, data2.data.title)
+                        callBack(token, data, data2.data.title)
                     })
             } else {
                 callBack(data, '')
@@ -60,5 +74,7 @@ function getCurrentUser (token, callBack) {
 export default {
     authLogin,
     logOutUser,
-    getCurrentUser
+    getCurrentUser,
+    encodeData,
+    decodeData
 }
