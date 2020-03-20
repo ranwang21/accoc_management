@@ -1,20 +1,26 @@
 {
-    "actors": [
+    "actorsDefault": [
+        {
+            "id": "UEHSDVHSB",
+            "title": "both",
+            "label": "New parent and pollaborator"
+        },
         {
             "id": "RGBGVBCHSN",
             "title": "parent",
-            "label": "Parents"
+            "label": "New parent"
         },
         {
             "id": "VBGNVGCHDNXD",
             "title": "collaborator",
-            "label": "Collaborators"
-        },
-        {
-            "id": "UEHSDVHSB",
-            "title": "admin",
-            "label": "Administrators"
+            "label": "New collaborator"
         }
     ],
+    "addAdmin": {
+        "id": "ESJDVBQKAMN",
+        "title": "admin",
+        "label": "New administrator"
+    },
+    "required": "** requires the registration of at least one child **",
     "btnValidate": "Save Changes"
 }

@@ -11,7 +11,6 @@ import Snack from '../components/snack'
 import List from './list'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
-import FormInscriptionCollaborator from '../components/form-inscription-collaborator'
 import '../styles/_dashbord.scss'
 const variables = require('../utilities/variables').variables
 
@@ -210,8 +209,7 @@ class Dashbord extends Component {
                     handleBtnValidSave={this.onBtnValidSave}
                 />)
         case variables.menus.createAccount:
-            // return (<CreateAccount />)
-            return (<FormInscriptionCollaborator lang={lang} />)
+            return (<CreateAccount lang={lang} />)
         case variables.menus.classroomManagement:
             return (<ClassRoom lang={lang} />)
         case variables.menus.prints:
