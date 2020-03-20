@@ -1,7 +1,7 @@
 {
     "actorsDefault": [
         {
-            "id": "UEHSDVHSB",
+            "id": "TWGSDVCHEDJH",
             "title": "both",
             "label": "New parent and pollaborator"
         },
@@ -17,7 +17,7 @@
         }
     ],
     "addAdmin": {
-        "id": "ESJDVBQKAMN",
+        "id": "UEHSDVHSB",
         "title": "admin",
         "label": "New administrator"
     },

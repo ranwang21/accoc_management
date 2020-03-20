@@ -1,0 +1,25 @@
+{
+    "create": {
+        "email": {
+            "id": "createAdminEmail",
+            "type": "text",
+            "required": true
+        },
+        "password": {
+            "id": "createAdminPassword",
+            "type": "password",
+            "required": true
+        },
+        "confirmPassword": {
+            "id": "createAdminConfirmPassword",
+            "type": "password",
+            "required": true
+        },
+        "validation": {
+            "id": "createAdminValidation",
+            "type": "checkbox",
+            "required": false
+        }
+    },
+    "update": {}
+}

@@ -14,6 +14,11 @@ const currentUserRole = (token) => {
     return jwt.decode(token, secret).role
 }
 
+const validateEmail = (email) => {
+    const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+    return !!mailformat.test(email)
+}
+
 const authLogin = (email, password, callBack) => {
     const userToSend = {
         email: email,
@@ -76,5 +81,6 @@ export default {
     logOutUser,
     getCurrentUser,
     encodeData,
-    decodeData
+    decodeData,
+    validateEmail
 }

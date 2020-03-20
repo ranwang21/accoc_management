@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FormControlLabel, FormControl, Input, InputLabel, FormGroup, TextareaAutosize, Button, Checkbox, TextField } from '@material-ui/core'
-import '../styles/_form.scss'
+import '../styles/_create-collaborateur.scss'
 
 class FormInscriptionCollaborator extends Component {
     getLang () {
@@ -59,7 +59,7 @@ class FormInscriptionCollaborator extends Component {
         const fields = this.getFields()
         const lang = this.getLang()
         return (
-            <div>
+            <div className='create-collaborateur'>
                 <form noValidate autoComplete='off' className='form'>
                     {this.renderSteps(labels, fields)}
                     <div className='form-group'>

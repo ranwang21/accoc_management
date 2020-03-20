@@ -1,0 +1,9 @@
+{
+    "title": "Administrateur Account",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm password",
+    "buttonLabel": "Create",
+    "messageError": "Incorrect email or password",
+    "messageSnack": "You are connected"
+}

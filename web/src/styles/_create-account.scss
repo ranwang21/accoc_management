@@ -59,6 +59,8 @@
 		.add-container {
 			padding: 1em;
 			width: 50%;
+			display: flex;
+			flex-direction: column;
 			.retour {
 				cursor: pointer;
 				transform: rotateY(180deg);
@@ -75,12 +77,15 @@
 					background-color: rgba($color: $primaryColor, $alpha: 0.8);
 				}
 			}
+			> div {
+				height: calc(100% - 2.5em);
+			}
 		}
 	}
 }
 .fullSize {
 	overflow-y: auto;
-	height: 100% !important;
+	height: max-content;
 	&::-webkit-scrollbar {
 		width: 8px;
 	}

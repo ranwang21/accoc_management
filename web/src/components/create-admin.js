@@ -1,67 +1,58 @@
 import React, { Component } from 'react'
+import { Container, TextField, Button } from '@material-ui/core'
+import '../styles/_create-admin.scss'
 import Fetch from '../utilities/fetch-datas'
-import '../styles/_login.scss'
 import Loading from '../components/loading'
 import LockIcon from '@material-ui/icons/LockRounded'
-import { Container, TextField, Button } from '@material-ui/core'
-const LoginConfig = require('../forms-files/login.json')
+const CreateAdminConfig = require('../forms-files/admin.json').create
 
-class Login extends Component {
+class createAdmin extends Component {
     constructor () {
         super()
         this.state = {
-            loginConfig: null,
             error: false,
             enableSubmit: false,
-            userToken: null,
             loading: false
         }
+
         this.email = ''
         this.password = ''
-        this.userRole = null
-        this.handleInputChange = this.handleInputChange.bind(this)
+        this.confirmPassword = ''
         this.handleBtnClick = this.handleBtnClick.bind(this)
-        this.validateUser = this.validateUser.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
     }
 
-    getLangFile () { return require('../lang/' + this.props.lang + '/login.json') }
-
-    componentDidMount () {
-        this.setState({ loginConfig: LoginConfig })
-    }
-
-    validateUser (datas) {
-        if (datas.success) {
-            this.setState({ error: false, loading: false })
-            this.props.handleConnectedEvent(event, datas.token)
-        } else this.setState({ error: true, loading: false })
-    }
-
-    handleBtnClick () {
-        this.setState({ loading: true })
-        Fetch.validateEmail(this.email)
-            ? Fetch.authLogin(this.email, this.password, this.validateUser)
-            : this.setState({ error: true, loading: false })
-    }
+    getLangFile () { return require('../lang/' + this.props.lang + '/create-admin.json') }
 
     handleInputChange (event) {
-        (event.target.type === 'text'
-            ? this.email = event.target.value.toLowerCase()
-            : this.password = event.target.value)
-
+        switch (event.target.id) {
+        case 'createAdminEmail':
+            this.email = event.target.value.toLowerCase()
+            break
+        case 'createAdminPassword':
+            this.password = event.target.value
+            break
+        case 'createAdminConfirmPassword':
+            this.confirmPassword = event.target.value
+            break
+        }
         this.checkEmptyInput()
     }
 
     checkEmptyInput () {
-        (this.email.length === 0 || this.password.length === 0)
+        (this.email.length === 0 || this.password.length === 0 || this.confirmPassword.length === 0)
             ? this.setState({ enableSubmit: false })
             : this.setState({ enableSubmit: true })
     }
 
+    handleBtnClick () {
+        this.setState({ loading: true })
+        Fetch.validateEmail(this.email) && this.setState({ error: true, loading: false })
+    }
+
     buildFields (lang) {
         const error = this.state.error
-        const fields = this.state.loginConfig
-        this.state.userToken !== null && console.log(this.state.userToken)
+        const fields = CreateAdminConfig
         return (
             <>
                 <TextField
@@ -71,7 +62,7 @@ class Login extends Component {
                     label={lang.emailLabel}
                     type={fields.email.type}
                     color='primary'
-                    helperText={error && lang.messageErrorLogin}
+                    helperText={error && lang.messageError}
                     variant='outlined'
                     onChange={this.handleInputChange}
                     required={fields.email.required}
@@ -84,10 +75,22 @@ class Login extends Component {
                     label={lang.passwordLabel}
                     type={fields.password.type}
                     color='primary'
-                    helperText={error && lang.messageErrorLogin}
+                    helperText={error && lang.messageError}
                     variant='outlined'
                     onChange={this.handleInputChange}
                     required={fields.password.required}
+                />
+                <TextField
+                    error={error}
+                    key={fields.confirmPassword.id}
+                    id={fields.confirmPassword.id}
+                    label={lang.confirmPasswordLabel}
+                    type={fields.confirmPassword.type}
+                    color='primary'
+                    helperText={error && lang.messageError}
+                    variant='outlined'
+                    onChange={this.handleInputChange}
+                    required={fields.confirmPassword.required}
                 />
             </>
         )
@@ -95,13 +98,12 @@ class Login extends Component {
 
     render () {
         const langFile = this.getLangFile()
-        const { loginConfig } = this.state
         return (
-            <div className='login'>
+            <div className='create-admin'>
                 <Container maxWidth='sm'>
                     <h1>{langFile.title}</h1>
                     <form className='' noValidate autoComplete='off'>
-                        {loginConfig !== null && (this.buildFields(langFile))}
+                        {CreateAdminConfig !== null && (this.buildFields(langFile))}
                         {this.state.enableSubmit && (
                             <Button
                                 onClick={this.handleBtnClick}
@@ -121,4 +123,5 @@ class Login extends Component {
         )
     }
 }
-export default Login
+
+export default createAdmin
