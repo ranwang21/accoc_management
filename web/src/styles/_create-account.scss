@@ -32,15 +32,23 @@
 					border-radius: 1em;
 					background-color: rgba($color: $primaryColor, $alpha: 0.2);
 					box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
+					> div {
+						&:first-of-type {
+							transition: all 0.5s;
+							width: 5em;
+							height: 2.5em;
+							background-image: url(../pictures/hand-right.png);
+							background-repeat: no-repeat;
+							background-position: center;
+							background-size: contain;
+						}
+					}
 				}
 				> div {
 					&:first-of-type {
-						width: 5em;
-						height: 2.5em;
-						background-image: url(../pictures/hand-right.png);
-						background-repeat: no-repeat;
-						background-position: center;
-						background-size: contain;
+						transition: all 0.5s;
+						width: 0em;
+						height: 0em;
 					}
 					&:last-of-type {
 						text-align: start;
@@ -85,7 +93,7 @@
 }
 .fullSize {
 	overflow-y: auto;
-	height: max-content;
+	height: 100%;
 	&::-webkit-scrollbar {
 		width: 8px;
 	}

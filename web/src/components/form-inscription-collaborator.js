@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormControlLabel, FormControl, Input, InputLabel, FormGroup, TextareaAutosize, Button, Checkbox, TextField } from '@material-ui/core'
+import { FormControlLabel, Input, InputLabel, FormGroup, TextareaAutosize, Button, Checkbox, TextField } from '@material-ui/core'
 import '../styles/_create-collaborateur.scss'
 
 class FormInscriptionCollaborator extends Component {
