@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class InconsistencyHelper {
 
-    public static void getFromAPI(SQLiteDatabase db) {
-        String json = GetJson.get("/inconsistencies");
+    public static void getFromAPI(SQLiteDatabase db,String token) {
+        String json = GetJson.get("/inconsistencies", token);
         if (json != null) {
             Gson gson = new Gson();
             Type type = new TypeToken<Data<Inconsistency>>() {

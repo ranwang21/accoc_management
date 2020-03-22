@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 
 public class DeleteJson {
-    public static String delete(String routes) {
+    public static String delete(String routes,String token) {
         String response = null;
         HttpDeleteRequest httpDeleteRequest = new HttpDeleteRequest();
         try {

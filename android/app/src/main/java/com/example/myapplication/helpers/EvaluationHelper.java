@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 
 public class EvaluationHelper {
-    public static void getFromAPI(SQLiteDatabase db) {
-        String json = GetJson.get("/evaluations");
+    public static void getFromAPI(SQLiteDatabase db, String token) {
+        String json = GetJson.get("/evaluations",token);
         if (json != null) {
             Gson gson = new Gson();
             Type type = new TypeToken<Data<Evaluation>>() {

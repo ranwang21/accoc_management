@@ -12,8 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.entities.Login;
 import com.example.myapplication.entities.User;
+import com.example.myapplication.helpers.ClassroomHelper;
+import com.example.myapplication.helpers.EvaluationHelper;
+import com.example.myapplication.helpers.InconsistencyHelper;
+import com.example.myapplication.helpers.LoginHelper;
+import com.example.myapplication.helpers.RoleHelper;
+import com.example.myapplication.helpers.ScheduleHelper;
+import com.example.myapplication.helpers.UserHelper;
 import com.example.myapplication.managers.LoginManager;
 import com.example.myapplication.managers.UserManager;
+import com.example.myapplication.services.ConnectionBD;
 
 import java.util.ArrayList;
 
@@ -33,7 +41,14 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edt_password_signin);
         btnSignIn = findViewById(R.id.btn_signin);
 //        Login login = new Login("admin@gmail.com", "abc123...");
-//        LoginManager.postToAPI(this, login);
+//       String token =  LoginManager.getLoginToken(this, login,"");
+//        RoleHelper.getFromAPI(ConnectionBD.getBd(this),token);
+//        UserHelper.getFromAPI(ConnectionBD.getBd(this),token);
+//        LoginHelper.getFromAPI(ConnectionBD.getBd(this),token);
+//        ClassroomHelper.getFromAPI(ConnectionBD.getBd(this),token);
+//        ScheduleHelper.getFromAPI(ConnectionBD.getBd(this),token);
+//        InconsistencyHelper.getFromAPI(ConnectionBD.getBd(this),token);
+//        EvaluationHelper.getFromAPI(ConnectionBD.getBd(this),token);
 //        ArrayList<User> users = UserManager.getAll(this);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
