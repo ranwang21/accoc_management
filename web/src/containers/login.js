@@ -3,8 +3,9 @@ import Fetch from '../utilities/fetch-datas'
 import '../styles/_login.scss'
 import Loading from '../components/loading'
 import LockIcon from '@material-ui/icons/LockRounded'
-import { Container, TextField, Button } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 const LoginConfig = require('../forms-files/login.json')
+const variables = require('../utilities/variables').variables
 
 class Login extends Component {
     constructor () {
@@ -45,7 +46,7 @@ class Login extends Component {
     }
 
     handleInputChange (event) {
-        (event.target.type === 'text'
+        (event.target.id === variables.id.login.email
             ? this.email = event.target.value.toLowerCase()
             : this.password = event.target.value)
 
@@ -66,8 +67,8 @@ class Login extends Component {
             <>
                 <TextField
                     error={error}
-                    key={fields.email.id}
-                    id={fields.email.id}
+                    key={variables.id.login.email}
+                    id={variables.id.login.email}
                     label={lang.emailLabel}
                     type={fields.email.type}
                     color='primary'
@@ -79,8 +80,8 @@ class Login extends Component {
                 />
                 <TextField
                     error={error}
-                    key={fields.password.id}
-                    id={fields.password.id}
+                    key={variables.id.login.password}
+                    id={variables.id.login.password}
                     label={lang.passwordLabel}
                     type={fields.password.type}
                     color='primary'
@@ -98,25 +99,27 @@ class Login extends Component {
         const { loginConfig } = this.state
         return (
             <div className='login'>
-                <Container maxWidth='sm'>
-                    <h1>{langFile.title}</h1>
-                    <form className='' noValidate autoComplete='off'>
+                <form className='' noValidate autoComplete='off'>
+                    <h2>{langFile.title}</h2>
+                    <div className='fields'>
                         {loginConfig !== null && (this.buildFields(langFile))}
                         {this.state.enableSubmit && (
-                            <Button
-                                onClick={this.handleBtnClick}
-                                variant='contained'
-                                color='secondary'
-                                size='medium'
-                                fullWidth={false}
-                                startIcon={<LockIcon />}
-                            >
-                                {langFile.buttonLabel}
-                            </Button>
+                            <div className='div-button'>
+                                <Button
+                                    onClick={this.handleBtnClick}
+                                    variant='contained'
+                                    color='secondary'
+                                    size='medium'
+                                    fullWidth={false}
+                                    startIcon={<LockIcon />}
+                                >
+                                    {langFile.buttonLabel}
+                                </Button>
+                            </div>
                         )}
-                    </form>
+                    </div>
                     {this.state.loading && (<Loading lang={this.props.lang} />)}
-                </Container>
+                </form>
             </div>
         )
     }

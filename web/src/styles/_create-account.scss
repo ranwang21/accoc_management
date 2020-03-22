@@ -65,14 +65,14 @@
 			}
 		}
 		.add-container {
-			padding: 1em;
 			width: 50%;
+			height: 100%;
 			display: flex;
-			flex-direction: column;
-			.retour {
+			> div.retour {
+				margin-bottom: 0.5em;
 				cursor: pointer;
 				transform: rotateY(180deg);
-				border-radius: 0.3em;
+				border-radius: $borderRadiusMain;
 				padding: 0.5em;
 				width: 5em;
 				height: 2.5em;
@@ -80,20 +80,47 @@
 				background-repeat: no-repeat;
 				background-position: center;
 				background-size: 4em 2em;
-				background-color: rgba($color: $primaryColor, $alpha: 0.4);
+				background-color: rgba($color: $primaryColor, $alpha: 0.3);
 				&:hover {
 					background-color: rgba($color: $primaryColor, $alpha: 0.8);
 				}
 			}
-			> div {
-				height: calc(100% - 2.5em);
+			> div.contain {
+				width: calc(100% - 5em);
+				padding-left: 1em;
+				height: 100%;
+				overflow-y: auto;
+
+				&::-webkit-scrollbar {
+					width: 8px;
+				}
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba($color: #0000, $alpha: 0.3);
+					-webkit-box-shadow: inset 0 0 6px rgba($color: #0000, $alpha: 0.3);
+					border-radius: 10px;
+					-webkit-border-radius: 10px;
+				}
+				&::-webkit-scrollbar-thumb {
+					-webkit-border-radius: 10px;
+					border-radius: 10px;
+					background: rgba($color: $primaryColor, $alpha: 0.8);
+					box-shadow: inset 0 0 6px $blackTrans;
+					-webkit-box-shadow: inset 0 0 6px $blackTrans;
+				}
+				&::-webkit-scrollbar:window-inactive {
+					width: 4px;
+				}
+				&::-webkit-scrollbar-thumb:window-inactive {
+					background: transparent;
+				}
 			}
 		}
 	}
 }
 .fullSize {
+	background-color: rgba($color: $primaryColor, $alpha: 0);
 	overflow-y: auto;
-	height: 100%;
+	height: 100% !important;
 	&::-webkit-scrollbar {
 		width: 8px;
 	}
@@ -145,6 +172,16 @@
 @include responsive(phone) {
 	.create-account {
 		height: 25em;
+		> div {
+			.add-container {
+				flex-direction: column;
+				> div.contain {
+					height: auto;
+					padding: 0;
+					width: 100%;
+				}
+			}
+		}
 	}
 }
 @include responsive(tablet) {

@@ -1,9 +1,25 @@
 {
-    "title": "Administrateur Account",
-    "emailLabel": "Email address",
-    "passwordLabel": "Password",
-    "confirmPasswordLabel": "Confirm password",
-    "buttonLabel": "Create",
-    "messageError": "Incorrect email or password",
-    "messageSnack": "You are connected"
+    "title": "Compte Administrateur",
+    "lastName": {
+        "label": "Nom"
+    },
+    "firstName": {
+        "label": "Prénom"
+    },
+    "email": {
+        "label": "Adresse email",
+        "labelError": "Adresse email invalide"
+    },
+    "password": {
+        "label": "Mot de passe",
+        "labelError": "Mot de passes différents ou invalide"
+    },
+    "confirmPassword": {
+        "label": "Confirmer le mot de passe",
+        "labelError": "Mot de passes différents ou invalide"
+    },
+    "validation": {
+        "label": "Validité du compte"
+    },
+    "buttonLabel": "Enregistrer"
 }

@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
+
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
+import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined'
+
 import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
 import ClassRoom from '../components/classroom'
@@ -8,7 +12,7 @@ import Profile from '../components/profile'
 import Schedule from '../components/schedule'
 import Print from '../components/print'
 import Snack from '../components/snack'
-import List from './list'
+import Lists from './list'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_dashbord.scss'
@@ -111,7 +115,8 @@ class Dashbord extends Component {
             menuItemSelected: variables.menus.allUsers,
             showLogOutModal: false,
             requiredSaveValidationChange: false,
-            showSnack: false
+            showSnack: false,
+            left: false
         }
         this.currentUser = null
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
@@ -121,6 +126,7 @@ class Dashbord extends Component {
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
         this.onValidationChange = this.onValidationChange.bind(this)
         this.onBtnValidSave = this.onBtnValidSave.bind(this)
+        this.toggleDrawer = this.toggleDrawer.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
@@ -190,7 +196,7 @@ class Dashbord extends Component {
         switch (this.state.menuItemSelected) {
         case variables.menus.allUsers:
             return (
-                <List
+                <Lists
                     lang={lang}
                     actors={this.state.actors}
                     actorsForValidations={this.state.actorsForValidations}
@@ -200,7 +206,7 @@ class Dashbord extends Component {
                 />)
         case variables.menus.validation:
             return (
-                <List
+                <Lists
                     lang={lang}
                     actors={this.state.actors}
                     actorsForValidations={this.state.actorsForValidations}
@@ -215,7 +221,7 @@ class Dashbord extends Component {
         case variables.menus.prints:
             return (<Print lang={lang} />)
         case variables.menus.childList:
-            return (<List lang={lang} />)
+            return (<Lists lang={lang} />)
         case variables.menus.profile:
             return (<Profile lang={lang} />)
         case variables.menus.schedule:
@@ -227,12 +233,53 @@ class Dashbord extends Component {
 
     handleCloseSnack () { this.setState({ showSnack: false }) }
 
+    toggleDrawer (event, open) {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return
+        }
+
+        this.setState({ left: open })
+    }
+
     render () {
         const lang = this.getLangFile()
         return (
             <div className='dashbord'>
                 <Snack show={this.state.showSnack} duration={5000} message={lang.messageRequiredSaveChangeSnack} onClose={this.handleCloseSnack} severity='warning' />
+                <div className='menu-mobile'>
+                    <Button
+                        variant='outlined'
+                        size='medium'
+                        color='primary'
+                        onClick={event => this.toggleDrawer(event, true)}
+                        startIcon={<MenuOutlinedIcon />}
+                    >
+                        {lang.menuTitle}
+                    </Button>
+
+                    <SwipeableDrawer
+                        anchor='right'
+                        open={this.state.left}
+                        onClose={event => this.toggleDrawer(event, false)}
+                        onOpen={event => this.toggleDrawer(event, true)}
+                    >
+                        <div
+                            role='presentation'
+                            onClick={event => this.toggleDrawer(event, false)}
+                            onKeyDown={event => this.toggleDrawer(event, false)}
+                        >
+                            <SideMenu
+                                lang={this.props.lang}
+                                menuItemSelected={this.state.menuItemSelected}
+                                handleClickMenu={this.onClickMenu}
+                                validationLength={this.state.actorsForValidations && this.state.actorsForValidations.length}
+                            />
+                        </div>
+                    </SwipeableDrawer>
+
+                </div>
                 <SideMenu
+                    className='menu-desktop'
                     lang={this.props.lang}
                     menuItemSelected={this.state.menuItemSelected}
                     handleClickMenu={this.onClickMenu}

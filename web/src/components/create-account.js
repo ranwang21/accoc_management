@@ -11,6 +11,7 @@ class CreateAccount extends Component {
     constructor () {
         super()
         this.state = {
+            addList: null,
             actorSelected: null,
             addClick: true,
             showAddButton: true,
@@ -22,6 +23,9 @@ class CreateAccount extends Component {
     }
 
     componentDidMount () {
+        const role = this.getCurrentUser().role
+        const list = role === variables.role.highAdmin ? this.getLangFile().addListForHighAdmin : this.getLangFile().addListForAdmin
+        this.setState({ addList: [...list] })
     }
 
     getCurrentUser () {
@@ -60,13 +64,6 @@ class CreateAccount extends Component {
         )
     }
 
-    getAddList (lang) {
-        const list = lang.actorsDefault
-        const role = this.getCurrentUser().role
-        role === variables.role.highAdmin && list.length === 3 && list.push(lang.addAdmin)
-        return list
-    }
-
     switchToAddOption () {
         switch (this.state.actorSelected) {
         case variables.actors.collaborator:
@@ -82,12 +79,14 @@ class CreateAccount extends Component {
             <div className='create-account'>
                 <div className='showAddDiv' ref={this.addDiv}>
                     <div className='choice'>
-                        {this.getAddList(lang).map(actor => this.buildButton(lang, actor))}
+                        {this.state.addList !== null && this.state.addList.map(actor => this.buildButton(lang, actor))}
                     </div>
                     {this.state.showAddContainer && (
                         <div className='add-container'>
                             <div className='retour' onClick={this.handleRetour} />
-                            {this.switchToAddOption()}
+                            <div className='contain'>
+                                {this.switchToAddOption()}
+                            </div>
                         </div>
                     )}
                 </div>
