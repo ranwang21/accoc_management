@@ -28,7 +28,7 @@ module.exports = {
                 use: [{ loader: 'html-loader', options: { minimize: false } }]
             },
             {
-                test: /\.(png|svg|jpg|gif|ico)$/,
+                test: /\.(png|jpg|gif|ico)$/,
                 use: {
                     loader: 'file-loader',
                     options: {
@@ -44,6 +44,10 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack']
             }
         ]
     },

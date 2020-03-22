@@ -12,6 +12,7 @@ const variables = {
         children: 'IJNDVFBHCD',
         parent: 'RGBGVBCHSN',
         collaborator: 'VBGNVGCHDNXD',
+        both: 'TWGSDVCHEDJH',
         admin: 'UEHSDVHSB'
     },
     menus: {
@@ -26,7 +27,22 @@ const variables = {
         logOut: 'WIJSFBCHDS'
     },
     cookies: {
-        user: ''
+        user: 'APISID',
+        token: 'RIKSGD'
+    },
+    id: {
+        login: {
+            email: '5D2FC1ED5X2',
+            password: 'EDF41C5S205SD'
+        },
+        createAdmin: {
+            lastName: '8ED5F4C1D',
+            firstName: 'E85SF41CS52',
+            email: 'GESGNCBN',
+            password: 'SHDGBCSJZ',
+            confirmPassword: 'TGSVDCBHS',
+            checkValidation: 'E5S4F1CS52'
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { List, ListItem, ListItemIcon, ListItemText, Badge } from '@material-ui/core'
 import ListIcon from '@material-ui/icons/FormatListBulleted'
 import ValidationIcon from '@material-ui/icons/PlaylistAddCheck'
 import CreateIcon from '@material-ui/icons/AddBoxOutlined'
@@ -8,7 +8,8 @@ import DetailsIcon from '@material-ui/icons/Details'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import PrintIcon from '@material-ui/icons/Print'
 import LogOutIcon from '@material-ui/icons/PowerSettingsNew'
-
+import Fetch from '../utilities/fetch-datas'
+import { withCookies } from 'react-cookie'
 import '../styles/_side-menu.scss'
 
 const variables = require('../utilities/variables').variables
@@ -63,9 +64,14 @@ class SideMenu extends Component {
         return require('../lang/' + this.props.lang + '/side-menu.json')
     }
 
+    getCurrentUser () {
+        const currentUser = this.props.cookies.get(variables.cookies.user)
+        return Fetch.decodeData(currentUser)
+    }
+
     render () {
         const lang = this.getLangFile()
-        const items = getMenuItemsByRole(lang, 'super_admin')
+        const items = getMenuItemsByRole(lang, this.getCurrentUser().role)
         return (
             <div className='side-menu'>
                 <List>
@@ -78,6 +84,9 @@ class SideMenu extends Component {
                         >
                             <ListItemIcon>{getMenuIcon(variables.menus[item])}</ListItemIcon>
                             <ListItemText primary={items[item]} />
+                            {items[item] === items.validation && (
+                                <Badge color='primary' badgeContent={this.props.validationLength} max={99} />
+                            )}
                         </ListItem>)}
                 </List>
             </div>
@@ -85,4 +94,4 @@ class SideMenu extends Component {
     }
 }
 
-export default SideMenu
+export default withCookies(SideMenu)

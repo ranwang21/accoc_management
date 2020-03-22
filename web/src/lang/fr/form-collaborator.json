@@ -3,13 +3,13 @@
         "label": "Identification",
         "lastname": "Nom",
         "firstname": "Prénom",
-        "reference": "Numéro de Référence",
+        "reference-number": "Numéro de Référence",
         "address": "adresse",
         "number-apr": "Numéro d'Appartement",
         "city": "Ville",
-        "postal": "Code Postal",
+        "postal-code": "Code Postal",
         "telephone": "Téléphone",
-        "telephone-work": "Téléhpone au Travail",
+        "job-telephone": "Téléhpone au Travail",
         "urgent-contact": "Personne à contacter en cas d'urgence",
         "urgent-contact-number": "Téléphone pour la personne de contact en cas d'urgence",
         "birthday": "Anniversaire",
@@ -17,10 +17,10 @@
     },
     "etape2": {
         "label": "Disponibilités et Intérêts Cocher S.V.P.",
-        "monday": "ADL Lundi 15h30 à 17:30",
-        "tuesday": "ADL Mardi 15h30 à 17:30",
-        "wednesday": "ADL Mercredi 15h30 à 17h30",
-        "thursday": "ADL Jeudi 15h30 à 17h30",
+        "monday1530-1730": "ADL Lundi 15h30 à 17:30",
+        "tuesday1530-1730": "ADL Mardi 15h30 à 17:30",
+        "wednesday1530-1730": "ADL Mercredi 15h30 à 17h30",
+        "thursday1530-1730": "ADL Jeudi 15h30 à 17h30",
         "journal-magique": "Collaborer au Journal Magique",
         "collation": "Servir la collation",
         "animation": "Animation de jeux-préparation fêtes",
@@ -29,10 +29,10 @@
         "internet": "Accompagner les enfants sur Internet"
     },
     "etape3": {
-        "label": "Motivation à devenir collaborateur",
-        "Motivation": "Motivation à devenir collaborateur",
+        "label": "Informations Suplémentaires",
+        "motivation": "Motivation à devenir collaborateur",
         "experience": "Expériences et formations pertinentes",
         "comment": "Commentaires",
-        "where-you-heard": "Où avez-vous entendu parler du besoin de collaborateurs?"
+        "where-you-heard-us": "Où avez-vous entendu parler du besoin de collaborateurs?"
     }
 }

@@ -1,11 +1,9 @@
 {
     "email": {
-        "id": "loginEmail",
         "type": "text",
         "required": true
     },
     "password": {
-        "id": "loginPassword",
         "type": "password",
         "required": true
     }

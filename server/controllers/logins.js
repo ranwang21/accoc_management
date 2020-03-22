@@ -42,13 +42,13 @@ exports.getLogin = asyncHandler(async (req, res, next) => {
 // @route    POST /logins
 // @access   public
 exports.createLogin = asyncHandler(async (req, res) => {
-  const { id_user, email, password } = req.body
+  const { id_user, email, password, is_active } = req.body
 
   const login = await Login.create({
     id_user,
     email,
     password,
-    is_active: false
+    is_active
   })
 
   res.status(200).json({

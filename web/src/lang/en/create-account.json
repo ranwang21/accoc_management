@@ -1,0 +1,43 @@
+{
+    "addListForHighAdmin": [
+        {
+            "id": "TWGSDVCHEDJH",
+            "title": "both",
+            "label": "New parent and pollaborator"
+        },
+        {
+            "id": "RGBGVBCHSN",
+            "title": "parent",
+            "label": "New parent"
+        },
+        {
+            "id": "VBGNVGCHDNXD",
+            "title": "collaborator",
+            "label": "New collaborator"
+        },
+        {
+            "id": "UEHSDVHSB",
+            "title": "admin",
+            "label": "New administrator"
+        }
+    ],
+    "addListForAdmin": [
+        {
+            "id": "TWGSDVCHEDJH",
+            "title": "both",
+            "label": "New parent and pollaborator"
+        },
+        {
+            "id": "RGBGVBCHSN",
+            "title": "parent",
+            "label": "New parent"
+        },
+        {
+            "id": "VBGNVGCHDNXD",
+            "title": "collaborator",
+            "label": "New collaborator"
+        }
+    ],
+    "required": "** requires the registration of at least one child **",
+    "btnValidate": "Save Changes"
+}
