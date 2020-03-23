@@ -43,15 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btn_signin);
 //        Login login = new Login("admin@gmail.com", "abc123...");
 //        String token = LoginManager.getLoginToken(login, "");
-//        String logoutSucess = LoginManager.logout();
-////        RoleHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
-////        UserHelper.getFromAPI(ConnectionBD.getBd(this),token);
-////        LoginHelper.getFromAPI(ConnectionBD.getBd(this),token);
-////        ClassroomHelper.getFromAPI(ConnectionBD.getBd(this),token);
-////        ScheduleHelper.getFromAPI(ConnectionBD.getBd(this),token);
-////        InconsistencyHelper.getFromAPI(ConnectionBD.getBd(this),token);
-////        EvaluationHelper.getFromAPI(ConnectionBD.getBd(this),token);
-////        ArrayList<User> users = UserManager.getAll(this);
+//        RoleHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
+//        UserHelper.getFromAPI(ConnectionBD.getBd(this),token);
+//        ClassroomHelper.getFromAPI(ConnectionBD.getBd(this),token);
+
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
