@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const ClassroomSchedule = require('../models/ClassroomSchedule')
+const ClassroomSchedule = require('./ClassroomSchedule')
 
 const ClassroomSchema = new mongoose.Schema({
   title: {

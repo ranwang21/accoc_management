@@ -4,6 +4,7 @@ const {
   getLogins,
   getLogin,
   createLogin,
+  updateLoginStatus,
   deleteLogin
 } = require('../controllers/logins')
 
@@ -25,6 +26,7 @@ router
 router
   .route('/:id')
   .get(protect, getLogin)
+  .put(protect, authorize('admin', 'super_admin'), updateLoginStatus)
   .delete(protect, authorize('admin', 'super_admin'), deleteLogin)
 
 module.exports = router

@@ -40,7 +40,7 @@ exports.getLogin = asyncHandler(async (req, res, next) => {
 
 // @desc     Create login to user
 // @route    POST /logins
-// @access   public
+// @access   Public
 exports.createLogin = asyncHandler(async (req, res) => {
   const { id_user, email, password, is_active } = req.body
 
@@ -50,6 +50,33 @@ exports.createLogin = asyncHandler(async (req, res) => {
     password,
     is_active
   })
+
+  res.status(200).json({
+    success: true,
+    data: login
+  })
+})
+
+// @desc     Update login Status
+// @route    PUT /logins/:id
+// @access   Private
+exports.updateLoginStatus = asyncHandler(async (req, res, next) => {
+  const { is_active } = req.body
+
+  const login = await Login.findByIdAndUpdate(
+    req.params.id,
+    { is_active },
+    {
+      new: true,
+      runValidators: true
+    }
+  )
+
+  if (!login) {
+    return next(
+      new ErrorResponse(`Login not found with ID: ${req.params.id}`, 404)
+    )
+  }
 
   res.status(200).json({
     success: true,
