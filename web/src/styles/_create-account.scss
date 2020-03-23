@@ -176,7 +176,7 @@
 			.add-container {
 				flex-direction: column;
 				> div.contain {
-					height: auto;
+					height: 50em;
 					padding: 0;
 					width: 100%;
 				}
@@ -186,7 +186,7 @@
 }
 @include responsive(tablet) {
 	.create-account {
-		height: 50%;
+		height: 25em;
 	}
 }
 @include responsive(desktop) {

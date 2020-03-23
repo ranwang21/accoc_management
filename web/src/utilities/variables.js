@@ -35,6 +35,13 @@ const variables = {
             email: '5D2FC1ED5X2',
             password: 'EDF41C5S205SD'
         },
+        registerStart: {
+            check: {
+                parent: '5S4D1CS5Z',
+                collaborator: '8S51CS85D2X',
+                both: 'E5SFC4S1ZC4S'
+            }
+        },
         createAdmin: {
             lastName: '8ED5F4C1D',
             firstName: 'E85SF41CS52',

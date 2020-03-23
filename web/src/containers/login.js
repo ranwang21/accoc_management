@@ -99,7 +99,7 @@ class Login extends Component {
         const { loginConfig } = this.state
         return (
             <div className='login'>
-                <form className='' noValidate autoComplete='off'>
+                <form noValidate autoComplete='off'>
                     <h2>{langFile.title}</h2>
                     <div className='fields'>
                         {loginConfig !== null && (this.buildFields(langFile))}
@@ -117,8 +117,8 @@ class Login extends Component {
                                 </Button>
                             </div>
                         )}
+                        {this.state.loading && (<Loading lang={this.props.lang} />)}
                     </div>
-                    {this.state.loading && (<Loading lang={this.props.lang} />)}
                 </form>
             </div>
         )

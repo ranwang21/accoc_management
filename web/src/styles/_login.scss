@@ -1,25 +1,17 @@
 @import "./base";
 
 .login {
-	height: 100%;
+	height: auto;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin: auto;
 	form {
-		transition: width 0.5s;
-		width: 40%;
-		h2 {
-			background-color: rgba($color: $primaryColor, $alpha: 0.3);
-			padding: 0.5em 1em;
-			border-radius: $borderRadiusMain $borderRadiusMain 0 0;
-			text-align: left;
-		}
+		transition: all 0.5s;
+		width: 100%;
 		> div.fields {
 			position: relative;
 			z-index: 1;
-			padding: 0.5em 1em;
-			border-radius: 0 0 $borderRadiusMain $borderRadiusMain;
-			background-color: rgba($color: $primaryColor, $alpha: 0.3);
 			display: flex;
 			flex-wrap: wrap;
 			> div {
@@ -36,18 +28,18 @@
 					color: rgba($color: black, $alpha: 1);
 				}
 			}
-		}
-		> div.loading {
-			position: absolute;
-			z-index: 2;
-			border-radius: $borderRadiusMain;
-			width: calc(100% - 1em);
-			height: calc(100% - 1em);
-			bottom: 0em;
-			left: 0em;
-			background-color: rgba($color: black, $alpha: 0.4);
-			.text {
-				font-size: 1.2em;
+			> div.loading {
+				position: absolute;
+				z-index: 2;
+				border-radius: $borderRadiusMain;
+				width: calc(100% - 1em);
+				height: calc(100% - 1em);
+				bottom: 0em;
+				left: 0em;
+				background-color: rgba($color: black, $alpha: 0.4);
+				.text {
+					font-size: 1.2em;
+				}
 			}
 		}
 	}
@@ -57,7 +49,6 @@
 		padding: 1em;
 		form {
 			width: 100%;
-			height: 30em;
 			.div-button button {
 				font-size: 1.5em !important;
 				width: 100% !important;
@@ -69,8 +60,7 @@
 @include responsive(tablet) {
 	.login {
 		form {
-			width: 60%;
-			height: 23em;
+			width: 100%;
 		}
 	}
 }
