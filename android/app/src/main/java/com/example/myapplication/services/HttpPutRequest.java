@@ -1,6 +1,9 @@
 package com.example.myapplication.services;
 
 import android.os.AsyncTask;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,13 +19,17 @@ public class HttpPutRequest extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD = "PUT";
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... params) {
         String stringUrl = params[0];
         String strToSend = "";
+        String token = "";
         if (params.length > 1) {
             strToSend = params[1];
+        }
+        if (params.length > 2) {
+            token = params[2];
         }
         String result;
         String inputLine;
@@ -30,11 +37,14 @@ public class HttpPutRequest extends AsyncTask<String, Void, String> {
             //Create a URL object holding our url
             URL myUrl = new URL(stringUrl);
             //Create a connection
-            HttpURLConnection connection = ( HttpURLConnection )
+            HttpURLConnection connection = (HttpURLConnection)
                     myUrl.openConnection();
             //Set methods and timeouts
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             connection.setRequestProperty("Accept", "application/json");
+            if (token != null) {
+                connection.setRequestProperty("Authorization", "Bearer " + token);
+            }
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestMethod(REQUEST_METHOD);
@@ -70,7 +80,6 @@ public class HttpPutRequest extends AsyncTask<String, Void, String> {
         }
         return result;
     }
-
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
     }

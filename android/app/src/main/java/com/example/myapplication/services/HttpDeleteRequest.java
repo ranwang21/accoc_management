@@ -17,10 +17,10 @@ public class HttpDeleteRequest extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String stringUrl = params[0];
-//        String strToSend = "";
-//        if (params.length > 1) {
-//            strToSend = params[1];
-//        }
+        String token = "";
+        if (params.length > 1) {
+            token = params[1];
+        }
         String result;
         String inputLine;
         try {
@@ -33,6 +33,9 @@ public class HttpDeleteRequest extends AsyncTask<String, Void, String> {
 //            connection.setDoOutput(true);
 //            connection.setDoInput(true);
 //            connection.setRequestMethod(REQUEST_METHOD);
+            if (token != null) {
+                connection.setRequestProperty("Authorization", "Bearer " + token);
+            }
             connection.setReadTimeout(READ_TIMEOUT);
             connection.setConnectTimeout(CONNECTION_TIMEOUT);
             //Connect to our url

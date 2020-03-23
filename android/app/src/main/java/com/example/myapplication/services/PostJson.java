@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 public class PostJson {
 
-    public static String post(String json, String routes) {
+    public static String post(String json, String routes, String token) {
         String response = null;
         HttpPostRequest httpPostRequest = new HttpPostRequest();
         try {

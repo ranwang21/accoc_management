@@ -127,26 +127,26 @@ public class EvaluationManager {
         bd.update(DataBaseHelper.EVALUATION_TABLE_NAME, contentValues, ID + " = " + evaluation.get_id(), null);
     }
 
-    public static void postToAPI(Context context, Evaluation evaluation) {
+    public static void postToAPI(Context context, Evaluation evaluation,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(evaluation);
-        String jsonFromApi = PostJson.post(jsonToSemd, "/evaluations");
+        String jsonFromApi = PostJson.post(jsonToSemd, "/evaluations",token);
         Evaluation evaluationFromApi = gson.fromJson(jsonFromApi, Evaluation.class);
         EvaluationManager.insert(context, evaluationFromApi);
     }
 
-    public static void putToAPI(Context context, Evaluation evaluation) {
+    public static void putToAPI(Context context, Evaluation evaluation,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(evaluation);
-        String jsonFromApi = PutJson.put(jsonToSemd, "/evaluations");
+        String jsonFromApi = PutJson.put(jsonToSemd, "/evaluations",token);
         Evaluation evaluationFromApi = gson.fromJson(jsonFromApi, Evaluation.class);
         EvaluationManager.update(context, evaluationFromApi);
     }
 
-    public static void deleteToAPI(Context context, String id) {
+    public static void deleteToAPI(Context context, String id,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/evaluations/" + id);
+        String jsonFromApi = DeleteJson.delete("/evaluations/" + id,token);
         EvaluationManager.delete(context, id);
     }
 }

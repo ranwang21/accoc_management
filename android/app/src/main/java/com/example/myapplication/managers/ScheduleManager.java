@@ -203,26 +203,26 @@ public class ScheduleManager {
         bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, ID + " = " + schedule.get_id(), null);
     }
 
-    public static void postToAPI(Context context, Schedule schedule) {
+    public static void postToAPI(Context context, Schedule schedule, String token ) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(schedule);
-        String jsonFromApi = PostJson.post(jsonToSemd, "/schedules");
+        String jsonFromApi = PostJson.post(jsonToSemd, "/schedules",token);
         Schedule scheduleFromApi = gson.fromJson(jsonFromApi, Schedule.class);
         ScheduleManager.insert(context, scheduleFromApi);
     }
 
-    public static void putToAPI(Context context, Schedule schedule) {
+    public static void putToAPI(Context context, Schedule schedule,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(schedule);
-        String jsonFromApi = PutJson.put(jsonToSemd, "/schedules");
+        String jsonFromApi = PutJson.put(jsonToSemd, "/schedules",token);
         Schedule scheduleFromApi = gson.fromJson(jsonFromApi, Schedule.class);
         ScheduleManager.update(context, scheduleFromApi);
     }
 
-    public static void deleteToAPI(Context context, String id) {
+    public static void deleteToAPI(Context context, String id,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/schedules/" + id);
+        String jsonFromApi = DeleteJson.delete("/schedules/" + id,token);
         ScheduleManager.delete(context, id);
     }
 }

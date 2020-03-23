@@ -163,26 +163,26 @@ public class ClassroomManager {
         bd.update(DataBaseHelper.CLASSROOM_TABLE_NAME, contentValues, ID + " = " + classroom.get_id(), null);
     }
 
-    public static void postToAPI(Context context, Classroom classroom) {
+    public static void postToAPI(Context context, Classroom classroom,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(classroom);
-        String jsonFromApi = PostJson.post(jsonToSemd, "/classrooms");
+        String jsonFromApi = PostJson.post(jsonToSemd, "/classrooms",token);
         Classroom classroomFromApi = gson.fromJson(jsonFromApi, Classroom.class);
         ClassroomManager.insert(context, classroomFromApi);
     }
 
-    public static void putToAPI(Context context, Classroom classroom) {
+    public static void putToAPI(Context context, Classroom classroom,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(classroom);
-        String jsonFromApi = PutJson.put(jsonToSemd, "/classrooms");
+        String jsonFromApi = PutJson.put(jsonToSemd, "/classrooms",token);
         Classroom classroomFromApi = gson.fromJson(jsonFromApi, Classroom.class);
         ClassroomManager.update(context, classroomFromApi);
     }
 
-    public static void deleteToAPI(Context context, String id) {
+    public static void deleteToAPI(Context context, String id,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/classrooms/" + id);
+        String jsonFromApi = DeleteJson.delete("/classrooms/" + id,token);
         ClassroomManager.delete(context, id);
     }
 }
