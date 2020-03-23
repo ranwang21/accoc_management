@@ -1,23 +1,26 @@
 package com.example.myapplication.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
 public class Acceuil extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
-    Button myBtn;
+
     Button myBtn1;
     Button myBtn2;
     Button myBtn3;
@@ -29,20 +32,18 @@ public class Acceuil extends Fragment implements View.OnClickListener, View.OnLo
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.fragment_acceuil, container, false);
-        myBtn = view.findViewById(R.id.salle1);
-        myBtn = view.findViewById(R.id.salle2);
-        myBtn = view.findViewById(R.id.salle3);
-        myBtn = view.findViewById(R.id.salle4);
-        myBtn1 = view.findViewById(R.id.salle1);
+
+
+        myBtn1 = ( Button ) view.findViewById(R.id.salle1);
         myBtn1.setOnClickListener(this);
         myBtn1.setOnLongClickListener(this);
-        myBtn2 = view.findViewById(R.id.salle2);
+        myBtn2 = ( Button ) view.findViewById(R.id.salle2);
         myBtn2.setOnClickListener(this);
         myBtn2.setOnLongClickListener(this);
-        myBtn3 = view.findViewById(R.id.salle3);
+        myBtn3 = ( Button ) view.findViewById(R.id.salle3);
         myBtn3.setOnClickListener(this);
         myBtn3.setOnLongClickListener(this);
-        myBtn4 = view.findViewById(R.id.salle4);
+        myBtn4 = ( Button ) view.findViewById(R.id.salle4);
         myBtn4.setOnClickListener(this);
         myBtn4.setOnLongClickListener(this);
         return view;
