@@ -2,11 +2,8 @@
   {
     "_id": "5e6a3e314554933864b2c3b1",
     "id_role": "5e6a3e314554933864b2c3c2",
-    "first_name": "Fred",
-    "last_name": "Gaudreau",
-    "sex": "male",
-    "address": "123 Rue Fleury",
-    "birthday": "1992-06-05"
+    "first_name": "super_admin",
+    "last_name": "super_admin"
   },
   {
     "_id": "5e6a3e314554933864b2c3b2",
