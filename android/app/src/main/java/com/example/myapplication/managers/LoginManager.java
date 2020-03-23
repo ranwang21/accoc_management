@@ -10,6 +10,7 @@ import com.example.myapplication.entities.Login;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
 import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.GetJson;
 import com.example.myapplication.services.PostJson;
 import com.example.myapplication.services.PutJson;
 import com.google.gson.Gson;
@@ -138,7 +139,7 @@ public class LoginManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.LOGIN_TABLE_NAME, contentValues, ID + " = " + login.get_id(), null);
     }
-    public static String getLoginToken(Context context, Login login, String token) {
+    public static String getLoginToken(Login login, String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(login);
         String jsonFromApi = PostJson.post(jsonToSemd, "/auth/login", token);
@@ -147,6 +148,20 @@ public class LoginManager {
         try {
             JSONObject jsonResult = new JSONObject(jsonFromApi);
             tokenFromApi = jsonResult.getString("token");
+            Log.d("Json", "getLoginToken: " + tokenFromApi);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return tokenFromApi;
+    }
+    public static String logout() {
+        Gson gson = new Gson();
+        String jsonFromApi = GetJson.get( "/auth/logout","");
+        String tokenFromApi = "";
+        Log.d("Json", "getLoginToken: " + jsonFromApi);
+        try {
+            JSONObject jsonResult = new JSONObject(jsonFromApi);
+            tokenFromApi = jsonResult.getString("success");
             Log.d("Json", "getLoginToken: " + tokenFromApi);
         } catch (JSONException e) {
             e.printStackTrace();
