@@ -4,10 +4,20 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.myapplication.entities.Login;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.DeleteJson;
+import com.example.myapplication.services.GetJson;
+import com.example.myapplication.services.PostJson;
+import com.example.myapplication.services.PutJson;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,7 +35,6 @@ public class LoginManager {
     private static final String queryGetById = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where id like ?";
     private static final String queryGetByEmail = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where email like ?";
     private static final String queryGetByEmailAndPassword = "select * from " + DataBaseHelper.LOGIN_TABLE_NAME + " where email like ? and password like ?";
-
     /**
      * getAll return all Login from DataBase
      *
@@ -47,7 +56,6 @@ public class LoginManager {
         ConnectionBD.close();
         return logins;
     }
-
     /**
      * getById return a Login by id from DataBase
      *
@@ -69,7 +77,6 @@ public class LoginManager {
         ConnectionBD.close();
         return login;
     }
-
     /**
      * getById return a Login by email from DataBase
      *
@@ -92,7 +99,6 @@ public class LoginManager {
         ConnectionBD.close();
         return login;
     }
-
     /**
      * Delete Login from DataBase
      *
@@ -104,14 +110,13 @@ public class LoginManager {
         bd.delete(DataBaseHelper.LOGIN_TABLE_NAME, "id = ?", new String[]{"" + id});
         ConnectionBD.close();
     }
-
     /**
      * Insert Login in DataBase
      *
      * @param context
      * @param login
      */
-    public void insert(Context context, Login login) {
+    public static void insert(Context context, Login login) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID, login.get_id());
         contentValues.put(ID_USER, login.getId_user());
@@ -120,14 +125,13 @@ public class LoginManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.insert(DataBaseHelper.LOGIN_TABLE_NAME, null, contentValues);
     }
-
     /**
      * Update Login in Database
      *
      * @param context
      * @param login
      */
-    public void update(Context context, Login login) {
+    public static void update(Context context, Login login) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ID_USER, login.getId_user());
         contentValues.put(EMAIL, login.getEmail());
@@ -135,4 +139,53 @@ public class LoginManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.LOGIN_TABLE_NAME, contentValues, ID + " = " + login.get_id(), null);
     }
+    public static String getLoginToken(Login login, String token) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(login);
+        String jsonFromApi = PostJson.post(jsonToSemd, "/auth/login", token);
+        String tokenFromApi = "";
+        Log.d("Json", "getLoginToken: " + jsonFromApi);
+        try {
+            JSONObject jsonResult = new JSONObject(jsonFromApi);
+            tokenFromApi = jsonResult.getString("token");
+            Log.d("Json", "getLoginToken: " + tokenFromApi);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return tokenFromApi;
+    }
+    public static String logout() {
+        Gson gson = new Gson();
+        String jsonFromApi = GetJson.get( "/auth/logout","");
+        String tokenFromApi = "";
+        Log.d("Json", "getLoginToken: " + jsonFromApi);
+        try {
+            JSONObject jsonResult = new JSONObject(jsonFromApi);
+            tokenFromApi = jsonResult.getString("success");
+            Log.d("Json", "getLoginToken: " + tokenFromApi);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return tokenFromApi;
+    }
+//    public static void postToAPI(Context context, Login login) {
+//        Gson gson = new Gson();
+//        String jsonToSemd = gson.toJson(login);
+//        String jsonFromApi = PostJson.post(jsonToSemd, "/logins");
+//        Login loginFromApi = gson.fromJson(jsonFromApi, Login.class);
+//        LoginManager.insert(context, loginFromApi);
+//    }
+//    public static void putToAPI(Context context, Login login) {
+//        Gson gson = new Gson();
+//        String jsonToSemd = gson.toJson(login);
+//        String jsonFromApi = PutJson.put(jsonToSemd, "/logins");
+//        Login loginFromApi = gson.fromJson(jsonFromApi, Login.class);
+//        LoginManager.update(context, loginFromApi);
+//    }
+//    public static void deleteToAPI(Context context, String id) {
+//        Gson gson = new Gson();
+//        String jsonToSemd = gson.toJson(id);
+//        String jsonFromApi = DeleteJson.delete("/logins/" + id );
+//        LoginManager.delete(context, id);
+//    }
 }

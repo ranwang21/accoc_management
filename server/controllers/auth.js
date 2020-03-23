@@ -14,8 +14,11 @@ const sendTokenResponse = (login, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true,
-    domain: 'localhost'
+    httpOnly: true
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    options.secure = true
   }
 
   res
@@ -164,7 +167,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
 // @desc     Update Password
 // @route    PUT /auth/update-password
-// @access   Public
+// @access   Private
 exports.updatePassword = asyncHandler(async (req, res, next) => {
   const login = await Login.findOne({ id_user: req.user.id }).select(
     '+password'
@@ -176,6 +179,25 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   }
 
   login.password = req.body.newPassword
+  await login.save()
+
+  sendTokenResponse(login, 200, res)
+})
+
+// @desc     Update Email
+// @route    PUT /auth/update-email
+// @access   Private
+exports.updateEmail = asyncHandler(async (req, res, next) => {
+  const login = await Login.findOne({ id_user: req.user.id }).select(
+    '+password'
+  )
+
+  // CHECK CURRENT PASSWORD
+  if (!(await login.matchPassword(req.body.currentPassword))) {
+    return next(new ErrorResponse('Password is incorrect', 401))
+  }
+
+  login.email = req.body.newEmail
   await login.save()
 
   sendTokenResponse(login, 200, res)

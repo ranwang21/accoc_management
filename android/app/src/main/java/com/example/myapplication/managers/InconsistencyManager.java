@@ -187,26 +187,26 @@ public class InconsistencyManager {
         bd.update(DataBaseHelper.INCONSISTENCY_TABLE_NAME, contentValues, ID + " = " + inconsistency.get_id(), null);
     }
 
-    public static void postToAPI(Context context, Inconsistency inconsistency) {
+    public static void postToAPI(Context context, Inconsistency inconsistency,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(inconsistency);
-        String jsonFromApi = PostJson.post(jsonToSemd, "/inconsistencies");
+        String jsonFromApi = PostJson.post(jsonToSemd, "/inconsistencies",token);
         Inconsistency inconsistencyFromApi = gson.fromJson(jsonFromApi, Inconsistency.class);
         InconsistencyManager.insert(context, inconsistencyFromApi);
     }
 
-    public static void putToAPI(Context context, Inconsistency inconsistency) {
+    public static void putToAPI(Context context, Inconsistency inconsistency,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(inconsistency);
-        String jsonFromApi = PutJson.put(jsonToSemd, "/inconsistencies");
+        String jsonFromApi = PutJson.put(jsonToSemd, "/inconsistencies",token);
         Inconsistency inconsistencyFromApi = gson.fromJson(jsonFromApi, Inconsistency.class);
         InconsistencyManager.update(context, inconsistencyFromApi);
     }
 
-    public static void deleteToAPI(Context context, String id) {
+    public static void deleteToAPI(Context context, String id,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/inconsistencies/" + id);
+        String jsonFromApi = DeleteJson.delete("/inconsistencies/" + id,token);
         InconsistencyManager.delete(context, id);
     }
 }

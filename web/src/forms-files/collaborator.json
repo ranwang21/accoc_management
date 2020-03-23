@@ -72,48 +72,58 @@
         "fields": {
             "monday1530-1730": {
                 "id": "monday",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "monday1530-1730"
             },
             "tuesday1530-1730": {
                 "id": "tuesday",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "monday1530-1730"
             },
             "wednesday1530-1730": {
                 "id": "wednesday",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "wednesday1530-1730"
             },
             "thursday1530-1730": {
                 "id": "thursday",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "thursday1530-1730"
             },
             "journal-magique": {
                 "id": "journal-magique",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "journal-magique"
             },
             "collation": {
                 "id": "collation",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "collation"
             },
             "animation": {
                 "id": "animation",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "animation"
             },
             "atelier": {
                 "id": "atelier",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "atelier"
             },
             "prepare-collation": {
                 "id": "prepare-collation",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "prepare-collation"
             },
             "internet": {
                 "id": "internet",
-                "type": "checkbox"
+                "type": "checkbox",
+                "value": "internet"
             }
         }
     },
     "etape3": {
-        "fieds": {
+        "fields": {
             "motivation": {
                 "id": "motivation",
                 "type": "textarea",

@@ -126,26 +126,26 @@ public class RoleManager {
         bd.update(DataBaseHelper.ROLE_TABLE_NAME, contentValues, ID + " = " + role.get_id(), null);
     }
 
-    public static void postToAPI(Context context, Role role) {
+    public static void postToAPI(Context context, Role role,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(role);
-        String jsonFromApi = PostJson.post(jsonToSemd, "/roles");
+        String jsonFromApi = PostJson.post(jsonToSemd, "/roles",token);
         Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
         RoleManager.insert(context, roleFromApi);
     }
 
-    public static void putToAPI(Context context, Role role) {
+    public static void putToAPI(Context context, Role role,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(role);
-        String jsonFromApi = PutJson.put(jsonToSemd, "/roles");
+        String jsonFromApi = PutJson.put(jsonToSemd, "/roles",token);
         Role roleFromApi = gson.fromJson(jsonFromApi, Role.class);
         RoleManager.update(context, roleFromApi);
     }
 
-    public static void deleteToAPI(Context context, String id) {
+    public static void deleteToAPI(Context context, String id,String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
-        String jsonFromApi = DeleteJson.delete("/roles/" + id);
+        String jsonFromApi = DeleteJson.delete("/roles/" + id,token);
         RoleManager.delete(context, id);
     }
 }

@@ -3,7 +3,7 @@
 .dashbord {
 	height: 100%;
 	display: grid;
-	padding: 0.7em 0;
+	padding: 0.7em;
 	grid-template-columns: 1fr 3fr;
 	grid-template-rows: auto auto 1fr;
 	grid-template-areas:
@@ -23,15 +23,30 @@
 		padding: 0em;
 		grid-area: calendar;
 	}
+	.menu-mobile {
+		padding: 0;
+		margin: 0;
+		background: none;
+		> button {
+			margin: 0;
+			font-size: 1.2em;
+			display: none;
+		}
+	}
 	.side-menu {
 		grid-area: side;
 	}
-	.list {
+	.content {
 		padding: 0em;
 		background: none;
-		height: 100%;
 		grid-area: main;
 	}
+}
+.MuiDrawer-paper {
+	width: 70% !important;
+	padding-top: 2em;
+	display: none;
+	background-color: $primaryColor !important;
 }
 
 @include responsive(phone) {
@@ -42,6 +57,18 @@
 		> div {
 			margin: 0.5em !important;
 		}
+		.menu-mobile {
+			> button {
+				display: flex;
+			}
+		}
+		.side-menu {
+			display: none;
+		}
+	}
+
+	.MuiDrawer-paper {
+		display: block;
 	}
 }
 @include responsive(tablet) {

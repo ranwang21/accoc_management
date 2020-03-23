@@ -1,0 +1,25 @@
+{
+    "title": "Administrator account",
+    "lastName": {
+        "label": "Last name"
+    },
+    "firstName": {
+        "label": "First name"
+    },
+    "email": {
+        "label": "E-mail adress",
+        "labelError": "Invalid email address"
+    },
+    "password": {
+        "label": "Password",
+        "labelError": "Different or invalid password"
+    },
+    "confirmPassword": {
+        "label": "Confirm password",
+        "labelError": "Different or invalid password"
+    },
+    "validation": {
+        "label": "Account validity"
+    },
+    "buttonLabel": "Save"
+}

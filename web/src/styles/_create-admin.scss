@@ -1,0 +1,103 @@
+@import "./base";
+.create-admin {
+	height: auto;
+	margin: 0;
+	padding: 0;
+	form {
+		width: 60%;
+		h2 {
+			background-color: rgba($color: $primaryColor, $alpha: 0.3);
+			padding: 0.5em 1em;
+			border-radius: $borderRadiusMain $borderRadiusMain 0 0;
+			text-align: left;
+		}
+		> div.fields {
+			position: relative;
+			z-index: 1;
+			padding: 0.5em 1em;
+			border-radius: 0 0 $borderRadiusMain $borderRadiusMain;
+			background-color: rgba($color: $primaryColor, $alpha: 0.3);
+			display: flex;
+			flex-wrap: wrap;
+			> div {
+				width: calc(50% - 1em);
+				margin: 1em 0.5em;
+				&:first-of-type {
+					width: 100%;
+				}
+			}
+			> label {
+				width: 100%;
+				margin: 0em 0.5em;
+				.MuiIconButton-colorSecondary,
+				.Mui-checked {
+					color: black;
+				}
+			}
+			> div.div-button {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				button {
+					font-size: 1.3em;
+					width: 40%;
+					color: rgba($color: black, $alpha: 1);
+				}
+			}
+			> div.loading {
+				position: absolute;
+				z-index: 2;
+				border-radius: $borderRadiusMain;
+				width: calc(100% - 1em);
+				height: calc(100% - 1em);
+				bottom: 0em;
+				left: 0em;
+				background-color: rgba($color: black, $alpha: 0.4);
+				.text {
+					font-size: 1.2em;
+				}
+			}
+		}
+	}
+}
+
+@include responsive(phone) {
+	.create-admin {
+		height: 40em;
+		form {
+			width: 100%;
+			> div.fields {
+				> div {
+					height: calc(90% / 4);
+					width: 100%;
+				}
+				> div.div-button button {
+					font-size: 1.5em;
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+@include responsive(tablet) {
+	.create-admin {
+		height: 55%;
+		form {
+			width: 100%;
+			> div {
+				> div.fields {
+					> div {
+						margin: 0.5em;
+						font-size: 0.7em;
+					}
+					> div.div-button button {
+						font-size: 1.5em;
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,43 @@
+{
+    "addListForHighAdmin": [
+        {
+            "id": "TWGSDVCHEDJH",
+            "title": "both",
+            "label": "Nouveau parent et collaborateur"
+        },
+        {
+            "id": "RGBGVBCHSN",
+            "title": "parent",
+            "label": "Nouveau parent"
+        },
+        {
+            "id": "VBGNVGCHDNXD",
+            "title": "collaborator",
+            "label": "Nouveau collaborateur"
+        },
+        {
+            "id": "UEHSDVHSB",
+            "title": "admin",
+            "label": "Nouveau administrateur"
+        }
+    ],
+    "addListForAdmin": [
+        {
+            "id": "TWGSDVCHEDJH",
+            "title": "both",
+            "label": "Nouveau parent et collaborateur"
+        },
+        {
+            "id": "RGBGVBCHSN",
+            "title": "parent",
+            "label": "Nouveau parent"
+        },
+        {
+            "id": "VBGNVGCHDNXD",
+            "title": "collaborator",
+            "label": "Nouveau collaborateur"
+        }
+    ],
+    "required": "** requiert l'inscription d'au moins un enfant **",
+    "btnValidate": "Enregistrer les modifications"
+}

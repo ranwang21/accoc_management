@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 public class PutJson {
 
-    public static String put(String json, String routes) {
+    public static String put(String json, String routes, String token) {
         String response = null;
         HttpPutRequest httpPutRequest = new HttpPutRequest();
         try {

@@ -1,0 +1,25 @@
+{
+    "create": {
+        "firstName": {
+            "type": "text",
+            "required": false
+        },
+        "lastName": {
+            "type": "text",
+            "required": false
+        },
+        "email": {
+            "type": "text",
+            "required": true
+        },
+        "password": {
+            "type": "password",
+            "required": true
+        },
+        "validation": {
+            "type": "checkbox",
+            "required": false
+        }
+    },
+    "update": {}
+}
