@@ -34,7 +34,6 @@
     <string name="salle_3">salle 3</string>
     <string name="salle_2">salle 2</string>
     <string name="salle_4">salle 4</string>
-    <string name="todo">TODO</string>
     <string name="logoback" />
     <string name="home">home</string>
     <string name="txt_profil_enfant">Detail Enfants</string>
@@ -51,6 +50,8 @@
     <string name="txt_force">Forces: </string>
     <string name="txt_a_faire">Ce qu\'il reste a faire: </string>
     <string name="txt_soumettre">Soumettre</string>
+    <string name="todo">TODO</string>
+    <string name="logo_image">logo image</string>
 
 
 </resources>

@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class Acceuil extends Fragment implements View.OnClickListener, View.OnLongClickListener {
 
-    Button myBtn;
+
     Button myBtn1;
     Button myBtn2;
     Button myBtn3;
@@ -32,10 +32,8 @@ public class Acceuil extends Fragment implements View.OnClickListener, View.OnLo
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.fragment_acceuil, container, false);
-        myBtn = ( Button ) view.findViewById(R.id.salle1);
-        myBtn = ( Button ) view.findViewById(R.id.salle2);
-        myBtn = ( Button ) view.findViewById(R.id.salle3);
-        myBtn = ( Button ) view.findViewById(R.id.salle4);
+
+
         myBtn1 = ( Button ) view.findViewById(R.id.salle1);
         myBtn1.setOnClickListener(this);
         myBtn1.setOnLongClickListener(this);
