@@ -83,7 +83,7 @@ class CreateAccount extends Component {
                     </div>
                     {this.state.showAddContainer && (
                         <div className='add-container'>
-                            <div className='retour' onClick={this.handleRetour} />
+                            <div className='retour' onClick={this.handleRetour}>{lang.back}</div>
                             <div className='contain'>
                                 {this.switchToAddOption()}
                             </div>
