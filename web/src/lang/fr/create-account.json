@@ -38,6 +38,7 @@
             "label": "Nouveau collaborateur"
         }
     ],
+    "back": "retour",
     "required": "** requiert l'inscription d'au moins un enfant **",
     "btnValidate": "Enregistrer les modifications"
 }

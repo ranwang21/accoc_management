@@ -5,15 +5,17 @@
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	position: relative;
 	> div:first-of-type {
 		position: absolute;
-		background-color: rgba($color: $primaryColor, $alpha: 0.8);
 		border: none;
-		padding: 0.5em 2em;
+		padding: 0.3em 0.7em;
+		border: 5px solid $primaryColor;
 		text-transform: capitalize;
+		border-radius: 0.5em;
 
 		cursor: pointer;
-		transition: all 0.2s;
+		transition: all 0.5s;
 		&:hover {
 			background-color: $primaryColor;
 			color: $whiteColor;
@@ -21,7 +23,7 @@
 	}
 	> div.form-container {
 		border: none;
-		padding: 0;
+		padding: 0.2em;
 		border-radius: 0em 0.5em 0.5em 0.5em;
 		overflow-y: auto;
 		height: 100%;
@@ -51,7 +53,8 @@
 			border-radius: 1em;
 			margin: 0;
 			width: 60%;
-			height: 98%;
+			height: 100%;
+			padding: 0.2em;
 			overflow-y: auto;
 			overflow-x: hidden;
 			background-color: rgba($color: rgb(219, 219, 219), $alpha: 0.7);

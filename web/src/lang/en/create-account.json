@@ -38,6 +38,7 @@
             "label": "New collaborator"
         }
     ],
+    "back": "back",
     "required": "** requires the registration of at least one child **",
     "btnValidate": "Save Changes"
 }
