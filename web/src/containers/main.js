@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Login from './login'
-import RegisterContainer from './register-container'
+import Register from './register'
 import RegisterStart from '../components/register-start'
 import Dashbord from './dashbord'
 import { withCookies } from 'react-cookie'
@@ -39,7 +39,7 @@ class Main extends Component {
                                     <RegisterStart lang={this.props.lang} onShowRegisterForm={this.handleToggleForm} />
                                 </div>
                                 <div className='main-register'>
-                                    <RegisterContainer lang={this.props.lang} onShowLoginForm={this.handleToggleForm} />
+                                    <Register lang={this.props.lang} onShowLoginForm={this.handleToggleForm} />
                                 </div>
                             </div>
                         </div>

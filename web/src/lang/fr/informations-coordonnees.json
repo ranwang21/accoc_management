@@ -1,0 +1,58 @@
+{
+    "title": "Informations et coordonnées",
+    "sex": {
+        "label": "titre",
+        "labelError": "Adresse email invalide"
+    },
+    "mme": {
+        "label": "Mrs"
+    },
+    "mr": {
+        "label": "Mr"
+    },
+    "birthday": {
+        "label": "Date de naissance",
+        "labelError": "La saisie de votre date de naissance est obligatoire"
+    },
+    "last_name": {
+        "label": "Nom",
+        "labelError": "La saisie de votre nom est obligatoire"
+    },
+    "first_name": {
+        "label": "Prénom",
+        "labelError": "La saisie de votre prénom est obligatoire"
+    },
+    "address": {
+        "label": "Adresse",
+        "labelError": "La saisie de votre adresse est obligatoire"
+    },
+    "contacts": {
+        "label": "Contacts",
+        "labelError": "La saisie d'un numero de téléphone est obligatoire"
+    },
+    "personal": {
+        "label": "Personnel"
+    },
+    "home": {
+        "label": "Maison"
+    },
+    "work": {
+        "label": "Travail"
+    },
+    "emergency": {
+        "label": "Urgence"
+    },
+    "toContacted": {
+        "label": "Personne à contacter"
+    },
+    "email": {
+        "label": "Adresse email",
+        "labelError": "Adresse email invalide"
+    },
+    "is_subscribed": {
+        "label": "Souhaitez-vous vous abonner à la liste de diffusion électronique de la Maison Aurore?"
+    },
+    "has_child": {
+        "label": "Avez-vous un ou plusieurs enfants de moins de 18 ans?"
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "title": "Information and contact details",
+    "sex": {
+        "label": "title",
+        "labelError": "Required"
+    },
+    "mme": {
+        "label": "Mrs"
+    },
+    "mr": {
+        "label": "Mr"
+    },
+    "birthday": {
+        "label": "Date of Birth",
+        "labelError": "Required"
+    },
+    "last_name": {
+        "label": "First Name",
+        "labelError": "Required"
+    },
+    "first_name": {
+        "label": "Last Name",
+        "labelError": "Required"
+    },
+    "address": {
+        "label": "Address",
+        "labelError": "Required"
+    },
+    "contacts": {
+        "label": "Contacts",
+        "labelError": "Required"
+    },
+    "personal": {
+        "label": "Personal"
+    },
+    "home": {
+        "label": "Home"
+    },
+    "work": {
+        "label": "Work"
+    },
+    "emergency": {
+        "label": "Emergency"
+    },
+    "toContacted": {
+        "label": "Contact person"
+    },
+    "email": {
+        "label": "E-mail adress",
+        "labelError": "Invalid email address"
+    },
+    "is_subscribed": {
+        "label": "Would you like to subscribe to the Maison Aurore electronic mailing list?"
+    },
+    "has_child": {
+        "label": "Do you have one or more children under the age of 18?"
+    }
+}

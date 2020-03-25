@@ -143,6 +143,16 @@ const deleteLogin = (token, idLogin, callBack) => {
         })
 }
 
+const getAddressFromGoogle = () => {
+    const API_KEY = 'AIzaSyCeyah5EQEjXMmGTgWi1lTQyORN4n4Wil0'
+    const input = '5217+Trans+island'
+    fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/output?input=' + input + '&key=' + API_KEY)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+}
+
 export default {
     authLogin,
     logOutUser,

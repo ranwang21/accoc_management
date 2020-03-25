@@ -48,7 +48,25 @@ const variables = {
             email: 'GESGNCBN',
             password: 'SHDGBCSJZ',
             confirmPassword: 'TGSVDCBHS',
-            checkValidation: 'E5S4F1CS52'
+            validation: 'E5S4F1CS52'
+        },
+        informationsCoordonnees: {
+            sex: '8R5D4GF1VD5',
+            mme: '5EDF4E5D',
+            mr: '5DF41EDX5DV',
+            birthday: '7E4DE54F15ED2',
+            contacts: 'E85DF4CED521',
+            last_name: '8E5D4FDW185S',
+            first_name: 'Q8W7E4F2S8D',
+            address: '5141428422',
+            personal: '87521562585215415',
+            home: '8752156254545241',
+            work: '875215625S52D1C4D1X',
+            emergency: '875215625E4DSF4D5S',
+            toContacted: '8752156259W8E5RD2E15',
+            email: '9A62S41XC4D2F',
+            is_subscribed: 'AS41XCS52DZ1',
+            has_child: '9D6F4DX1S5D'
         }
     }
 }

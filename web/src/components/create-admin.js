@@ -12,18 +12,23 @@ class CreateAdmin extends Component {
     constructor () {
         super()
         this.state = {
-            errorEmail: false,
-            errorPassword: false,
+            error: {
+                email: false,
+                password: false,
+                confirmPassword: false
+            },
             enableSubmit: false,
             loading: false
         }
 
-        this.firstName = ''
-        this.lastName = ''
-        this.email = ''
-        this.password = ''
-        this.confirmPassword = ''
-        this.validation = true
+        this.fields = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            validation: true
+        }
         this.handleBtnClick = this.handleBtnClick.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.saveAdmin = this.saveAdmin.bind(this)
@@ -31,59 +36,60 @@ class CreateAdmin extends Component {
 
     getLangFile () { return require('../lang/' + this.props.lang + '/create-admin.json') }
 
-    handleInputChange (event) {
-        switch (event.target.id) {
-        case variables.id.createAdmin.lastName:
-            this.lastName = event.target.value
-            break
-        case variables.id.createAdmin.firstName:
-            this.firstName = event.target.value
-            break
-        case variables.id.createAdmin.email:
-            this.email = event.target.value.toLowerCase()
-            break
-        case variables.id.createAdmin.password:
-            this.password = event.target.value
-            break
-        case variables.id.createAdmin.confirmPassword:
-            this.confirmPassword = event.target.value
-            break
-        case variables.id.createAdmin.checkValidation:
-            this.validation = event.target.checked
-            break
+    handleInputChange (event, name) {
+        if (name === 'email') {
+            this.fields[name] = event.target.value.toLowerCase()
+        } else if (name === 'validation') {
+            this.fields[name] = event.target.checked
+        } else {
+            this.fields[name] = event.target.value
         }
         this.checkEmptyInput()
     }
 
     checkEmptyInput () {
-        (this.email.length === 0 || this.password.length === 0 || this.confirmPassword.length === 0)
+        (this.fields.email.length === 0 || this.fields.password.length === 0 || this.fields.confirmPassword.length === 0)
             ? this.setState({ enableSubmit: false })
             : this.setState({ enableSubmit: true })
     }
 
     handleBtnClick () {
         this.setState({ loading: true })
-        if (!Fetch.validateEmail(this.email)) {
-            this.setState({
-                errorEmail: true,
-                errorPassword: false,
-                loading: false
+        if (!Fetch.validateEmail(this.fields.email)) {
+            this.setState(state => {
+                let newError = state.error
+                newError = {
+                    email: true,
+                    password: false,
+                    confirmPassword: false
+                }
+                return {
+                    error: newError,
+                    loading: false
+                }
             })
-        } else if (this.password !== this.confirmPassword) {
-            this.setState({
-                errorEmail: false,
-                errorPassword: true,
-                loading: false
+        } else if (this.fields.password !== this.fields.confirmPassword) {
+            this.setState(state => {
+                let newError = state.error
+                newError = {
+                    email: false,
+                    password: true,
+                    confirmPassword: true
+                }
+                return {
+                    error: newError,
+                    loading: false
+                }
             })
         } else {
             const params = {
                 token: this.props.cookies.get(variables.cookies.token),
                 role_title: 'admin',
-                first_name: this.firstName,
-                last_name: this.lastName,
-                email: this.email,
-                password: this.password,
-                is_active: this.validation
+                first_name: this.fields.firstName,
+                last_name: this.fields.lastName,
+                email: this.fields.email,
+                password: this.fields.password,
+                is_active: this.fields.validation
             }
             Fetch.addUser(params, this.saveAdmin)
         }
@@ -91,85 +97,67 @@ class CreateAdmin extends Component {
 
     saveAdmin (success) {
         if (success) {
-            console.log('Successful !!!')
-            this.setState({
-                errorEmail: false,
-                errorPassword: false,
-                loading: false
+            this.setState(state => {
+                let newError = state.error
+                newError = {
+                    email: false,
+                    password: false,
+                    confirmPassword: false
+                }
+                return {
+                    error: newError,
+                    loading: false
+                }
             })
+            console.log('Successful !!!')
         } else {
-            this.setState({
-                errorEmail: false,
-                errorPassword: false
+            this.setState(state => {
+                let newError = state.error
+                newError = {
+                    email: false,
+                    password: false,
+                    confirmPassword: false
+                }
+                return {
+                    error: newError
+                }
             })
             console.log('Something wrong !!!')
         }
     }
 
-    buildField (id, lang) {
-        if (id !== variables.id.createAdmin.checkValidation) {
-            let state = false
-            let config = null
-            let value = ''
-            let labels = ''
-            switch (id) {
-            case variables.id.createAdmin.lastName:
-                config = CreateAdminConfig.lastName
-                labels = lang.lastName
-                value = this.lastName
-                break
-            case variables.id.createAdmin.firstName:
-                config = CreateAdminConfig.firstName
-                labels = lang.firstName
-                value = this.firstName
-                break
-            case variables.id.createAdmin.email:
-                state = this.state.errorEmail
-                config = CreateAdminConfig.email
-                labels = lang.email
-                value = this.email
-                break
-            case variables.id.createAdmin.password:
-                state = this.state.errorPassword
-                config = CreateAdminConfig.password
-                labels = lang.password
-                value = this.password
-                break
-            case variables.id.createAdmin.confirmPassword:
-                state = this.state.errorPassword
-                config = CreateAdminConfig.password
-                labels = lang.confirmPassword
-                value = this.confirmPassword
-                break
-            }
+    buildField (name, lang) {
+        if (name !== 'validation') {
+            const hasState = (name === 'firstName' || name === 'lastName') ? false : this.state.error[name]
             return (
                 <TextField
-                    error={state}
-                    id={id}
-                    label={labels.label}
-                    type={config.type}
+                    key={variables.id.createAdmin[name]}
+                    error={hasState}
+                    id={variables.id.createAdmin[name]}
+                    label={lang[name].label}
+                    type={CreateAdminConfig[name].type}
                     color='primary'
-                    helperText={state && labels.labelError}
+                    helperText={hasState && lang[name].labelError}
                     variant='outlined'
-                    onChange={this.handleInputChange}
-                    required={config.required}
-                    value={value}
+                    onChange={event => this.handleInputChange(event, name)}
+                    required={CreateAdminConfig[name].required}
+                    value={this.fields[name]}
                 />
             )
         } else {
             return (
                 <FormControlLabel
+                    key={variables.id.createAdmin[name]}
                     control={
                         <Checkbox
-                            id={id}
-                            checked={this.validation}
-                            onChange={this.handleInputChange}
-                            required={CreateAdminConfig.validation.required}
+                            id={variables.id.createAdmin[name]}
+                            checked={this.fields[name]}
+                            onChange={event => this.handleInputChange(event, name)}
+                            required={CreateAdminConfig[name].required}
                         />
                     }
-                    label={lang.validation.label}
+                    label={lang[name].label}
                 />
-
             )
         }
     }
@@ -181,12 +169,7 @@ class CreateAdmin extends Component {
                 <form className='' noValidate autoComplete='off'>
                     <h2>{lang.title}</h2>
                     <div className='fields'>
-                        {this.buildField(variables.id.createAdmin.email, lang)}
-                        {this.buildField(variables.id.createAdmin.lastName, lang)}
-                        {this.buildField(variables.id.createAdmin.firstName, lang)}
-                        {this.buildField(variables.id.createAdmin.password, lang)}
-                        {this.buildField(variables.id.createAdmin.confirmPassword, lang)}
-                        {this.buildField(variables.id.createAdmin.checkValidation, lang)}
+                        {Object.keys(CreateAdminConfig).map(name => this.buildField(name, lang))}
                         {this.state.enableSubmit && (
                             <div className='div-button'>
                                 <Button

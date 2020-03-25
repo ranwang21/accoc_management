@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import InformationCoordonnees from '../components/forms/informations-coordonnees'
+import ChildrenForm from '../components/forms/children-form'
 import PreviousIcon from '@material-ui/icons/NavigateBeforeRounded'
 import NextIcon from '@material-ui/icons/NavigateNextRounded'
-import '../styles/_register-container.scss'
+import IconButton from '@material-ui/core/IconButton'
+import '../styles/_register.scss'
 
 class RegisterContainer extends Component {
     constructor () {
@@ -14,8 +17,11 @@ class RegisterContainer extends Component {
         this.handleStepClick = this.handleStepClick.bind(this)
     }
 
+    getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
+
     handleStepClick () {
-        if (event.target.id === 'prev') {
+        const currentElement = event.target.tagName === 'path' ? event.target.parentElement : event.target
+        if (currentElement.id === 'prev') {
             this.setState(state => {
                 return {
                     step: state.step > 1 ? --state.step : state.step,
@@ -23,7 +29,7 @@ class RegisterContainer extends Component {
                     showNext: state.step < 4
                 }
             })
-        } else {
+        } else if (currentElement.id === 'next') {
             this.setState(state => {
                 return {
                     step: state.step < 4 ? ++state.step : state.step,
@@ -35,21 +41,25 @@ class RegisterContainer extends Component {
     }
 
     render () {
+        const lang = this.getLangFile()
         return (
             <div className='register-container'>
-                <div onClick={this.props.onShowLoginForm} />
+                <div onClick={this.props.onShowLoginForm}>{lang.back}</div>
                 <div className='form-container'>
-                    <h2>FORMULAIRE D'INSCRIPTION</h2>
-                    <PreviousIcon id='prev' className={!this.state.showPrev ? 'disable-svg' : ''} onClick={this.handleStepClick} />
+                    <IconButton className={!this.state.showPrev ? 'disable-level-button' : ''} onClick={this.handleStepClick} aria-label='delete'>
+                        <PreviousIcon id='prev' fontSize='large' />
+                    </IconButton>
                     <div className='forms'>
                         <div>
-                            {this.state.step === 1 && (<div>FORMULAIRE 1</div>)}
-                            {this.state.step === 2 && (<div>FORMULAIRE 2</div>)}
+                            {this.state.step === 1 && (<InformationCoordonnees lang={this.props.lang} />)}
+                            {this.state.step === 2 && (<ChildrenForm lang={this.props.lang} />)}
                             {this.state.step === 3 && (<div>FORMULAIRE 3</div>)}
                             {this.state.step === 4 && (<div>FORMULAIRE 4</div>)}
                         </div>
                     </div>
-                    <NextIcon id='next' className={!this.state.showNext ? 'disable-svg' : ''} onClick={this.handleStepClick} />
+                    <IconButton className={!this.state.showNext ? 'disable-level-button' : ''} onClick={this.handleStepClick} aria-label='delete'>
+                        <NextIcon id='next' fontSize='large' />
+                    </IconButton>
                 </div>
             </div>
         )

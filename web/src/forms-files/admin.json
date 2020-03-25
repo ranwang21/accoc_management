@@ -1,18 +1,22 @@
 {
     "create": {
-        "firstName": {
+        "email": {
             "type": "text",
-            "required": false
+            "required": true
         },
         "lastName": {
             "type": "text",
             "required": false
         },
-        "email": {
+        "firstName": {
             "type": "text",
-            "required": true
+            "required": false
         },
         "password": {
+            "type": "password",
+            "required": true
+        },
+        "confirmPassword": {
             "type": "password",
             "required": true
         },

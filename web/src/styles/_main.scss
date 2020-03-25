@@ -28,7 +28,7 @@ main {
 			height: 100%;
 			display: flex;
 			transition: margin-left 0.5s;
-			margin-left: 0%;
+			margin-left: -100%;
 			.main-connexion {
 				padding: 0 8%;
 				transition: all 0.5s;
@@ -81,7 +81,7 @@ main {
 		height: 78vh;
 		> div {
 			.main-container {
-				.connexion-container {
+				.main-connexion {
 					padding: 0 2%;
 					width: 50%;
 				}
