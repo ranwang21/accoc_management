@@ -202,7 +202,6 @@ class InformationsCoordonnees extends Component {
                     <div className='fields'>
                         <div className='coordonnees'>
                             {CoordonneesFields.map(field => {
-                                /*
                                 let renderingField = null
                                 switch (field.type) {
                                 case types.text:
@@ -222,7 +221,6 @@ class InformationsCoordonnees extends Component {
                                     break
                                 }
                                 return renderingField
-                                */
                             })}
                         </div>
                         <Divider variant='fullWidth' />
