@@ -17,8 +17,8 @@ router
   .route('/')
   .get(
     advancedResults(Day),
-    authorize('admin', 'super_admin'),
     protect,
+    authorize('admin', 'super_admin'),
     getDays
   )
   .post(protect, authorize('admin', 'super_admin'), createDay)

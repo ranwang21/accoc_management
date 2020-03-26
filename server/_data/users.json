@@ -6,6 +6,20 @@
     "last_name": "super_admin"
   },
   {
+    "_id": "5e6a3e314554933864b2c3b4",
+    "id_role": "5e6a3e314554933864b2c3c4",
+    "first_name": "Marco",
+    "last_name": "Catboy"
+  },
+  {
+    "_id": "5e6a3e314554933864b2c3b3",
+    "id_role": "5e6a3e314554933864b2c3c6",
+    "first_name": "Fred",
+    "last_name": "Gaudreau",
+    "id_collaborater": "5e6a3e314554933864b2c3b4",
+    "id_classroom": "5e6a3e314554933864b2c3e2"
+  },
+  {
     "_id": "5e6a3e314554933864b2c3b2",
     "id_role": "5e6a3e314554933864b2c3c5",
     "first_name": "Marco",
