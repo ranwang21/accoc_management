@@ -1,7 +1,7 @@
 const ErrorResponse = require('../utils/ErrorResponse')
 const asyncHandler = require('../middlewares/async')
 const Schedule = require('../models/Schedule')
-const generateSchedule = require('../utils/GenerateSchedule')
+const generateSchedule = require('../utils/generateSchedules')
 
 // @desc    Create new user
 // @route   POST /schedules
