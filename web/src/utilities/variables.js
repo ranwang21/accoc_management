@@ -50,7 +50,7 @@ const variables = {
             confirmPassword: 'TGSVDCBHS',
             validation: 'E5S4F1CS52'
         },
-        informationsCoordonnees: {
+        infosCoordonnees: {
             sex: '8R5D4GF1VD5',
             mme: '5EDF4E5D',
             mr: '5DF41EDX5DV',
@@ -66,7 +66,14 @@ const variables = {
             toContacted: '8752156259W8E5RD2E15',
             email: '9A62S41XC4D2F',
             is_subscribed: 'AS41XCS52DZ1',
-            has_child: '9D6F4DX1S5D'
+            has_child: '9D6F4DX1S5D',
+            memberShip: '8E5D4F1E5D',
+            becomeMember: '8D5F41C5D2XF',
+            alreadyMember: '5D2FX1CD52',
+            notWantMember: 'ED54X1C5S2',
+            paymentMethod: 'W5E4RT1FGHYU74IUI4J1',
+            memberCard: 'O8I2JH4J1NH4G',
+            discountCard: '8O7IUKH4LK52BV1DD5S'
         }
     }
 }

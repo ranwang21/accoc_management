@@ -54,5 +54,27 @@
     },
     "has_child": {
         "label": "Do you have one or more children under the age of 18?"
+    },
+    "memberShip": {
+        "label": "Membership",
+        "labelError": "Required"
+    },
+    "becomeMember": {
+        "label": "become member"
+    },
+    "alreadyMember": {
+        "label": "already member"
+    },
+    "notWantMember": {
+        "label": "not for the moment"
+    },
+    "memberCard": {
+        "label": "Discount card"
+    },
+    "discountCard": {
+        "label": "Member card"
+    },
+    "paymentMethod": {
+        "label": "Payment method"
     }
 }

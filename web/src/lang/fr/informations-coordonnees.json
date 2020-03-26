@@ -2,7 +2,7 @@
     "title": "Informations et coordonnées",
     "sex": {
         "label": "titre",
-        "labelError": "Adresse email invalide"
+        "labelError": "Obligatoire"
     },
     "mme": {
         "label": "Mrs"
@@ -12,23 +12,23 @@
     },
     "birthday": {
         "label": "Date de naissance",
-        "labelError": "La saisie de votre date de naissance est obligatoire"
+        "labelError": "Obligatoire"
     },
     "last_name": {
         "label": "Nom",
-        "labelError": "La saisie de votre nom est obligatoire"
+        "labelError": "Obligatoire"
     },
     "first_name": {
         "label": "Prénom",
-        "labelError": "La saisie de votre prénom est obligatoire"
+        "labelError": "Obligatoire"
     },
     "address": {
         "label": "Adresse",
-        "labelError": "La saisie de votre adresse est obligatoire"
+        "labelError": "Obligatoire"
     },
     "contacts": {
         "label": "Contacts",
-        "labelError": "La saisie d'un numero de téléphone est obligatoire"
+        "labelError": "Obligatoire"
     },
     "personal": {
         "label": "Personnel"
@@ -54,5 +54,27 @@
     },
     "has_child": {
         "label": "Avez-vous un ou plusieurs enfants de moins de 18 ans?"
+    },
+    "memberShip": {
+        "label": "Adhésion",
+        "labelError": "Obligatoire"
+    },
+    "becomeMember": {
+        "label": "devenir membre"
+    },
+    "alreadyMember": {
+        "label": "deja membre"
+    },
+    "notWantMember": {
+        "label": "pas pour le moment"
+    },
+    "memberCard": {
+        "label": "Carte de remise"
+    },
+    "discountCard": {
+        "label": "Carte de membre"
+    },
+    "paymentMethod": {
+        "label": "Mode de paiement"
     }
 }
