@@ -1,122 +1,174 @@
 {
-    "fields": {
-        "coordonnees": [
-            {
-                "name": "sex",
-                "required": true,
-                "type": "radio"
-            },
-            {
-                "from": "sex",
-                "name": "mme"
-            },
-            {
-                "from": "sex",
-                "name": "mr"
-            },
-            {
-                "name": "birthday",
-                "type": "date",
-                "required": true
-            },
-            {
-                "name": "last_name",
-                "type": "text",
-                "required": true
-            },
-            {
-                "name": "first_name",
-                "type": "text",
-                "required": true
-            },
-            {
-                "name": "address",
-                "type": "text",
-                "required": true
-            },
-            {
-                "name": "contacts",
-                "type": "text-multiple"
-            },
-            {
-                "from": "contacts",
-                "name": "personal",
-                "type": "text",
-                "required": true
-            },
-            {
-                "from": "contacts",
-                "name": "home",
-                "type": "text",
-                "required": false
-            },
-            {
-                "from": "contacts",
-                "name": "work",
-                "type": "text",
-                "required": false
-            },
-            {
-                "from": "contacts",
-                "name": "emergency",
-                "type": "text",
-                "required": false
-            },
-            {
-                "from": "contacts",
-                "name": "toContacted",
-                "type": "text",
-                "required": false
-            },
-            {
-                "name": "email",
-                "type": "text",
-                "required": true
-            },
-            {
-                "name": "is_subscribed",
-                "type": "checkbox",
-                "required": false
-            },
-            {
-                "name": "has_child",
-                "type": "checkbox",
-                "required": true
-            }
-        ],
-        "membership": [
-            {
-                "name": "memberShip",
-                "required": true,
-                "type": "radio"
-            },
-            {
-                "from": "memberShip",
-                "name": "becomeMember"
-            },
-            {
-                "from": "memberShip",
-                "name": "alreadyMember"
-            },
-            {
-                "from": "memberShip",
-                "name": "notWantMember"
-            },
-            {
-                "name": "paymentMethod",
-                "type": "text",
-                "required": false
-            },
-            {
-                "name": "memberCard",
-                "type": "checkbox",
-                "required": false
-            },
-            {
-                "name": "discountCard",
-                "type": "checkbox",
-                "required": false
-            }
-        ]
-    }
+    "fields": [
+        {
+            "name": "sex",
+            "required": true,
+            "type": "radio",
+            "options": [
+                {
+                    "from": "sex",
+                    "name": "mme"
+                },
+                {
+                    "from": "sex",
+                    "name": "mr"
+                }
+            ]
+        },
+        {
+            "name": "birthday",
+            "type": "date",
+            "required": true
+        },
+        {
+            "name": "last_name",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "first_name",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "address",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "contacts",
+            "type": "text-multiple",
+            "options": [
+                {
+                    "from": "contacts",
+                    "name": "personal",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "from": "contacts",
+                    "name": "home",
+                    "type": "text",
+                    "required": false
+                },
+                {
+                    "from": "contacts",
+                    "name": "work",
+                    "type": "text",
+                    "required": false
+                },
+                {
+                    "from": "contacts",
+                    "name": "emergency",
+                    "type": "text",
+                    "required": false
+                },
+                {
+                    "from": "contacts",
+                    "name": "toContacted",
+                    "type": "text",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "email",
+            "type": "text",
+            "required": true
+        },
+        {
+            "name": "is_subscribed",
+            "type": "checkbox",
+            "required": false
+        },
+        {
+            "name": "has_child",
+            "type": "checkbox",
+            "required": true
+        },
+        {
+            "name": "memberShip",
+            "required": true,
+            "type": "memberShip-fields",
+            "options1": [
+                {
+                    "name": "becomeMember"
+                },
+                {
+                    "name": "alreadyMember"
+                },
+                {
+                    "name": "notWantMember"
+                }
+            ],
+            "options2": [
+                {
+                    "name": "paymentMethod",
+                    "type": "text",
+                    "required": false
+                },
+                {
+                    "name": "memberCard",
+                    "type": "checkbox",
+                    "required": false
+                },
+                {
+                    "name": "discountCard",
+                    "type": "checkbox",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "participation",
+            "required": true,
+            "type": "participation-fields",
+            "options1": [
+                {
+                    "name": "cuisine",
+                    "type": "checkbox",
+                    "required": false
+                },
+                {
+                    "name": "debrouille",
+                    "type": "checkbox",
+                    "required": false
+                },
+                {
+                    "name": "jmc",
+                    "type": "checkbox",
+                    "required": false
+                },
+                {
+                    "name": "diverses",
+                    "type": "checkbox",
+                    "required": false
+                }
+            ],
+            "options2": [
+                {
+                    "name": "repas",
+                    "type": "checkbox",
+                    "required": false
+                },
+                {
+                    "name": "viecomm",
+                    "type": "checkbox",
+                    "required": false
+                },
+                {
+                    "name": "atelier",
+                    "type": "checkbox",
+                    "required": false
+                }
+            ],
+            "others": [
+                {
+                    "name": "diversesOptions",
+                    "type": "text",
+                    "required": true
+                }
+            ]
+        }
+    ]
 }

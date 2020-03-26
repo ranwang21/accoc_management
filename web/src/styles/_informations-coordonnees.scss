@@ -8,92 +8,95 @@
 		text-align: center;
 	}
 	> div.fields {
-		padding-top: 0.5em;
+		padding: 0.5em 0;
+		display: flex;
+		flex-flow: row wrap;
 		> hr {
-			background-color: rgb(104, 102, 102);
-			border-radius: 1em;
-			padding: 0.2em;
+			height: 10em;
+			background-color: red;
 		}
-		> div.coordonnees {
-			display: flex;
-			flex-flow: row wrap;
+		> * {
+			width: 100%;
+			padding: 0.6em 0.5em;
 			> * {
 				width: 100%;
-				padding: 0.6em 0.5em;
-				> * {
-					width: 100%;
-				}
 			}
-			> div {
-				&:nth-of-type(1),
-				&:nth-of-type(2),
-				&:nth-of-type(3),
-				&:nth-of-type(4) {
+		}
+		> div {
+			&:nth-of-type(1),
+			&:nth-of-type(2),
+			&:nth-of-type(3),
+			&:nth-of-type(4) {
+				width: 50%;
+			}
+		}
+		/* FieldSet */
+		> div {
+			&:nth-of-type(1) {
+				display: flex;
+				align-content: center;
+				> fieldset {
+					padding-left: 5em;
 					width: 50%;
+					legend {
+						height: 100%;
+					}
+					> div {
+						height: 100%;
+						justify-content: center;
+						flex-direction: row;
+						> label {
+							transition: all 0.3s;
+							.Mui-checked {
+								color: $primaryColor;
+							}
+							&:hover {
+								color: $primaryColor;
+								> span > span {
+									color: $primaryColor;
+								}
+							}
+						}
+					}
 				}
 			}
-			/* FieldSet */
-			> div {
-				&:nth-of-type(1) {
-					display: flex;
-					align-content: center;
-					> fieldset {
-						padding-left: 5em;
-						width: 50%;
-						legend {
-							height: 100%;
-						}
-						> div {
-							height: 100%;
-							justify-content: center;
-							flex-direction: row;
-							> label {
-								transition: all 0.3s;
-								.Mui-checked {
-									color: $primaryColor;
-								}
-								&:hover {
-									color: $primaryColor;
-									> span > span {
-										color: $primaryColor;
-									}
-								}
-							}
-						}
-					}
-				}
-				&:nth-of-type(6) {
-					> fieldset {
-						padding-top: 3em;
-						width: 100%;
-						> div {
-							display: flex;
-							flex-flow: row wrap;
-							justify-content: space-around;
+			&:nth-of-type(6) {
+				> fieldset {
+					padding-top: 3em;
+					width: 100%;
+					> div {
+						display: flex;
+						flex-flow: row wrap;
+						justify-content: space-around;
 
+						> div {
+							width: 33%;
+							padding: 0.5em;
 							> div {
-								width: 33%;
-								padding: 0.5em;
+								width: 100%;
 								> div {
-									width: 100%;
-									> div {
-										background-color: rgba(0, 0, 0, 0.09);
-									}
+									background-color: rgba(0, 0, 0, 0.09);
 								}
 							}
 						}
 					}
 				}
-				&:nth-of-type(8),
-				&:nth-of-type(9) {
-					margin: 0;
+			}
+			&:nth-of-type(8),
+			&:nth-of-type(9) {
+				margin: 0;
+				width: auto;
+				padding-top: 0;
+				padding-bottom: 0;
+				.Mui-checked {
+					color: $primaryColor;
+				}
+				label {
 					transition: all 0.3s;
-					width: auto;
-					.MuiCheckbox-colorSecondary {
-						transition: all 0.3s;
-					}
-					.Mui-checked {
-						color: $primaryColor;
+					padding: 0;
+					margin: 0.5em 0 1em 0;
+					> * {
+						padding: 0;
 					}
 					&:hover {
 						color: $primaryColor;
@@ -103,30 +106,15 @@
 					}
 				}
 			}
-			> div {
+			&:nth-of-type(10) {
+				display: flex;
+				align-content: center;
+				flex-direction: column;
 				> fieldset {
+					padding-bottom: 0.35em;
 					border: 3px solid rgba(0, 0, 0, 0.2);
 					border-radius: 0.5em;
 					position: relative;
-					legend {
-						background-color: rgba(0, 0, 0, 0.2);
-						padding: 0.7em 1.5em;
-						position: absolute;
-						border-radius: 0.2em;
-						top: 0;
-						left: 0;
-						text-transform: uppercase;
-					}
-				}
-			}
-		}
-		> div.membership {
-			> div {
-				> fieldset {
-					border: 3px solid rgba(0, 0, 0, 0.2);
-					border-radius: 0.5em;
-					position: relative;
-					padding-top: 3em;
 					width: 100%;
 					legend {
 						background-color: rgba(0, 0, 0, 0.2);
@@ -137,6 +125,52 @@
 						left: 0;
 						text-transform: uppercase;
 					}
+					> div {
+						margin: auto;
+						width: 60%;
+						flex-direction: row;
+						justify-content: space-between;
+						> label {
+							transition: all 0.3s;
+							text-transform: capitalize;
+							.Mui-checked {
+								color: $primaryColor;
+							}
+							&:hover {
+								color: $primaryColor;
+								> span > span {
+									color: $primaryColor;
+								}
+							}
+						}
+					}
+					> div.optional-fields {
+						padding: 1em 0 0.5em 0;
+						display: flex;
+						align-items: center;
+					}
+				}
+			}
+			hr {
+				background-color: rgba(0, 0, 0, 0.5);
+				padding: 0.2em;
+				margin: 1em 0;
+				border-radius: 1em;
+			}
+		}
+		> div {
+			> fieldset {
+				border: 3px solid rgba(0, 0, 0, 0.2);
+				border-radius: 0.5em;
+				position: relative;
+				legend {
+					background-color: rgba(0, 0, 0, 0.2);
+					padding: 0.7em 1.5em;
+					position: absolute;
+					border-radius: 0.2em;
+					top: 0;
+					left: 0;
+					text-transform: uppercase;
 				}
 			}
 		}

@@ -12,7 +12,8 @@ const types = {
     radio: 'radio',
     checkBox: 'checkbox',
     date: 'date',
-    inputMultiple: 'text-multiple'
+    inputMultiple: 'text-multiple',
+    memberShipType: 'memberShip-fields'
 }
 class InformationsCoordonnees extends Component {
     constructor () {
@@ -31,7 +32,11 @@ class InformationsCoordonnees extends Component {
                 toContacted: null,
                 email: null,
                 is_subscribed: null,
-                has_child: null
+                has_child: null,
+                memberShip: null,
+                paymentMethod: null,
+                memberCard: null,
+                discountCard: null
             },
             errors: {
                 sex: false,
@@ -40,7 +45,8 @@ class InformationsCoordonnees extends Component {
                 first_name: false,
                 address: false,
                 contact: false,
-                email: false
+                email: false,
+                memberShip: false
             },
             enableSubmit: false,
             loading: false
@@ -70,14 +76,13 @@ class InformationsCoordonnees extends Component {
         })
     }
 
-    buildMultipleInputField (fieldsConfig, lang, ids) {
-        const options = FormConfig.coordonnees.filter(field => field.from === fieldsConfig.name)
+    buildContactFields (fieldsConfig, lang, ids) {
         return (
             <div key={ids[fieldsConfig.name]}>
                 <fieldset>
                     <legend>{lang[fieldsConfig.name].label}</legend>
                     <div>
-                        {options.map(option => (this.buildTextField(option, lang, ids)))}
+                        {fieldsConfig.options.map(option => (this.buildTextField(option, lang, ids)))}
                     </div>
                 </fieldset>
             </div>
@@ -120,7 +125,6 @@ class InformationsCoordonnees extends Component {
     }
 
     buildRadioField (fieldsConfig, lang, ids) {
-        const options = FormConfig.coordonnees.filter(field => field.from === fieldsConfig.name)
         return (
             <div key={ids[fieldsConfig.name]}>
                 <fieldset>
@@ -129,7 +133,7 @@ class InformationsCoordonnees extends Component {
                         value={this.state.fields[fieldsConfig.name]}
                         onChange={event => this.handleInputChange(event, fieldsConfig.name, fieldsConfig.type)}
                     >
-                        {options.map(option => (
+                        {fieldsConfig.options.map(option => (
                             <FormControlLabel
                                 key={ids[option.name]}
                                 value={option.name} control={<Radio />} label={lang[option.name].label}
@@ -162,21 +166,32 @@ class InformationsCoordonnees extends Component {
     }
 
     buildMemberShipFields (fieldsConfig, lang, ids) {
-        const options = FormConfig.membership.filter(field => field.from === fieldsConfig.name)
         return (
             <div key={ids[fieldsConfig.name]}>
+                <Divider variant='fullWidth' />
                 <fieldset>
                     <legend>{lang[fieldsConfig.name].label}</legend>
                     <RadioGroup
                         value={this.state.fields[fieldsConfig.name]}
                         onChange={event => this.handleInputChange(event, fieldsConfig.name, fieldsConfig.type)}
                     >
-                        {options.map(option => (
+                        {fieldsConfig.options1.map(option => (
                             <FormControlLabel
                                 key={ids[option.name]}
                                 value={option.name} control={<Radio />} label={lang[option.name].label}
                             />))}
                     </RadioGroup>
+                    {this.state.fields.memberShip === 'becomeMember' && (
+                        <div className='optional-fields'>
+                            {fieldsConfig.options2.map(option => {
+                                if (option.type === types.text) {
+                                    return (this.buildTextField(option, lang, ids))
+                                } else if (option.type === types.checkBox) {
+                                    return (this.buildCheckField(option, lang, ids))
+                                }
+                            })}
+                        </div>
+                    )}
                 </fieldset>
             </div>
         )
@@ -193,40 +208,35 @@ class InformationsCoordonnees extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const CoordonneesFields = FormConfig.coordonnees.filter(field => !field.from)
-        const MemberShipFields = FormConfig.membership.filter(field => !field.from)
         return (
             <>
                 <div className='informations-coordonnees'>
                     <h1>{lang.title}</h1>
                     <div className='fields'>
-                        <div className='coordonnees'>
-                            {CoordonneesFields.map(field => {
-                                let renderingField = null
-                                switch (field.type) {
-                                case types.text:
-                                    renderingField = this.buildTextField(field, lang, variables.id.infosCoordonnees)
-                                    break
-                                case types.radio:
-                                    renderingField = this.buildRadioField(field, lang, variables.id.infosCoordonnees)
-                                    break
-                                case types.checkBox:
-                                    renderingField = this.buildCheckField(field, lang, variables.id.infosCoordonnees)
-                                    break
-                                case types.date:
-                                    renderingField = this.buildDateField(field, lang, variables.id.infosCoordonnees)
-                                    break
-                                case types.inputMultiple:
-                                    renderingField = this.buildMultipleInputField(field, lang, variables.id.infosCoordonnees)
-                                    break
-                                }
-                                return renderingField
-                            })}
-                        </div>
-                        <Divider variant='fullWidth' />
-                        <div className='membership'>
-                            {this.buildMemberShipFields(MemberShipFields[0], lang, variables.id.infosCoordonnees)}
-                        </div>
+                        {FormConfig.map(field => {
+                            let renderingField = null
+                            switch (field.type) {
+                            case types.text:
+                                renderingField = this.buildTextField(field, lang, variables.id.infosCoordonnees)
+                                break
+                            case types.radio:
+                                renderingField = this.buildRadioField(field, lang, variables.id.infosCoordonnees)
+                                break
+                            case types.checkBox:
+                                renderingField = this.buildCheckField(field, lang, variables.id.infosCoordonnees)
+                                break
+                            case types.date:
+                                renderingField = this.buildDateField(field, lang, variables.id.infosCoordonnees)
+                                break
+                            case types.inputMultiple:
+                                renderingField = this.buildContactFields(field, lang, variables.id.infosCoordonnees)
+                                break
+                            case types.memberShipType:
+                                renderingField = this.buildMemberShipFields(field, lang, variables.id.infosCoordonnees)
+                                break
+                            }
+                            return renderingField
+                        })}
                     </div>
 
                 </div>
