@@ -50,6 +50,7 @@ const classroomSchedules = require('./routes/classroomSchedules')
 const auth = require('./routes/auth')
 const logins = require('./routes/logins')
 const users = require('./routes/users')
+const schedules = require('./routes/schedules')
 
 // MOUNT ROUTERS
 app.use('/roles', roles)
@@ -59,6 +60,7 @@ app.use('/classroom-schedules', classroomSchedules)
 app.use('/auth', auth)
 app.use('/logins', logins)
 app.use('/users', users)
+app.use('/schedules', schedules)
 
 // MAIN ROUTE
 app.get('/', (req, res) => {

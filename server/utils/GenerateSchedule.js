@@ -2,34 +2,43 @@ const User = require('../models/User')
 const ClassroomSchedule = require('../models/ClassroomSchedule')
 const Day = require('../models/Day')
 
+const generateSchedule = async (startDate, endDate) => {
+  const classroomSchedules = await ClassroomSchedule.find().lean()
+  const schedule = [] // Declare Array ici
 
-const generateSchedule = async (req, res) => {
-  const users = User.find()
-  const classrooms = Classroom.find()
-  const classroomSchedules = ClassroomSchedule.find();
-  const dateDebut
-  const dateFin
-  const dateToInsert = dateDebut
-  let schedules 
-
-foreach classroomSchedules  
-  foreach id_day 
-
-
-    while(dateToInsert.now != dateFin.now){
-    if(date.getDay() === day && date.now !== dateJourFerie.now())
-      {
-        
-        (await users).filter(users that have the same id_classroom as the classroom)
-          foreach students  
-              schedules.add(new schedules(id_students,id_classroom,dateToInsert,false,null))
-         (await users).filter(collabs that have the same id_students as the students)  
-         foreach collab  
-               schedules.add(new schedules(id_collab,id_classroom,dateToInsert,false,null))
-
+  classroomSchedules.forEach(classroomSchedule => {
+    classroomSchedule.id_day.forEach(async idDay => {
+      const day = await Day.findById(idDay)
+      const childs = await User.find({
+        id_classroom: classroomSchedule.id_classroom
+      }).lean()
+      const dayToIncrement = new Date(startDate)
+      while (dayToIncrement < endDate) {
+        if (dayToIncrement.getDay() === day.value) {
+          childs.forEach(async child => {
+            const scheduleJson = [
+              {
+                id_user: child._id,
+                id_classroom: child.id_classroom,
+                date: dayToIncrement,
+                is_absent: false
+              },
+              {
+                id_user: child.id_collaborater,
+                id_classroom: child.id_classroom,
+                date: dayToIncrement,
+                is_absent: false
+              }
+            ]
+            schedule.push(scheduleJson)
+            console.log(schedule) // <--- Schedule Push fonctionne
+          })
+        }
+        dayToIncrement.setDate(dayToIncrement.getDate() + 1)
       }
-        dateToInsert+1
-    }
+    })
+  })
+  console.log(schedule) // <--- Array Empty []
 }
- post schedules
+
 module.exports = generateSchedule
