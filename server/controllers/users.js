@@ -115,5 +115,5 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
   file.name = `photo-${user._id}${path.parse(file.name).ext}`
 
   // CALL AWS S3 METHOD
-  uploadToS3(res, next, file)
+  uploadToS3(req, res, next, file)
 })
