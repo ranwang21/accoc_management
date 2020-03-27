@@ -50,21 +50,21 @@ const variables = {
             confirmPassword: 'TGSVDCBHS',
             validation: 'E5S4F1CS52'
         },
-        infosCoordonnees: {
+        register: {
             sex: '8R5D4GF1VD5',
             mme: '5EDF4E5D',
             mr: '5DF41EDX5DV',
             birthday: '7E4DE54F15ED2',
-            contacts: 'E85DF4CED521',
             last_name: '8E5D4FDW185S',
             first_name: 'Q8W7E4F2S8D',
+            email: '9A62S41XC4D2F',
             address: '5141428422',
+            contacts: 'E85DF4CED521',
             personal: '87521562585215415',
             home: '8752156254545241',
             work: '875215625S52D1C4D1X',
             emergency: '875215625E4DSF4D5S',
             toContacted: '8752156259W8E5RD2E15',
-            email: '9A62S41XC4D2F',
             is_subscribed: 'AS41XCS52DZ1',
             has_child: '9D6F4DX1S5D',
             memberShip: '8E5D4F1E5D',
@@ -73,7 +73,8 @@ const variables = {
             notWantMember: 'ED54X1C5S2',
             paymentMethod: 'W5E4RT1FGHYU74IUI4J1',
             memberCard: 'O8I2JH4J1NH4G',
-            discountCard: '8O7IUKH4LK52BV1DD5S'
+            discountCard: '8O7IUKH4LK52BV1DD5S',
+            participation: '8D5F51V5DF24'
         }
     }
 }

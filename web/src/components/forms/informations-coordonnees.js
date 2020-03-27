@@ -1,8 +1,5 @@
-import moment from 'moment'
 import React, { Component } from 'react'
-import { TextField, FormControlLabel, Checkbox, Radio, RadioGroup, FormControl, FormLabel, Button, Divider } from '@material-ui/core'
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
-import MomentUtils from '@date-io/moment'
+import Form from './builds'
 
 import '../../styles/_informations-coordonnees.scss'
 const FormConfig = require('../../forms-files/informations-coordonnees.json').fields
@@ -12,9 +9,10 @@ const types = {
     radio: 'radio',
     checkBox: 'checkbox',
     date: 'date',
-    inputMultiple: 'text-multiple',
+    contactsType: 'text-multiple',
     memberShipType: 'memberShip-fields'
 }
+
 class InformationsCoordonnees extends Component {
     constructor () {
         super()
@@ -76,136 +74,6 @@ class InformationsCoordonnees extends Component {
         })
     }
 
-    buildContactFields (fieldsConfig, lang, ids) {
-        return (
-            <div key={ids[fieldsConfig.name]}>
-                <fieldset>
-                    <legend>{lang[fieldsConfig.name].label}</legend>
-                    <div>
-                        {fieldsConfig.options.map(option => (this.buildTextField(option, lang, ids)))}
-                    </div>
-                </fieldset>
-            </div>
-        )
-    }
-
-    buildTextField (fieldsConfig, lang, ids) {
-        return (
-            <div key={ids[fieldsConfig.name]}>
-                <TextField
-                    error={this.state.errors[name] ? this.state.errors[fieldsConfig.name] : false}
-                    label={lang[fieldsConfig.name].label}
-                    type={fieldsConfig.name.type}
-                    color='primary'
-                    helperText={this.state.errors[name] && lang[fieldsConfig.name].labelError}
-                    variant='filled'
-                    onChange={event => this.handleInputChange(event, fieldsConfig.name, fieldsConfig.type)}
-                    required={fieldsConfig.name.required}
-                    value={this.state.fields[fieldsConfig.name] === null ? '' : this.state.fields[fieldsConfig.name]}
-                />
-            </div>
-        )
-    }
-
-    buildCheckField (fieldsConfig, lang, ids) {
-        return (
-            <div key={ids[fieldsConfig.name]}>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={this.state.fields[fieldsConfig.name] !== null && this.state.fields[fieldsConfig.name]}
-                            onChange={event => this.handleInputChange(event, fieldsConfig.name, fieldsConfig.type)}
-                            required={fieldsConfig.name.required}
-                        />
-                    }
-                    label={lang[fieldsConfig.name].label}
-                />
-            </div>
-        )
-    }
-
-    buildRadioField (fieldsConfig, lang, ids) {
-        return (
-            <div key={ids[fieldsConfig.name]}>
-                <fieldset>
-                    <legend>{lang[fieldsConfig.name].label}</legend>
-                    <RadioGroup
-                        value={this.state.fields[fieldsConfig.name]}
-                        onChange={event => this.handleInputChange(event, fieldsConfig.name, fieldsConfig.type)}
-                    >
-                        {fieldsConfig.options.map(option => (
-                            <FormControlLabel
-                                key={ids[option.name]}
-                                value={option.name} control={<Radio />} label={lang[option.name].label}
-                            />))}
-                    </RadioGroup>
-                </fieldset>
-            </div>
-        )
-    }
-
-    buildDateField (fieldsConfig, lang, ids) {
-        return (
-            <MuiPickersUtilsProvider
-                key={ids[fieldsConfig.name]}
-                libInstance={moment} utils={MomentUtils}
-                locale={this.props.lang}
-            >
-                <DatePicker
-                    format='DD MMMM YYYY'
-                    openTo='year'
-                    views={['year', 'month', 'date']}
-                    label={lang[fieldsConfig.name].label}
-                    minDate={new Date(this.getAgeLimit('min'))}
-                    maxDate={new Date(this.getAgeLimit('max'))}
-                    value={this.state.fields[fieldsConfig.name]}
-                    onChange={event => this.handleInputChange(event, fieldsConfig.name, fieldsConfig.type)}
-                />
-            </MuiPickersUtilsProvider>
-        )
-    }
-
-    buildMemberShipFields (fieldsConfig, lang, ids) {
-        return (
-            <div key={ids[fieldsConfig.name]}>
-                <Divider variant='fullWidth' />
-                <fieldset>
-                    <legend>{lang[fieldsConfig.name].label}</legend>
-                    <RadioGroup
-                        value={this.state.fields[fieldsConfig.name]}
-                        onChange={event => this.handleInputChange(event, fieldsConfig.name, fieldsConfig.type)}
-                    >
-                        {fieldsConfig.options1.map(option => (
-                            <FormControlLabel
-                                key={ids[option.name]}
-                                value={option.name} control={<Radio />} label={lang[option.name].label}
-                            />))}
-                    </RadioGroup>
-                    {this.state.fields.memberShip === 'becomeMember' && (
-                        <div className='optional-fields'>
-                            {fieldsConfig.options2.map(option => {
-                                if (option.type === types.text) {
-                                    return (this.buildTextField(option, lang, ids))
-                                } else if (option.type === types.checkBox) {
-                                    return (this.buildCheckField(option, lang, ids))
-                                }
-                            })}
-                        </div>
-                    )}
-                </fieldset>
-            </div>
-        )
-    }
-
-    getAgeLimit (limit) {
-        const date = new Date()
-        if (limit === 'min') {
-            return (date.getFullYear() - 100) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-        } else {
-            return (date.getFullYear() - 18) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-        }
-    }
-
     render () {
         const lang = this.getLangFile()
         return (
@@ -217,25 +85,25 @@ class InformationsCoordonnees extends Component {
                             let renderingField = null
                             switch (field.type) {
                             case types.text:
-                                renderingField = this.buildTextField(field, lang, variables.id.infosCoordonnees)
+                                renderingField = Form.textField(field, lang, this.state.fields, this.state.errors, this.handleInputChange)
                                 break
                             case types.radio:
-                                renderingField = this.buildRadioField(field, lang, variables.id.infosCoordonnees)
+                                renderingField = Form.radioField(field, lang, this.state.fields, this.state.errors, this.handleInputChange)
                                 break
                             case types.checkBox:
-                                renderingField = this.buildCheckField(field, lang, variables.id.infosCoordonnees)
+                                renderingField = Form.checkBoxField(field, lang, this.state.fields, this.state.errors, this.handleInputChange)
                                 break
                             case types.date:
-                                renderingField = this.buildDateField(field, lang, variables.id.infosCoordonnees)
+                                renderingField = Form.dateField(field, this.props.lang, lang, this.state.fields, this.state.errors, this.handleInputChange)
                                 break
-                            case types.inputMultiple:
-                                renderingField = this.buildContactFields(field, lang, variables.id.infosCoordonnees)
+                            case types.contactsType:
+                                renderingField = Form.contactField(field, lang, this.state.fields, this.state.errors, this.handleInputChange)
                                 break
                             case types.memberShipType:
-                                renderingField = this.buildMemberShipFields(field, lang, variables.id.infosCoordonnees)
+                                renderingField = Form.memberShipField(field, lang, this.state.fields, this.state.errors, this.handleInputChange)
                                 break
                             }
-                            return renderingField
+                            return (<div key={variables.id.register[field.name]}>{renderingField}</div>)
                         })}
                     </div>
 
