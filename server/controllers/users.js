@@ -1,6 +1,7 @@
 const path = require('path')
 const ErrorResponse = require('../utils/ErrorResponse')
 const asyncHandler = require('../middlewares/async')
+const uploadToS3 = require('../utils/uploadToS3')
 const User = require('../models/User')
 
 // @desc     Get all users
@@ -113,17 +114,6 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
   // CREATE CUSTOM FILENAME
   file.name = `photo-${user._id}${path.parse(file.name).ext}`
 
-  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
-    if (err) {
-      console.error(err)
-      return next(new ErrorResponse('Problem with file upload', 500))
-    }
-
-    await User.findByIdAndUpdate(req.params.id, { photo: file.name })
-
-    res.status(200).json({
-      success: true,
-      data: file.name
-    })
-  })
+  // CALL AWS S3 METHOD
+  uploadToS3(res, next, file)
 })
