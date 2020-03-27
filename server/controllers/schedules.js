@@ -8,7 +8,7 @@ const generateSchedule = require('../utils/generateSchedules')
 // @access  Public
 exports.createSchedule = asyncHandler(async (req, res) => {
   const startDate = new Date()
-  const endDate = new Date('April 01 2020 12:30')
+  const endDate = new Date('2020-04-02')
 
   const scheduleJson = await generateSchedule(startDate, endDate)
 
