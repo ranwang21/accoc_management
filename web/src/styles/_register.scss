@@ -11,15 +11,15 @@
 		border: none;
 		padding: 0.3em 0.7em;
 		border: 5px solid rgba($color: rgb(255, 255, 255), $alpha: 0.6);
-		color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
+		color: rgba($color: rgb(255, 255, 255), $alpha: 0.8);
 		text-transform: capitalize;
 		border-radius: 0.5em;
 
 		cursor: pointer;
 		transition: all 0.5s;
 		&:hover {
-			border: 5px solid rgba($color: rgb(255, 255, 255), $alpha: 0.6);
 			background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
+			border: 5px solid transparent;
 			color: black;
 		}
 	}
