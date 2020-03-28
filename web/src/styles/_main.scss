@@ -28,7 +28,7 @@ main {
 			height: 100%;
 			display: flex;
 			transition: margin-left 0.5s;
-			margin-left: -100%;
+			margin-left: 0%;
 			.main-connexion {
 				padding: 0 8%;
 				transition: all 0.5s;
@@ -43,6 +43,7 @@ main {
 				}
 				> div {
 					background-color: rgba($color: $primaryColor, $alpha: 0.3);
+					background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
 					padding: 1em;
 					border-radius: $borderRadiusMain;
 					text-align: center;

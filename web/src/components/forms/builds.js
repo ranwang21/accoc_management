@@ -5,7 +5,16 @@ import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
 
 const ids = require('../../utilities/variables').variables.id.register
-
+const types = {
+    text: 'textField',
+    radio: 'radioField',
+    checkBox: 'checkboxField',
+    date: 'dateField',
+    contacts: 'contactField',
+    membership: 'membershipField',
+    participation: 'participationField',
+    volunteering: 'volunteeringField'
+}
 const getAgeLimit = (limit) => {
     const date = new Date()
     if (limit === 'min') {
@@ -15,35 +24,15 @@ const getAgeLimit = (limit) => {
     }
 }
 
-const types = {
-    text: 'text',
-    radio: 'radio',
-    checkBox: 'checkbox',
-    date: 'date',
-    contactsType: 'text-multiple',
-    memberShipType: 'memberShip-fields'
-}
-
-const contactField = (fieldsConfig, lang, fields, errors, inputChange) => {
-    return (
-        <fieldset>
-            <legend>{lang[fieldsConfig.name].label}</legend>
-            <div>
-                {fieldsConfig.options.map(option => (<div key={ids[option.name]}>{textField(option, lang, fields, errors, inputChange)}</div>))}
-
-            </div>
-        </fieldset>
-    )
-}
-
-const textField = (fieldsConfig, lang, fields, errors, inputChange) => {
+const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
     return (
         <TextField
-            error={errors[name] ? errors[fieldsConfig.name] : false}
+            key={ids[fieldsConfig.name]}
+            error={errors[fieldsConfig.name] ? errors[fieldsConfig.name] : false}
             label={lang[fieldsConfig.name].label}
-            type={fieldsConfig.name.type}
+            type='text'
             color='primary'
-            helperText={errors[name] && lang[fieldsConfig.name].labelError}
+            helperText={errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}
             variant='filled'
             onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
             required={fieldsConfig.name.required}
@@ -52,9 +41,10 @@ const textField = (fieldsConfig, lang, fields, errors, inputChange) => {
     )
 }
 
-const checkBoxField = (fieldsConfig, lang, fields, errors, inputChange) => {
+const checkboxField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
     return (
         <FormControlLabel
+            key={ids[fieldsConfig.name]}
             control={
                 <Checkbox
                     checked={fields[fieldsConfig.name] !== null && fields[fieldsConfig.name]}
@@ -67,74 +57,155 @@ const checkBoxField = (fieldsConfig, lang, fields, errors, inputChange) => {
     )
 }
 
-const radioField = (fieldsConfig, lang, fields, errors, inputChange) => {
+const radio = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
     return (
-        <fieldset>
-            <legend>{lang[fieldsConfig.name].label}</legend>
-            <RadioGroup
-                value={fields[fieldsConfig.name]}
-                onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
-            >
-                {fieldsConfig.options.map(option => (
-                    <div key={ids[option.name]}>
-                        <FormControlLabel
-                            key={ids[option.name]}
-                            value={option.name} control={<Radio />} label={lang[option.name].label}
-                        />
-                    </div>))}
-            </RadioGroup>
-        </fieldset>
+        <RadioGroup
+            value={fields[fieldsConfig.name]}
+            onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
+        >
+            {fieldsConfig.radioOptions.map(option => (
+                <div key={ids[option.name]}>
+                    <FormControlLabel
+                        key={ids[option.name]}
+                        value={option.name} control={<Radio />} label={lang[option.name].label}
+                    />
+                </div>))}
+        </RadioGroup>
     )
 }
 
-const dateField = (fieldsConfig, lang, langFile, fields, errors, inputChange) => {
+const radioField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+    return (
+        <div className='fieldset sex'>
+            <div className='head'>
+                <p>{lang[fieldsConfig.name].label}</p>
+                <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
+            </div>
+            <div className='body'>
+                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange)}
+            </div>
+        </div>
+    )
+}
+
+const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
     return (
         <MuiPickersUtilsProvider
             libInstance={moment} utils={MomentUtils}
-            locale={lang}
+            locale={propLang}
         >
             <DatePicker
+                error={errors[fieldsConfig.name] ? errors[fieldsConfig.name] : false}
                 format='DD MMMM YYYY'
                 openTo='year'
                 views={['year', 'month', 'date']}
-                label={langFile[fieldsConfig.name].label}
+                label={lang[fieldsConfig.name].label}
                 minDate={new Date(getAgeLimit('min'))}
                 maxDate={new Date(getAgeLimit('max'))}
                 value={fields[fieldsConfig.name]}
+                helperText={errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}
                 onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
             />
         </MuiPickersUtilsProvider>
     )
 }
 
-const memberShipField = (fieldsConfig, lang, fields, errors, inputChange) => {
+const contactField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
     return (
-        <div>
-            <Divider variant='fullWidth' />
-            <fieldset>
-                <legend>{lang[fieldsConfig.name].label}</legend>
-                <RadioGroup
-                    value={fields[fieldsConfig.name]}
-                    onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
-                >
-                    {fieldsConfig.options1.map(option => (
-                        <FormControlLabel
-                            key={ids[option.name]}
-                            value={option.name} control={<Radio />} label={lang[option.name].label}
-                        />))}
-                </RadioGroup>
-                {fields.memberShip === 'becomeMember' && (
+        <div className='fieldset contacts'>
+            <div className='head'>
+                <p>{lang[fieldsConfig.name].label}</p>
+                <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
+            </div>
+            <div className='body'>
+                {fieldsConfig.textOptions.map(option => (
+                    textField(option, propLang, lang, fields, errors, inputChange)
+                ))}
+            </div>
+        </div>
+    )
+}
+
+const membershipField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+    return (
+        <div className='fieldset membership'>
+            <div className='head'>
+                <p>{lang[fieldsConfig.name].label}</p>
+                <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
+            </div>
+            <div className='body'>
+                <p>{lang[fieldsConfig.name].title1}</p>
+                <p>{lang[fieldsConfig.name].title2}</p>
+                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange)}
+                {fields.membership === 'membership_becomeMember' && (
                     <div className='optional-fields'>
                         {fieldsConfig.options2.map(option => {
                             if (option.type === types.text) {
-                                return (<div key={ids[name]}>{textField(option, lang, ids)}</div>)
+                                return (textField(option, propLang, lang, fields, errors, inputChange))
                             } else if (option.type === types.checkBox) {
-                                return (<div key={ids[option.name]}>{checkBoxField(option, lang, ids)}</div>)
+                                return (checkboxField(option, propLang, lang, fields, errors, inputChange))
                             }
                         })}
                     </div>
                 )}
-            </fieldset>
+            </div>
+        </div>
+    )
+}
+
+const participationField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+    return (
+        <div className='fieldset participation'>
+            <div className='head'>
+                <p>{lang[fieldsConfig.name].label}</p>
+            </div>
+            <div className='body'>
+                <div>
+                    {fieldsConfig.checkboxOptions1.map(option => (
+                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                    ))}
+                </div>
+                <Divider orientation='vertical' flexItem />
+                <div>
+                    {fieldsConfig.checkboxOptions2.map(option => (
+                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                    ))}
+                </div>
+                <div>
+                    {checkboxField(fieldsConfig.others[0], propLang, lang, fields, errors, inputChange)}
+                    {fields.participation_diverses && (
+                        textField(fieldsConfig.others[1], propLang, lang, fields, errors, inputChange)
+                    )}
+                </div>
+            </div>
+        </div>
+    )
+}
+const volunteeringField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+    return (
+        <div className='fieldset benevolat'>
+            <div className='head'>
+                <p>{lang[fieldsConfig.name].label}</p>
+            </div>
+            <div className='body'>
+                <div>
+                    {fieldsConfig.checkboxOptions1.map(option => (
+                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                    ))}
+                </div>
+                <Divider orientation='vertical' flexItem />
+                <div>
+                    {fieldsConfig.checkboxOptions2.map(option => (
+                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                    ))}
+                </div>
+                <div>
+                    {checkboxField(fieldsConfig.others[0], propLang, lang, fields, errors, inputChange)}
+                    {fields.volunteering_diverses && (
+                        textField(fieldsConfig.others[1], propLang, lang, fields, errors, inputChange)
+                    )}
+                </div>
+            </div>
         </div>
     )
 }
@@ -143,7 +214,9 @@ export default {
     textField,
     radioField,
     dateField,
-    checkBoxField,
+    checkboxField,
     contactField,
-    memberShipField
+    membershipField,
+    participationField,
+    volunteeringField
 }

@@ -3,174 +3,260 @@
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	padding: 1em;
+	padding: 0;
 	> h1 {
 		text-align: center;
 	}
 	> div.fields {
-		padding: 0.5em 0;
+		padding: 1em;
 		display: flex;
 		flex-flow: row wrap;
-		> hr {
-			height: 10em;
-			background-color: red;
-		}
-		> * {
-			width: 100%;
-			padding: 0.6em 0.5em;
-			> * {
-				width: 100%;
-			}
-		}
 		> div {
-			&:nth-of-type(1),
-			&:nth-of-type(2),
-			&:nth-of-type(3),
-			&:nth-of-type(4) {
-				width: 50%;
-			}
-		}
-		/* FieldSet */
-		> div {
-			&:nth-of-type(1) {
-				display: flex;
-				align-content: center;
-				> fieldset {
-					padding-left: 5em;
-					width: 50%;
-					legend {
-						height: 100%;
-					}
-					> div {
-						height: 100%;
-						justify-content: center;
-						flex-direction: row;
-						> label {
-							transition: all 0.3s;
-							.Mui-checked {
-								color: $primaryColor;
-							}
-							&:hover {
-								color: $primaryColor;
-								> span > span {
-									color: $primaryColor;
-								}
-							}
-						}
-					}
-				}
-			}
-			&:nth-of-type(6) {
-				> fieldset {
-					padding-top: 3em;
-					width: 100%;
-					> div {
-						display: flex;
-						flex-flow: row wrap;
-						justify-content: space-around;
-
-						> div {
-							width: 33%;
-							padding: 0.5em;
-							> div {
-								width: 100%;
-								> div {
-									background-color: rgba(0, 0, 0, 0.09);
-								}
-							}
-						}
-					}
-				}
-			}
-			&:nth-of-type(8),
-			&:nth-of-type(9) {
-				margin: 0;
-				width: auto;
-				padding-top: 0;
-				padding-bottom: 0;
+			padding: 0.5em 1em;
+			label {
+				transition: all 0.3s;
 				.Mui-checked {
 					color: $primaryColor;
 				}
-				label {
-					transition: all 0.3s;
-					padding: 0;
-					margin: 0.5em 0 1em 0;
-					> * {
-						padding: 0;
-					}
-					&:hover {
+				&:hover {
+					color: $primaryColor;
+					> span > span {
 						color: $primaryColor;
-						.MuiCheckbox-colorSecondary {
-							color: $primaryColor;
-						}
 					}
 				}
 			}
-			&:nth-of-type(10) {
+			.fieldset {
+				border: 3px solid rgba(0, 0, 0, 0.2);
+				height: auto;
 				display: flex;
-				align-content: center;
-				flex-direction: column;
-				> fieldset {
-					padding-bottom: 0.35em;
-					border: 3px solid rgba(0, 0, 0, 0.2);
-					border-radius: 0.5em;
-					position: relative;
-					width: 100%;
-					legend {
-						background-color: rgba(0, 0, 0, 0.2);
-						padding: 0.7em 1.5em;
-						position: absolute;
-						border-radius: 0.2em;
-						top: 0;
-						left: 0;
-						text-transform: uppercase;
+				flex-flow: column wrap;
+				border-radius: 0.5em;
+				.head {
+					max-width: 95%;
+					align-self: flex-start;
+					display: flex;
+
+					p {
+						text-align: center;
+						padding: 0.5em 1.5em;
+						&:nth-child(1) {
+							text-transform: uppercase;
+							border-radius: 0em 0em 0.5em 0em;
+							align-self: start;
+							background-color: rgba(0, 0, 0, 0.2);
+						}
+						&:nth-child(2) {
+							background-color: transparent;
+							color: red;
+						}
+					}
+				}
+				.body {
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: center;
+					> * {
+						text-align: center;
+					}
+					> p {
+						text-align: justify;
+						width: 100%;
 					}
 					> div {
-						margin: auto;
-						width: 60%;
+						width: 100%;
 						flex-direction: row;
-						justify-content: space-between;
-						> label {
-							transition: all 0.3s;
-							text-transform: capitalize;
-							.Mui-checked {
-								color: $primaryColor;
-							}
-							&:hover {
-								color: $primaryColor;
-								> span > span {
-									color: $primaryColor;
-								}
-							}
-						}
-					}
-					> div.optional-fields {
-						padding: 1em 0 0.5em 0;
-						display: flex;
-						align-items: center;
+						padding: 0;
 					}
 				}
 			}
-			hr {
-				background-color: rgba(0, 0, 0, 0.5);
-				padding: 0.2em;
-				margin: 1em 0;
-				border-radius: 1em;
+			&:nth-of-type(1),
+			&:nth-of-type(2),
+			&:nth-of-type(3),
+			&:nth-of-type(4),
+			&:nth-of-type(5),
+			&:nth-of-type(6) {
+				width: 50%;
+				> div {
+					width: 100%;
+				}
+			}
+			&:nth-of-type(7),
+			&:nth-of-type(8),
+			&:nth-of-type(9),
+			&:nth-of-type(10),
+			&:nth-of-type(11),
+			&:nth-of-type(12) {
+				width: 100%;
+			}
+			.sex {
+				flex-direction: row;
+				width: auto !important;
+				max-width: 75% !important;
+				.head {
+					> p:nth-of-type(1) {
+						padding: 0.55em 1.5em;
+					}
+				}
+				.body {
+					justify-content: space-around;
+					> * {
+						text-align: center;
+					}
+					> div {
+						width: auto;
+						flex-direction: row;
+						justify-content: flex-end;
+						padding: 0;
+					}
+				}
+			}
+			.contacts {
+				.body {
+					justify-content: space-around;
+					padding: 1em;
+					> * {
+						text-align: center;
+					}
+					> div {
+						width: calc(95% / 4);
+					}
+				}
+			}
+			.membership {
+				.body {
+					justify-content: space-around;
+					padding: 1em;
+					> * {
+						text-align: center;
+					}
+					> div {
+						> div {
+							width: calc(100% / 3);
+						}
+					}
+					.optional-fields {
+						width: 85%;
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-start;
+					}
+				}
+			}
+			.participation,
+			.benevolat {
+				.body {
+					justify-content: space-between;
+					padding: 1em;
+					> * {
+						text-align: center;
+					}
+					> div {
+						display: flex;
+						> label {
+							width: 100%;
+						}
+						&:nth-of-type(3) {
+							justify-content: flex-start !important;
+							> label {
+								width: auto;
+							}
+							> div {
+								width: 75%;
+							}
+						}
+					}
+				}
 			}
 		}
-		> div {
-			> fieldset {
-				border: 3px solid rgba(0, 0, 0, 0.2);
-				border-radius: 0.5em;
-				position: relative;
-				legend {
-					background-color: rgba(0, 0, 0, 0.2);
-					padding: 0.7em 1.5em;
-					position: absolute;
-					border-radius: 0.2em;
-					top: 0;
-					left: 0;
-					text-transform: uppercase;
+	}
+}
+@include responsive(phone) {
+	.informations-coordonnees {
+		> div.fields {
+			> div {
+				width: 100% !important;
+				> div {
+					width: 100% !important;
+				}
+			}
+			.sex {
+				width: 50% !important;
+			}
+			.contacts {
+				.body {
+					justify-content: center;
+					> div {
+						> div {
+							width: 100%;
+						}
+						width: 95% !important;
+						padding-bottom: 1em !important;
+					}
+				}
+			}
+
+			.membership {
+				.body {
+					> div {
+						> div {
+							text-align: left;
+							width: 100% !important;
+						}
+					}
+				}
+			}
+			.participation,
+			.benevolat {
+				.body {
+					> div {
+						flex-direction: column !important;
+					}
+				}
+			}
+		}
+	}
+}
+@include responsive(tablet) {
+	.informations-coordonnees {
+		> div.fields {
+			> div {
+				width: 100% !important;
+				> div {
+					width: 100% !important;
+				}
+			}
+			.sex {
+				width: 50% !important;
+			}
+			.contacts {
+				.body {
+					justify-content: center;
+					> div {
+						> div {
+							width: 100%;
+						}
+						width: 95% !important;
+						padding-bottom: 1em !important;
+					}
+				}
+			}
+
+			.membership {
+				.body {
+					> div {
+						> div {
+							text-align: left;
+							width: 100% !important;
+						}
+					}
+				}
+			}
+			.participation,
+			.benevolat {
+				.body {
+					> div {
+						flex-direction: column !important;
+					}
 				}
 			}
 		}

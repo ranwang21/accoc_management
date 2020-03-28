@@ -10,15 +10,17 @@
 		position: absolute;
 		border: none;
 		padding: 0.3em 0.7em;
-		border: 5px solid $primaryColor;
+		border: 5px solid rgba($color: rgb(255, 255, 255), $alpha: 0.6);
+		color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
 		text-transform: capitalize;
 		border-radius: 0.5em;
 
 		cursor: pointer;
 		transition: all 0.5s;
 		&:hover {
-			background-color: $primaryColor;
-			color: $whiteColor;
+			border: 5px solid rgba($color: rgb(255, 255, 255), $alpha: 0.6);
+			background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
+			color: black;
 		}
 	}
 	> div.form-container {
@@ -84,6 +86,48 @@
 			}
 			&::-webkit-scrollbar-thumb:window-inactive {
 				background: transparent;
+			}
+		}
+	}
+}
+
+@include responsive(phone) {
+	.register-container {
+		> div.form-container {
+			width: 95%;
+			margin: auto;
+			flex-flow: column nowrap;
+
+			> button {
+				height: 10%;
+				span {
+					svg {
+						height: 3em;
+						width: 4em;
+					}
+				}
+			}
+			.forms {
+				width: 100%;
+			}
+		}
+	}
+}
+@include responsive(tablet) {
+	.register-container {
+		> div.form-container {
+			width: 95%;
+			margin: auto;
+			flex-flow: column nowrap;
+
+			> button {
+				height: 10%;
+				span {
+					svg {
+						height: 3em;
+						width: 4em;
+					}
+				}
 			}
 		}
 	}

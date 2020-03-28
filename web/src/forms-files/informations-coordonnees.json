@@ -3,118 +3,106 @@
         {
             "name": "sex",
             "required": true,
-            "type": "radio",
-            "options": [
+            "type": "radioField",
+            "radioOptions": [
                 {
-                    "from": "sex",
-                    "name": "mme"
+                    "name": "sex_mme"
                 },
                 {
-                    "from": "sex",
-                    "name": "mr"
+                    "name": "sex_mr"
                 }
             ]
         },
         {
             "name": "birthday",
-            "type": "date",
+            "type": "dateField",
             "required": true
         },
         {
             "name": "last_name",
-            "type": "text",
+            "type": "textField",
             "required": true
         },
         {
             "name": "first_name",
-            "type": "text",
+            "type": "textField",
             "required": true
         },
         {
             "name": "address",
-            "type": "text",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "email",
+            "type": "textField",
             "required": true
         },
         {
             "name": "contacts",
-            "type": "text-multiple",
-            "options": [
+            "type": "contactField",
+            "textOptions": [
                 {
-                    "from": "contacts",
-                    "name": "personal",
-                    "type": "text",
+                    "name": "contacts_personal",
+                    "type": "textField",
                     "required": true
                 },
                 {
-                    "from": "contacts",
-                    "name": "home",
-                    "type": "text",
+                    "name": "contacts_home",
+                    "type": "textField",
                     "required": false
                 },
                 {
-                    "from": "contacts",
-                    "name": "work",
-                    "type": "text",
+                    "name": "contacts_work",
+                    "type": "textField",
                     "required": false
                 },
                 {
-                    "from": "contacts",
-                    "name": "emergency",
-                    "type": "text",
-                    "required": false
-                },
-                {
-                    "from": "contacts",
-                    "name": "toContacted",
-                    "type": "text",
+                    "name": "contacts_emergency",
+                    "type": "textField",
                     "required": false
                 }
             ]
         },
         {
-            "name": "email",
-            "type": "text",
-            "required": true
-        },
-        {
             "name": "is_subscribed",
-            "type": "checkbox",
+            "type": "checkboxField",
             "required": false
         },
         {
             "name": "has_child",
-            "type": "checkbox",
+            "type": "checkboxField",
             "required": true
         },
         {
-            "name": "memberShip",
+            "name": "membership",
             "required": true,
-            "type": "memberShip-fields",
-            "options1": [
+            "type": "membershipField",
+            "radioOptions": [
                 {
-                    "name": "becomeMember"
+                    "name": "membership_becomeMember"
                 },
                 {
-                    "name": "alreadyMember"
+                    "name": "membership_alreadyMember"
                 },
                 {
-                    "name": "notWantMember"
+                    "name": "membership_notWantMember"
                 }
             ],
             "options2": [
                 {
-                    "name": "paymentMethod",
-                    "type": "text",
+                    "name": "membership_becomeMember_paymentMethod",
+                    "type": "textField",
                     "required": false
                 },
                 {
-                    "name": "memberCard",
-                    "type": "checkbox",
+                    "name": "membership_becomeMember_memberCard",
+                    "type": "checkboxField",
                     "required": false
                 },
                 {
-                    "name": "discountCard",
-                    "type": "checkbox",
+                    "name": "membership_becomeMember_discountCard",
+                    "type": "checkboxField",
                     "required": false
                 }
             ]
@@ -122,50 +110,91 @@
         {
             "name": "participation",
             "required": true,
-            "type": "participation-fields",
-            "options1": [
+            "type": "participationField",
+            "checkboxOptions1": [
                 {
-                    "name": "cuisine",
-                    "type": "checkbox",
+                    "name": "participation_cuisine",
+                    "type": "checkboxField",
                     "required": false
                 },
                 {
-                    "name": "debrouille",
-                    "type": "checkbox",
+                    "name": "participation_debrouille",
+                    "type": "checkboxField",
                     "required": false
                 },
                 {
-                    "name": "jmc",
-                    "type": "checkbox",
-                    "required": false
-                },
-                {
-                    "name": "diverses",
-                    "type": "checkbox",
+                    "name": "participation_jmc",
+                    "type": "checkboxField",
                     "required": false
                 }
             ],
-            "options2": [
+            "checkboxOptions2": [
                 {
-                    "name": "repas",
-                    "type": "checkbox",
+                    "name": "participation_repas",
+                    "type": "checkboxField",
                     "required": false
                 },
                 {
-                    "name": "viecomm",
-                    "type": "checkbox",
+                    "name": "participation_viecomm",
+                    "type": "checkboxField",
                     "required": false
                 },
                 {
-                    "name": "atelier",
-                    "type": "checkbox",
+                    "name": "participation_atelier",
+                    "type": "checkboxField",
                     "required": false
                 }
             ],
             "others": [
                 {
-                    "name": "diversesOptions",
-                    "type": "text",
+                    "name": "participation_diverses",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "participation_diverses_options",
+                    "type": "textField",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "volunteering",
+            "required": true,
+            "type": "volunteeringField",
+            "checkboxOptions1": [
+                {
+                    "name": "volunteering_accueil",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "volunteering_devoirs",
+                    "type": "checkboxField",
+                    "required": false
+                }
+            ],
+            "checkboxOptions2": [
+                {
+                    "name": "volunteering_citoyenne",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "volunteering_repas",
+                    "type": "checkboxField",
+                    "required": false
+                }
+            ],
+            "others": [
+                {
+                    "name": "volunteering_diverses",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "volunteering_diverses_options",
+                    "type": "textField",
                     "required": true
                 }
             ]
