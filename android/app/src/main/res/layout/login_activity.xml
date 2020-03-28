@@ -16,19 +16,6 @@
 
 
     <EditText
-        android:id="@+id/edt_password_signin"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/shapeemail"
-        android:drawableLeft="@drawable/ic_lock_open_black_24dp"
-        android:drawablePadding="10dp"
-        android:hint="@string/txt_password"
-        android:padding="15dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
-
-    <EditText
         android:id="@+id/edt_email_signin"
         android:layout_width="match_parent"
         android:layout_height="57dp"
@@ -38,8 +25,23 @@
         android:drawablePadding="10dp"
         android:hint="@string/txt_email"
         android:padding="15dp"
+        android:text="admin@gmail.com"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:id="@+id/edt_password_signin"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/shapeemail"
+        android:drawableLeft="@drawable/ic_lock_open_black_24dp"
+        android:drawablePadding="10dp"
+        android:hint="@string/txt_password"
+        android:padding="15dp"
+        android:text="abc123..."
+        android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
     <TextView
@@ -54,43 +56,44 @@
         android:textAlignment="center"
         android:textColor="#FF0000"
         android:textSize="15dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:gravity="center_horizontal" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="10dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:orientation="horizontal">-->
 
-        <CheckBox
-            android:id="@+id/edt_remeber_me"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:buttonTint="@color/white"
-            android:checked="true"
-            android:text="@string/txt_remember"
-            android:textColor="@color/white" />
+    <!--        <CheckBox-->
+    <!--            android:id="@+id/edt_remeber_me"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="10dp"-->
+    <!--            android:layout_marginTop="0dp"-->
+    <!--            android:layout_marginRight="10dp"-->
+    <!--            android:layout_marginBottom="10dp"-->
+    <!--            android:buttonTint="@color/white"-->
+    <!--            android:checked="true"-->
+    <!--            android:text="@string/txt_remember"-->
+    <!--            android:textColor="@color/white" />-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_lock_open_black_24dp"
-            android:drawablePadding="6dp"
-            android:padding="4dp"
-            android:text="@string/txt_forgot_password"
-            android:textColor="@color/white" />
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="10dp"-->
+    <!--            android:layout_marginTop="0dp"-->
+    <!--            android:layout_marginRight="10dp"-->
+    <!--            android:layout_marginBottom="5dp"-->
+    <!--            android:clickable="true"-->
+    <!--            android:drawableLeft="@drawable/ic_lock_open_black_24dp"-->
+    <!--            android:drawablePadding="6dp"-->
+    <!--            android:padding="4dp"-->
+    <!--            android:text="@string/txt_forgot_password"-->
+    <!--            android:textColor="@color/white" />-->
 
-    </LinearLayout>
+    <!--    </LinearLayout>-->
 
     <Button
         android:id="@+id/btn_signin"

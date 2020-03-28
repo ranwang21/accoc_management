@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     //URL OF SERVER
-    public static final String URL_SERVER = "http://192.168.0.163:8080";
+    public static final String URL_SERVER = "https://maison-aurore-api.herokuapp.com";
     // TABLES NAMES
     public static final String SCHEDULE_TABLE_NAME = "schedule";
     public static final String ROLE_TABLE_NAME = "role";
@@ -40,14 +40,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CLASSROOM);
         db.execSQL(CREATE_TABLE_INCONSISTENCY);
         db.execSQL(CREATE_TABLE_EVALUATION);
-        // Insertions
-//        RoleHelper.getFromAPI(db);
-//        UserHelper.getFromAPI(db);
-//     LoginHelper.getFromAPI(db);
-//        ClassroomHelper.getFromAPI(db);
-//        ScheduleHelper.getFromAPI(db);
-//        InconsistencyHelper.getFromAPI(db);
-//        EvaluationHelper.getFromAPI(db);
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
