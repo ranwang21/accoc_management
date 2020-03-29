@@ -31,6 +31,10 @@ const variables = {
         token: 'RIKSGD'
     },
     id: {
+        loginRegister: {
+            showLogin: 'loginRegister85421502',
+            showRegister: 'loginRegisters54d1c5s'
+        },
         login: {
             email: '5D2FC1ED5X2',
             password: 'EDF41C5S205SD'

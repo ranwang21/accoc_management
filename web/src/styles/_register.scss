@@ -1,4 +1,14 @@
 @import "./base";
+
+@include keyframes(childCountErrorAnimation) {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
 .register-container {
 	padding: 0.2em;
 	overflow: hidden;
@@ -6,6 +16,7 @@
 	flex-direction: column;
 	height: 100%;
 	position: relative;
+
 	> div:first-of-type {
 		position: absolute;
 		border: none;
@@ -63,6 +74,66 @@
 			box-shadow: -5px 10px 15px 5px rgba(0, 0, 0, 0.3);
 			> div {
 				height: 100%;
+				.div-svg-child {
+					height: 100%;
+					align-self: center;
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+					justify-content: center;
+					padding-left: 2em;
+					.child-count-error {
+						color: red;
+						animation-duration: 0.3s;
+						animation-name: childCountErrorAnimation;
+						animation-iteration-count: 5;
+					}
+					> div {
+						display: flex;
+						align-items: center;
+						width: auto;
+						transition: all 0.3s;
+						margin: 0.5em;
+						border-radius: 0.5em;
+						overflow: hidden;
+						cursor: pointer;
+						svg {
+							width: 3em;
+							height: 3em;
+							fill: currentColor;
+							display: inline-block;
+							font-size: 1.5rem;
+							transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+							flex-shrink: 0;
+							user-select: none;
+
+							font-family: "Poppins", sans-serif !important;
+							padding: 0;
+							margin: 0;
+							box-sizing: border-box;
+						}
+						> p {
+							background-color: rgba($color: $primaryColor, $alpha: 0.6);
+							font-size: 4em;
+							width: 1em;
+							text-align: center;
+						}
+						.svg-done {
+							background-color: transparent;
+							color: rgb(77, 224, 77);
+							font-size: 1.5rem;
+							height: 100%;
+							padding: 0.2em;
+						}
+						&:hover {
+							background-color: rgba($color: $primaryColor, $alpha: 0.1);
+							margin-left: 2em;
+						}
+					}
+					.svg-child-selected {
+						background-color: rgba($color: $primaryColor, $alpha: 0.1);
+					}
+				}
 			}
 
 			&::-webkit-scrollbar {

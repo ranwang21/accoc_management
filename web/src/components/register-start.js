@@ -3,51 +3,12 @@ import { FormGroup, FormControlLabel, Checkbox } from '@material-ui/core/'
 import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded'
 import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded'
 import '../styles/_register-start.scss'
-const checkId = require('../utilities/variables').variables.id.registerStart.check
+
+const ids = require('../utilities/variables').variables.id
 
 class registerStart extends Component {
-    constructor () {
-        super()
-        this.state = {
-            isParent: false,
-            isCollaborator: false,
-            isBoth: false
-        }
-        this.handleCheck = this.handleCheck.bind(this)
-    }
-
     getLangFile () {
         return require('../lang/' + this.props.lang + '/register-start.json')
-    }
-
-    handleCheck () {
-        switch (event.target.id) {
-        case checkId.parent:
-            this.setState(state => {
-                return {
-                    isParent: !state.isParent,
-                    isBoth: !!((!state.isParent && state.isCollaborator))
-                }
-            })
-            break
-        case checkId.collaborator:
-            this.setState(state => {
-                return {
-                    isCollaborator: !state.isCollaborator,
-                    isBoth: !!((!state.isCollaborator && state.isParent))
-                }
-            })
-            break
-        case checkId.both:
-            this.setState(state => {
-                return {
-                    isParent: !state.isBoth,
-                    isCollaborator: !state.isBoth,
-                    isBoth: !state.isBoth
-                }
-            })
-            break
-        }
     }
 
     render () {
@@ -62,9 +23,9 @@ class registerStart extends Component {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        id={checkId.parent}
-                                        checked={this.state.isParent}
-                                        onChange={this.handleCheck}
+                                        id={ids.registerStart.check.parent}
+                                        checked={this.props.currentActor === ids.registerStart.check.both || this.props.currentActor === ids.registerStart.check.parent}
+                                        onChange={this.props.onCheckActor}
                                         icon={<CheckBoxOutlineBlankRoundedIcon />}
                                         checkedIcon={<VerifiedUserRoundedIcon />}
                                     />
@@ -74,9 +35,9 @@ class registerStart extends Component {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        id={checkId.collaborator}
-                                        checked={this.state.isCollaborator}
-                                        onChange={this.handleCheck}
+                                        id={ids.registerStart.check.collaborator}
+                                        checked={this.props.currentActor === ids.registerStart.check.both || this.props.currentActor === ids.registerStart.check.collaborator}
+                                        onChange={this.props.onCheckActor}
                                         icon={<CheckBoxOutlineBlankRoundedIcon />}
                                         checkedIcon={<VerifiedUserRoundedIcon />}
                                     />
@@ -86,9 +47,9 @@ class registerStart extends Component {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        id={checkId.both}
-                                        checked={this.state.isBoth}
-                                        onChange={this.handleCheck}
+                                        id={ids.registerStart.check.both}
+                                        checked={this.props.currentActor === ids.registerStart.check.both}
+                                        onChange={this.props.onCheckActor}
                                         icon={<CheckBoxOutlineBlankRoundedIcon />}
                                         checkedIcon={<VerifiedUserRoundedIcon />}
                                     />
@@ -96,8 +57,9 @@ class registerStart extends Component {
                                 label={lang.check.both}
                             />
                         </FormGroup>
-                        {(this.state.isParent || this.state.isCollaborator) && (
+                        {(this.props.currentActor !== null) && (
                             <div
+                                id={ids.loginRegister.showRegister}
                                 onClick={this.props.onShowRegisterForm}
                                 className='next-step'
                             >

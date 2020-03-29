@@ -5,7 +5,7 @@ class ChildrenForm extends Component {
         return (
             <>
                 <div>
-                    <h1>Fiche d'inscription</h1>
+                    <h1>Fiche d'inscription {this.props.nbre}</h1>
                 </div>
             </>
         )
