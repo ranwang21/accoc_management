@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import InformationCoordonnees from '../components/forms/informations-coordonnees'
 import ChildCount from '../components/child-count'
-import ChildrenForm from '../components/forms/children-form'
+import ChildrenInscription from '../components/forms/children-inscription'
 import PreviousIcon from '@material-ui/icons/NavigateBeforeRounded'
 import NextIcon from '@material-ui/icons/NavigateNextRounded'
 import IconButton from '@material-ui/core/IconButton'
@@ -209,19 +209,19 @@ class RegisterContainer extends Component {
                                 />
                             )}
                             {childCount >= 1 && this.state.step === 3 && (
-                                <ChildrenForm lang={this.props.lang} nbre={this.state.step - 2} />
+                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
                             )}
                             {childCount >= 2 && this.state.step === 4 && (
-                                <ChildrenForm lang={this.props.lang} nbre={this.state.step - 2} />
+                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
                             )}
                             {childCount >= 3 && this.state.step === 5 && (
-                                <ChildrenForm lang={this.props.lang} nbre={this.state.step - 2} />
+                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
                             )}
                             {childCount >= 4 && this.state.step === 6 && (
-                                <ChildrenForm lang={this.props.lang} nbre={this.state.step - 2} />
+                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
                             )}
                             {childCount >= 5 && this.state.step === 7 && (
-                                <ChildrenForm lang={this.props.lang} nbre={this.state.step - 2} />
+                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
                             )}
                             {this.state.step === (max - 1) && (<div>FORMULAIRE 3</div>)}
                             {this.state.step === max && (<div>FORMULAIRE 4</div>)}

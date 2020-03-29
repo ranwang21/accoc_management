@@ -1,0 +1,203 @@
+{
+    "fields": [
+        {
+            "name": "sex",
+            "required": true,
+            "type": "radioField",
+            "radioOptions": [
+                {
+                    "name": "sex_mme"
+                },
+                {
+                    "name": "sex_mr"
+                }
+            ]
+        },
+        {
+            "name": "birthday",
+            "type": "dateField",
+            "required": true
+        },
+        {
+            "name": "last_name",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "first_name",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "address",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "email",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "contacts",
+            "type": "contactField",
+            "textOptions": [
+                {
+                    "name": "contacts_personal",
+                    "type": "textField",
+                    "required": true
+                },
+                {
+                    "name": "contacts_home",
+                    "type": "textField",
+                    "required": false
+                },
+                {
+                    "name": "contacts_work",
+                    "type": "textField",
+                    "required": false
+                },
+                {
+                    "name": "contacts_emergency",
+                    "type": "textField",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "is_subscribed",
+            "type": "checkboxField",
+            "required": false
+        },
+        {
+            "name": "has_child",
+            "type": "checkboxField",
+            "required": true
+        },
+        {
+            "name": "membership",
+            "required": true,
+            "type": "membershipField",
+            "radioOptions": [
+                {
+                    "name": "membership_becomeMember"
+                },
+                {
+                    "name": "membership_alreadyMember"
+                },
+                {
+                    "name": "membership_notWantMember"
+                }
+            ],
+            "options2": [
+                {
+                    "name": "membership_becomeMember_paymentMethod",
+                    "type": "textField",
+                    "required": false
+                },
+                {
+                    "name": "membership_becomeMember_memberCard",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "membership_becomeMember_discountCard",
+                    "type": "checkboxField",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "participation",
+            "required": true,
+            "type": "participationField",
+            "checkboxOptions1": [
+                {
+                    "name": "participation_cuisine",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "participation_debrouille",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "participation_jmc",
+                    "type": "checkboxField",
+                    "required": false
+                }
+            ],
+            "checkboxOptions2": [
+                {
+                    "name": "participation_repas",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "participation_viecomm",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "participation_atelier",
+                    "type": "checkboxField",
+                    "required": false
+                }
+            ],
+            "others": [
+                {
+                    "name": "participation_diverses",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "participation_diverses_options",
+                    "type": "textField",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "volunteering",
+            "required": true,
+            "type": "volunteeringField",
+            "checkboxOptions1": [
+                {
+                    "name": "volunteering_accueil",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "volunteering_devoirs",
+                    "type": "checkboxField",
+                    "required": false
+                }
+            ],
+            "checkboxOptions2": [
+                {
+                    "name": "volunteering_citoyenne",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "volunteering_repas",
+                    "type": "checkboxField",
+                    "required": false
+                }
+            ],
+            "others": [
+                {
+                    "name": "volunteering_diverses",
+                    "type": "checkboxField",
+                    "required": false
+                },
+                {
+                    "name": "volunteering_diverses_options",
+                    "type": "textField",
+                    "required": true
+                }
+            ]
+        }
+    ]
+}
