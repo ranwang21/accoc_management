@@ -13,14 +13,14 @@ class ChildrenInscription extends Component {
         return (
             <>
                 <div className='children-inscription'>
-                    <h1>{lang.title} Fiche d'inscription {this.props.nbre}</h1>
+                    <h1>{lang.title} / {this.props.nbre}</h1>
                     <div className='fields'>
-                        {FormConfig.map(field => {
+                        {/* FormConfig.map(field => {
                             return (
                                 <div key={variables.id.register[field.name]}>
-                                    {Form[field.type](field, this.props.lang, lang, this.props.fields, this.props.errors, this.props.inputEvent)}
+                                    { Form[field.type](field, this.props.lang, lang, this.props.fields, this.props.errors, this.props.inputEvent) }
                                 </div>)
-                        })}
+                        }) */}
                     </div>
 
                 </div>

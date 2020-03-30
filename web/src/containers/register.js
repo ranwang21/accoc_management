@@ -23,9 +23,11 @@ class RegisterContainer extends Component {
     constructor () {
         super()
         this.state = {
-            step: 1,
+            // step: 1,
+            step: 3,
             maxStep: 9,
-            nbrChild: null,
+            // nbrChild: 0,
+            nbrChild: 1,
             showPrev: false,
             showNext: true,
             fields1: {
@@ -93,7 +95,7 @@ class RegisterContainer extends Component {
     componentDidMount () {
     }
 
-    step1HasError () {
+    step1AllHasErrors () {
         const errors = {
             sex: this.state.fields1.sex === null,
             birthday: this.state.fields1.birthday === null,
@@ -110,12 +112,16 @@ class RegisterContainer extends Component {
         return value.length !== 0
     }
 
-    step2HasError () {
+    step2AllHasErrors () {
         if (this.state.nbrChild === null) {
             this.setState({ childCountError: true })
             setTimeout(() => { this.setState({ childCountError: false }) }, 1500)
             return true
         } else return false
+    }
+
+    stepChildHasErrors () {
+        return true
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
@@ -146,14 +152,15 @@ class RegisterContainer extends Component {
         const currentElement = event.target.tagName === 'path' ? event.target.parentElement : event.target
         if (currentElement.id === 'prev') {
             this.setState({
-                step: currentStep > 1 && --currentStep,
+                step: currentStep > 1 ? --currentStep : 1,
                 showPrev: currentStep > 1,
                 showNext: currentStep < maxStep
             })
         } else if (currentElement.id === 'next') {
-            !this['step' + currentStep + 'HasError']() && (
+            const functionName = (currentStep > 2 && currentStep < (maxStep - 1)) ? 'stepChildHasErrors' : 'step' + currentStep + 'AllHasErrors'
+            !this[functionName]() && (
                 this.setState({
-                    step: currentStep < maxStep && ++currentStep,
+                    step: currentStep < maxStep ? ++currentStep : maxStep,
                     showPrev: currentStep > 1,
                     showNext: currentStep < maxStep
                 })
@@ -186,7 +193,6 @@ class RegisterContainer extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const childCount = (this.props.currentActor !== actorsIds.collaborator) ? this.state.nbrChild : 0
         const max = (this.props.currentActor !== actorsIds.collaborator) ? (this.state.nbrChild + 4) : 3
         return (
             <div className='register-container'>
@@ -200,28 +206,18 @@ class RegisterContainer extends Component {
                             {this.state.step === 1 && (
                                 <InformationCoordonnees lang={this.props.lang} fields={this.state.fields1} errors={this.state.errors1} inputEvent={this.onInputChange} />
                             )}
-                            {(childCount === null || childCount >= 0) && this.state.step === 2 && (
+                            {(this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= 0 && this.state.step === 2) && (
                                 <ChildCount
                                     lang={this.props.lang}
-                                    childCount={childCount}
+                                    childCount={this.state.nbrChild}
                                     onChildCount={this.handleChildCount}
                                     childCountError={this.state.childCountError}
                                 />
                             )}
-                            {childCount >= 1 && this.state.step === 3 && (
-                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
-                            )}
-                            {childCount >= 2 && this.state.step === 4 && (
-                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
-                            )}
-                            {childCount >= 3 && this.state.step === 5 && (
-                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
-                            )}
-                            {childCount >= 4 && this.state.step === 6 && (
-                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
-                            )}
-                            {childCount >= 5 && this.state.step === 7 && (
-                                <ChildrenInscription lang={this.props.lang} nbre={this.state.step - 2} />
+                            {[...Array(this.state.nbrChild).keys()].map(x => (
+                                this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= (x + 1) && this.state.step === (x + 3) && (
+                                    (<ChildrenInscription key={this.state.nbrChild + x} lang={this.props.lang} nbre={this.state.step - 2} />)
+                                ))
                             )}
                             {this.state.step === (max - 1) && (<div>FORMULAIRE 3</div>)}
                             {this.state.step === max && (<div>FORMULAIRE 4</div>)}
