@@ -1,0 +1,212 @@
+{
+    "fields": [
+        {
+            "name": "lastName",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "firstName",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "birthday",
+            "type": "dateField",
+            "required": true
+        },
+        {
+            "name": "garde",
+            "required": true,
+            "type": "membershipField",
+            "radioOptions": [
+                {
+                    "name": "gardeAll"
+                },
+                {
+                    "name": "gardeShared",
+                    "info": "gardeSharedInfo"
+                },
+                {
+                    "name": "gardeMother",
+                    "options": [
+                        {
+                            "name": "gardeMotherOption",
+                            "required": true,
+                            "type": "radioField",
+                            "radioOptions": [
+                                {
+                                    "name": "gardeMotherOptionYes"
+                                },
+                                {
+                                    "name": "gardeMotherOptionNo"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "gardeFather",
+                    "options": {
+                        "name": "gardeFatherOption",
+                        "required": true,
+                        "type": "radioField",
+                        "radioOptions": [
+                            {
+                                "name": "gardeFatherOptionYes"
+                            },
+                            {
+                                "name": "gardeFatherOptionNo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "gardeOther",
+                    "options": [
+                        {
+                            "name": "gardeOtherOption",
+                            "type": "textField",
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "school",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "schoolLevel",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "adlRegister",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "redouble",
+            "required": true,
+            "type": "membershipField",
+            "radioOptions": [
+                {
+                    "name": "redoubleYes",
+                    "options": [
+                        {
+                            "name": "redoubleYesOption",
+                            "type": "textField",
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "name": "redoubleNo"
+                }
+            ]
+        },
+        {
+            "name": "registerReason",
+            "type": "textField",
+            "required": true
+        },
+        {
+            "name": "evaluation",
+            "required": true,
+            "type": "radioField",
+            "radioOptions": [
+                {
+                    "name": "evaluationYes"
+                },
+                {
+                    "name": "evaluationNo"
+                }
+            ]
+        },
+        {
+            "name": "daycareService",
+            "required": true,
+            "type": "membershipField",
+            "radioOptions": [
+                {
+                    "name": "daycareServiceYes",
+                    "options": [
+                        {
+                            "name": "daycareServiceYesName",
+                            "type": "textField",
+                            "required": false
+                        },
+                        {
+                            "name": "daycareServiceYesPhone",
+                            "type": "textField",
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "name": "daycareServiceNo"
+                }
+            ]
+        },
+        {
+            "name": "ramq",
+            "type": "textField",
+            "required": false
+        },
+        {
+            "name": "expiration",
+            "type": "dateField",
+            "required": true
+        },
+        {
+            "name": "allergies",
+            "type": "textField",
+            "required": false
+        },
+        {
+            "name": "drug",
+            "type": "textField",
+            "required": false
+        },
+        {
+            "name": "othersInfos",
+            "type": "textField",
+            "required": false
+        },
+        {
+            "name": "autorisation",
+            "type": "contactField",
+            "textOptions": [
+                {
+                    "name": "autorisationPapper",
+                    "required": true,
+                    "type": "radioField",
+                    "radioOptions": [
+                        {
+                            "name": "autorisationPapperYes"
+                        },
+                        {
+                            "name": "autorisationPapperNo"
+                        }
+                    ]
+                },
+                {
+                    "name": "autorisationInternet",
+                    "required": true,
+                    "type": "radioField",
+                    "radioOptions": [
+                        {
+                            "name": "autorisationInternetYes"
+                        },
+                        {
+                            "name": "autorisationInternetNo"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
