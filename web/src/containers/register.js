@@ -23,11 +23,9 @@ class RegisterContainer extends Component {
     constructor () {
         super()
         this.state = {
-            // step: 1,
-            step: 3,
+            step: 1,
             maxStep: 9,
-            // nbrChild: 0,
-            nbrChild: 1,
+            nbrChild: 0,
             showPrev: false,
             showNext: true,
             fields1: {
