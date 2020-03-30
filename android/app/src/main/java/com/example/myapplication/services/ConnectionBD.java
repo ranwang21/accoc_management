@@ -16,18 +16,15 @@ public class ConnectionBD {
 
     private static SQLiteDatabase bd;
     private static String nomBd = "maisonaurore";
-    private static int version = 1;
-
     public static SQLiteDatabase getBd(Context ctx) {
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(ctx, nomBd, null, version);
+
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(ctx, nomBd, null, Preferences.getVersion());
         bd = dataBaseHelper.getWritableDatabase();
         return bd;
     }
-
     public static void close() {
         bd.close();
     }
-
     public static void copyBdFromAssets(Context context) {
         File bdApp = context.getDatabasePath(nomBd);
         if (!bdApp.exists()) getBd(context);
