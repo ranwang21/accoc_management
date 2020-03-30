@@ -17,8 +17,7 @@ public class ConnectionBD {
     private static SQLiteDatabase bd;
     private static String nomBd = "maisonaurore";
     public static SQLiteDatabase getBd(Context ctx) {
-
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(ctx, nomBd, null, Preferences.getVersion());
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(ctx, nomBd, null, Preferences.getVersion(ctx));
         bd = dataBaseHelper.getWritableDatabase();
         return bd;
     }

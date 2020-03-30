@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,20 +36,24 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email_signin);
         edtPassword = findViewById(R.id.edt_password_signin);
         btnSignIn = findViewById(R.id.btn_signin);
-        Preferences preferences = new Preferences(LoginActivity.this);
-        preferences.init();
-        Log.d("Json", "onCreate: "+preferences.getVersion());;
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        if (Preferences.getVersion(this) == -1) {
+            Preferences.setVersion(this, 1);
+        }
+        Log.d("Json", "onCreate: " + Preferences.getVersion(this));
+        ;
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    preferences.incrementVersion();
+                    Preferences.incrementVersion(LoginActivity.this);
                     Login login = new Login(edtEmail.getText().toString(), edtPassword.getText().toString());
                     String token = LoginManager.getLoginToken(login, "");
                     RoleHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
                     UserHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
                     ClassroomHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
-                    Preferences.setToken(token);
+                    Preferences.setToken(LoginActivity.this, token);
                     Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                     startActivity(intent);
                 } catch (Exception e) {
