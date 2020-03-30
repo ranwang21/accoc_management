@@ -31,6 +31,10 @@ const variables = {
         token: 'RIKSGD'
     },
     id: {
+        loginRegister: {
+            showLogin: 'loginRegister85421502',
+            showRegister: 'loginRegisters54d1c5s'
+        },
         login: {
             email: '5D2FC1ED5X2',
             password: 'EDF41C5S205SD'
@@ -52,29 +56,49 @@ const variables = {
         },
         register: {
             sex: '8R5D4GF1VD5',
-            mme: '5EDF4E5D',
-            mr: '5DF41EDX5DV',
+            sex_mme: '8R5D4GF1VD51',
+            sex_mr: '8R5D4GF1VD52',
+
             birthday: '7E4DE54F15ED2',
             last_name: '8E5D4FDW185S',
             first_name: 'Q8W7E4F2S8D',
             email: '9A62S41XC4D2F',
             address: '5141428422',
+
             contacts: 'E85DF4CED521',
-            personal: '87521562585215415',
-            home: '8752156254545241',
-            work: '875215625S52D1C4D1X',
-            emergency: '875215625E4DSF4D5S',
-            toContacted: '8752156259W8E5RD2E15',
+            contacts_personal: 'E85DF4CED5211',
+            contacts_home: 'E85DF4CED5212',
+            contacts_work: 'E85DF4CED5213',
+            contacts_emergency: 'E85DF4CED5215',
+
             is_subscribed: 'AS41XCS52DZ1',
             has_child: '9D6F4DX1S5D',
-            memberShip: '8E5D4F1E5D',
-            becomeMember: '8D5F41C5D2XF',
-            alreadyMember: '5D2FX1CD52',
-            notWantMember: 'ED54X1C5S2',
-            paymentMethod: 'W5E4RT1FGHYU74IUI4J1',
-            memberCard: 'O8I2JH4J1NH4G',
-            discountCard: '8O7IUKH4LK52BV1DD5S',
-            participation: '8D5F51V5DF24'
+
+            membership: '8E5D4F1E5D',
+            membership_becomeMember: '8E5D4F1E5D1',
+            membership_alreadyMember: '8E5D4F1E5D2',
+            membership_notWantMember: '8E5D4F1E5D3',
+            membership_becomeMember_paymentMethod: '8E5D4F1E5D4',
+            membership_becomeMember_memberCard: '8E5D4F1E5D5',
+            membership_becomeMember_discountCard: '8E5D4F1E5D6',
+
+            participation: '6DF2CD52XD1',
+            participation_cuisine: '6DF2CD52XD11',
+            participation_debrouille: '6DF2CD52XD12',
+            participation_jmc: '6DF2CD52XD13',
+            participation_diverses: '6DF2CD52XD14',
+            participation_repas: '6DF2CD52XD15',
+            participation_viecomm: '6DF2CD52XD16',
+            participation_atelier: '6DF2CD52XD17',
+            participation_diverses_options: '6DF2CD52XD18',
+
+            volunteering: 'D5F41CD52F1C',
+            volunteering_accueil: 'D5F41CD52F1C1',
+            volunteering_devoirs: 'D5F41CD52F1C2',
+            volunteering_diverses: 'D5F41CD52F1C3',
+            volunteering_citoyenne: 'D5F41CD52F1C4',
+            volunteering_repas: 'D5F41CD52F1C5',
+            volunteering_diverses_options: 'D5F41CD52F1C6'
         }
     }
 }

@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import Form from './builds'
 
-import '../../styles/_informations-coordonnees.scss'
-const FormConfig = require('../../forms-files/informations-coordonnees.json').fields
+import '../../styles/_children-inscription.scss'
+const FormConfig = require('../../forms-files/children-inscription.json').fields
 const variables = require('../../utilities/variables').variables
 
-class InformationsCoordonnees extends Component {
-    getLangFile () { return require('../../lang/' + this.props.lang + '/informations-coordonnees.json') }
+class ChildrenInscription extends Component {
+    getLangFile () { return require('../../lang/' + this.props.lang + '/children-inscription.json') }
 
     render () {
         const lang = this.getLangFile()
         return (
             <>
-                <div className='informations-coordonnees'>
-                    <h1>{lang.title}</h1>
+                <div className='children-inscription'>
+                    <h1>{lang.title} Fiche d'inscription {this.props.nbre}</h1>
                     <div className='fields'>
                         {FormConfig.map(field => {
                             return (
@@ -29,4 +29,4 @@ class InformationsCoordonnees extends Component {
     }
 }
 
-export default InformationsCoordonnees
+export default ChildrenInscription

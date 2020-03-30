@@ -1,6 +1,8 @@
 'use-strict'
-var jwt = require('jwt-simple')
-var secret = 'xxx'
+
+const HOST = 'https://maison-aurore-api.herokuapp.com'
+const jwt = require('jwt-simple')
+const secret = 'xxx'
 // TOKEN Encoder and decoder
 const decodeData = (token) => {
     return jwt.decode(token, secret)
@@ -20,7 +22,7 @@ const authLogin = (email, password, callBack) => {
         email: email,
         password: password
     }
-    fetch('http://localhost:8080/auth/login', {
+    fetch(HOST + '/auth/login', {
         method: 'post',
         headers: {
             Accept: 'application/json',
@@ -30,12 +32,13 @@ const authLogin = (email, password, callBack) => {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             callBack(data)
         })
 }
 
 const logOutUser = () => {
-    fetch('http://localhost:8080/auth/logout', {
+    fetch(HOST + '/auth/logout', {
         credentials: 'include'
     })
         .then(response => response.json())
@@ -44,7 +47,7 @@ const logOutUser = () => {
 }
 
 const getCurrentUser = (token, callBack) => {
-    fetch('http://localhost:8080/auth/user', {
+    fetch(HOST + '/auth/user', {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -54,7 +57,7 @@ const getCurrentUser = (token, callBack) => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                fetch('http://localhost:8080/roles/' + data.data.id_role, {
+                fetch(HOST + '/roles/' + data.data.id_role, {
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
@@ -72,7 +75,7 @@ const getCurrentUser = (token, callBack) => {
 }
 
 const addUser = (params, callBack) => {
-    fetch('http://localhost:8080/roles', {
+    fetch(HOST + '/roles', {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -90,7 +93,7 @@ const addUser = (params, callBack) => {
                         last_name: params.last_name
                     }
 
-                    fetch('http://localhost:8080/users', {
+                    fetch(HOST + '/users', {
                         method: 'post',
                         headers: {
                             Accept: 'application/json',
@@ -109,7 +112,7 @@ const addUser = (params, callBack) => {
                                     is_active: params.is_active
                                 }
 
-                                fetch('http://localhost:8080/logins', {
+                                fetch(HOST + '/logins', {
                                     method: 'post',
                                     headers: {
                                         Accept: 'application/json',
@@ -130,7 +133,7 @@ const addUser = (params, callBack) => {
 }
 
 const deleteLogin = (token, idLogin, callBack) => {
-    fetch('http://localhost:8080/logins/' + idLogin, {
+    fetch(HOST + '/logins/' + idLogin, {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
@@ -161,5 +164,6 @@ export default {
     decodeData,
     validateEmail,
     addUser,
-    deleteLogin
+    deleteLogin,
+    getAddressFromGoogle
 }

@@ -1,31 +1,59 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RatingBar;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class SuiviQuotidienActivity extends AppCompatActivity {
 
-    RatingBar simpleRatingBar;
-    Button submitRating;
+    ImageView img_smile1;
+    ImageView img_smile2;
+    ImageView img_smile3;
+    ImageView img_neutral;
+    TableRow tablerow2;
+    TableLayout table;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suivi_quotidien);
-        simpleRatingBar = findViewById(R.id.rt1); // initiate a rating bar
-        submitRating = findViewById(R.id.btn_soumettre);
-        submitRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String totalStars = "Total Stars:: " + simpleRatingBar.getNumStars();
-                String rating = "Rating :: " + simpleRatingBar.getRating();
-                Toast.makeText(getApplicationContext(), totalStars + "\n" + rating, Toast.LENGTH_LONG).show();
+        table = findViewById(R.id.table);
+        tablerow2 = findViewById(R.id.tablerow2);
+        img_smile1 = findViewById(R.id.image_smile1);
+        img_smile2 = findViewById(R.id.image_smile2);
+        img_smile3 = findViewById(R.id.image_smile3);
+//        parcourir chaque cellule et mettre l'image a setvisible quand on clique dans la cellule.
+        table = findViewById(R.id.table);
+        tablerow2 = findViewById(R.id.tablerow2);
+        for (int i = 0; i < table.getChildCount(); ++i) {
+            TableRow row = (TableRow) table.getChildAt(i);
+            for (int j = 0; j < row.getChildCount(); ++j) {
+                View view = (View) row.getChildAt(j);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (v instanceof ImageView) {
+                            showImage(img_smile1);
+                        }
+                    }
+                });
             }
-        });
+        }
+    }
+
+    private void showImage(ImageView imageView) {
+        if (imageView.getVisibility() == View.INVISIBLE) {
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            imageView.setVisibility(View.INVISIBLE);
+        }
     }
 }
+
+

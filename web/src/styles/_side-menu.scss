@@ -1,11 +1,18 @@
 @import "./base";
 .side-menu {
+	background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6) !important;
 	ul {
 		.Mui-selected {
 			background-color: $primaryColor !important;
 			border-radius: 0.5em;
-			color: $whiteColor;
 			transition: all 0.5s;
+			color: $whiteColor;
+
+			> div {
+				svg {
+					color: $whiteColor;
+				}
+			}
 		}
 		div > span {
 			margin-right: 1em;
