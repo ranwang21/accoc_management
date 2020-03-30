@@ -1,128 +1,166 @@
 {
     "title": "Information and contact details",
-    "sex": {
-        "label": "title",
-        "labelError": "Required"
+    "lastName": {
+        "label": "Nom",
+        "labelError": "Obligatoire"
     },
-    "sex_mme": {
-        "label": "Mrs"
-    },
-    "sex_mr": {
-        "label": "Mr"
+    "firstName": {
+        "label": "Prénom",
+        "labelError": "Obligatoire"
     },
     "birthday": {
-        "label": "Date of Birth",
-        "labelError": "Required"
+        "label": "Date de naissance",
+        "labelError": "Obligatoire"
     },
-    "last_name": {
-        "label": "Last name",
-        "labelError": "Required"
+    "garde": {
+        "label": "Garde de l'enfant",
+        "labelError": "Obligatoire",
+        "options": {
+            "gardeAll": {
+                "label": "Les 2 parents"
+            },
+            "gardeShared": {
+                "label": "garde partagee",
+                "info": "Completer unne fiche d'inscription par parent"
+            },
+            "gardeMother": {
+                "label": "la mere",
+                "gardeMotherOption": {
+                    "title": "L'enfant voit-il l'autre parent?",
+                    "gardeMotherOptionYes": {
+                        "label": "Oui"
+                    },
+                    "gardeMotherOptionNo": {
+                        "label": "Non"
+                    }
+                }
+            },
+            "gardeFather": {
+                "label": "le pere",
+                "gardeFatherOption": {
+                    "title": "L'enfant voit-il l'autre parent?",
+                    "gardeFatherOptionYes": {
+                        "label": "Oui"
+                    },
+                    "gardeFatherOptionNo": {
+                        "label": "Non"
+                    }
+                }
+            },
+            "gardeOther": {
+                "label": "Autres",
+                "gardeOtherOption": {
+                    "label": "Precisez"
+                }
+            }
+        }
     },
-    "first_name": {
-        "label": "First name",
-        "labelError": "Required"
+    "school": {
+        "label": "Nom de l'ecole",
+        "labelError": "Obligatoire"
     },
-    "address": {
-        "label": "Address",
-        "labelError": "Required"
+    "schoolLevel": {
+        "label": "Niveau scolaire",
+        "labelError": "Obligatoire"
     },
-    "contacts": {
-        "label": "Contacts",
-        "labelError": "At least one required contact"
+    "adlRegister": {
+        "label": "Nombre d'inscription a l'ADL",
+        "labelError": "Obligatoire"
     },
-    "contacts_personal": {
-        "label": "Personal"
+    "redouble": {
+        "label": "L'enfant a t-il redouble une annee?",
+        "labelError": "Obligatoire",
+        "options": {
+            "redoubleYes": {
+                "label": "Oui",
+                "options": {
+                    "redoubleYesOption": {
+                        "label": "Laquelle?"
+                    }
+                }
+            },
+            "redoubleNo": {
+                "label": "Non"
+            }
+        }
     },
-    "contacts_home": {
-        "label": "Home"
+    "registerReason": {
+        "label": "Raison de l'inscription",
+        "labelError": "Obligatoire"
     },
-    "contacts_work": {
-        "label": "Work"
+    "evaluation": {
+        "label": "Evaluation?",
+        "labelError": "Obligatoire",
+        "options": {
+            "evaluationYes": {
+                "label": "Oui"
+            },
+            "evaluationNo": {
+                "label": "Non"
+            }
+        }
     },
-    "contacts_emergency": {
-        "label": "Emergency"
+    "daycareService": {
+        "label": "L'enfant a t-il redouble une annee?",
+        "labelError": "Obligatoire",
+        "options": {
+            "daycareServiceYes": {
+                "label": "Oui",
+                "options": {
+                    "daycareServiceYesName": {
+                        "label": "Nom de l'educatrice"
+                    },
+                    "daycareServiceYesPhone": {
+                        "label": "Telephone"
+                    }
+                }
+            },
+            "daycareServiceNo": {
+                "label": "Non"
+            }
+        }
     },
-    "email": {
-        "label": "E-mail adress",
-        "labelError": "Invalid email address"
+    "ramq": {
+        "label": "RAMQ"
     },
-    "is_subscribed": {
-        "label": "Would you like to subscribe to the Maison Aurore electronic mailing list?"
+    "expiration": {
+        "label": "Expiration"
     },
-    "has_child": {
-        "label": "Do you have one or more children under the age of 18?"
+    "allergies": {
+        "label": "Allergies (alimenaires ou autres)"
     },
-    "membership": {
-        "title1": "Membership allows you to actively participate in the democratic life of the Maison Aurore and shows proud support for the organization's mission and actions.",
-        "title2": "The membership card is valid from April 1 to March 31 of the following year. It costs $ 5 to get it.",
-        "label": "Membership",
-        "labelError": "Required"
+    "drug": {
+        "label": "Medicaments"
     },
-    "membership_becomeMember": {
-        "label": "Become a member"
+    "othersInfos": {
+        "label": "Autres informations pertinentes"
     },
-    "membership_alreadyMember": {
-        "label": "Already a member"
-    },
-    "membership_notWantMember": {
-        "label": "Not for the moment"
-    },
-    "membership_becomeMember_memberCard": {
-        "label": "Discount card"
-    },
-    "membership_becomeMember_discountCard": {
-        "label": "Membership card"
-    },
-    "membership_becomeMember_paymentMethod": {
-        "label": "Payment method"
-    },
-    "participation": {
-        "label": "Participation / Activities",
-        "labelError": "Required"
-    },
-    "participation_cuisine": {
-        "label": "Collective Kitchen"
-    },
-    "participation_debrouille": {
-        "label": "Resourcefulness (>= 50 years)"
-    },
-    "participation_jmc": {
-        "label": "JMC activities"
-    },
-    "participation_diverses": {
-        "label": "Diverse activities"
-    },
-    "participation_repas": {
-        "label": "Community meal"
-    },
-    "participation_viecomm": {
-        "label": "Community life"
-    },
-    "participation_atelier": {
-        "label": "Culinary workshop"
-    },
-    "participation_diverses_options": {
-        "label": "Specify"
-    },
-    "volunteering": {
-        "label": "Volunteering / Collaboration"
-    },
-    "volunteering_accueil": {
-        "label": "Home"
-    },
-    "volunteering_devoirs": {
-        "label": "Homework and Lessons Workshop"
-    },
-    "volunteering_diverses": {
-        "label": "Diverse activities"
-    },
-    "volunteering_citoyenne": {
-        "label": "Citizen action"
-    },
-    "volunteering_repas": {
-        "label": "Community meal"
-    },
-    "volunteering_diverses_options": {
-        "label": "Specify"
+    "autorisation": {
+        "label": "Autorisation",
+        "labelError": "Obligatoire",
+        "options": {
+            "autorisationPapper": {
+                "title": "en version papier",
+                "options": {
+                    "autorisationPapperYes": {
+                        "label": "Oui"
+                    },
+                    "autorisationPapperNo": {
+                        "label": "Non"
+                    }
+                }
+            },
+            "autorisationInternet": {
+                "title": "en version internet",
+                "options": {
+                    "autorisationInternetYes": {
+                        "label": "Oui"
+                    },
+                    "autorisationInternetNo": {
+                        "label": "Non"
+                    }
+                }
+            }
+        }
     }
 }
