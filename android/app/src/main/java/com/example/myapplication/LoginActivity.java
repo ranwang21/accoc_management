@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +19,7 @@ import com.example.myapplication.helpers.RoleHelper;
 import com.example.myapplication.helpers.UserHelper;
 import com.example.myapplication.managers.LoginManager;
 import com.example.myapplication.services.ConnectionBD;
+import com.example.myapplication.services.Preferences;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,15 +36,22 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email_signin);
         edtPassword = findViewById(R.id.edt_password_signin);
         btnSignIn = findViewById(R.id.btn_signin);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        if (Preferences.getVersion(this) == -1) {
+            Preferences.setVersion(this, 1);
+        }
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
+                    Preferences.incrementVersion(LoginActivity.this);
                     Login login = new Login(edtEmail.getText().toString(), edtPassword.getText().toString());
                     String token = LoginManager.getLoginToken(login, "");
                     RoleHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
                     UserHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
                     ClassroomHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
+                    Preferences.setToken(LoginActivity.this, token);
                     Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                     startActivity(intent);
                 } catch (Exception e) {
