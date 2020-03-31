@@ -146,6 +146,20 @@ const deleteLogin = (token, idLogin, callBack) => {
         })
 }
 
+const getImage = (token, callBack) => {
+    fetch(HOST + '/users/5e6a3e314554933864b2c3b1/photo', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            callBack(data)
+        })
+}
+
 const getAddressFromGoogle = () => {
     const API_KEY = 'AIzaSyCeyah5EQEjXMmGTgWi1lTQyORN4n4Wil0'
     const input = '5217+Trans+island'
@@ -165,5 +179,6 @@ export default {
     validateEmail,
     addUser,
     deleteLogin,
-    getAddressFromGoogle
+    getAddressFromGoogle,
+    getImage
 }
