@@ -41,8 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         if (Preferences.getVersion(this) == -1) {
             Preferences.setVersion(this, 1);
         }
-        Log.d("Json", "onCreate: " + Preferences.getVersion(this));
-        ;
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
