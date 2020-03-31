@@ -1,7 +1,7 @@
 @import "./base";
 
 .create-account {
-	background-color: rgba($color: $primaryColor, $alpha: 0.2);
+	background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
 	border-radius: 0.5em;
 	overflow: hidden;
 	height: 60%;
@@ -72,16 +72,17 @@
 			> div.retour {
 				height: min-content;
 				padding: 0.3em 0.7em;
-				border: 5px solid rgba($color: $primaryColor, $alpha: 0.3);
+				border: 5px solid rgba($color: rgb(255, 255, 255), $alpha: 0.6);
+				color: rgba($color: rgb(255, 255, 255), $alpha: 0.8);
 				text-transform: capitalize;
 				border-radius: 0.5em;
 
 				cursor: pointer;
 				transition: all 0.5s;
 				&:hover {
-					background-color: rgba($color: $primaryColor, $alpha: 0.3);
+					background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
 					border: 5px solid transparent;
-					color: $whiteColor;
+					color: black;
 				}
 			}
 			> div.contain {

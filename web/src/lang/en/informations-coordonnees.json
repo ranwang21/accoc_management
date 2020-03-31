@@ -4,10 +4,10 @@
         "label": "title",
         "labelError": "Required"
     },
-    "mme": {
+    "sex_mme": {
         "label": "Mrs"
     },
-    "mr": {
+    "sex_mr": {
         "label": "Mr"
     },
     "birthday": {
@@ -15,11 +15,11 @@
         "labelError": "Required"
     },
     "last_name": {
-        "label": "First Name",
+        "label": "Last name",
         "labelError": "Required"
     },
     "first_name": {
-        "label": "Last Name",
+        "label": "First name",
         "labelError": "Required"
     },
     "address": {
@@ -28,22 +28,19 @@
     },
     "contacts": {
         "label": "Contacts",
-        "labelError": "Required"
+        "labelError": "At least one required contact"
     },
-    "personal": {
+    "contacts_personal": {
         "label": "Personal"
     },
-    "home": {
+    "contacts_home": {
         "label": "Home"
     },
-    "work": {
+    "contacts_work": {
         "label": "Work"
     },
-    "emergency": {
+    "contacts_emergency": {
         "label": "Emergency"
-    },
-    "toContacted": {
-        "label": "Contact person"
     },
     "email": {
         "label": "E-mail adress",
@@ -55,26 +52,77 @@
     "has_child": {
         "label": "Do you have one or more children under the age of 18?"
     },
-    "memberShip": {
+    "membership": {
+        "title1": "Membership allows you to actively participate in the democratic life of the Maison Aurore and shows proud support for the organization's mission and actions.",
+        "title2": "The membership card is valid from April 1 to March 31 of the following year. It costs $ 5 to get it.",
         "label": "Membership",
         "labelError": "Required"
     },
-    "becomeMember": {
-        "label": "become member"
+    "membership_becomeMember": {
+        "label": "Become a member"
     },
-    "alreadyMember": {
-        "label": "already member"
+    "membership_alreadyMember": {
+        "label": "Already a member"
     },
-    "notWantMember": {
-        "label": "not for the moment"
+    "membership_notWantMember": {
+        "label": "Not for the moment"
     },
-    "memberCard": {
+    "membership_becomeMember_memberCard": {
         "label": "Discount card"
     },
-    "discountCard": {
-        "label": "Member card"
+    "membership_becomeMember_discountCard": {
+        "label": "Membership card"
     },
-    "paymentMethod": {
+    "membership_becomeMember_paymentMethod": {
         "label": "Payment method"
+    },
+    "participation": {
+        "label": "Participation / Activities",
+        "labelError": "Required"
+    },
+    "participation_cuisine": {
+        "label": "Collective Kitchen"
+    },
+    "participation_debrouille": {
+        "label": "Resourcefulness (>= 50 years)"
+    },
+    "participation_jmc": {
+        "label": "JMC activities"
+    },
+    "participation_diverses": {
+        "label": "Diverse activities"
+    },
+    "participation_repas": {
+        "label": "Community meal"
+    },
+    "participation_viecomm": {
+        "label": "Community life"
+    },
+    "participation_atelier": {
+        "label": "Culinary workshop"
+    },
+    "participation_diverses_options": {
+        "label": "Specify"
+    },
+    "volunteering": {
+        "label": "Volunteering / Collaboration"
+    },
+    "volunteering_accueil": {
+        "label": "Home"
+    },
+    "volunteering_devoirs": {
+        "label": "Homework and Lessons Workshop"
+    },
+    "volunteering_diverses": {
+        "label": "Diverse activities"
+    },
+    "volunteering_citoyenne": {
+        "label": "Citizen action"
+    },
+    "volunteering_repas": {
+        "label": "Community meal"
+    },
+    "volunteering_diverses_options": {
+        "label": "Specify"
     }
 }

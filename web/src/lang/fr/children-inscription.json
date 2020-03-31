@@ -1,0 +1,166 @@
+{
+    "title": "Information and contact details",
+    "lastName": {
+        "label": "Nom",
+        "labelError": "Obligatoire"
+    },
+    "firstName": {
+        "label": "Prénom",
+        "labelError": "Obligatoire"
+    },
+    "birthday": {
+        "label": "Date de naissance",
+        "labelError": "Obligatoire"
+    },
+    "garde": {
+        "label": "Garde de l'enfant",
+        "labelError": "Obligatoire",
+        "options": {
+            "gardeAll": {
+                "label": "Les 2 parents"
+            },
+            "gardeShared": {
+                "label": "garde partagee",
+                "info": "Completer unne fiche d'inscription par parent"
+            },
+            "gardeMother": {
+                "label": "la mere",
+                "gardeMotherOption": {
+                    "title": "L'enfant voit-il l'autre parent?",
+                    "gardeMotherOptionYes": {
+                        "label": "Oui"
+                    },
+                    "gardeMotherOptionNo": {
+                        "label": "Non"
+                    }
+                }
+            },
+            "gardeFather": {
+                "label": "le pere",
+                "gardeFatherOption": {
+                    "title": "L'enfant voit-il l'autre parent?",
+                    "gardeFatherOptionYes": {
+                        "label": "Oui"
+                    },
+                    "gardeFatherOptionNo": {
+                        "label": "Non"
+                    }
+                }
+            },
+            "gardeOther": {
+                "label": "Autres",
+                "gardeOtherOption": {
+                    "label": "Precisez"
+                }
+            }
+        }
+    },
+    "school": {
+        "label": "Nom de l'ecole",
+        "labelError": "Obligatoire"
+    },
+    "schoolLevel": {
+        "label": "Niveau scolaire",
+        "labelError": "Obligatoire"
+    },
+    "adlRegister": {
+        "label": "Nombre d'inscription a l'ADL",
+        "labelError": "Obligatoire"
+    },
+    "redouble": {
+        "label": "L'enfant a t-il redouble une annee?",
+        "labelError": "Obligatoire",
+        "options": {
+            "redoubleYes": {
+                "label": "Oui",
+                "options": {
+                    "redoubleYesOption": {
+                        "label": "Laquelle?"
+                    }
+                }
+            },
+            "redoubleNo": {
+                "label": "Non"
+            }
+        }
+    },
+    "registerReason": {
+        "label": "Raison de l'inscription",
+        "labelError": "Obligatoire"
+    },
+    "evaluation": {
+        "label": "Evaluation?",
+        "labelError": "Obligatoire",
+        "options": {
+            "evaluationYes": {
+                "label": "Oui"
+            },
+            "evaluationNo": {
+                "label": "Non"
+            }
+        }
+    },
+    "daycareService": {
+        "label": "L'enfant a t-il redouble une annee?",
+        "labelError": "Obligatoire",
+        "options": {
+            "daycareServiceYes": {
+                "label": "Oui",
+                "options": {
+                    "daycareServiceYesName": {
+                        "label": "Nom de l'educatrice"
+                    },
+                    "daycareServiceYesPhone": {
+                        "label": "Telephone"
+                    }
+                }
+            },
+            "daycareServiceNo": {
+                "label": "Non"
+            }
+        }
+    },
+    "ramq": {
+        "label": "RAMQ"
+    },
+    "expiration": {
+        "label": "Expiration"
+    },
+    "allergies": {
+        "label": "Allergies (alimenaires ou autres)"
+    },
+    "drug": {
+        "label": "Medicaments"
+    },
+    "othersInfos": {
+        "label": "Autres informations pertinentes"
+    },
+    "autorisation": {
+        "label": "Autorisation",
+        "labelError": "Obligatoire",
+        "options": {
+            "autorisationPapper": {
+                "title": "en version papier",
+                "options": {
+                    "autorisationPapperYes": {
+                        "label": "Oui"
+                    },
+                    "autorisationPapperNo": {
+                        "label": "Non"
+                    }
+                }
+            },
+            "autorisationInternet": {
+                "title": "en version internet",
+                "options": {
+                    "autorisationInternetYes": {
+                        "label": "Oui"
+                    },
+                    "autorisationInternetNo": {
+                        "label": "Non"
+                    }
+                }
+            }
+        }
+    }
+}
