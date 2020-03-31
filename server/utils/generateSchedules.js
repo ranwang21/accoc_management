@@ -13,29 +13,32 @@ const generateSchedule = async (startDate, endDate) => {
         id_classroom: classroomSchedule.id_classroom
       }).lean()
       const dayToIncrement = new Date(startDate)
-      while (dayToIncrement < endDate) {
-        if (dayToIncrement.getDay() === day.value) {
-          childs.forEach(async child => {
+      const lastDay = new Date(endDate)
+      for (
+        let today = dayToIncrement;
+        today <= lastDay;
+        today.setDate(today.getDate() + 1)
+      ) {
+        if (today.getDay() === day.value) {
+          childs.forEach(child => {
             const childJson = {
               id_user: child._id,
               id_classroom: child.id_classroom,
-              date: dayToIncrement,
+              date: today,
               is_absent: false
             }
             const collabJson = {
               id_user: child.id_collaborater,
               id_classroom: child.id_classroom,
-              date: dayToIncrement,
+              date: today,
               is_absent: false
             }
             schedule.push(childJson, collabJson)
           })
         }
-        dayToIncrement.setDate(dayToIncrement.getDate() + 1)
       }
     })
   })
-  console.log(schedule)
 }
 
 module.exports = generateSchedule
