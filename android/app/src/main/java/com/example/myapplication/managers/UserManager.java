@@ -93,7 +93,7 @@ public class UserManager {
      * @param idRole
      * @return ArrayList<User>
      */
-    public static ArrayList<User> getByRole(Context context, int idRole) {
+    public static ArrayList<User> getByRole(Context context, String idRole) {
         ArrayList<User> users = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByRole, new String[]{"" + idRole});
