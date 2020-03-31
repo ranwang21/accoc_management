@@ -15,11 +15,13 @@ const advancedResults = require('../middlewares/advancedResults')
 
 // INCLUDE OTHER RESOURCE ROUTERS
 const LoginsRouter = require('./logins')
+const SchedulesRouter = require('./schedules')
 
 const router = express.Router()
 
 // RE-ROUTE INTO OTHER RESOURCE ROUTERS
 router.use('/:userId/logins', LoginsRouter)
+router.use('/:userId/schedules', SchedulesRouter)
 
 router
   .route('/')
