@@ -1,185 +1,182 @@
 {
-    "fields": [
+    "fieldsets": [
         {
-            "name": "lastName",
-            "type": "textField",
-            "required": true
-        },
-        {
-            "name": "firstName",
-            "type": "textField",
-            "required": true
-        },
-        {
-            "name": "birthday",
-            "type": "dateField",
-            "required": true
-        },
-        {
-            "name": "garde",
-            "required": true,
-            "type": "membershipField",
-            "radioOptions": [
+            "name": "identification",
+            "fields": [
                 {
-                    "name": "gardeAll"
+                    "name": "lastName",
+                    "type": "textField",
+                    "required": true
                 },
                 {
-                    "name": "gardeShared",
-                    "info": "gardeSharedInfo"
+                    "name": "firstName",
+                    "type": "textField",
+                    "required": true
                 },
                 {
-                    "name": "gardeMother",
-                    "options": [
+                    "name": "birthday",
+                    "type": "dateField",
+                    "required": true
+                },
+                {
+                    "name": "garde",
+                    "required": true,
+                    "type": "membershipField",
+                    "radioOptions": [
                         {
-                            "name": "gardeMotherOption",
-                            "required": true,
-                            "type": "radioField",
-                            "radioOptions": [
-                                {
-                                    "name": "gardeMotherOptionYes"
-                                },
-                                {
-                                    "name": "gardeMotherOptionNo"
-                                }
-                            ]
+                            "name": "gardeAll"
+                        },
+                        {
+                            "name": "gardeShared",
+                            "info": "gardeSharedInfo"
+                        },
+                        {
+                            "name": "gardeMother"
+                        },
+                        {
+                            "name": "gardeFather"
+                        },
+                        {
+                            "name": "gardeOther"
                         }
-                    ]
-                },
-                {
-                    "name": "gardeFather",
-                    "options": {
-                        "name": "gardeFatherOption",
+                    ],
+                    "gardeParentOption": {
+                        "name": "gardeParentOption",
                         "required": true,
                         "type": "radioField",
                         "radioOptions": [
                             {
-                                "name": "gardeFatherOptionYes"
+                                "name": "gardeParentOptionYes"
                             },
                             {
-                                "name": "gardeFatherOptionNo"
+                                "name": "gardeParentOptionNo"
                             }
                         ]
+                    },
+                    "gardeOtherOption": {
+                        "name": "gardeOtherOption",
+                        "type": "textField",
+                        "required": false
+                    }
+                }
+            ]
+        },
+        {
+            "name": "schoolInfo",
+            "fields": [
+                {
+                    "name": "school",
+                    "type": "textField",
+                    "required": true
+                },
+                {
+                    "name": "schoolLevel",
+                    "type": "selectGroupedField",
+                    "grouped": true,
+                    "required": true
+                },
+                {
+                    "name": "adlRegister",
+                    "type": "selectField",
+                    "grouped": false,
+                    "required": true,
+                    "maxNumber": 3
+                },
+                {
+                    "name": "redouble",
+                    "required": true,
+                    "type": "membershipField",
+                    "radioOptions": [
+                        {
+                            "name": "redoubleYes"
+                        },
+                        {
+                            "name": "redoubleNo"
+                        }
+                    ],
+                    "redoubleYesOption": {
+                        "name": "redoubleYesOption",
+                        "type": "selectGroupedField",
+                        "grouped": true,
+                        "required": true
                     }
                 },
                 {
-                    "name": "gardeOther",
-                    "options": [
-                        {
-                            "name": "gardeOtherOption",
-                            "type": "textField",
-                            "required": false
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "school",
-            "type": "textField",
-            "required": true
-        },
-        {
-            "name": "schoolLevel",
-            "type": "textField",
-            "required": true
-        },
-        {
-            "name": "adlRegister",
-            "type": "textField",
-            "required": true
-        },
-        {
-            "name": "redouble",
-            "required": true,
-            "type": "membershipField",
-            "radioOptions": [
-                {
-                    "name": "redoubleYes",
-                    "options": [
-                        {
-                            "name": "redoubleYesOption",
-                            "type": "textField",
-                            "required": false
-                        }
-                    ]
+                    "name": "registerReason",
+                    "type": "textField",
+                    "required": true
                 },
                 {
-                    "name": "redoubleNo"
-                }
-            ]
-        },
-        {
-            "name": "registerReason",
-            "type": "textField",
-            "required": true
-        },
-        {
-            "name": "evaluation",
-            "required": true,
-            "type": "radioField",
-            "radioOptions": [
-                {
-                    "name": "evaluationYes"
-                },
-                {
-                    "name": "evaluationNo"
-                }
-            ]
-        },
-        {
-            "name": "daycareService",
-            "required": true,
-            "type": "membershipField",
-            "radioOptions": [
-                {
-                    "name": "daycareServiceYes",
-                    "options": [
+                    "name": "evaluation",
+                    "required": true,
+                    "type": "radioField",
+                    "radioOptions": [
                         {
-                            "name": "daycareServiceYesName",
-                            "type": "textField",
-                            "required": false
+                            "name": "evaluationYes"
                         },
                         {
-                            "name": "daycareServiceYesPhone",
-                            "type": "textField",
-                            "required": false
+                            "name": "evaluationNo"
                         }
                     ]
                 },
                 {
-                    "name": "daycareServiceNo"
+                    "name": "daycareService",
+                    "required": true,
+                    "type": "membershipField",
+                    "radioOptions": [
+                        {
+                            "name": "daycareServiceYes"
+                        },
+                        {
+                            "name": "daycareServiceNo"
+                        }
+                    ],
+                    "daycareServiceYesName": {
+                        "name": "daycareServiceYesName",
+                        "type": "textField",
+                        "required": true
+                    },
+                    "daycareServiceYesPhone": {
+                        "name": "daycareServiceYesPhone",
+                        "type": "phoneField",
+                        "required": true
+                    }
                 }
             ]
         },
         {
-            "name": "ramq",
-            "type": "textField",
-            "required": false
-        },
-        {
-            "name": "expiration",
-            "type": "dateField",
-            "required": true
-        },
-        {
-            "name": "allergies",
-            "type": "textField",
-            "required": false
-        },
-        {
-            "name": "drug",
-            "type": "textField",
-            "required": false
-        },
-        {
-            "name": "othersInfos",
-            "type": "textField",
-            "required": false
+            "name": "medicalInfo",
+            "fields": [
+                {
+                    "name": "ramq",
+                    "type": "textField",
+                    "required": false
+                },
+                {
+                    "name": "expiration",
+                    "type": "dateField",
+                    "required": true
+                },
+                {
+                    "name": "allergies",
+                    "type": "textAreaField",
+                    "required": false
+                },
+                {
+                    "name": "drug",
+                    "type": "textAreaField",
+                    "required": false
+                },
+                {
+                    "name": "othersInfos",
+                    "type": "textAreaField",
+                    "required": false
+                }
+            ]
         },
         {
             "name": "autorisation",
-            "type": "contactField",
-            "textOptions": [
+            "fields": [
                 {
                     "name": "autorisationPapper",
                     "required": true,

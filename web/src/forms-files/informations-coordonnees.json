@@ -44,22 +44,22 @@
             "textOptions": [
                 {
                     "name": "contacts_personal",
-                    "type": "textField",
+                    "type": "phoneField",
                     "required": true
                 },
                 {
                     "name": "contacts_home",
-                    "type": "textField",
+                    "type": "phoneField",
                     "required": false
                 },
                 {
                     "name": "contacts_work",
-                    "type": "textField",
+                    "type": "phoneField",
                     "required": false
                 },
                 {
                     "name": "contacts_emergency",
-                    "type": "textField",
+                    "type": "phoneField",
                     "required": false
                 }
             ]

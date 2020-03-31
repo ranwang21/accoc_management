@@ -1,15 +1,10 @@
 import moment from 'moment'
 import React from 'react'
-
-import MaskedInput from 'react-text-mask'
-import { TextField, FormControlLabel, Checkbox, Radio, RadioGroup, Divider } from '@material-ui/core'
+import { FormControl, InputLabel, MenuItem, ListSubheader, Select, TextareaAutosize, TextField, FormControlLabel, Checkbox, Radio, RadioGroup, Divider } from '@material-ui/core'
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
 import MomentUtils from '@date-io/moment'
 
-const ids = require('../../utilities/variables').variables.id.register
+const ids = require('../../utilities/variables').variables.id.childrenRegister
 const types = {
     text: 'textField',
     radio: 'radioField',
@@ -18,14 +13,16 @@ const types = {
     contacts: 'contactField',
     membership: 'membershipField',
     participation: 'participationField',
-    volunteering: 'volunteeringField'
+    volunteering: 'volunteeringField',
+    textAreaField: 'textAreaField',
+    phoneField: 'phoneField'
 }
 const getAgeLimit = (limit) => {
     const date = new Date()
     if (limit === 'min') {
-        return (date.getFullYear() - 100) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+        return (date.getFullYear() - 20) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     } else {
-        return (date.getFullYear() - 18) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     }
 }
 
@@ -41,6 +38,7 @@ function TextMaskCustom(props) {
         mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
         placeholderChar={'\u2000'}
         showMask
+        autoFocus
       />
     );
   }
@@ -59,7 +57,73 @@ const phoneField = (fieldsConfig, propLang, lang, fields, errors, inputChange) =
         </FormControl>
     )
 }
+const selectField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+    return (
+        <FormControl
+            key={ids[fieldsConfig.name]} variant='filled'
+        >
+            <InputLabel color='secondary'>{lang[fieldsConfig.name].label}</InputLabel>
+            <Select
+                key={ids[fieldsConfig.name]}
+                value={fields[fieldsConfig.name] ? fields[fieldsConfig.name] : ''}
+                onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
+            >
+                <MenuItem value='' disabled>
+                    <em>{lang[fieldsConfig.name].label}</em>
+                </MenuItem>
+                {[...Array(fieldsConfig.maxNumber + 1).keys()].map(x => (
+                    <MenuItem key={fieldsConfig.name + x} value={x}>{x}</MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    )
+}
 
+const selectGroupedField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+    return (
+        <FormControl
+            key={ids[fieldsConfig.name]} variant='filled'
+        >
+            <InputLabel className={errors[fieldsConfig.name] ? 'label-error1' : ''}>{lang[fieldsConfig.name].label}</InputLabel>
+            <Select
+                error={errors[fieldsConfig.name] ? errors[fieldsConfig.name] : false}
+                key={ids[fieldsConfig.name]}
+                value={fields[fieldsConfig.name] ? fields[fieldsConfig.name] : ''}
+                onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
+            >
+                <MenuItem value='' disabled>
+                    <em>{lang[fieldsConfig.name].label}</em>
+                </MenuItem>
+
+                <ListSubheader>{lang[fieldsConfig.name].level[0].label}</ListSubheader>
+                {lang[fieldsConfig.name].level[0].options.map(option => (
+                    <MenuItem key={lang[fieldsConfig.name].level[0].label + option} value={lang[fieldsConfig.name].level[0].label + option}>{option}</MenuItem>
+                ))}
+
+                <ListSubheader>{lang[fieldsConfig.name].level[1].label}</ListSubheader>
+                {lang[fieldsConfig.name].level[1].options.map(option => (
+                    <MenuItem key={lang[fieldsConfig.name].level[1].label + option} value={lang[fieldsConfig.name].level[1].label + option}>{option}</MenuItem>
+                ))}
+            </Select>
+            {errors[fieldsConfig.name] && (
+                <p className='label-error2'>{lang[fieldsConfig.name].labelError}</p>
+            )}
+        </FormControl>
+    )
+}
+
+const textAreaField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+    return (
+        <TextareaAutosize
+            className='textarea'
+            key={ids[fieldsConfig.name]}
+            rowsMin={3}
+            placeholder={lang[fieldsConfig.name].label}
+            onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
+            value={fields[fieldsConfig.name] === null ? '' : fields[fieldsConfig.name]}
+        />
+    )
+}
 const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
     return (
         <TextField
@@ -70,8 +134,8 @@ const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange) =>
             color='primary'
             helperText={errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}
             variant='filled'
-            onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
             required={fieldsConfig.name.required}
+            onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
             value={fields[fieldsConfig.name] === null ? '' : fields[fieldsConfig.name]}
         />
     )
@@ -103,7 +167,7 @@ const radio = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
                 <div key={ids[option.name]}>
                     <FormControlLabel
                         key={ids[option.name]}
-                        value={option.name} control={<Radio />} label={lang[option.name].label}
+                        value={option.name} control={<Radio />} label={lang[fieldsConfig.name][option.name].label}
                     />
                 </div>))}
         </RadioGroup>
@@ -155,7 +219,7 @@ const contactField = (fieldsConfig, propLang, lang, fields, errors, inputChange)
             </div>
             <div className='body'>
                 {fieldsConfig.textOptions.map(option => (
-                    phoneField(option, propLang, lang, fields, errors, inputChange)
+                    textField(option, propLang, lang, fields, errors, inputChange)
                 ))}
             </div>
         </div>
@@ -173,17 +237,42 @@ const membershipField = (fieldsConfig, propLang, lang, fields, errors, inputChan
                 <p>{lang[fieldsConfig.name].title1}</p>
                 <p>{lang[fieldsConfig.name].title2}</p>
                 {radio(fieldsConfig, propLang, lang, fields, errors, inputChange)}
-                {fields.membership === 'membership_becomeMember' && (
-                    <div className='optional-fields'>
-                        {fieldsConfig.options2.map(option => {
-                            if (option.type === types.text) {
-                                return (textField(option, propLang, lang, fields, errors, inputChange))
-                            } else if (option.type === types.checkBox) {
-                                return (checkboxField(option, propLang, lang, fields, errors, inputChange))
-                            }
-                        })}
-                    </div>
-                )}
+                <div className='optional-fields'>
+                    {(fields.garde === 'gardeShared' && lang[fieldsConfig.name].gardeShared) && (
+                        <p>{lang[fieldsConfig.name].gardeShared.info}</p>
+                    )}
+                    {((fields.garde === 'gardeMother' || fields.garde === 'gardeFather') && lang[fieldsConfig.name].gardeParentOption) && (
+                    <>
+                        <RadioGroup
+                            className='radio'
+                            value={fields[fieldsConfig.gardeParentOption.name]}
+                            onChange={event => inputChange(event, fieldsConfig.gardeParentOption.name, fieldsConfig.gardeParentOption.type)}
+                            row
+                        >
+                            <p>{lang[fieldsConfig.name].gardeParentOption.label}</p>
+                            {fieldsConfig.gardeParentOption.radioOptions.map(option => (
+                                <div key={ids[option.name]}>
+                                    <FormControlLabel
+                                        key={ids[option.name]}
+                                        value={option.name} control={<Radio />} label={lang[fieldsConfig.name].gardeParentOption[option.name].label}
+                                    />
+                                </div>))}
+                        </RadioGroup>
+                    </>
+                    )}
+                    {(fields.garde === 'gardeOther' && lang[fieldsConfig.name].gardeOther) && (
+                        textField(fieldsConfig.gardeOtherOption, propLang, lang[fieldsConfig.name], fields, errors, inputChange)
+                    )}
+                    {(fields.redouble === 'redoubleYes' && lang[fieldsConfig.name].redoubleYesOption) && (
+                        selectGroupedField(fieldsConfig.redoubleYesOption, propLang, lang[fieldsConfig.name], fields, errors, inputChange)
+                    )}
+                    {(fields.daycareService === 'daycareServiceYes' && lang[fieldsConfig.name].daycareServiceYesName) && (
+                        textField(fieldsConfig.daycareServiceYesName, propLang, lang[fieldsConfig.name], fields, errors, inputChange)
+                    )}
+                    {(fields.daycareService === 'daycareServiceYes' && lang[fieldsConfig.name].daycareServiceYesPhone) && (
+                        textField(fieldsConfig.daycareServiceYesPhone, propLang, lang[fieldsConfig.name], fields, errors, inputChange)
+                    )}
+                </div>
             </div>
         </div>
     )
@@ -247,8 +336,11 @@ const volunteeringField = (fieldsConfig, propLang, lang, fields, errors, inputCh
 }
 
 export default {
-    textField,
+    selectField,
+    selectGroupedField,
     phoneField,
+    textField,
+    textAreaField,
     radioField,
     dateField,
     checkboxField,

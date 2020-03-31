@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Form from './builds'
+import Form from './builds-child'
 
 import '../../styles/_children-inscription.scss'
-const FormConfig = require('../../forms-files/children-inscription.json').fields
-const variables = require('../../utilities/variables').variables
+const FormConfig = require('../../forms-files/children-inscription.json').fieldsets
+const ids = require('../../utilities/variables').variables.id.childrenRegister
 
 class ChildrenInscription extends Component {
     getLangFile () { return require('../../lang/' + this.props.lang + '/children-inscription.json') }
@@ -13,14 +13,25 @@ class ChildrenInscription extends Component {
         return (
             <>
                 <div className='children-inscription'>
-                    <h1>{lang.title} / {this.props.nbre}</h1>
-                    <div className='fields'>
-                        {/* FormConfig.map(field => {
+                    <h1>{lang.title} {this.props.nbre}/ {this.props.nbreChild}</h1>
+                    <div>
+                        {FormConfig.map(fieldset => {
                             return (
-                                <div key={variables.id.register[field.name]}>
-                                    { Form[field.type](field, this.props.lang, lang, this.props.fields, this.props.errors, this.props.inputEvent) }
-                                </div>)
-                        }) */}
+                                <fieldset key={ids[fieldset.name]}>
+                                    <legend>{lang[fieldset.name].label}</legend>
+                                    <div className='fields'>
+                                        {lang[fieldset.name].info && (<p>{lang[fieldset.name].info}</p>)}
+                                        {fieldset.fields.map(field => {
+                                            return (
+                                                <div key={ids[field.name]}>
+                                                    {Form[field.type](field, this.props.lang, lang[fieldset.name], this.props.fields, this.props.errors, this.props.inputEvent)}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </fieldset>
+                            )
+                        })}
                     </div>
 
                 </div>

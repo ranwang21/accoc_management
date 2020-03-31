@@ -1,165 +1,194 @@
 {
-    "title": "Information and contact details",
-    "lastName": {
-        "label": "Nom",
-        "labelError": "Obligatoire"
-    },
-    "firstName": {
-        "label": "Prénom",
-        "labelError": "Obligatoire"
-    },
-    "birthday": {
-        "label": "Date de naissance",
-        "labelError": "Obligatoire"
-    },
-    "garde": {
-        "label": "Garde de l'enfant",
-        "labelError": "Obligatoire",
-        "options": {
+    "title": "Fiche d'inscription d'un enfant ",
+    "identification": {
+        "label": "Identification de l'enfant",
+        "lastName": {
+            "label": "Nom",
+            "labelError": "Obligatoire"
+        },
+        "firstName": {
+            "label": "Prénom",
+            "labelError": "Obligatoire"
+        },
+        "birthday": {
+            "label": "Date de naissance",
+            "labelError": "Obligatoire"
+        },
+        "garde": {
+            "label": "Parent ayant la garde de l'enfant",
+            "labelError": "Obligatoire",
             "gardeAll": {
-                "label": "Les 2 parents"
+                "label": "Les deux parents"
             },
             "gardeShared": {
-                "label": "garde partagee",
-                "info": "Completer unne fiche d'inscription par parent"
+                "label": "Garde partagée",
+                "info": "Veuillez compléter une fiche d'inscription par parent"
             },
             "gardeMother": {
-                "label": "la mere",
-                "gardeMotherOption": {
-                    "title": "L'enfant voit-il l'autre parent?",
-                    "gardeMotherOptionYes": {
-                        "label": "Oui"
-                    },
-                    "gardeMotherOptionNo": {
-                        "label": "Non"
-                    }
-                }
+                "label": "La mère"
             },
             "gardeFather": {
-                "label": "le pere",
-                "gardeFatherOption": {
-                    "title": "L'enfant voit-il l'autre parent?",
-                    "gardeFatherOptionYes": {
-                        "label": "Oui"
-                    },
-                    "gardeFatherOptionNo": {
-                        "label": "Non"
-                    }
-                }
+                "label": "Le père"
             },
             "gardeOther": {
-                "label": "Autres",
-                "gardeOtherOption": {
-                    "label": "Precisez"
+                "label": "Autres"
+            },
+            "gardeParentOption": {
+                "label": "L'enfant voit-il l'autre parent?",
+                "gardeParentOptionYes": {
+                    "label": "Oui"
+                },
+                "gardeParentOptionNo": {
+                    "label": "Non"
                 }
+            },
+            "gardeOtherOption": {
+                "label": "Précisez"
             }
         }
     },
-    "school": {
-        "label": "Nom de l'ecole",
-        "labelError": "Obligatoire"
-    },
-    "schoolLevel": {
-        "label": "Niveau scolaire",
-        "labelError": "Obligatoire"
-    },
-    "adlRegister": {
-        "label": "Nombre d'inscription a l'ADL",
-        "labelError": "Obligatoire"
-    },
-    "redouble": {
-        "label": "L'enfant a t-il redouble une annee?",
-        "labelError": "Obligatoire",
-        "options": {
-            "redoubleYes": {
-                "label": "Oui",
-                "options": {
-                    "redoubleYesOption": {
-                        "label": "Laquelle?"
-                    }
+    "schoolInfo": {
+        "label": "Information Scolaire",
+        "school": {
+            "label": "Nom de l'école",
+            "labelError": "Obligatoire"
+        },
+        "schoolLevel": {
+            "label": "Niveau scolaire",
+            "labelError": "Obligatoire",
+            "level": [
+                {
+                    "label": "Primaire",
+                    "options": [
+                        "1er",
+                        "2e",
+                        "3e",
+                        "4e",
+                        "5e",
+                        "6e"
+                    ]
+                },
+                {
+                    "label": "Secondaire",
+                    "options": [
+                        "I",
+                        "II",
+                        "III",
+                        "IV",
+                        "V"
+                    ]
                 }
+            ]
+        },
+        "adlRegister": {
+            "label": "Nombre d'inscription à l'ADL",
+            "labelError": "Obligatoire"
+        },
+        "redouble": {
+            "label": "L'enfant a t-il redouble une année?",
+            "labelError": "Obligatoire",
+            "redoubleYes": {
+                "label": "Oui"
             },
             "redoubleNo": {
                 "label": "Non"
+            },
+            "redoubleYesOption": {
+                "label": "Laquelle?",
+                "level": [
+                    {
+                        "label": "Primaire",
+                        "options": [
+                            "1er",
+                            "2e",
+                            "3e",
+                            "4e",
+                            "5e",
+                            "6e"
+                        ]
+                    },
+                    {
+                        "label": "Secondaire",
+                        "options": [
+                            "I",
+                            "II",
+                            "III",
+                            "IV",
+                            "V"
+                        ]
+                    }
+                ]
             }
-        }
-    },
-    "registerReason": {
-        "label": "Raison de l'inscription",
-        "labelError": "Obligatoire"
-    },
-    "evaluation": {
-        "label": "Evaluation?",
-        "labelError": "Obligatoire",
-        "options": {
+        },
+        "registerReason": {
+            "label": "Raison de l'inscription",
+            "labelError": "Obligatoire"
+        },
+        "evaluation": {
+            "label": "Evaluation ",
+            "labelError": "Obligatoire",
             "evaluationYes": {
                 "label": "Oui"
             },
             "evaluationNo": {
                 "label": "Non"
             }
-        }
-    },
-    "daycareService": {
-        "label": "L'enfant a t-il redouble une annee?",
-        "labelError": "Obligatoire",
-        "options": {
+        },
+        "daycareService": {
+            "label": "Service de garde après l'école?",
+            "labelError": "Obligatoire",
             "daycareServiceYes": {
-                "label": "Oui",
-                "options": {
-                    "daycareServiceYesName": {
-                        "label": "Nom de l'educatrice"
-                    },
-                    "daycareServiceYesPhone": {
-                        "label": "Telephone"
-                    }
-                }
+                "label": "Oui"
             },
             "daycareServiceNo": {
                 "label": "Non"
+            },
+            "daycareServiceYesName": {
+                "label": "Nom de l'éducatrice"
+            },
+            "daycareServiceYesPhone": {
+                "label": "Numéro de téléphone de l'éducatrice"
             }
         }
     },
-    "ramq": {
-        "label": "RAMQ"
-    },
-    "expiration": {
-        "label": "Expiration"
-    },
-    "allergies": {
-        "label": "Allergies (alimenaires ou autres)"
-    },
-    "drug": {
-        "label": "Medicaments"
-    },
-    "othersInfos": {
-        "label": "Autres informations pertinentes"
+    "medicalInfo": {
+        "label": "Information Médicale",
+        "ramq": {
+            "label": "RAMQ"
+        },
+        "expiration": {
+            "label": "Date d'expiration"
+        },
+        "allergies": {
+            "label": "Allergies (alimentaires ou autres)"
+        },
+        "drug": {
+            "label": "Médicaments"
+        },
+        "othersInfos": {
+            "label": "Autres informations pertinentes"
+        }
     },
     "autorisation": {
         "label": "Autorisation",
+        "info": "J'autorise que des photos de mon enfant soient prises et utilisées dans les publications de la Maison d'Aurore :",
         "labelError": "Obligatoire",
-        "options": {
-            "autorisationPapper": {
-                "title": "en version papier",
-                "options": {
-                    "autorisationPapperYes": {
-                        "label": "Oui"
-                    },
-                    "autorisationPapperNo": {
-                        "label": "Non"
-                    }
-                }
+        "autorisationPapper": {
+            "label": "en version papier",
+            "autorisationPapperYes": {
+                "label": "Oui"
             },
-            "autorisationInternet": {
-                "title": "en version internet",
-                "options": {
-                    "autorisationInternetYes": {
-                        "label": "Oui"
-                    },
-                    "autorisationInternetNo": {
-                        "label": "Non"
-                    }
-                }
+            "autorisationPapperNo": {
+                "label": "Non"
+            }
+        },
+        "autorisationInternet": {
+            "label": "sur le site internet",
+            "autorisationInternetYes": {
+                "label": "Oui"
+            },
+            "autorisationInternetNo": {
+                "label": "Non"
             }
         }
     }
