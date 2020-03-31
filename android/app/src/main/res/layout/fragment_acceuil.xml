@@ -33,12 +33,12 @@
                 android:layout_width="175dp"
                 android:layout_height="59dp"
 
-                android:layout_marginBottom="384dp"
-                android:layout_marginEnd="388dp"
-                android:layout_marginLeft="38dp"
-                android:layout_marginRight="388dp"
                 android:layout_marginStart="38dp"
+                android:layout_marginLeft="38dp"
                 android:layout_marginTop="128dp"
+                android:layout_marginEnd="388dp"
+                android:layout_marginRight="388dp"
+                android:layout_marginBottom="384dp"
                 android:background="@drawable/buttonshape"
 
                 android:keepScreenOn="true"
@@ -51,20 +51,22 @@
                 android:typeface="monospace"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.115"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/salle1" />
+                app:layout_constraintTop_toBottomOf="@+id/salle1"
+                app:layout_constraintVertical_bias="0.091" />
 
             <Button
                 android:id="@+id/salle4"
 
                 android:layout_width="175dp"
                 android:layout_height="59dp"
-                android:layout_marginBottom="196dp"
-                android:layout_marginEnd="38dp"
-                android:layout_marginLeft="388dp"
-                android:layout_marginRight="38dp"
                 android:layout_marginStart="388dp"
+                android:layout_marginLeft="388dp"
                 android:layout_marginTop="128dp"
+                android:layout_marginEnd="38dp"
+                android:layout_marginRight="38dp"
+                android:layout_marginBottom="196dp"
                 android:background="@drawable/buttonshape"
                 android:keepScreenOn="true"
                 android:text="@string/salle_4"
@@ -76,19 +78,21 @@
                 android:typeface="monospace"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.884"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/salle2" />
+                app:layout_constraintTop_toBottomOf="@+id/salle2"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/salle1"
 
                 android:layout_width="175dp"
                 android:layout_height="59dp"
-                android:layout_marginEnd="388dp"
-                android:layout_marginLeft="38dp"
-                android:layout_marginRight="388dp"
                 android:layout_marginStart="38dp"
-                android:layout_marginTop="196dp"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="188dp"
+                android:layout_marginEnd="388dp"
+                android:layout_marginRight="388dp"
                 android:background="@drawable/buttonshape"
                 android:keepScreenOn="true"
                 android:text="@string/salle_1"
@@ -100,6 +104,7 @@
                 android:typeface="monospace"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.115"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,11 +113,11 @@
 
                 android:layout_width="175dp"
                 android:layout_height="59dp"
-                android:layout_marginEnd="38dp"
-                android:layout_marginLeft="388dp"
-                android:layout_marginRight="38dp"
                 android:layout_marginStart="388dp"
-                android:layout_marginTop="300dp"
+                android:layout_marginLeft="388dp"
+                android:layout_marginTop="276dp"
+                android:layout_marginEnd="38dp"
+                android:layout_marginRight="38dp"
                 android:background="@drawable/buttonshape"
                 android:keepScreenOn="true"
                 android:text="@string/salle_2"
@@ -123,7 +128,7 @@
                 android:textStyle="bold"
                 android:typeface="monospace"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.878"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
