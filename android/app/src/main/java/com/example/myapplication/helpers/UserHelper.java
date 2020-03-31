@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class UserHelper {
 
     public static void getFromAPI(SQLiteDatabase db,String token) {
+
         String json = GetJson.get("/users",token);
         if (json != null) {
             Gson gson = new Gson();
