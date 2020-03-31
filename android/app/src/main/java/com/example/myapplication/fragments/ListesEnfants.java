@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.myapplication.ProfilEnfantActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.SuiviQuotidienActivity;
 
@@ -35,7 +36,7 @@ public class ListesEnfants extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), SuiviQuotidienActivity.class);
+                Intent intent = new Intent(getActivity(), ProfilEnfantActivity.class);
                 startActivity(intent);
             }
         });

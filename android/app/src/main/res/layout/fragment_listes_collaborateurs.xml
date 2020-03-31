@@ -19,19 +19,16 @@
 
         <Spinner
             android:id="@+id/spinner_colab"
-
             android:layout_width="0dp"
             android:layout_height="47dp"
-
             android:layout_marginTop="60dp"
             android:layout_weight="1" />
     </LinearLayout>
 
-
     <ListView
         android:id="@+id/list_collab"
         android:layout_width="match_parent"
-        android:layout_height="636dp">
+        android:layout_height="match_parent">
 
     </ListView>
 
