@@ -34,7 +34,7 @@ public class UserManager {
      */
     private static final String queryGetAll = "select * from " + DataBaseHelper.USER_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id like ?";
-    private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where role_id like ?";
+    private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_role like ?";
     /**
      * getAll return all users from DataBase
      *

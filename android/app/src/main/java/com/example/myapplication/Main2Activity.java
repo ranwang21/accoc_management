@@ -39,7 +39,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         //Add this line of code here to open the default selected menu on app start time.
         ShowFragment(R.id.nav_acceuil);
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -49,14 +48,12 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -69,7 +66,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void ShowFragment(int itemId) {
         Fragment fragment = null;
         switch (itemId) {
@@ -99,7 +95,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         //Calling the ShowFragment() method here to show the our created menu as default menus.

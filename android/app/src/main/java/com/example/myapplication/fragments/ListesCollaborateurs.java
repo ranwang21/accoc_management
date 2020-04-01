@@ -32,7 +32,7 @@ public class ListesCollaborateurs extends Fragment {
         ArrayList<User> users = new ArrayList<>();
         ArrayList<Role> roles = RoleManager.getAll(getContext());
         for (Role r : roles) {
-            if (r.getTitle().equals("collaborator")) {
+            if (r.getTitle().equals("collaborater")) {
                 users = UserManager.getByRole(getContext(), r.get_id());
             }
         }
