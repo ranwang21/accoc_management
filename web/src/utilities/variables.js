@@ -99,6 +99,67 @@ const variables = {
             volunteering_citoyenne: 'D5F41CD52F1C4',
             volunteering_repas: 'D5F41CD52F1C5',
             volunteering_diverses_options: 'D5F41CD52F1C6'
+        },
+        childrenRegister: {
+            identification: 'childrenRegisteridentification',
+            lastName: 'childrenRegisteridentification8E5D4FDW185S',
+            firstName: 'childrenRegisteridentificationQ8W7E4F2S8D',
+            birthdayChild: 'childrenRegisteridentification7E4DE54F15ED2',
+            garde: 'childrenRegisteridentification8R5D4F1E5D',
+            gardeAll: 'childrenRegisteridentification8R5D4F1E5D1',
+            gardeShared: 'childrenRegisteridentification8R5D4F1E5D2',
+            gardeMother: 'childrenRegisteridentification8R5D4F1E5D3',
+            gardeFather: 'childrenRegisteridentification8R5D4F1E5D4',
+            gardeOther: 'childrenRegisteridentification8R5D4F1E5D5',
+            gardeParentOptionYes: 'childrenRegisteridentificationFGDFG',
+            gardeParentOptionNo: 'childrenRegisteridentification8G5FG24',
+            gardeOtherOption: 'childrenRegisteridentification8G5FG24E5D24F',
+
+            schoolInfo: 'childrenRegisterschoolInfo',
+            school: 'childrenRegisterschoolInfoRDF415DX2',
+            schoolLevel: 'childrenRegisterschoolInfoRDF415DX15',
+            adlRegister: 'childrenRegisterschoolInfo5S41',
+            redouble: 'childrenRegisterschoolInfoRDF8Y5GF24G1',
+            redoubleYes: 'childrenRegisterschoolInfoRDF8Y5GF24G11',
+            redoubleNo: 'childrenRegisterschoolInfoRDF8Y5GF24G12',
+            registerReason: 'childrenRegisterschoolInfoE8RT5U4',
+            evaluation: 'childrenRegisterschoolInfo5FG42F1E',
+            evaluationYes: 'childrenRegisterschoolInfo5FG42F1E1',
+            evaluationNo: 'childrenRegisterschoolInfo5FG42F1E2',
+            daycareService: 'childrenRegisterschoolInfoE9R8TY4H',
+            daycareServiceYes: 'childrenRegisterschoolInfoE9R8TY4H1',
+            daycareServiceNo: 'childrenRegisterschoolInfoE9R8TY4H2',
+
+            medicalInfo: 'childrenRegistermedicalInfo',
+            ramq: 'childrenRegistermedicalInforamq',
+            expiration: 'childrenRegistermedicalInfoexpiration',
+            allergies: 'childrenRegistermedicalInfoallergies',
+            drug: 'childrenRegistermedicalInfodrug',
+            othersInfos: 'childrenRegistermedicalInfoothersInfos',
+
+            autorisation: 'childrenRegisterautorisation',
+            autorisationPapper: 'childrenRegisterautorisation5D4F2',
+            autorisationPapperYes: 'childrenRegisterautorisation5D4F21',
+            autorisationPapperNo: 'childrenRegisterautorisation5D4F22',
+            autorisationInternet: 'childrenRegisterautorisation9WE8R5H4B',
+            autorisationInternetYes: 'childrenRegisterautorisation9WE8R5H4B1',
+            autorisationInternetNo: 'childrenRegisterautorisation9WE8R5H4B2'
+
+        },
+        complementaryInformations: {
+            expectations: 'expectationsDD2FDF4VF',
+            lessons: 'expectationsDD2FDF4VF1',
+
+            needs: 'needshgfgdfv',
+            help: 'needshgfgdfv5421',
+
+            implications: 'implicationsR5DF42',
+            availableFor: 'gehsjhdjhceyhs',
+            talents: 'implicationsR5DF42U5H4J2',
+            snacks: 'implicationsR5DF42SS4',
+            organization: 'implicationsR5DF42ERGH',
+            support: 'implicationsR5DF425FG42F1',
+            participation: 'implicationsR5DF428G5FGD4F'
         }
     }
 }

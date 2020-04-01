@@ -116,7 +116,8 @@ class Dashbord extends Component {
             showLogOutModal: false,
             requiredSaveValidationChange: false,
             showSnack: false,
-            left: false
+            left: false,
+            image: ''
         }
         this.currentUser = null
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
@@ -239,6 +240,11 @@ class Dashbord extends Component {
         }
 
         this.setState({ left: open })
+    }
+
+    imageGetted (data) {
+        console.log(data.data)
+        this.setState({ image: data.data })
     }
 
     render () {

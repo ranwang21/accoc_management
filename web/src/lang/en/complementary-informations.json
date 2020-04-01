@@ -1,0 +1,56 @@
+{
+    "title": "Fiche d'inscription d'un enfant ",
+    "expectations": {
+        "label": "Information Médicale",
+        "lessons": {
+            "info": "J'autorise que des photos de mon enfant soient prises et utilisées dans les publications de la Maison d'Aurore :",
+            "label": ""
+        }
+    },
+    "needs": {
+        "label": "Information Médicale",
+        "help": {
+            "info": "J'autorise que des photos de mon enfant soient prises et utilisées dans les publications de la Maison d'Aurore :",
+            "label": ""
+        }
+    },
+    "implications": {
+        "label": "Autorisation",
+        "labelError": "Obligatoire",
+        "talents": {
+            "info": "J'autorise que des photos de mon enfant soient prises et utilisées dans les publications de la Maison d'Aurore :",
+            "label": ""
+        },
+        "snacks": {
+            "label": "en version papier",
+            "snacksYes": {
+                "label": "Oui"
+            },
+            "snacksNo": {
+                "label": "Non"
+            }
+        },
+        "organization": {
+            "label": "sur le site internet",
+            "organizationYes": {
+                "label": "Oui"
+            },
+            "organizationNo": {
+                "label": "Non"
+            }
+        },
+        "support": {
+            "label": "sur le site internet",
+            "supportYes": {
+                "label": "Oui"
+            },
+            "supportNo": {
+                "label": "Non"
+            }
+        },
+        "participation": {
+            "info": "J'autorise que des photos de mon enfant soient prises et utilisées dans les publications de la Maison d'Aurore :",
+            "label": ""
+        }
+    }
+}
