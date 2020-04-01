@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,10 +16,10 @@ import com.example.myapplication.entities.User;
 import java.util.List;
 
 
-public class CollaborateurAdaptater extends ArrayAdapter<User> {
+public class EnfantAdapter extends ArrayAdapter<User> {
 
     int idLayout;
-    public CollaborateurAdaptater(@NonNull Context context, int resource, @NonNull List<User> objects) {
+    public EnfantAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
         super(context, resource, objects);
         idLayout = resource;
     }

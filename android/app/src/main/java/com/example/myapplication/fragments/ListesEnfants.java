@@ -2,6 +2,7 @@ package com.example.myapplication.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,18 @@ import android.widget.ListView;
 import com.example.myapplication.ProfilEnfantActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.SuiviQuotidienActivity;
+import com.example.myapplication.adapters.CollaborateurAdaptater;
+import com.example.myapplication.adapters.EnfantAdapter;
+import com.example.myapplication.entities.Role;
+import com.example.myapplication.entities.User;
+import com.example.myapplication.managers.RoleManager;
+import com.example.myapplication.managers.UserManager;
+import com.example.myapplication.services.ConnectionBD;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
 
 
 public class ListesEnfants extends Fragment {
@@ -23,12 +33,25 @@ public class ListesEnfants extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //returning our layout file
-        //change R.layout.yourlayoutfilename for each of your fragments
+        EnfantAdapter enfantAdapter;
+        ConnectionBD.copyBdFromAssets(getContext());
+        ArrayList<User> users = new ArrayList<>();
+        ArrayList<Role> roles = RoleManager.getAll(getContext());
+        for (Role r : roles) {
+            if (r.getTitle().equals("child")) {
+                users = UserManager.getByRole(getContext(), r.get_id());
+            }
+        }
+        if (users != null) {
+            Log.d("Tag", "successs");
+        }
         View view = inflater.inflate(R.layout.fragment_listes_enfants, container, false);
-        String[] listviewItems = {"first thing", "second thing", "third thing", "forth thing", "fifth thing"};
         listView = view.findViewById(R.id.list_enfant);
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
+        enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
+        listView.setAdapter(enfantAdapter);
+        enfantAdapter.notifyDataSetChanged();
+
+        /*ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1, listviewItems
         );
@@ -39,7 +62,7 @@ public class ListesEnfants extends Fragment {
                 Intent intent = new Intent(getActivity(), ProfilEnfantActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
         return view;
     }
     @Override

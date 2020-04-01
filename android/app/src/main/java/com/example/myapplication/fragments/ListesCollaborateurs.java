@@ -29,7 +29,7 @@ public class ListesCollaborateurs extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CollaborateurAdaptater collaborateurAdaptater;
         ConnectionBD.copyBdFromAssets(getContext());
-        ArrayList<User> users = null;
+        ArrayList<User> users = new ArrayList<>();
         ArrayList<Role> roles = RoleManager.getAll(getContext());
         for (Role r : roles) {
             if (r.getTitle().equals("collaborator")) {
@@ -40,9 +40,10 @@ public class ListesCollaborateurs extends Fragment {
             Log.d("Tag", "successs");
         }
         View view = inflater.inflate(R.layout.fragment_listes_collaborateurs, container, false);
-        ListView listView = view.findViewById(R.id.list_collab);
+        ListView listView = (ListView) view.findViewById(R.id.list_collab);
         collaborateurAdaptater = new CollaborateurAdaptater(getContext(), R.layout.collaborateur_listview, users);
         listView.setAdapter(collaborateurAdaptater);
+        collaborateurAdaptater.notifyDataSetChanged();
         return view;
     }
     @Override
