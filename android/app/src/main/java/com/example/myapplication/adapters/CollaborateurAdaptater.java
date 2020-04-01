@@ -37,7 +37,6 @@ public class CollaborateurAdaptater extends ArrayAdapter<User> {
             TextView tv_prenom = (TextView) convertView.findViewById(R.id.lv_prenom);
             tv_nom.setText(user.getLast_name());
             tv_prenom.setText(user.getFirst_name());
-            //img.setImageResource();
         }
         return convertView;
     }

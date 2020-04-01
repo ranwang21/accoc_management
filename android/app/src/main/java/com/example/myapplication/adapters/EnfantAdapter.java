@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.entities.User;
 
@@ -29,10 +31,10 @@ public class EnfantAdapter extends ArrayAdapter<User> {
         final User user = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(idLayout, null);
-            //ImageView img = (ImageView) convertView.findViewById(R.id.img_listView);
+            ImageView img = (ImageView) convertView.findViewById(R.id.img_listView);
             TextView tv_nom = (TextView) convertView.findViewById(R.id.lv_nom);
             TextView tv_prenom = (TextView) convertView.findViewById(R.id.lv_prenom);
-            //img.setImageResource();
+            Glide.with(getContext()).load(user.getImg_url()).into(img);
             tv_nom.setText(user.getLast_name());
             tv_prenom.setText(user.getFirst_name());
         }
