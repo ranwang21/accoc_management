@@ -14,6 +14,7 @@ exports.getSchedules = asyncHandler(async (req, res) => {
     })
     res.status(200).json({
       success: true,
+      count: schedule.length,
       data: schedule
     })
   } else {
