@@ -3,7 +3,7 @@ const ClassroomSchedule = require('../models/ClassroomSchedule')
 const Day = require('../models/Day')
 
 const getSchedules = datas => {
-  console.log(datas.length)
+  console.log(datas)
 }
 
 const generateSchedule = async (startDate, endDate, callBack) => {
