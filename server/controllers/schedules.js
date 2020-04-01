@@ -1,7 +1,8 @@
 const ErrorResponse = require('../utils/ErrorResponse')
 const asyncHandler = require('../middlewares/async')
 const Schedule = require('../models/Schedule')
-const generateSchedule = require('../utils/generateSchedules')
+const generateSchedule = require('../utils/generateSchedules').generateSchedule
+const callBackSchedules = require('../utils/generateSchedules').getSchedules
 
 // @desc     Get all schedules
 // @route    GET /schedules
@@ -46,7 +47,11 @@ exports.createSchedule = asyncHandler(async (req, res) => {
   const startDate = new Date('2020/04/07')
   const endDate = new Date('2020/04/14')
 
-  const scheduleJson = await generateSchedule(startDate, endDate)
+  const scheduleJson = await generateSchedule(
+    startDate,
+    endDate,
+    callBackSchedules
+  )
 
   const schedule = await Schedule.create(scheduleJson)
   res.status(201).json({

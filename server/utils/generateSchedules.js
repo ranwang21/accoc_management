@@ -2,7 +2,11 @@ const User = require('../models/User')
 const ClassroomSchedule = require('../models/ClassroomSchedule')
 const Day = require('../models/Day')
 
-const generateSchedule = async (startDate, endDate) => {
+const getSchedules = datas => {
+  console.log(datas.length)
+}
+
+const generateSchedule = async (startDate, endDate, callBack) => {
   const classroomSchedules = await ClassroomSchedule.find().lean()
   const schedule = [] // Declare Array ici
 
@@ -13,28 +17,38 @@ const generateSchedule = async (startDate, endDate) => {
         id_classroom: classroomSchedule.id_classroom
       }).lean()
       const dayToIncrement = new Date(startDate)
-      while (dayToIncrement <= endDate) {
-        if (dayToIncrement.getDay() === day.value) {
+      const strDayToIncrement = `${dayToIncrement.getFullYear()}/${dayToIncrement.getMonth() +
+        1}/${dayToIncrement.getDate()}`
+      const differenceInDays =
+        (endDate.getTime() - dayToIncrement.getTime()) / (1000 * 3600 * 24)
+      let increment = 0
+      while (increment <= differenceInDays) {
+        const today = new Date(strDayToIncrement)
+        today.setDate(today.getDate() + increment)
+        if (today.getDay() === day.value) {
           childs.forEach(child => {
             const childJson = {
               id_user: child._id,
               id_classroom: child.id_classroom,
-              Date: dayToIncrement,
+              Date: today,
               is_absent: false
             }
             const collabJson = {
               id_user: child.id_collaborater,
               id_classroom: child.id_classroom,
-              Date: dayToIncrement,
+              Date: today,
               is_absent: false
             }
-            console.log(childJson)
+            schedule.push(childJson, collabJson)
           })
         }
-        dayToIncrement.setDate(dayToIncrement.getDate() + 1)
+        increment += 1
       }
+      callBack(schedule)
     })
   })
 }
-
-module.exports = generateSchedule
+module.exports = {
+  getSchedules,
+  generateSchedule
+}
