@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.entities.User;
 
@@ -31,6 +32,7 @@ public class CollaborateurAdaptater extends ArrayAdapter<User> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(idLayout, null);
             ImageView img = (ImageView) convertView.findViewById(R.id.img_listView);
+            Glide.with(getContext()).load(user.getImg_url()).into(img);
             TextView tv_nom = (TextView) convertView.findViewById(R.id.lv_nom);
             TextView tv_prenom = (TextView) convertView.findViewById(R.id.lv_prenom);
             tv_nom.setText(user.getLast_name());
