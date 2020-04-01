@@ -45,6 +45,8 @@ exports.getSchedule = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.createSchedule = asyncHandler(async (req, res) => {
   const schedules = await Schedule.create(req.body)
+  const startDate = new Date('2020/04/07')
+  const endDate = new Date('2020/04/14')
   const scheduleJson = await generateSchedule(
     startDate,
     endDate,
