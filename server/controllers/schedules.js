@@ -43,7 +43,8 @@ exports.getSchedule = asyncHandler(async (req, res, next) => {
 // @route   POST /schedules
 // @access  Private
 exports.createSchedule = asyncHandler(async (req, res) => {
-  const { startDate, endDate } = req.body
+  const startDate = new Date(req.body.startDate)
+  const endDate = new Date(req.body.endDate)
   await Schedule.deleteMany({ date: { $gte: startDate } })
   await generateSchedule(res, startDate, endDate, getSchedules)
 })
