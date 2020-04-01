@@ -38,7 +38,7 @@ public class ListesEnfants extends Fragment {
         ArrayList<User> users = new ArrayList<>();
         ArrayList<Role> roles = RoleManager.getAll(getContext());
         for (Role r : roles) {
-            if (r.getTitle().equals("child")) {
+            if (r.getTitle().equals("children")) {
                 users = UserManager.getByRole(getContext(), r.get_id());
             }
         }
