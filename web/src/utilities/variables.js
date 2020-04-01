@@ -104,7 +104,7 @@ const variables = {
             identification: 'childrenRegisteridentification',
             lastName: 'childrenRegisteridentification8E5D4FDW185S',
             firstName: 'childrenRegisteridentificationQ8W7E4F2S8D',
-            birthday: 'childrenRegisteridentification7E4DE54F15ED2',
+            birthdayChild: 'childrenRegisteridentification7E4DE54F15ED2',
             garde: 'childrenRegisteridentification8R5D4F1E5D',
             gardeAll: 'childrenRegisteridentification8R5D4F1E5D1',
             gardeShared: 'childrenRegisteridentification8R5D4F1E5D2',
@@ -145,6 +145,21 @@ const variables = {
             autorisationInternetYes: 'childrenRegisterautorisation9WE8R5H4B1',
             autorisationInternetNo: 'childrenRegisterautorisation9WE8R5H4B2'
 
+        },
+        complementaryInformations: {
+            expectations: 'expectationsDD2FDF4VF',
+            lessons: 'expectationsDD2FDF4VF1',
+
+            needs: 'needshgfgdfv',
+            help: 'needshgfgdfv5421',
+
+            implications: 'implicationsR5DF42',
+            availableFor: 'gehsjhdjhceyhs',
+            talents: 'implicationsR5DF42U5H4J2',
+            snacks: 'implicationsR5DF42SS4',
+            organization: 'implicationsR5DF42ERGH',
+            support: 'implicationsR5DF425FG42F1',
+            participation: 'implicationsR5DF428G5FGD4F'
         }
     }
 }

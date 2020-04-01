@@ -10,7 +10,7 @@
             "label": "Prénom",
             "labelError": "Obligatoire"
         },
-        "birthday": {
+        "birthdayChild": {
             "label": "Date de naissance",
             "labelError": "Obligatoire"
         },

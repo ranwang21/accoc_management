@@ -9,23 +9,22 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import MomentUtils from '@date-io/moment'
 
-const ids = require('../../utilities/variables').variables.id.register
 const types = {
     text: 'textField',
     radio: 'radioField',
     checkBox: 'checkboxField',
     date: 'dateField',
-    contacts: 'contactField',
+    multiple: 'multipleField',
     membership: 'membershipField',
     participation: 'participationField',
     volunteering: 'volunteeringField'
 }
-const getAgeLimit = (limit) => {
+const getAgeLimit = (limit, age) => {
     const date = new Date()
     if (limit === 'min') {
-        return (date.getFullYear() - 100) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+        return (date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     } else {
-        return (date.getFullYear() - 18) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+        return (date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     }
 }
 
@@ -45,7 +44,7 @@ function TextMaskCustom(props) {
     );
   }
 
-const phoneField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const phoneField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <FormControl key={ids[fieldsConfig.name]}>
             <InputLabel>{lang[fieldsConfig.name].label}</InputLabel>
@@ -60,7 +59,7 @@ const phoneField = (fieldsConfig, propLang, lang, fields, errors, inputChange) =
     )
 }
 
-const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <TextField
             key={ids[fieldsConfig.name]}
@@ -77,7 +76,7 @@ const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange) =>
     )
 }
 
-const checkboxField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const checkboxField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <FormControlLabel
             key={ids[fieldsConfig.name]}
@@ -93,7 +92,7 @@ const checkboxField = (fieldsConfig, propLang, lang, fields, errors, inputChange
     )
 }
 
-const radio = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const radio = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <RadioGroup
             value={fields[fieldsConfig.name]}
@@ -110,7 +109,7 @@ const radio = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
     )
 }
 
-const radioField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const radioField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <div className='fieldset sex'>
             <div className='head'>
@@ -118,13 +117,13 @@ const radioField = (fieldsConfig, propLang, lang, fields, errors, inputChange) =
                 <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
             </div>
             <div className='body'>
-                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange)}
+                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange, ids)}
             </div>
         </div>
     )
 }
 
-const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <MuiPickersUtilsProvider
             libInstance={moment} utils={MomentUtils}
@@ -136,8 +135,8 @@ const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange) =>
                 openTo='year'
                 views={['year', 'month', 'date']}
                 label={lang[fieldsConfig.name].label}
-                minDate={new Date(getAgeLimit('min'))}
-                maxDate={new Date(getAgeLimit('max'))}
+                minDate={new Date(getAgeLimit('min', 18))}
+                maxDate={new Date(getAgeLimit('max', 100))}
                 value={fields[fieldsConfig.name]}
                 helperText={errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}
                 onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}
@@ -146,23 +145,8 @@ const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange) =>
     )
 }
 
-const contactField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
-    return (
-        <div className='fieldset contacts'>
-            <div className='head'>
-                <p>{lang[fieldsConfig.name].label}</p>
-                <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
-            </div>
-            <div className='body'>
-                {fieldsConfig.textOptions.map(option => (
-                    phoneField(option, propLang, lang, fields, errors, inputChange)
-                ))}
-            </div>
-        </div>
-    )
-}
 
-const membershipField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const membershipField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <div className='fieldset membership'>
             <div className='head'>
@@ -172,14 +156,14 @@ const membershipField = (fieldsConfig, propLang, lang, fields, errors, inputChan
             <div className='body'>
                 <p>{lang[fieldsConfig.name].title1}</p>
                 <p>{lang[fieldsConfig.name].title2}</p>
-                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange)}
+                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange, ids)}
                 {fields.membership === 'membership_becomeMember' && (
                     <div className='optional-fields'>
                         {fieldsConfig.options2.map(option => {
                             if (option.type === types.text) {
-                                return (textField(option, propLang, lang, fields, errors, inputChange))
+                                return (textField(option, propLang, lang, fields, errors, inputChange, ids))
                             } else if (option.type === types.checkBox) {
-                                return (checkboxField(option, propLang, lang, fields, errors, inputChange))
+                                return (checkboxField(option, propLang, lang, fields, errors, inputChange, ids))
                             }
                         })}
                     </div>
@@ -189,7 +173,7 @@ const membershipField = (fieldsConfig, propLang, lang, fields, errors, inputChan
     )
 }
 
-const participationField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+const participationField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <div className='fieldset participation'>
             <div className='head'>
@@ -198,26 +182,46 @@ const participationField = (fieldsConfig, propLang, lang, fields, errors, inputC
             <div className='body'>
                 <div>
                     {fieldsConfig.checkboxOptions1.map(option => (
-                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                        checkboxField(option, propLang, lang, fields, errors, inputChange, ids)
                     ))}
                 </div>
                 <Divider orientation='vertical' flexItem />
                 <div>
                     {fieldsConfig.checkboxOptions2.map(option => (
-                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                        checkboxField(option, propLang, lang, fields, errors, inputChange, ids)
                     ))}
                 </div>
                 <div>
-                    {checkboxField(fieldsConfig.others[0], propLang, lang, fields, errors, inputChange)}
+                    {checkboxField(fieldsConfig.others[0], propLang, lang, fields, errors, inputChange, ids)}
                     {fields.participation_diverses && (
-                        textField(fieldsConfig.others[1], propLang, lang, fields, errors, inputChange)
+                        textField(fieldsConfig.others[1], propLang, lang, fields, errors, inputChange, ids)
                     )}
                 </div>
             </div>
         </div>
     )
 }
-const volunteeringField = (fieldsConfig, propLang, lang, fields, errors, inputChange) => {
+
+
+const multipleField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
+    return (
+        <div className='fieldset contacts'>
+            <div className='head'>
+                <p>{lang[fieldsConfig.name].label}</p>
+                <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
+            </div>
+            <div className='body'>
+                {fieldsConfig.options.map(option => (
+                    option.type === types.phoneField
+                    ? (phoneField(option, propLang, lang, fields, errors, inputChange, ids))
+                    : (checkboxField(option, propLang, lang, fields, errors, inputChange, ids))
+                ))}
+            </div>
+        </div>
+    )
+}
+
+const volunteeringField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <div className='fieldset benevolat'>
             <div className='head'>
@@ -226,19 +230,19 @@ const volunteeringField = (fieldsConfig, propLang, lang, fields, errors, inputCh
             <div className='body'>
                 <div>
                     {fieldsConfig.checkboxOptions1.map(option => (
-                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                        checkboxField(option, propLang, lang, fields, errors, inputChange, ids)
                     ))}
                 </div>
                 <Divider orientation='vertical' flexItem />
                 <div>
                     {fieldsConfig.checkboxOptions2.map(option => (
-                        checkboxField(option, propLang, lang, fields, errors, inputChange)
+                        checkboxField(option, propLang, lang, fields, errors, inputChange, ids)
                     ))}
                 </div>
                 <div>
-                    {checkboxField(fieldsConfig.others[0], propLang, lang, fields, errors, inputChange)}
+                    {checkboxField(fieldsConfig.others[0], propLang, lang, fields, errors, inputChange, ids)}
                     {fields.volunteering_diverses && (
-                        textField(fieldsConfig.others[1], propLang, lang, fields, errors, inputChange)
+                        textField(fieldsConfig.others[1], propLang, lang, fields, errors, inputChange, ids)
                     )}
                 </div>
             </div>
@@ -252,7 +256,7 @@ export default {
     radioField,
     dateField,
     checkboxField,
-    contactField,
+    multipleField,
     membershipField,
     participationField,
     volunteeringField

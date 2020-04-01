@@ -10,7 +10,7 @@
             "label": "First name",
             "labelError": "Required"
         },
-        "birthday": {
+        "birthdayChild": {
             "label": "Date of Birth",
             "labelError": "Required"
         },

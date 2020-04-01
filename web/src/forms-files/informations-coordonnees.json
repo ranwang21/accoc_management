@@ -40,8 +40,8 @@
         },
         {
             "name": "contacts",
-            "type": "contactField",
-            "textOptions": [
+            "type": "multipleField",
+            "options": [
                 {
                     "name": "contacts_personal",
                     "type": "phoneField",

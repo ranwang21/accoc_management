@@ -1,0 +1,39 @@
+{
+    "title": "Informations Complementaires",
+    "expectations": {
+        "label": "Attentes",
+        "lessons": {
+            "info": "En tant que parent, qu'attendez-vous de l'atelier de devoirs et lecons de la Maison d'Aurore ?",
+            "label": "",
+            "labelError": "Obligatoire"
+        }
+    },
+    "needs": {
+        "label": "Besoins",
+        "help": {
+            "info": "Nous sommes la pour vous soutenir au quotidien dans votre role de parent : comment pourrions-nous vous aider ? (ecoute, formations, conferences, themes, etc.)",
+            "label": ""
+        }
+    },
+    "implications": {
+        "label": "Implications",
+        "availableFor": {},
+        "talents": {
+            "info": "Votre implication est importante pour l'epanouissement de votre enfant: avez-vous des talents ?",
+            "label": ""
+        },
+        "snacks": {
+            "label": "en version papier"
+        },
+        "organization": {
+            "label": "sur le site internet"
+        },
+        "support": {
+            "label": "sur le site internet"
+        },
+        "participation": {
+            "info": "",
+            "label": ""
+        }
+    }
+}

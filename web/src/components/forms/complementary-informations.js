@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import Form from './builds-child'
 
-import '../../styles/_children-inscription.scss'
-const FormConfig = require('../../forms-files/parent_children_inscription.json').fieldsets
-const ids = require('../../utilities/variables').variables.id.childrenRegister
+import '../../styles/_complementary-informations.scss'
+const FormConfig = require('../../forms-files/parent_complementary_informations.json').fieldsets
+const ids = require('../../utilities/variables').variables.id.complementaryInformations
 
-class ChildrenInscription extends Component {
-    getLangFile () { return require('../../lang/' + this.props.lang + '/children-inscription.json') }
+class ComplementaryInformations extends Component {
+    getLangFile () { return require('../../lang/' + this.props.lang + '/complementary-informations.json') }
 
     render () {
         const lang = this.getLangFile()
         return (
             <>
-                <div className='children-inscription'>
+                <div className='complementary-informations'>
                     <h1>{lang.title} {this.props.nbre}/ {this.props.nbreChild}</h1>
                     <div>
                         {FormConfig.map(fieldset => {
@@ -40,4 +40,4 @@ class ChildrenInscription extends Component {
     }
 }
 
-export default ChildrenInscription
+export default ComplementaryInformations

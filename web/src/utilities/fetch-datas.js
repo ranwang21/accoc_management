@@ -160,6 +160,44 @@ const getImage = (token, callBack) => {
         })
 }
 
+const schedules = (token, callBack) => {
+    fetch(HOST + '/classroom-schedules/', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data1 => {
+            const classroomSchedules = data1.data
+
+            fetch(HOST + '/users/', {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            })
+                .then(response => response.json())
+                .then(data2 => {
+                    const users = data2.data
+                    fetch(HOST + '/days/', {
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + token
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data3 => {
+                            const days = data3.data
+                            callBack(users, classroomSchedules, days)
+                        })
+                })
+        })
+}
+
 const getAddressFromGoogle = () => {
     const API_KEY = 'AIzaSyCeyah5EQEjXMmGTgWi1lTQyORN4n4Wil0'
     const input = '5217+Trans+island'
@@ -180,5 +218,6 @@ export default {
     addUser,
     deleteLogin,
     getAddressFromGoogle,
-    getImage
+    getImage,
+    schedules
 }

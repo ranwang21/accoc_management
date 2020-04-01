@@ -14,7 +14,7 @@
                     "required": true
                 },
                 {
-                    "name": "birthday",
+                    "name": "birthdayChild",
                     "type": "dateField",
                     "required": true
                 },
