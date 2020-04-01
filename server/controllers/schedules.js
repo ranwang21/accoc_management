@@ -1,8 +1,7 @@
 const ErrorResponse = require('../utils/ErrorResponse')
 const asyncHandler = require('../middlewares/async')
 const Schedule = require('../models/Schedule')
-const generateSchedule = require('../utils/generateSchedules').generateSchedule
-const callBackSchedules = require('../utils/generateSchedules').getSchedules
+const { generateSchedule, getSchedules } = require('../utils/generateSchedules')
 
 // @desc     Get all schedules
 // @route    GET /schedules
@@ -44,18 +43,9 @@ exports.getSchedule = asyncHandler(async (req, res, next) => {
 // @route   POST /schedules
 // @access  Private
 exports.createSchedule = asyncHandler(async (req, res) => {
-  const schedules = await Schedule.create(req.body)
-  const startDate = new Date('2020/04/07')
-  const endDate = new Date('2020/04/14')
-  const scheduleJson = await generateSchedule(
-    startDate,
-    endDate,
-    callBackSchedules
-  )
-  res.status(201).json({
-    success: true,
-    data: schedules
-  })
+  const { startDate, endDate } = req.body
+  await Schedule.deleteMany({ date: { $gte: startDate } })
+  await generateSchedule(res, startDate, endDate, getSchedules)
 })
 
 // @desc    Update schedule
