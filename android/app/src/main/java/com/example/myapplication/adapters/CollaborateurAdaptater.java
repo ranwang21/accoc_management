@@ -30,12 +30,12 @@ public class CollaborateurAdaptater extends ArrayAdapter<User> {
         final User user = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(idLayout, null);
-            //ImageView img = (ImageView) convertView.findViewById(R.id.img_listView);
+            ImageView img = (ImageView) convertView.findViewById(R.id.img_listView);
             TextView tv_nom = (TextView) convertView.findViewById(R.id.lv_nom);
             TextView tv_prenom = (TextView) convertView.findViewById(R.id.lv_prenom);
-            //img.setImageResource();
             tv_nom.setText(user.getLast_name());
             tv_prenom.setText(user.getFirst_name());
+            //img.setImageResource();
         }
         return convertView;
     }
