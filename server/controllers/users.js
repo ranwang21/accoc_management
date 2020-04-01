@@ -135,13 +135,13 @@ exports.getPhoto = asyncHandler(async (req, res, next) => {
   if (fileName.includes('no-photo')) {
     let url
     if (user.sex === 'male') {
-      url = `${req.protocol}//:${req.hostname}/uploads/no-photo-male.png`
+      url = `${req.protocol}://${req.hostname}/uploads/no-photo-male.png`
       res.status(200).json({
         success: true,
         data: url
       })
     } else {
-      url = `${req.protocol}//:${req.hostname}/uploads/no-photo-female.png`
+      url = `${req.protocol}://${req.hostname}/uploads/no-photo-female.png`
       res.status(200).json({
         success: true,
         data: url
