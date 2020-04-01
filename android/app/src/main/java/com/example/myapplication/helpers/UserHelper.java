@@ -36,7 +36,7 @@ public class UserHelper {
                 try {
                     jsonResult = new JSONObject(jsonUrl);
                     String img_url = jsonResult.getString("data");
-                    Log.d("JsonGetlistUser", "id: " + u.get_id() + " title: " + u.getFirst_name()+" img url: " + img_url);
+                    Log.d("JsonGetlistUser", "id_role: " + u.getId_role() + " title: " + u.getFirst_name()+" img url: " + img_url);
                     db.execSQL("insert into " + DataBaseHelper.USER_TABLE_NAME + " (id, id_role, first_name, last_name, sex, address, birthday, img_url) values " + "('" + u.get_id() + "','" + u.getId_role() + "','" + u.getFirst_name() + "','" + u.getLast_name() + "','" + u.getSex() + "','" + u.getAddress() + "','" + u.getBirthday() + "','" + img_url + "')");
                 } catch (JSONException e) {
                     e.printStackTrace();
