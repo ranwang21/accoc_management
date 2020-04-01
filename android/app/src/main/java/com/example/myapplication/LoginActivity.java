@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 } catch (Exception e) {
                     Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
+                    Log.d("JsonErrorLogin", e.getMessage());
                 }
             }
         });
