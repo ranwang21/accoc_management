@@ -132,6 +132,23 @@ exports.getPhoto = asyncHandler(async (req, res, next) => {
 
   const fileName = user.photo
 
-  // CALL AWS S3 METHOD
-  getS3Photo(res, next, fileName)
+  if (fileName.includes('no-photo')) {
+    let url
+    if (user.sex === 'male') {
+      url = `${req.protocol}//:${req.hostname}/uploads/no-photo-male.png`
+      res.status(200).json({
+        success: true,
+        data: url
+      })
+    } else {
+      url = `${req.protocol}//:${req.hostname}/uploads/no-photo-female.png`
+      res.status(200).json({
+        success: true,
+        data: url
+      })
+    }
+  } else {
+    // CALL AWS S3 METHOD
+    getS3Photo(res, next, fileName)
+  }
 })
