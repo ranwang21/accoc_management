@@ -18,6 +18,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String LOGIN_TABLE_NAME = "login";
     public static final String INCONSISTENCY_TABLE_NAME = "inconsistency";
     public static final String EVALUATION_TABLE_NAME = "evalutation";
+    public static final String EVALUATION_CLOSED_QUESTIONS_TABLE_NAME = "evalutation_closed_questions";
+    public static final String EVALUATION_OPEN_QUESTIONS_TABLE_NAME = "evalutation_open_questions";
     public static final String CLASSROOM_TABLE_NAME = "classroom";
     // TABLES CREATES STATEMENTS
     private static final String CREATE_TABLE_USER = ("create table " + USER_TABLE_NAME + "(" + "id text primary key , id_role text, first_name text, last_name text, sex text, address text, birthday text ,img_url text, password text)");
@@ -27,6 +29,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SCHEDULE = ("create table " + SCHEDULE_TABLE_NAME + "(" + "id text primary key , id_user text, id_classroom text, date text, is_absent integer, comment text)");
     private static final String CREATE_TABLE_INCONSISTENCY = ("create table " + INCONSISTENCY_TABLE_NAME + "(" + "id text primary key , id_schedule text, id_child text, id_collaborator text)");
     private static final String CREATE_TABLE_EVALUATION = ("create table " + EVALUATION_TABLE_NAME + "(" + "id text primary key , id_schedule text)");
+    private static final String CREATE_TABLE_EVALUATION_CLOSED_QUESTIONS = ("create table " + EVALUATION_CLOSED_QUESTIONS_TABLE_NAME + "(" + "id text primary key , id_evaluation text, title text, answer text)");
+    private static final String CREATE_TABLE_EVALUATION_OPEN_QUESTIONS = ("create table " + EVALUATION_OPEN_QUESTIONS_TABLE_NAME + "(" + "id text primary key , id_evaluation text, title text, answer text)");
     public DataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -40,7 +44,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CLASSROOM);
         db.execSQL(CREATE_TABLE_INCONSISTENCY);
         db.execSQL(CREATE_TABLE_EVALUATION);
-
+        db.execSQL(CREATE_TABLE_EVALUATION_CLOSED_QUESTIONS);
+        db.execSQL(CREATE_TABLE_EVALUATION_OPEN_QUESTIONS);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -52,6 +57,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CLASSROOM_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + INCONSISTENCY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + EVALUATION_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + EVALUATION_CLOSED_QUESTIONS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + EVALUATION_OPEN_QUESTIONS_TABLE_NAME);
         // Creation
         onCreate(db);
     }
