@@ -31,8 +31,17 @@ public class UserHelper {
             Data<User> data = gson.fromJson(json, type);
             ArrayList<User> users = data.getData();
             for (User u : users) {
-                Log.d("JsonGetlistUser", "id: " + u.get_id() + " title: " + u.getFirst_name());
-                db.execSQL("insert into " + DataBaseHelper.USER_TABLE_NAME + " (id, id_role, first_name, last_name, sex, address, birthday, img_url) values " + "('" + u.get_id() + "','" + u.getId_role() + "','" + u.getFirst_name() + "','" + u.getLast_name() + "','" + u.getSex() + "','" + u.getAddress() + "','" + u.getBirthday() + "','" + u.getImg_url() + "')");
+                String jsonUrl = GetJson.get("/users/"+u.get_id()+"/photo",token);
+                JSONObject jsonResult = null;
+                try {
+                    jsonResult = new JSONObject(jsonUrl);
+                    String img_url = jsonResult.getString("data");
+                    Log.d("JsonGetlistUser", "id: " + u.get_id() + " title: " + u.getFirst_name()+" img url: " + img_url);
+                    db.execSQL("insert into " + DataBaseHelper.USER_TABLE_NAME + " (id, id_role, first_name, last_name, sex, address, birthday, img_url) values " + "('" + u.get_id() + "','" + u.getId_role() + "','" + u.getFirst_name() + "','" + u.getLast_name() + "','" + u.getSex() + "','" + u.getAddress() + "','" + u.getBirthday() + "','" + img_url + "')");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     }

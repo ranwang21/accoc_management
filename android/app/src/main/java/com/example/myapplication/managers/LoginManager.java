@@ -144,7 +144,6 @@ public class LoginManager {
         String jsonToSemd = gson.toJson(login);
         String jsonFromApi = PostJson.post(jsonToSemd, "/auth/login", token);
         String tokenFromApi = "";
-        Log.d("Json", "getLoginToken: " + jsonFromApi);
         try {
             JSONObject jsonResult = new JSONObject(jsonFromApi);
             tokenFromApi = jsonResult.getString("token");
@@ -156,7 +155,7 @@ public class LoginManager {
     }
     public static String logout() {
         Gson gson = new Gson();
-        String jsonFromApi = GetJson.get( "/auth/logout","");
+        String jsonFromApi = GetJson.get("/auth/logout", "");
         String tokenFromApi = "";
         Log.d("Json", "getLoginToken: " + jsonFromApi);
         try {

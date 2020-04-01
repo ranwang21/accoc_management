@@ -22,6 +22,7 @@ public class EvaluationHelper {
             }.getType();
             Data<Evaluation> data = gson.fromJson(json, type);
             ArrayList<Evaluation> evaluations = data.getData();
+
             for (Evaluation e : evaluations) {
                 Log.d("JsonGetlistEvaluation", "id: " + e.get_id() + " title: " + e.getId_schedule());
                 db.execSQL("insert into " + DataBaseHelper.EVALUATION_TABLE_NAME + " (id, id_schedule) values " + "('" + e.get_id() + "','" + e.getId_schedule() + "')");

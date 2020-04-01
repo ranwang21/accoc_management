@@ -1,8 +1,27 @@
 const express = require('express')
-const { createSchedule } = require('../controllers/schedules')
+const { protect, authorize } = require('../middlewares/auth')
+const {
+  getSchedules,
+  getSchedule,
+  createSchedule,
+  updateSchedule,
+  deleteSchedule
+} = require('../controllers/schedules')
 
-const router = express.Router()
+const Schedule = require('../models/Schedule')
+const advancedResults = require('../middlewares/advancedResults')
 
-router.route('/').post(createSchedule)
+const router = express.Router({ mergeParams: true })
+
+router
+  .route('/')
+  .get(advancedResults(Schedule), getSchedules)
+  .post(createSchedule)
+
+router
+  .route('/:id')
+  .get(getSchedule)
+  .put(updateSchedule)
+  .delete(deleteSchedule)
 
 module.exports = router
