@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 
 public class ProfilCollabActivity extends AppCompatActivity {
@@ -83,10 +84,10 @@ public class ProfilCollabActivity extends AppCompatActivity {
             if (requestCode == 1) {
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-                image_collaborateur.setImageBitmap(imageBitmap);
+                Glide.with(getApplicationContext()).load(imageBitmap).centerCrop().apply(RequestOptions.circleCropTransform()).into(image_collaborateur);
             } else if (requestCode == 2) {
                 imageUri = data.getData();
-                image_collaborateur.setImageURI(imageUri);
+                Glide.with(getApplicationContext()).load(imageUri).centerCrop().apply(RequestOptions.circleCropTransform()).into(image_collaborateur);
             }
         }
     }
