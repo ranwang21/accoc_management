@@ -68,7 +68,7 @@ public class ListesEnfants extends Fragment {
                 bundle.putString("user_sex", sexe);
                 bundle.putString("user_address", address);
                 bundle.putString("user_image", image);
-                Intent intent = new Intent(getActivity(), ProfilCollabActivity.class);
+                Intent intent = new Intent(getActivity(), ProfilEnfantActivity.class);
                 intent.putExtra("bundle", bundle);
                 startActivity(intent);
             }

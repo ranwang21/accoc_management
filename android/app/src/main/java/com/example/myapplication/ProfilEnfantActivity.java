@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,18 +22,20 @@ public class ProfilEnfantActivity extends AppCompatActivity {
 
     TextView tv_birthday, tv_nom, tv_prenom, tv_sexe, tv_adress, tv_telephone;
     ImageView image_enfant;
+    Button btn_suivi;
     Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profil_collaborateur);
+        setContentView(R.layout.profil_enfant);
         tv_nom = findViewById(R.id.tv_nom);
         tv_prenom = findViewById(R.id.tv_prenom);
         tv_birthday = findViewById(R.id.tv_birthday);
         tv_telephone = findViewById(R.id.tv_tepehone);
         tv_sexe = findViewById(R.id.tv_gender);
         tv_adress = findViewById(R.id.tv_address);
-        image_enfant = findViewById(R.id.img_collab);
+        image_enfant = findViewById(R.id.img_enfant);
+        btn_suivi = findViewById(R.id.btn_suivi);
         Intent i = getIntent();
         Bundle b = i.getBundleExtra("bundle");
         String fisrtName = b.getString("user_firstname");
@@ -52,6 +55,13 @@ public class ProfilEnfantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectImage();
+            }
+        });
+        btn_suivi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SuiviQuotidienActivity.class);
+                startActivity(intent);
             }
         });
     }
