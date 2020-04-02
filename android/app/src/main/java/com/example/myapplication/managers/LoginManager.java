@@ -157,7 +157,7 @@ public class LoginManager {
         Gson gson = new Gson();
         String jsonFromApi = GetJson.get("/auth/logout", "");
         String tokenFromApi = "";
-        Log.d("Json", "getLoginToken: " + jsonFromApi);
+        Log.d("Json", "getLogout: " + jsonFromApi);
         try {
             JSONObject jsonResult = new JSONObject(jsonFromApi);
             tokenFromApi = jsonResult.getString("success");
