@@ -16,6 +16,8 @@
                 {
                     "name": "birthdayChild",
                     "type": "dateField",
+                    "min": 5,
+                    "max": 17,
                     "required": true
                 },
                 {

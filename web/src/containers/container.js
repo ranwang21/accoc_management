@@ -48,8 +48,6 @@ class MainContainer extends Component {
         token !== null
             ? Fetch.getCurrentUser(token, this.checkCurrentUser)
             : this.setState({ showLoading: false })
-
-        Fetch.schedules(token, this.schedulesFunc)
     }
 
     getLangFile () { return require('../lang/' + this.state.lang + '/container.json') }
@@ -131,59 +129,7 @@ class MainContainer extends Component {
 
     handleCloseSnack () { this.setState({ showSnack: false }) }
 
-    schedulesFunc (usersDatas, classroomSchedulesDatas, days) {
-        // console.log(usersDatas)
-        // console.log(classroomSchedulesDatas)
-        const lastDay = new Date('2020/04/14')
-        const dayArray = []
-        const childs = []
-        classroomSchedulesDatas.map(classRoom => {
-            classRoom.id_day.map(day => {
-                usersDatas.map(user => {
-                    if (user.id_classroom === classRoom.id_classroom) {
-                        childs.push(user)
-                        days.map(dayff => {
-                            if (dayff._id === day) {
-                                dayArray.push(dayff)
-                            }
-                        })
-                    }
-                })
-            })
-        })
-        const schedule = []
-        const dayToIncrement = new Date('2020/04/07')
-        const strDayToIncrement = '2020/04/07'
-        const differenceInDays = (lastDay.getTime() - dayToIncrement.getTime()) / (1000 * 3600 * 24)
-        dayArray.map(day => {
-            let increment = 0
-            while (increment <= differenceInDays) {
-                const today = new Date(strDayToIncrement)
-                today.setDate(today.getDate() + increment)
-                console.log(today)
-                if (today.getDay() === day.value) {
-                    const childJson = {
-                        id_user: childs[0]._id,
-                        id_classroom: childs[0].id_classroom,
-                        date: today,
-                        is_absent: false
-                    }
-                    const collabJson = {
-                        id_user: childs[0].id_collaborater,
-                        id_classroom: childs[0].id_classroom,
-                        date: today,
-                        is_absent: false
-                    }
-                    schedule.push(childJson, collabJson)
-                }
-                increment += 1
-            }
-        })
-        console.log(schedule)
-    }
-
     render () {
-        const token = this.props.cookies.get(variables.cookies.token)
         const lang = this.state.lang
         const langFile = this.getLangFile()
         let messageSnack = this.state.isConnected ? langFile.logInSnack : langFile.logOutSnack

@@ -1,5 +1,5 @@
 @import "./base";
-.complementary-informations {
+.collaborator-benevoles {
     h1 {
         text-align: center;
     }
@@ -42,7 +42,6 @@
                     > div {
                         width: 100%;
                     }
-
                     .fieldset {
                         border: 3px solid rgba(0, 0, 0, 0.2);
                         height: auto;
@@ -63,13 +62,17 @@
                                     align-self: start;
                                     background-color: rgba(0, 0, 0, 0.2);
                                 }
+                                &:nth-child(2) {
+                                    background-color: transparent;
+                                    color: red;
+                                }
                             }
                         }
                         .body {
+                            padding-left: 2em;
                             display: flex;
                             flex-flow: row wrap;
                             justify-content: center;
-                            padding-left: 2em;
                             > * {
                                 text-align: center;
                             }
@@ -108,16 +111,19 @@
                     }
                 }
             }
-            &:nth-of-type(3) {
+            &:nth-of-type(1) {
                 > div.fields {
                     > div {
+                        &:nth-of-type(1),
                         &:nth-of-type(2) {
                             > div {
                                 > div {
                                     display: flex;
-                                    flex-direction: column;
+                                    flex-wrap: wrap;
                                     align-items: flex-start;
                                     > label {
+                                        width: 50%;
+                                        margin: 0;
                                         transition: all 0.3s;
                                         .Mui-checked {
                                             color: $primaryColor;
@@ -140,6 +146,26 @@
 }
 
 @include responsive(phone) {
+    .collaborator-benevoles {
+        > div > fieldset:nth-of-type(1) > div.fields > div {
+            &:nth-of-type(1),
+            &:nth-of-type(2) {
+                > div > div > label {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 @include responsive(tablet) {
+    .collaborator-benevoles {
+        > div > fieldset:nth-of-type(1) > div.fields > div {
+            &:nth-of-type(1),
+            &:nth-of-type(2) {
+                > div > div > label {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

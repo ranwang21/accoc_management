@@ -171,7 +171,7 @@
     },
     "autorisation": {
         "label": "Autorisation",
-        "info": "I authorize that photos of my child be taken and used in the publications of the Maison d'Aurore :",
+        "info": "I authorize that photos of my child be taken and used in the publications of the Aurore's House :",
         "labelError": "Required",
         "autorisationPapper": {
             "label": "in paper version",
