@@ -48,12 +48,10 @@ public class LoginActivity extends AppCompatActivity {
                     Preferences.incrementVersion(LoginActivity.this);
                     Login login = new Login(edtEmail.getText().toString(), edtPassword.getText().toString());
                     String token = LoginManager.getLoginToken(login, "");
-                    RoleHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
-                    UserHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
-                    ClassroomHelper.getFromAPI(ConnectionBD.getBd(LoginActivity.this), token);
                     Preferences.setToken(LoginActivity.this, token);
-                    Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                    Intent intent = new Intent(getApplicationContext(), StartActivity.class);
                     startActivity(intent);
+                    finish();
                 } catch (Exception e) {
                     Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
                     Log.d("JsonErrorLogin", e.getMessage());

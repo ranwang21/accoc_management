@@ -10,11 +10,12 @@ public class User {
     String address;
     String birthday;
     String img_url;
+    String id_collaborater;
+    String id_classroom;
 
     public User() {
     }
-
-    public User(String _id, String id_role, String first_name, String last_name, String sex, String address, String birthday, String img_url) {
+    public User(String _id, String id_role, String first_name, String last_name, String sex, String address, String birthday, String img_url, String id_collaborater, String id_classroom) {
         this._id = _id;
         this.id_role = id_role;
         this.first_name = first_name;
@@ -23,10 +24,9 @@ public class User {
         this.address = address;
         this.birthday = birthday;
         this.img_url = img_url;
+        this.id_collaborater = id_collaborater;
+        this.id_classroom = id_classroom;
     }
-
-
-
     public String get_id() {
         return _id;
     }
@@ -89,5 +89,17 @@ public class User {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
+    }
+    public String getId_collaborater() {
+        return id_collaborater;
+    }
+    public void setId_collaborater(String id_collaborater) {
+        this.id_collaborater = id_collaborater;
+    }
+    public String getId_classroom() {
+        return id_classroom;
+    }
+    public void setId_classroom(String id_classroom) {
+        this.id_classroom = id_classroom;
     }
 }

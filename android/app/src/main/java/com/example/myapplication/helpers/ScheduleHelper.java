@@ -24,8 +24,12 @@ public class ScheduleHelper {
             Data<Schedule> data = gson.fromJson(json, type);
             ArrayList<Schedule> schedules = data.getData();
             for (Schedule s : schedules) {
+                int is_absent = 0;
+                if (s.getIs_absent()) {
+                    is_absent = 1;
+                }
                 Log.d("JsonGetlistSchedule", "id: " + s.get_id() + " title: " + s.getDate());
-                db.execSQL("insert into " + DataBaseHelper.SCHEDULE_TABLE_NAME + " (id, id_user, id_classroom, date, is_absent, comment) values " + "('" + s.get_id() + "','" + s.getId_user() + "','" + s.getId_classroom() + "','" + s.getDate() + "','" + s.getIs_absent() + "','" + s.getComment() + "')");
+                db.execSQL("insert into " + DataBaseHelper.SCHEDULE_TABLE_NAME + " (id, id_user, id_classroom, date, is_absent, comment) values " + "('" + s.get_id() + "','" + s.getId_user() + "','" + s.getId_classroom() + "','" + s.getDate() + "','" + is_absent + "','" + s.getComment() + "')");
             }
         }
     }

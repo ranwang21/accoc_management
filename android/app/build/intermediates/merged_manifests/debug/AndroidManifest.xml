@@ -35,14 +35,14 @@
             android:name="com.example.myapplication.Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.myapplication.StartActivity" >
+        <activity android:name="com.example.myapplication.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.myapplication.LoginActivity" />
+        <activity android:name="com.example.myapplication.StartActivity" />
 
         <provider
             android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
