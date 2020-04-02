@@ -18,10 +18,10 @@ import com.example.myapplication.entities.User;
 import java.util.List;
 
 
-public class CollaborateurAdaptater extends ArrayAdapter<User> {
+public class EnfantAdapter extends ArrayAdapter<User> {
 
     int idLayout;
-    public CollaborateurAdaptater(@NonNull Context context, int resource, @NonNull List<User> objects) {
+    public EnfantAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
         super(context, resource, objects);
         idLayout = resource;
     }
@@ -32,9 +32,9 @@ public class CollaborateurAdaptater extends ArrayAdapter<User> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(idLayout, null);
             ImageView img = (ImageView) convertView.findViewById(R.id.img_listView);
-            Glide.with(getContext()).load(user.getImg_url()).into(img);
             TextView tv_nom = (TextView) convertView.findViewById(R.id.lv_nom);
             TextView tv_prenom = (TextView) convertView.findViewById(R.id.lv_prenom);
+            Glide.with(getContext()).load(user.getImg_url()).into(img);
             tv_nom.setText(user.getLast_name());
             tv_prenom.setText(user.getFirst_name());
         }

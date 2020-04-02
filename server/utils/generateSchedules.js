@@ -1,14 +1,22 @@
 const User = require('../models/User')
 const ClassroomSchedule = require('../models/ClassroomSchedule')
 const Day = require('../models/Day')
+const Schedule = require('../models/Schedule')
 
-const getSchedules = datas => {
-  console.log(datas)
+const getSchedules = async (res, datas) => {
+  const schedules = await Schedule.create(datas)
+
+  res.status(200).json({
+    success: true,
+    count: schedules.length,
+    data: schedules
+  })
 }
 
-const generateSchedule = async (startDate, endDate, callBack) => {
+const generateSchedule = async (res, startDate, endDate, callBack) => {
   const classroomSchedules = await ClassroomSchedule.find().lean()
   const schedule = [] // Declare Array ici
+  let index = 0
 
   classroomSchedules.forEach(classroomSchedule => {
     classroomSchedule.id_day.forEach(async idDay => {
@@ -30,13 +38,13 @@ const generateSchedule = async (startDate, endDate, callBack) => {
             const childJson = {
               id_user: child._id,
               id_classroom: child.id_classroom,
-              Date: today,
+              date: today,
               is_absent: false
             }
             const collabJson = {
               id_user: child.id_collaborater,
               id_classroom: child.id_classroom,
-              Date: today,
+              date: today,
               is_absent: false
             }
             schedule.push(childJson, collabJson)
@@ -44,7 +52,10 @@ const generateSchedule = async (startDate, endDate, callBack) => {
         }
         increment += 1
       }
-      callBack(schedule)
+      index += 1
+      if (index === classroomSchedules.length) {
+        callBack(res, schedule)
+      }
     })
   })
 }
