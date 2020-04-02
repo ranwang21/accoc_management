@@ -16,6 +16,8 @@
         {
             "name": "birthday",
             "type": "dateField",
+            "min": 18,
+            "max": 100,
             "required": true
         },
         {

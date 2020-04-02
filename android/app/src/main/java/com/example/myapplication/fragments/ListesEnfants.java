@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.myapplication.ProfilCollabActivity;
 import com.example.myapplication.ProfilEnfantActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.SuiviQuotidienActivity;
@@ -50,19 +51,28 @@ public class ListesEnfants extends Fragment {
         enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
         listView.setAdapter(enfantAdapter);
         enfantAdapter.notifyDataSetChanged();
-
-        /*ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1, listviewItems
-        );
-        listView.setAdapter(listViewAdapter);
+        ArrayList<User> finalUsers = users;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), ProfilEnfantActivity.class);
+                String first_name = finalUsers.get(position).getFirst_name();
+                String last_name = finalUsers.get(position).getLast_name();
+                String birthday = finalUsers.get(position).getBirthday();
+                String sexe = finalUsers.get(position).getSex();
+                String address = finalUsers.get(position).getAddress();
+                String image = finalUsers.get(position).getImg_url();
+                Bundle bundle = new Bundle();
+                bundle.putString("user_firstname", first_name);
+                bundle.putString("user_lastname", last_name);
+                bundle.putString("user_birthday", birthday);
+                bundle.putString("user_sex", sexe);
+                bundle.putString("user_address", address);
+                bundle.putString("user_image", image);
+                Intent intent = new Intent(getActivity(), ProfilCollabActivity.class);
+                intent.putExtra("bundle", bundle);
                 startActivity(intent);
             }
-        });*/
+        });
         return view;
     }
     @Override

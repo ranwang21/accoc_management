@@ -15,13 +15,18 @@ const router = express.Router({ mergeParams: true })
 
 router
   .route('/')
-  .get(advancedResults(Schedule), getSchedules)
-  .post(createSchedule)
+  .get(
+    protect,
+    authorize('admin', 'super_admin'),
+    advancedResults(Schedule),
+    getSchedules
+  )
+  .post(protect, authorize('admin', 'super_admin'), createSchedule)
 
 router
   .route('/:id')
-  .get(getSchedule)
-  .put(updateSchedule)
-  .delete(deleteSchedule)
+  .get(protect, getSchedule)
+  .put(protect, authorize('admin', 'super_admin'), updateSchedule)
+  .delete(protect, authorize('admin', 'super_admin'), deleteSchedule)
 
 module.exports = router

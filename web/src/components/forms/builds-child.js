@@ -16,6 +16,7 @@ const types = {
     textAreaField: 'textAreaField',
     phoneField: 'phoneField'
 }
+
 const getAgeLimit = (limit) => {
     const date = new Date()
     if (limit === 'min') {
@@ -40,7 +41,7 @@ function TextMaskCustom(props) {
         autoFocus
       />
     );
-  }
+}
 
 const phoneField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
@@ -56,6 +57,7 @@ const phoneField = (fieldsConfig, propLang, lang, fields, errors, inputChange, i
         </FormControl>
     )
 }
+
 const selectField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <FormControl
@@ -126,6 +128,7 @@ const textAreaField = (fieldsConfig, propLang, lang, fields, errors, inputChange
         </div>
     )
 }
+
 const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <TextField
@@ -240,7 +243,7 @@ const membershipField = (fieldsConfig, propLang, lang, fields, errors, inputChan
             <div className='body'>
                 <p>{lang[fieldsConfig.name].title1}</p>
                 <p>{lang[fieldsConfig.name].title2}</p>
-                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange)}
+                {radio(fieldsConfig, propLang, lang, fields, errors, inputChange, ids)}
                 <div className='optional-fields'>
                     {(fields.garde === 'gardeShared' && lang[fieldsConfig.name].gardeShared) && (
                         <p>{lang[fieldsConfig.name].gardeShared.info}</p>
@@ -310,6 +313,7 @@ const participationField = (fieldsConfig, propLang, lang, fields, errors, inputC
         </div>
     )
 }
+
 const volunteeringField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <div className='fieldset benevolat'>

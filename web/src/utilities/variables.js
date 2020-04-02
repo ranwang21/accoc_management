@@ -160,6 +160,26 @@ const variables = {
             organization: 'implicationsR5DF42ERGH',
             support: 'implicationsR5DF425FG42F1',
             participation: 'implicationsR5DF428G5FGD4F'
+        },
+        collaboratorBenevoles: {
+            availabilityInterest: 'availabilityInterest85d4c',
+            availability: 'availabilityInterest85d4c1',
+            monday: 'availabilityInterest85d4c11',
+            tuesday: 'availabilityInterest85d4c12',
+            wednesday: 'availabilityInterest85d4c13',
+            thursday: 'availabilityInterest85d4c14',
+            interest: 'availabilityInterest85d4c2',
+            magicJournal: 'availabilityInterest85d4c21',
+            serveSnack: 'availabilityInterest85d4c22',
+            animationPreparation: 'availabilityInterest85d4c23',
+            accompanyWorkshop: 'availabilityInterest85d4c24',
+            prepareSnack: 'availabilityInterest85d4c25',
+            accompanyInternet: 'availabilityInterest85d4c26',
+            motivationExperience: 'motivationExperienceGSHGDH',
+            motivation: 'motivationExperienceGSHGDH1',
+            experience: 'motivationExperienceGSHGDH2',
+            comment: 'motivationExperienceGSHGDH3',
+            heard: 'motivationExperienceGSHGDH4'
         }
     }
 }
