@@ -17,15 +17,13 @@ const types = {
     multiple: 'multipleField',
     membership: 'membershipField',
     participation: 'participationField',
-    volunteering: 'volunteeringField'
+    volunteering: 'volunteeringField',
+    phoneField: 'phoneField'
+
 }
-const getAgeLimit = (limit, age) => {
+const getAgeLimit = (age) => {
     const date = new Date()
-    if (limit === 'min') {
-        return (date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    } else {
-        return (date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    }
+    return new Date((date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate())
 }
 
 function TextMaskCustom(props) {
@@ -135,8 +133,8 @@ const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange, id
                 openTo='year'
                 views={['year', 'month', 'date']}
                 label={lang[fieldsConfig.name].label}
-                minDate={new Date(getAgeLimit('min', 18))}
-                maxDate={new Date(getAgeLimit('max', 100))}
+                minDate={getAgeLimit(fieldsConfig.max)}
+                maxDate={getAgeLimit(fieldsConfig.min)}
                 value={fields[fieldsConfig.name]}
                 helperText={errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}
                 onChange={event => inputChange(event, fieldsConfig.name, fieldsConfig.type)}

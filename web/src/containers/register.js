@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import InformationCoordonnees from '../components/forms/informations-coordonnees'
 import ChildrenInscription from '../components/forms/children-inscription'
 import ComplementaryInformations from '../components/forms/complementary-informations'
+import CollaboratorBenevoles from '../components/forms/collaborator-benevoles'
 import ChildCount from '../components/child-count'
 import PreviousIcon from '@material-ui/icons/NavigateBeforeRounded'
 import NextIcon from '@material-ui/icons/NavigateNextRounded'
@@ -289,7 +290,7 @@ class RegisterContainer extends Component {
                     }
                 }
             },
-            complementaryInformations: {
+            parent: {
                 fields: {
                     lessons: null,
                     help: null,
@@ -300,255 +301,427 @@ class RegisterContainer extends Component {
                     participation: null
                 },
                 errors: {
-                    lessons: true
+                    lessons: false
                 }
             },
+            collaborator: {
+                fields: {
+                    monday: null,
+                    tuesday: null,
+                    wednesday: null,
+                    thursday: null,
+                    magicJournal: null,
+                    serveSnack: null,
+                    animationPreparation: null,
+                    accompanyWorkshop: null,
+                    prepareSnack: null,
+                    accompanyInternet: null,
 
+                    motivation: null,
+                    experience: null,
+                    comment: null,
+                    heard: null
+                },
+                errors: {
+                    availability: false,
+                    interest: false,
+                    motivation: false,
+                    experience: false
+                }
+            },
             childCountError: false,
             enableSubmit: false,
-            loading: false
+            loading: false,
+            finalStep: false
         }
         this.number = '0123456789'
         this.patt = /[^0-9]/g
 
-        this.onStep1InputChange = this.onStep1InputChange.bind(this)
-        this.onChildInputChange = this.onChildInputChange.bind(this)
-        this.onComplementaryInfoInputChange = this.onComplementaryInfoInputChange.bind(this)
+        this.onInformationsInputChange = this.onInformationsInputChange.bind(this)
+        this.onChildrenInputChange = this.onChildrenInputChange.bind(this)
+        this.onParentInputChange = this.onParentInputChange.bind(this)
+        this.onCollaboratorInputChange = this.onCollaboratorInputChange.bind(this)
         this.handleStepClick = this.handleStepClick.bind(this)
-        this.handleChildCount = this.handleChildCount.bind(this)
+        this.handleChildrenFirstCount = this.handleChildrenFirstCount.bind(this)
         this.handleRessetStepAndRedirect = this.handleRessetStepAndRedirect.bind(this)
-    }
-
-    componentDidMount () {
-    }
-
-    step1AllHasErrors (currentStep) {
-        const fields = this.state.informationsCoordonnees.fields
-        let contactsError = true
-        if ((fields.contacts_personal !== null && fields.contacts_personal.replace(/\u2000/gi, '').length === 14) ||
-        (fields.contacts_home !== null && fields.contacts_home.replace(/\u2000/gi, '').length === 14) ||
-        (fields.contacts_work !== null && fields.contacts_work.replace(/\u2000/gi, '').length === 14) ||
-        (fields.contacts_emergency !== null && fields.contacts_emergency.replace(/\u2000/gi, '').length === 14)) {
-            contactsError = false
-        }
-
-        const errors = {
-            sex: fields.sex === null,
-            birthday: fields.birthday === null,
-            last_name: fields.last_name === null,
-            first_name: fields.first_name === null,
-            address: fields.address === null,
-            email: ((fields.email === null) || !Fetch.validateEmail(fields.email)),
-            membership: fields.membership === null,
-            contacts: contactsError
-        }
-        this.setState(state => {
-            const oldInformations = state.informationsCoordonnees
-            oldInformations.errors = errors
-            return {
-                informationsCoordonnees: oldInformations
-            }
-        })
-        const value = Object.values(errors).filter(val => val === true)
-        return value.length !== 0
-    }
-
-    step2AllHasErrors (currentStep) {
-        if (this.state.nbrChild === 0) {
-            this.setState({ childCountError: true })
-            setTimeout(() => { this.setState({ childCountError: false }) }, 1500)
-            return true
-        } else return false
-    }
-
-    stepChildHasErrors (currentStep) {
-        const fields = this.state.childrenInscription.fields['step' + (currentStep - 2)]
-        const errors = {
-            lastName: fields.lastName === null,
-            firstName: fields.firstName === null,
-            birthday: fields.birthday === null,
-            garde: (fields.garde === null ||
-                ((fields.garde === 'gardeMother' || fields.garde === 'gardeFather') && fields.gardeParentOption === null)),
-
-            school: fields.school === null,
-            schoolLevel: fields.schoolLevel === null,
-            redouble: (fields.redouble === null || (fields.garde === 'redoubleYes' && fields.redoubleYesOption === null)),
-            registerReason: fields.registerReason === null,
-            evaluation: fields.evaluation === null
-        }
-        this.setState(state => {
-            const oldInformations = state.childrenInscription
-            oldInformations.errors['step' + (currentStep - 2)] = errors
-            return {
-                childrenInscription: oldInformations
-            }
-        })
-        const value = Object.values(errors).filter(val => val === true)
-        return value.length !== 0
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
 
-    onStep1InputChange (event, name, type) {
-        let newValue = null
-        if (type === types.date) {
-            newValue = event._d
-        } else if (type === types.checkBox) {
-            newValue = event.target.checked
-        } else {
-            newValue = event.target.value === '' ? null : event.target.value
-        }
+    //#region Functions To check Errors By Step
 
-        this.setState(state => {
-            const oldInformations = state.informationsCoordonnees
-            oldInformations.fields[name] = newValue
-            if (newValue !== null && oldInformations.errors[name]) oldInformations.errors[name] = false
-            return {
-                informationsCoordonnees: oldInformations
+        stepInformationsHasErrors () {
+            const fields = this.state.informationsCoordonnees.fields
+            let contactsError = true
+            if ((fields.contacts_personal !== null && fields.contacts_personal.replace(/\u2000/gi, '').length === 14) ||
+            (fields.contacts_home !== null && fields.contacts_home.replace(/\u2000/gi, '').length === 14) ||
+            (fields.contacts_work !== null && fields.contacts_work.replace(/\u2000/gi, '').length === 14) ||
+            (fields.contacts_emergency !== null && fields.contacts_emergency.replace(/\u2000/gi, '').length === 14)) {
+                contactsError = false
             }
-        })
-    }
 
-    onChildInputChange (event, name, type) {
-        let newValue = null
-        if (type === types.date) {
-            newValue = event._d
-        } else if (type === types.checkBox) {
-            newValue = event.target.checked
-        } else {
-            newValue = event.target.value === '' ? null : event.target.value
-        }
-
-        this.setState(state => {
-            const oldInformations = state.childrenInscription
-            const currentStep = state.step - 2
-            oldInformations.fields['step' + currentStep][name] = newValue
-            if (newValue !== null && oldInformations.errors['step' + currentStep][name]) oldInformations.errors['step' + currentStep][name] = false
-            return {
-                childrenInscription: oldInformations
+            const newErrors = {
+                sex: fields.sex === null,
+                birthday: fields.birthday === null,
+                last_name: fields.last_name === null,
+                first_name: fields.first_name === null,
+                address: fields.address === null,
+                email: ((fields.email === null) || !Fetch.validateEmail(fields.email)),
+                membership: fields.membership === null,
+                contacts: contactsError
             }
-        })
-    }
-
-    onComplementaryInfoInputChange (event, name, type) {
-        let newValue = null
-        if (type === types.checkBox) {
-            newValue = event.target.checked
-        } else {
-            newValue = event.target.value === '' ? null : event.target.value
-        }
-
-        this.setState(state => {
-            const oldInformations = state.complementaryInformations
-            oldInformations.fields[name] = newValue
-            if (newValue !== null && oldInformations.errors[name]) oldInformations.errors[name] = false
-            return {
-                complementaryInformations: oldInformations
-            }
-        })
-    }
-
-    handleStepClick (event, currentStep, maxStep) {
-        const currentElement = event.target.tagName === 'path' ? event.target.parentElement : event.target
-        if (currentElement.id === 'prev') {
             this.setState({
-                step: currentStep > 1 ? --currentStep : 1,
-                showPrev: currentStep > 1,
-                showNext: currentStep < maxStep
+                informationsCoordonnees: {
+                    ...this.state.informationsCoordonnees,
+                    errors: {
+                        ...this.state.informationsCoordonnees.errors,
+                        ...newErrors
+                    }
+                }
             })
-        } else if (currentElement.id === 'next') {
-            const functionName = (currentStep > 2 && currentStep < (maxStep - 1)) ? 'stepChildHasErrors' : 'step' + currentStep + 'AllHasErrors'
-            !this[functionName](currentStep) && (
-                this.setState({
-                    step: currentStep < maxStep ? ++currentStep : maxStep,
-                    showPrev: currentStep > 1,
-                    showNext: currentStep < maxStep
-                })
-            )
+            const value = Object.values(newErrors).filter(val => val === true)
+            return value.length !== 0
         }
+
+        stepChildrenFirstHasErrors () {
+            if (this.state.nbrChild === 0) {
+                this.setState({ childCountError: true })
+                setTimeout(() => { this.setState({ childCountError: false }) }, 1500)
+                return true
+            } else return false
+        }
+
+        stepChildrenHasErrors () {
+            const currentStep = this.state.step
+            const fields = this.state.childrenInscription.fields['step' + (currentStep - 2)]
+            const newErrors = {
+                lastName: fields.lastName === null,
+                firstName: fields.firstName === null,
+                birthday: fields.birthday === null,
+                garde: (fields.garde === null ||
+                    ((fields.garde === 'gardeMother' || fields.garde === 'gardeFather') && fields.gardeParentOption === null)),
+
+                school: fields.school === null,
+                schoolLevel: fields.schoolLevel === null,
+                redouble: (fields.redouble === null || (fields.garde === 'redoubleYes' && fields.redoubleYesOption === null)),
+                registerReason: fields.registerReason === null,
+                evaluation: fields.evaluation === null
+            }
+            this.setState(state => {
+                const oldInformations = state.childrenInscription
+                oldInformations.errors['step' + (currentStep - 2)] = newErrors
+                return {
+                    childrenInscription: oldInformations
+                }
+            })
+            const value = Object.values(newErrors).filter(val => val === true)
+            return value.length !== 0
+        }
+
+        stepParentHasErrors () {
+            const fields = this.state.parent.fields
+            const newErrors = {
+                lessons: fields.lessons === null
+            }
+            this.setState({
+                    parent: {
+                        ...this.state.parent,
+                        errors: {
+                            ...this.state.parent.errors,
+                            ...newErrors
+                        }
+                    }
+            })
+            const value = Object.values(newErrors).filter(val => val === true)
+            return value.length !== 0
+        }
+
+        stepCollaboratorHasErrors () {
+            const fields = this.state.collaborator.fields
+            const newErrors = {
+                availability: (fields.monday === null &&
+                    fields.tuesday === null &&
+                    fields.wednesday === null &&
+                    fields.thursday === null),
+                interest: (fields.magicJournal === null &&
+                    fields.serveSnack === null &&
+                    fields.animationPreparation === null &&
+                    fields.accompanyWorkshop === null &&
+                    fields.prepareSnack === null &&
+                    fields.accompanyInternet === null),
+                motivation: fields.motivation === null,
+                experience: fields.experience === null
+            }
+            this.setState({
+                    collaborator: {
+                        ...this.state.collaborator,
+                        errors: {
+                            ...this.state.collaborator.errors,
+                            ...newErrors
+                        }
+                }
+            })
+            const value = Object.values(newErrors).filter(val => val === true)
+            return value.length !== 0
+        }
+
+        stepFinalHasErrors(){
+            this.setState({finalStep: true})
+        }
+
+    //#endregion
+
+    getFunctionErrorName (maxStep) {
+        let funcName = ''
+        if (this.state.step <= 1) {
+            funcName = 'Informations'
+        } else {
+            if (this.props.currentActor === actorsIds.collaborator) {
+                funcName = 'Collaborator'
+            } else if (this.props.currentActor === actorsIds.parent) {
+                funcName = this.state.step <= 2 ? 'ChildrenFirst' : (
+                    this.state.step < maxStep ? 'Children' : 'Parent'
+                )
+            } else {
+                funcName = this.state.step <= 2 ? 'ChildrenFirst' : (
+                    this.state.step < (maxStep - 1) ? 'Children' : (
+                        this.state.step < maxStep ? 'Parent' : 'Collaborator'
+                    )
+                )
+            }
+        }
+        return 'step' + funcName + 'HasErrors'
     }
 
-    handleRessetStepAndRedirect () {
-        this.setState({
-            step: 1,
-            showPrev: false,
-            showNext: true,
-            informationsCoordonnees: {
-                errors: {
-                    sex: false,
-                    birthday: false,
-                    last_name: false,
-                    first_name: false,
-                    email: false,
-                    address: false,
-                    contacts: false,
-                    membership: false
+    //#region Functions Events
+
+    //#region Forms Input Change
+
+        onInformationsInputChange (event, name, type) {
+            let newValue = null
+            if (type === types.date) {
+                newValue = event._d
+            } else if (type === types.checkBox) {
+                newValue = event.target.checked
+            } else {
+                newValue = event.target.value === '' ? null : event.target.value
+            }
+
+            this.setState(state => {
+                const oldInformations = state.informationsCoordonnees
+                oldInformations.fields[name] = newValue
+                if (newValue !== null && oldInformations.errors[name]) oldInformations.errors[name] = false
+                return {
+                    informationsCoordonnees: oldInformations
+                }
+            })
+        }
+
+        onChildrenInputChange (event, name, type) {
+            let newValue = null
+            if (type === types.date) {
+                newValue = event._d
+            } else if (type === types.checkBox) {
+                newValue = event.target.checked
+            } else {
+                newValue = event.target.value === '' ? null : event.target.value
+            }
+
+            this.setState(state => {
+                const oldInformations = state.childrenInscription
+                const currentStep = state.step - 2
+                oldInformations.fields['step' + currentStep][name] = newValue
+                if (newValue !== null && oldInformations.errors['step' + currentStep][name]) oldInformations.errors['step' + currentStep][name] = false
+                return {
+                    childrenInscription: oldInformations
+                }
+            })
+        }
+
+        onParentInputChange (event, name, type) {
+            let newValue = null
+            if (type === types.checkBox) {
+                newValue = event.target.checked
+            } else {
+                newValue = event.target.value === '' ? null : event.target.value
+            }
+
+            this.setState(state => {
+                const oldInformations = state.parent
+                oldInformations.fields[name] = newValue
+                if (newValue !== null && oldInformations.errors[name]) oldInformations.errors[name] = false
+                return {
+                    parent: oldInformations
+                }
+            })
+        }
+
+        onCollaboratorInputChange (event, name, type) {
+            let newValue = null
+            if (type === types.checkBox) {
+                newValue = event.target.checked
+            } else {
+                newValue = event.target.value === '' ? null : event.target.value
+            }
+
+            this.setState(state => {
+                const oldInformations = state.collaborator
+                oldInformations.fields[name] = newValue
+                if (newValue !== null && oldInformations.errors[name]) oldInformations.errors[name] = false
+                return {
+                    collaborator: oldInformations
+                }
+            })
+        }
+
+    //#endregion
+
+        handleChildrenFirstCount (event, newValue) {
+            this.setState({ nbrChild: newValue })
+        }
+
+        handleStepClick (event, maxStep) {
+            let currentStep = this.state.step
+            const currentElement = event.target.tagName === 'path' ? event.target.parentElement : event.target
+            if (currentElement.id === 'prev') {
+                this.setState({
+                    step: currentStep > 1 ? --currentStep : 1,
+                    showPrev: currentStep > 1,
+                    showNext: currentStep <= maxStep,
+                    finalStep: false
+                })
+            } else if (currentElement.id === 'next') {
+                if(currentStep < maxStep){
+                    this[this.getFunctionErrorName(maxStep)]() && (
+                        this.setState({
+                            step: ++currentStep,
+                            showPrev: currentStep > 1,
+                            showNext: currentStep <= maxStep,
+                            finalStep: false
+                        })
+                    )
+                }
+                else{
+                    this.stepFinalHasErrors()
                 }
             }
-        })
-        this.props.onShowLoginForm()
-    }
+        }
 
-    handleChildCount (event, newValue) {
-        this.setState({ nbrChild: newValue })
+        handleRessetStepAndRedirect () {
+            this.setState({
+                step: 1,
+                showPrev: false,
+                showNext: true,
+                informationsCoordonnees: {
+                    ...this.state.informationsCoordonnees,
+                    errors: {
+                        ...this.state.informationsCoordonnees.errors,
+                        sex: false,
+                        birthday: false,
+                        last_name: false,
+                        first_name: false,
+                        email: false,
+                        address: false,
+                        contacts: false,
+                        membership: false
+                    }
+                }
+            })
+            this.props.onShowLoginForm()
+        }
+
+    //#endregion
+
+
+    getMaxStep () {
+        switch (this.props.currentActor) {
+        case actorsIds.collaborator:
+            return 2
+        case actorsIds.parent:
+            return this.state.nbrChild + 3
+        case actorsIds.both:
+            return this.state.nbrChild + 4
+        default:
+            return 0
+        }
     }
 
     render () {
         const lang = this.getLangFile()
-        const max = (this.props.currentActor === actorsIds.both || this.props.currentActor === actorsIds.parent) ? (this.state.nbrChild + 4) : 3
+        const max = this.getMaxStep()
+        console.log('FINALE STEP: ', this.state.finalStep)
         return (
             <div className='register-container'>
                 <div id={closeId} onClick={this.handleRessetStepAndRedirect}>{lang.back}</div>
                 <div className='form-container'>
-                    <IconButton className={!this.state.showPrev ? 'disable-level-button' : ''} onClick={event => this.handleStepClick(event, this.state.step, max)}>
-                        <PreviousIcon id='prev' fontSize='large' />
-                    </IconButton>
+                    {!this.state.finalStep && (
+                        <IconButton className={!this.state.showPrev ? 'disable-level-button' : ''} onClick={event => this.handleStepClick(event, max)}>
+                            <PreviousIcon id='prev' fontSize='large' />
+                        </IconButton>
+                    )}
                     <div className='forms'>
-                        <div>
-                            {this.state.step === 1 && (
-                                <InformationCoordonnees
-                                    lang={this.props.lang}
-                                    fields={this.state.informationsCoordonnees.fields}
-                                    errors={this.state.informationsCoordonnees.errors}
-                                    inputEvent={this.onStep1InputChange}
-                                />
-                            )}
-                            {((this.props.currentActor === actorsIds.both || this.props.currentActor === actorsIds.parent) && this.state.nbrChild >= 0 && this.state.step === 2) && (
-                                <ChildCount
-                                    lang={this.props.lang}
-                                    childCount={this.state.nbrChild}
-                                    onChildCount={this.handleChildCount}
-                                    childCountError={this.state.childCountError}
-                                />
-                            )}
-                            {[...Array(this.state.nbrChild).keys()].map(x => (
-                                this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= (x + 1) && this.state.step === (x + 3) && (
-                                    (
-                                        <ChildrenInscription
-                                            key={this.state.nbrChild + x}
-                                            lang={this.props.lang}
-                                            nbre={this.state.step - 2}
-                                            nbreChild={this.state.nbrChild}
-                                            fields={this.state.childrenInscription.fields['step' + (x + 1)]}
-                                            errors={this.state.childrenInscription.errors['step' + (x + 1)]}
-                                            inputEvent={this.onChildInputChange}
-                                        />)
-                                ))
-                            )}
-                            {this.state.step === (max - 1) &&
-                            (
-                                <ComplementaryInformations
-                                    lang={this.props.lang}
-                                    fields={this.state.complementaryInformations.fields}
-                                    errors={this.state.complementaryInformations.errors}
-                                    inputEvent={this.onComplementaryInfoInputChange}
-                                />)}
-                            {this.state.step === max && (<div>FORMULAIRE 4</div>)}
-                        </div>
+                        {!this.state.finalStep
+                        ? (
+                            <div>
+                                {this.state.step === 1 && (
+                                    <InformationCoordonnees
+                                        lang={this.props.lang}
+                                        fields={this.state.informationsCoordonnees.fields}
+                                        errors={this.state.informationsCoordonnees.errors}
+                                        inputEvent={this.onInformationsInputChange}
+                                    />
+                                )}
+                                {(this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= 0 && this.state.step === 2) && (
+                                    <ChildCount
+                                        lang={this.props.lang}
+                                        childCount={this.state.nbrChild}
+                                        onChildCount={this.handleChildrenFirstCount}
+                                        childCountError={this.state.childCountError}
+                                    />
+                                )}
+                                {[...Array(this.state.nbrChild).keys()].map(x => (
+                                    this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= (x + 1) && this.state.step === (x + 3) && (
+                                        (
+                                            <ChildrenInscription
+                                                key={this.state.nbrChild + x}
+                                                lang={this.props.lang}
+                                                nbre={this.state.step - 2}
+                                                nbreChild={this.state.nbrChild}
+                                                fields={this.state.childrenInscription.fields['step' + (x + 1)]}
+                                                errors={this.state.childrenInscription.errors['step' + (x + 1)]}
+                                                inputEvent={this.onChildrenInputChange}
+                                            />)
+                                    ))
+                                )}
+                                {((this.props.currentActor === actorsIds.parent && this.state.step === max) ||
+                                    (this.props.currentActor === actorsIds.both && this.state.step === (max - 1))) && (
+                                    <ComplementaryInformations
+                                        lang={this.props.lang}
+                                        fields={this.state.parent.fields}
+                                        errors={this.state.parent.errors}
+                                        inputEvent={this.onParentInputChange}
+                                    />
+                                )}
+                                {((this.props.currentActor === actorsIds.collaborator && this.state.step === max) ||
+                                    (this.props.currentActor === actorsIds.both && this.state.step === max)) && (
+                                    <CollaboratorBenevoles
+                                        lang={this.props.lang}
+                                        fields={this.state.collaborator.fields}
+                                        errors={this.state.collaborator.errors}
+                                        inputEvent={this.onCollaboratorInputChange}
+                                    />
+                                )}
+                            </div>
+                        )
+                        : (
+                            <div>FIN</div>
+                        )}
                     </div>
-                    <IconButton className={!this.state.showNext ? 'disable-level-button' : ''} onClick={event => this.handleStepClick(event, this.state.step, max)}>
+                    {!this.state.finalStep && (
+                    <IconButton className={!this.state.showNext ? 'disable-level-button' : ''} onClick={event => this.handleStepClick(event, max)}>
                         <NextIcon id='next' fontSize='large' />
                     </IconButton>
+                    )}
                 </div>
             </div>
         )

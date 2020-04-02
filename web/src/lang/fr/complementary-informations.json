@@ -1,9 +1,9 @@
 {
-    "title": "Informations Complementaires",
+    "title": "Informations Complémentaires",
     "expectations": {
         "label": "Attentes",
         "lessons": {
-            "info": "En tant que parent, qu'attendez-vous de l'atelier de devoirs et lecons de la Maison d'Aurore ?",
+            "info": "En tant que parent, qu'attendez-vous de l'atelier de devoirs et leçons de la Maison d'Aurore?",
             "label": "",
             "labelError": "Obligatoire"
         }
@@ -11,28 +11,30 @@
     "needs": {
         "label": "Besoins",
         "help": {
-            "info": "Nous sommes la pour vous soutenir au quotidien dans votre role de parent : comment pourrions-nous vous aider ? (ecoute, formations, conferences, themes, etc.)",
+            "info": "Nous sommes la pour vous soutenir au quotidien dans votre rôle de parent: comment pourrions-nous vous aider? (écoute, formations, conférences, thèmes, etc.)",
             "label": ""
         }
     },
     "implications": {
         "label": "Implications",
-        "availableFor": {},
         "talents": {
-            "info": "Votre implication est importante pour l'epanouissement de votre enfant: avez-vous des talents ?",
+            "info": "Votre implication est importante pour l'épanouissement de votre enfant: avez-vous des talents?",
             "label": ""
         },
+        "availableFor": {
+            "label": "Seriez-vous disponible pour: "
+        },
         "snacks": {
-            "label": "en version papier"
+            "label": "préparer ou servir la collation pour les enfants?"
         },
         "organization": {
-            "label": "sur le site internet"
+            "label": "aider à l'organisation des fêtes?"
         },
         "support": {
-            "label": "sur le site internet"
+            "label": "accompagner les enfants lors d'activités ?"
         },
         "participation": {
-            "info": "",
+            "info": "Seriez-vous intéressé(e) a participé a d'autres activités de la Maison d'Aurore ? (accueil, secrétariat, cuisine...)",
             "label": ""
         }
     }
