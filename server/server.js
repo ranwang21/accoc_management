@@ -53,6 +53,8 @@ const auth = require('./routes/auth')
 const logins = require('./routes/logins')
 const users = require('./routes/users')
 const schedules = require('./routes/schedules')
+const inconsistencies = require('./routes/inconsistencies')
+const evaluations = require('./routes/evaluations')
 
 // MOUNT ROUTERS
 app.use('/roles', roles)
@@ -63,6 +65,8 @@ app.use('/auth', auth)
 app.use('/logins', logins)
 app.use('/users', users)
 app.use('/schedules', schedules)
+app.use('/inconsistencies', inconsistencies)
+app.use('/evaluations', evaluations)
 
 // MAIN ROUTE
 app.get('/', (req, res) => {
