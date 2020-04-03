@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.myapplication.EnfantsParSalleActivity;
 import com.example.myapplication.LoginActivity;
 import com.example.myapplication.Main2Activity;
 import com.example.myapplication.R;
@@ -52,9 +53,10 @@ public class Acceuil extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    Intent intent = new Intent(getContext(), EnfantsParSalleActivity.class);
+                    intent.putExtra("id_classroom", c.get_id());
                     startActivity(intent);
-                    getActivity().finish();
+
                 }
             });
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
