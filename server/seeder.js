@@ -1,5 +1,9 @@
 const fs = require('fs')
+const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+
+// LOAD ENV VARS
+dotenv.config({ path: './configs/config.env' })
 
 // LOAD MODELS
 const Role = require('./models/Role')
@@ -10,15 +14,12 @@ const Login = require('./models/Login')
 const User = require('./models/User')
 
 // CONNECT TO DB
-mongoose.connect(
-  'mongodb+srv://admin:abc123...@cluster-pdbxc.mongodb.net/Database?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  }
-)
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+})
 
 // READ JSON FILES
 const roles = JSON.parse(
