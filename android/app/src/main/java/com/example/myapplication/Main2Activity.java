@@ -1,6 +1,10 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,6 +14,7 @@ import com.example.myapplication.fragments.ListesCollaborateurs;
 import com.example.myapplication.fragments.ListesEnfants;
 import com.example.myapplication.fragments.Logout;
 import com.example.myapplication.fragments.Presence;
+import com.example.myapplication.managers.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,6 +24,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import static java.security.AccessController.getContext;
 
 
 public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,7 +77,15 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         Fragment fragment = null;
         switch (itemId) {
             case R.id.nav_deconnexion:
-                fragment = new Logout();
+                String result = LoginManager.logout();
+                if (result.isEmpty()) {
+                    Log.d("Tag", "logout sucessfull");
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.d("Tag", "failed to logout");
+                }
                 break;
             case R.id.nav_collaborateur:
                 fragment = new ListesCollaborateurs();
