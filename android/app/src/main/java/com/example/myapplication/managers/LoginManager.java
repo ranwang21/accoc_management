@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.myapplication.entities.Login;
+import com.example.myapplication.entities.User;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
 import com.example.myapplication.services.DeleteJson;
@@ -138,6 +139,20 @@ public class LoginManager {
         contentValues.put(PASSWORD, login.getPassword());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.LOGIN_TABLE_NAME, contentValues, ID + " = " + login.get_id(), null);
+    }
+    public static User getUserFromToken(String token) {
+        Gson gson = new Gson();
+        String jsonFromApi = GetJson.get("/auth/user", token);
+        User user = new User();
+        try {
+            JSONObject jsonResult = new JSONObject(jsonFromApi);
+            String userFromApi = jsonResult.getString("data");
+            user = gson.fromJson(userFromApi, User.class);
+            Log.d("Json", "getUserFromToken: " + user.getFirst_name());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
     public static String getLoginToken(Login login, String token) {
         Gson gson = new Gson();

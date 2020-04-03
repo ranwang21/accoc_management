@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.entities.Login;
+import com.example.myapplication.entities.User;
 import com.example.myapplication.helpers.ClassroomHelper;
 import com.example.myapplication.helpers.RoleHelper;
 import com.example.myapplication.helpers.UserHelper;
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                     Login login = new Login(edtEmail.getText().toString(), edtPassword.getText().toString());
                     String token = LoginManager.getLoginToken(login, "");
                     Preferences.setToken(LoginActivity.this, token);
+                    User user = LoginManager.getUserFromToken(token);
+                    Preferences.setUserInfos(LoginActivity.this,user,edtEmail.getText().toString());
                     Intent intent = new Intent(getApplicationContext(), StartActivity.class);
                     startActivity(intent);
                     finish();
