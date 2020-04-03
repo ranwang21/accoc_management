@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Fetch from '../utilities/fetch-datas'
-import CreateCollaborator from './form-inscription-collaborator'
 import CreateAdmin from './create-admin'
 import { withCookies } from 'react-cookie'
 import '../styles/_create-account.scss'
@@ -67,7 +66,7 @@ class CreateAccount extends Component {
     switchToAddOption () {
         switch (this.state.actorSelected) {
         case variables.actors.collaborator:
-            return (<CreateCollaborator lang={this.props.lang} />)
+            return (<div />)
         case variables.actors.admin:
             return (<CreateAdmin lang={this.props.lang} />)
         }
