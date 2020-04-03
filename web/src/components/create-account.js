@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Fetch from '../utilities/fetch-datas'
 import CreateAdmin from './create-admin'
+import Register from '../containers/register'
 import { withCookies } from 'react-cookie'
 import '../styles/_create-account.scss'
 
@@ -66,7 +67,17 @@ class CreateAccount extends Component {
     switchToAddOption () {
         switch (this.state.actorSelected) {
         case variables.actors.collaborator:
-            return (<div />)
+            return (
+                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.collaborator} />
+            )
+        case variables.actors.parent:
+            return (
+                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.parent} />
+            )
+        case variables.actors.both:
+            return (
+                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.both} />
+            )
         case variables.actors.admin:
             return (<CreateAdmin lang={this.props.lang} />)
         }

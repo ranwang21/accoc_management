@@ -4,7 +4,6 @@ import Register from './register'
 import RegisterStart from '../components/register-start'
 import Dashbord from './dashbord'
 import { withCookies } from 'react-cookie'
-import Fetch from '../utilities/fetch-datas'
 import '../styles/_main.scss'
 const variablesCookies = require('../utilities/variables').variables.cookies
 const ids = require('../utilities/variables').variables.id.loginRegister

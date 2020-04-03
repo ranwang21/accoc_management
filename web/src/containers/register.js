@@ -719,7 +719,9 @@ class RegisterContainer extends Component {
         const max = this.getMaxStep()
         return (
             <div className={this.state.successRegister ? 'register-container registered' : 'register-container'}>
-                <div id={closeId} onClick={this.handleRessetStepAndRedirect}>{lang.back}</div>
+                {this.props.onShowLoginForm !== null && (
+                    <div className='div-back' id={closeId} onClick={this.handleRessetStepAndRedirect}>{lang.back}</div>
+                )}
                 <div className='form-container'>
                     {!this.state.successRegister && (
                         <IconButton className={!this.state.showPrev ? 'disable-level-button' : ''} onClick={event => this.handleStepClick(event, max)}>
