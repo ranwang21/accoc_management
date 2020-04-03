@@ -10,12 +10,15 @@ const Login = require('./models/Login')
 const User = require('./models/User')
 
 // CONNECT TO DB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true
-})
+mongoose.connect(
+  'mongodb+srv://admin:abc123...@cluster-pdbxc.mongodb.net/Database?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  }
+)
 
 // READ JSON FILES
 const roles = JSON.parse(

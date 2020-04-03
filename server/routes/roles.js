@@ -15,17 +15,12 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(
-    advancedResults(Role),
-    protect,
-    authorize('admin', 'super_admin'),
-    getRoles
-  )
+  .get(advancedResults(Role), getRoles)
   .post(protect, authorize('admin', 'super_admin'), createRole)
 
 router
   .route('/:id')
-  .get(protect, getRole)
+  .get(getRole)
   .put(protect, authorize('admin', 'super_admin'), updateRole)
   .delete(protect, authorize('admin', 'super_admin'), deleteRole)
 
