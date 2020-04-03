@@ -13,7 +13,7 @@ class ComplementaryInformations extends Component {
         return (
             <>
                 <div className='collaborator-benevoles'>
-                    <h1>{lang.title} {this.props.nbre}/ {this.props.nbreChild}</h1>
+                    <h1>{lang.title}</h1>
                     <div>
                         {FormConfig.map(fieldset => {
                             return (

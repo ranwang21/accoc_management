@@ -62,7 +62,6 @@ class Login extends Component {
     buildFields (lang) {
         const error = this.state.error
         const fields = this.state.loginConfig
-        this.state.userToken !== null && console.log(this.state.userToken)
         return (
             <>
                 <TextField

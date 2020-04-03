@@ -180,7 +180,137 @@ const variables = {
             experience: 'motivationExperienceGSHGDH2',
             comment: 'motivationExperienceGSHGDH3',
             heard: 'motivationExperienceGSHGDH4'
+        },
+        registerPassword: {
+            password: 'registerPasswordEDFSDWHS',
+            confirmPassword: 'registerPasswordEDFSDWHU'
         }
+    },
+    templateUser: {
+        id_role: '5e6a3e314554933864b2c3c5',
+        first_name: 'Marco',
+        last_name: 'Orellana',
+        sex: 'male',
+        address: '222 Rue Bobette',
+        birthday: '1994-12-24T00:00:00.000Z',
+        has_child: true,
+        is_subscribed: false,
+
+        comment: 'Comments here',
+        experience: 'Experience here',
+        motivation: 'Motivation here',
+        expectation: 'Expectation here',
+        need: 'Need here',
+
+        id_child: [],
+        id_parent: [],
+        photo: 'no-photo.jpg',
+        participation: [
+            'Participation 1',
+            'Participation 2',
+            'Participation 3'
+        ],
+        volunteering: [
+            'Volunteering 1',
+            'Volunteering 2',
+            'Volunteering 3'
+        ],
+        availability: [
+            '5e6a3e314554933864b2c3a2',
+            '5e6a3e314554933864b2c3a4'
+        ],
+        interest: [
+            'Interest 1',
+            'Interest 2',
+            'Interest 3'
+        ],
+        contact: [
+            {
+                _id: '5e6aba823f290942e0bc136a',
+                title: 'Maison',
+                phone: '450-222-2222'
+            },
+            {
+                _id: '5e6aba823f290942e0bc136b',
+                title: 'Bureau',
+                phone: '514-567-8976'
+            }
+        ],
+        membership: [
+            {
+                _id: '5e6aba823f290942e0bc136c',
+                question: 'Question here ?',
+                response: 'Response here'
+            }
+        ],
+        involvement: [
+            {
+                _id: '5e6aba823f290942e0bc136d',
+                question: 'Question here ?',
+                response: 'Response here'
+            },
+            {
+                _id: '5e6aba823f290942e0bc136e',
+                question: 'Question 2 here ?',
+                response: 'Response 2 here'
+            }
+        ],
+        question: [
+            {
+                _id: '5e6aba823f290942e0bc136f',
+                question: 'Question 1 here',
+                response: 'Response 1 here'
+            },
+            {
+                _id: '5e6aba823f290942e0bc1370',
+                question: 'Question 2 here',
+                response: 'Response 2 here'
+            }
+        ],
+        school_info: [
+            {
+                _id: '5e6aba823f290942e0bc1371',
+                question: 'Question 1 here',
+                response: 'Response 1 here'
+            },
+            {
+                _id: '5e6aba823f290942e0bc1372',
+                question: 'Question 2 here',
+                response: 'Response 2 here'
+            }
+        ],
+        medical_info: [
+            {
+                _id: '5e6aba823f290942e0bc1373',
+                question: 'Question 1 here',
+                response: 'Response 1 here'
+            },
+            {
+                _id: '5e6aba823f290942e0bc1374',
+                question: 'Question 2 here',
+                response: 'Response 2 here'
+            }
+        ],
+        authorization: [
+            {
+                _id: '5e6aba823f290942e0bc1375',
+                question: 'Question 1 here',
+                response: 'Response 1 here'
+            },
+            {
+                _id: '5e6aba823f290942e0bc1376',
+                question: 'Question 2 here',
+                response: 'Response 2 here'
+            }
+        ]
+    },
+    roles: {
+        super_admin: '5e6a3e314554933864b2c3c2',
+        parent: '5e6a3e314554933864b2c3c5',
+        collaborater: '5e6a3e314554933864b2c3c4',
+        admin: '5e6a3e314554933864b2c3c3',
+        children: '5e6a3e314554933864b2c3c6',
+        collab_parent: '5e6a3e314554933864b2c3c7'
     }
 }
 
