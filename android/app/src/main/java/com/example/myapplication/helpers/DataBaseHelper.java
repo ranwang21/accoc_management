@@ -22,7 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String EVALUATION_OPEN_QUESTIONS_TABLE_NAME = "evalutation_open_questions";
     public static final String CLASSROOM_TABLE_NAME = "classroom";
     // TABLES CREATES STATEMENTS
-    private static final String CREATE_TABLE_USER = ("create table " + USER_TABLE_NAME + "(" + "id text primary key , id_role text, first_name text, last_name text,id_collaborater text,id_classroom text ,sex text, address text, birthday text ,img_url text, password text)");
+    private static final String CREATE_TABLE_USER = ("create table " + USER_TABLE_NAME + "(" + "id text primary key , id_role text, first_name text, last_name text, id_collaborater text, id_classroom text ,sex text, address text, birthday text ,img_url text, password text)");
     private static final String CREATE_TABLE_ROLE = ("create table " + ROLE_TABLE_NAME + "(" + "id text primary key , title text)");
     private static final String CREATE_TABLE_LOGIN = ("create table " + LOGIN_TABLE_NAME + "(" + "id text primary key , id_user text, email text, password text)");
     private static final String CREATE_TABLE_CLASSROOM = ("create table " + CLASSROOM_TABLE_NAME + "(" + "id text primary key , title text, phone text, seat integer)");

@@ -30,7 +30,7 @@ public class UserManager {
     private static final String BIRTHDAY = "birthday";
     private static final String IMG_URL = "img_url";
     private static final String ID_COLLABORATER = "id_collaborater";
-    private static final String ID_CLASSROOOM = "id_classroom";
+    private static final String ID_CLASSROOM = "id_classroom";
     /**
      * User TABLE'S QUERIES
      */
@@ -121,7 +121,8 @@ public class UserManager {
         }
         ConnectionBD.close();
         return users;
-    }    public static ArrayList<User> getByIdClassroom(Context context, String idClassroom) {
+    }
+    public static ArrayList<User> getByIdClassroom(Context context, String idClassroom) {
         ArrayList<User> users = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByClassroom, new String[]{"" + idClassroom});

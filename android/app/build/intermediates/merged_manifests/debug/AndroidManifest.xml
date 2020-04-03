@@ -29,6 +29,7 @@
         android:testOnly="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
+        <activity android:name="com.example.myapplication.EnfantsParSalleActivity" />
         <activity android:name="com.example.myapplication.SuiviQuotidienActivity" />
         <activity android:name="com.example.myapplication.ProfilCollabActivity" />
         <activity android:name="com.example.myapplication.ProfilEnfantActivity" />
