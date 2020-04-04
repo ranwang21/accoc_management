@@ -132,22 +132,46 @@ const addUser = (params, callBack) => {
         })
 }
 
-const getIdRole = (token, roleTitle, callBack) => {
-    fetch(HOST + '/roles', {
+const registerSaveUser = (user, userLogin, callBack) => {
+    fetch(HOST + '/users', {
+        method: 'post',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + token
-        }
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
     })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const find = data.data.filter(role => role.title === roleTitle)
-                if (find[0]) {
-                    callBack(data.data)
+                userLogin = {
+                    id_user: data.data._id
                 }
+                fetch(HOST + '/logins', {
+                    method: 'post',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userLogin)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        callBack(data.success, userLogin.id_user)
+                    })
             }
+        })
+}
+
+const getRolesAndDays = (callBack) => {
+    fetch(HOST + '/roles')
+        .then(response => response.json())
+        .then(dataRoles => {
+            fetch(HOST + '/days')
+                .then(response => response.json())
+                .then(dataDays => {
+                    callBack(dataRoles.data, dataDays.data)
+                })
         })
 }
 
@@ -200,5 +224,6 @@ export default {
     deleteLogin,
     getAddressFromGoogle,
     getImage,
-    getIdRole
+    getRolesAndDays,
+    registerSaveUser
 }

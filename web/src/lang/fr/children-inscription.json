@@ -2,15 +2,15 @@
     "title": "Fiche d'inscription d'un enfant ",
     "identification": {
         "label": "Identification de l'enfant",
-        "lastName": {
+        "last_name": {
             "label": "Nom",
             "labelError": "Obligatoire"
         },
-        "firstName": {
+        "first_name": {
             "label": "Prénom",
             "labelError": "Obligatoire"
         },
-        "birthdayChild": {
+        "birthday": {
             "label": "Date de naissance",
             "labelError": "Obligatoire"
         },

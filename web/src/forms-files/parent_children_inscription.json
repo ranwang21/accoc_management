@@ -4,20 +4,26 @@
             "name": "identification",
             "fields": [
                 {
-                    "name": "lastName",
+                    "name": "last_name",
                     "type": "textField",
                     "required": true
                 },
                 {
-                    "name": "firstName",
+                    "name": "first_name",
                     "type": "textField",
                     "required": true
                 },
                 {
-                    "name": "birthdayChild",
+                    "name": "birthday",
                     "type": "dateField",
                     "min": 5,
                     "max": 17,
+                    "format": "DD MMMM YYYY",
+                    "views": [
+                        "year",
+                        "month",
+                        "date"
+                    ],
                     "required": true
                 },
                 {
@@ -157,6 +163,13 @@
                 {
                     "name": "expiration",
                     "type": "dateField",
+                    "min": -10,
+                    "max": 0,
+                    "format": "MMMM YYYY",
+                    "views": [
+                        "year",
+                        "month"
+                    ],
                     "required": true
                 },
                 {

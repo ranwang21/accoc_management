@@ -5,6 +5,9 @@
     .main-connexion {
         opacity: 0;
     }
+    .main-register {
+        display: block !important;
+    }
 }
 
 main {
@@ -24,8 +27,10 @@ main {
         width: 100%;
         transition: all 0.5s;
         .main-container {
+            overflow: hidden;
             width: calc(100% * 2);
             height: 100%;
+            justify-content: space-between;
             display: flex;
             transition: margin-left 0.5s;
             margin-left: 0%;
@@ -56,6 +61,7 @@ main {
                 }
             }
             .main-register {
+                display: none;
                 width: 50%;
             }
         }

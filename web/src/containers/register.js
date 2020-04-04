@@ -26,324 +26,315 @@ const types = {
     phoneField: 'phoneField'
 }
 
+const variables = require('../utilities/variables').variables
 const passwordIds = require('../utilities/variables').variables.id.registerPassword
 const actorsIds = require('../utilities/variables').variables.id.registerStart.check
 const closeId = require('../utilities/variables').variables.id.loginRegister.showLogin
+const initialiseState = {
+    step: 1,
+    nbrChild: 0,
+    showPrev: false,
+    showNext: true,
+    informationsCoordonnees: {
+        fields: {
+            sex: 'male',
+
+            email: 'imoneparent@gmail.com',
+            address: '5217 Av. Trans-Island',
+            //birthday: null,
+            birthday: new Date('1975-10-06'),
+            last_name: 'Toihoun',
+            first_name: 'Derrick',
+
+            contacts_home: '(514) 363-7840',
+            contacts_work: null,
+            contacts_personal: '(514) 820-5545',
+            contacts_emergency: null,
+
+            is_subscribed: false,
+            has_child: false,
+
+            membership: null,
+            membership_becomeMember_memberCard: null,
+            membership_becomeMember_discountCard: null,
+            membership_becomeMember_paymentMethod: null
+        },
+        errors: {
+            sex: false,
+            birthday: false,
+            last_name: false,
+            first_name: false,
+            email: false,
+            address: false,
+            contacts: false,
+            membership: false
+        }
+    },
+    childrenInscription: {
+        fields: {
+            step1: {
+                last_name: 'Toihoun',
+                first_name: 'Melody',
+                //birthday: null,
+                birthday: new Date('2007-02-15'),
+                garde: null,
+                gardeParentOption: null,
+                gardeOtherOption: null,
+
+                school: 'Ecole cool',
+                schoolLevel: null,
+                adlRegister: null,
+                redouble: null,
+                redoubleYesOption: null,
+                registerReason: 'Améliorer les performances de mon enfant',
+                evaluation: null,
+                daycareService: null,
+                daycareServiceYesName: 'Sandrine H.',
+                daycareServiceYesPhone: '(514) 666-8989',
+
+                ramq: null,
+                expiration: null,
+                allergies: null,
+                drug: null,
+                othersInfos: null,
+
+                autorisationPapper: null,
+                autorisationInternet: null
+            },
+            step2: {
+                last_name: 'Toihoun',
+                first_name: 'Claude',
+                //birthday: null,
+                birthday: new Date('2007-02-15'),
+                garde: null,
+                gardeParentOption: null,
+                gardeOtherOption: null,
+
+                school: 'Ecole cool',
+                schoolLevel: null,
+                adlRegister: null,
+                redouble: null,
+                redoubleYesOption: null,
+                registerReason: 'Améliorer les performances de mon enfant',
+                evaluation: null,
+                daycareService: null,
+                daycareServiceYesName: 'Sandrine H.',
+                daycareServiceYesPhone: '(514) 666-8989',
+
+                ramq: null,
+                expiration: null,
+                allergies: null,
+                drug: null,
+                othersInfos: null,
+
+                autorisationPapper: null,
+                autorisationInternet: null
+            },
+            step3: {
+                last_name: 'Toihoun',
+                first_name: 'Marine',
+                //birthday: null,
+                birthday: new Date('2007-02-15'),
+                garde: null,
+                gardeParentOption: null,
+                gardeOtherOption: null,
+
+                school: 'Ecole cool',
+                schoolLevel: null,
+                adlRegister: null,
+                redouble: null,
+                redoubleYesOption: null,
+                registerReason: 'Améliorer les performances de mon enfant',
+                evaluation: null,
+                daycareService: null,
+                daycareServiceYesName: 'Sandrine H.',
+                daycareServiceYesPhone: '(514) 666-8989',
+
+                ramq: null,
+                expiration: null,
+                allergies: null,
+                drug: null,
+                othersInfos: null,
+
+                autorisationPapper: null,
+                autorisationInternet: null
+            },
+            step4: {
+                last_name: null,
+                first_name: null,
+                birthday: null,
+                garde: null,
+                gardeParentOption: null,
+                gardeOtherOption: null,
+
+                school: null,
+                schoolLevel: null,
+                adlRegister: null,
+                redouble: null,
+                redoubleYesOption: null,
+                registerReason: null,
+                evaluation: null,
+                daycareService: null,
+                daycareServiceYesName: null,
+                daycareServiceYesPhone: null,
+
+                ramq: null,
+                expiration: null,
+                allergies: null,
+                drug: null,
+                othersInfos: null,
+
+                autorisationPapper: null,
+                autorisationInternet: null
+            },
+            step5: {
+                last_name: null,
+                first_name: null,
+                birthday: null,
+                garde: null,
+                gardeParentOption: null,
+                gardeOtherOption: null,
+
+                school: null,
+                schoolLevel: null,
+                adlRegister: null,
+                redouble: null,
+                redoubleYesOption: null,
+                registerReason: null,
+                evaluation: null,
+                daycareService: null,
+                daycareServiceYesName: null,
+                daycareServiceYesPhone: null,
+
+                ramq: null,
+                expiration: null,
+                allergies: null,
+                drug: null,
+                othersInfos: null,
+
+                autorisationPapper: null,
+                autorisationInternet: null
+            }
+        },
+        errors: {
+            step1: {
+                last_name: false,
+                first_name: false,
+                birthday: false,
+                garde: false,
+
+                school: false,
+                schoolLevel: false,
+                redouble: false,
+                registerReason: false,
+                evaluation: false
+            },
+            step2: {
+                last_name: false,
+                first_name: false,
+                birthday: false,
+                garde: false,
+
+                school: false,
+                schoolLevel: false,
+                redouble: false,
+                registerReason: false,
+                evaluation: false
+            },
+            step3: {
+                last_name: false,
+                first_name: false,
+                birthday: false,
+                garde: false,
+
+                school: false,
+                schoolLevel: false,
+                redouble: false,
+                registerReason: false,
+                evaluation: false
+            },
+            step4: {
+                last_name: false,
+                first_name: false,
+                birthday: false,
+                garde: false,
+
+                school: false,
+                schoolLevel: false,
+                redouble: false,
+                registerReason: false,
+                evaluation: false
+            },
+            step5: {
+                last_name: false,
+                first_name: false,
+                birthday: false,
+                garde: false,
+
+                school: false,
+                schoolLevel: false,
+                redouble: false,
+                registerReason: false,
+                evaluation: false
+            }
+        }
+    },
+    parent: {
+        fields: {
+            expectationsVar: null,
+            needsVar: null,
+            talents: null,
+            snacks: false,
+            organization: false,
+            support: false,
+            otherInvolvement: null
+        },
+        errors: {
+            expectationsVar: false
+        }
+    },
+    collaborator: {
+        fields: {
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            magicJournal: false,
+            serveSnack: false,
+            animationPreparation: false,
+            accompanyWorkshop: false,
+            prepareSnack: false,
+            accompanyInternet: false,
+
+            motivation: null,
+            experience: null,
+            comment: null,
+            heard: null
+        },
+        errors: {
+            availability: false,
+            interest: false,
+            motivation: false,
+            experience: false
+        }
+    },
+    childCountError: false,
+    enableSubmit: false,
+    loading: false,
+    password: '',
+    confirmPassword: '',
+    errorPassword: false,
+    showPassword: false,
+    successRegister: false
+}
 
 class RegisterContainer extends Component {
     constructor () {
         super()
         this.state = {
-            step: 1,
-            nbrChild: 0,
-            showPrev: false,
-            showNext: true,
-            informationsCoordonnees: {
-                fields: {
-                    sex: null,
-
-                    email: null,
-                    address: null,
-                    birthday: null,
-                    last_name: null,
-                    first_name: null,
-
-                    contacts_home: null,
-                    contacts_work: null,
-                    contacts_personal: null,
-                    contacts_emergency: null,
-
-                    is_subscribed: null,
-                    has_child: null,
-
-                    membership: null,
-                    membership_becomeMember_memberCard: null,
-                    membership_becomeMember_discountCard: null,
-                    membership_becomeMember_paymentMethod: null,
-
-                    participation: null,
-                    participation_jmc: null,
-                    participation_repas: null,
-                    participation_cuisine: null,
-                    participation_viecomm: null,
-                    participation_atelier: null,
-                    participation_diverses: null,
-                    participation_debrouille: null,
-
-                    participation_diverses_options: null,
-
-                    volunteering: null,
-                    volunteering_repas: null,
-                    volunteering_devoirs: null,
-                    volunteering_accueil: null,
-                    volunteering_diverses: null,
-                    volunteering_citoyenne: null,
-                    volunteering_diverses_options: null
-                },
-                errors: {
-                    sex: false,
-                    birthday: false,
-                    last_name: false,
-                    first_name: false,
-                    email: false,
-                    address: false,
-                    contacts: false,
-                    membership: false
-                }
-            },
-            childrenInscription: {
-                fields: {
-                    step1: {
-                        lastName: null,
-                        firstName: null,
-                        birthdayChild: null,
-                        garde: null,
-                        gardeParentOption: null,
-                        gardeOtherOption: null,
-
-                        school: null,
-                        schoolLevel: null,
-                        adlRegister: null,
-                        redouble: null,
-                        redoubleYesOption: null,
-                        registerReason: null,
-                        evaluation: null,
-                        daycareService: null,
-                        daycareServiceYesName: null,
-                        daycareServiceYesPhone: null,
-
-                        ramq: null,
-                        expiration: null,
-                        allergies: null,
-                        drug: null,
-                        othersInfos: null,
-
-                        autorisationPapper: null,
-                        autorisationInternet: null
-                    },
-                    step2: {
-                        lastName: null,
-                        firstName: null,
-                        birthdayChild: null,
-                        garde: null,
-                        gardeParentOption: null,
-                        gardeOtherOption: null,
-
-                        school: null,
-                        schoolLevel: null,
-                        adlRegister: null,
-                        redouble: null,
-                        redoubleYesOption: null,
-                        registerReason: null,
-                        evaluation: null,
-                        daycareService: null,
-                        daycareServiceYesName: null,
-                        daycareServiceYesPhone: null,
-
-                        ramq: null,
-                        expiration: null,
-                        allergies: null,
-                        drug: null,
-                        othersInfos: null,
-
-                        autorisationPapper: null,
-                        autorisationInternet: null
-                    },
-                    step3: {
-                        lastName: null,
-                        firstName: null,
-                        birthdayChild: null,
-                        garde: null,
-                        gardeParentOption: null,
-                        gardeOtherOption: null,
-
-                        school: null,
-                        schoolLevel: null,
-                        adlRegister: null,
-                        redouble: null,
-                        redoubleYesOption: null,
-                        registerReason: null,
-                        evaluation: null,
-                        daycareService: null,
-                        daycareServiceYesName: null,
-                        daycareServiceYesPhone: null,
-
-                        ramq: null,
-                        expiration: null,
-                        allergies: null,
-                        drug: null,
-                        othersInfos: null,
-
-                        autorisationPapper: null,
-                        autorisationInternet: null
-                    },
-                    step4: {
-                        lastName: null,
-                        firstName: null,
-                        birthdayChild: null,
-                        garde: null,
-                        gardeParentOption: null,
-                        gardeOtherOption: null,
-
-                        school: null,
-                        schoolLevel: null,
-                        adlRegister: null,
-                        redouble: null,
-                        redoubleYesOption: null,
-                        registerReason: null,
-                        evaluation: null,
-                        daycareService: null,
-                        daycareServiceYesName: null,
-                        daycareServiceYesPhone: null,
-
-                        ramq: null,
-                        expiration: null,
-                        allergies: null,
-                        drug: null,
-                        othersInfos: null,
-
-                        autorisationPapper: null,
-                        autorisationInternet: null
-                    },
-                    step5: {
-                        lastName: null,
-                        firstName: null,
-                        birthdayChild: null,
-                        garde: null,
-                        gardeParentOption: null,
-                        gardeOtherOption: null,
-
-                        school: null,
-                        schoolLevel: null,
-                        adlRegister: null,
-                        redouble: null,
-                        redoubleYesOption: null,
-                        registerReason: null,
-                        evaluation: null,
-                        daycareService: null,
-                        daycareServiceYesName: null,
-                        daycareServiceYesPhone: null,
-
-                        ramq: null,
-                        expiration: null,
-                        allergies: null,
-                        drug: null,
-                        othersInfos: null,
-
-                        autorisationPapper: null,
-                        autorisationInternet: null
-                    }
-                },
-                errors: {
-                    step1: {
-                        lastName: false,
-                        firstName: false,
-                        birthdayChild: false,
-                        garde: false,
-
-                        school: false,
-                        schoolLevel: false,
-                        redouble: false,
-                        registerReason: false,
-                        evaluation: false
-                    },
-                    step2: {
-                        lastName: false,
-                        firstName: false,
-                        birthdayChild: false,
-                        garde: false,
-
-                        school: false,
-                        schoolLevel: false,
-                        redouble: false,
-                        registerReason: false,
-                        evaluation: false
-                    },
-                    step3: {
-                        lastName: false,
-                        firstName: false,
-                        birthdayChild: false,
-                        garde: false,
-
-                        school: false,
-                        schoolLevel: false,
-                        redouble: false,
-                        registerReason: false,
-                        evaluation: false
-                    },
-                    step4: {
-                        lastName: false,
-                        firstName: false,
-                        birthdayChild: false,
-                        garde: false,
-
-                        school: false,
-                        schoolLevel: false,
-                        redouble: false,
-                        registerReason: false,
-                        evaluation: false
-                    },
-                    step5: {
-                        lastName: false,
-                        firstName: false,
-                        birthdayChild: false,
-                        garde: false,
-
-                        school: false,
-                        schoolLevel: false,
-                        redouble: false,
-                        registerReason: false,
-                        evaluation: false
-                    }
-                }
-            },
-            parent: {
-                fields: {
-                    lessons: null,
-                    help: null,
-                    talents: null,
-                    snacks: null,
-                    organization: null,
-                    support: null,
-                    participation: null
-                },
-                errors: {
-                    lessons: false
-                }
-            },
-            collaborator: {
-                fields: {
-                    monday: null,
-                    tuesday: null,
-                    wednesday: null,
-                    thursday: null,
-                    magicJournal: null,
-                    serveSnack: null,
-                    animationPreparation: null,
-                    accompanyWorkshop: null,
-                    prepareSnack: null,
-                    accompanyInternet: null,
-
-                    motivation: null,
-                    experience: null,
-                    comment: null,
-                    heard: null
-                },
-                errors: {
-                    availability: false,
-                    interest: false,
-                    motivation: false,
-                    experience: false
-                }
-            },
-            childCountError: false,
-            enableSubmit: false,
-            loading: false,
-            password: '',
-            confirmPassword: '',
-            errorPassword: false,
-            showPassword: false,
-            successRegister: false
+            ...initialiseState,
+            roles: null,
+            days: null
         }
         this.handleStepClick = this.handleStepClick.bind(this)
         this.handleSaveRegister = this.handleSaveRegister.bind(this)
@@ -356,6 +347,12 @@ class RegisterContainer extends Component {
         this.onCollaboratorInputChange = this.onCollaboratorInputChange.bind(this)
         this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this)
         this.handleRessetStepAndRedirect = this.handleRessetStepAndRedirect.bind(this)
+        this.funcReg = this.funcReg.bind(this)
+        this.savedUser = this.savedUser.bind(this)
+    }
+
+    componentDidMount(){
+        Fetch.getRolesAndDays(this.funcReg)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
@@ -433,7 +430,7 @@ class RegisterContainer extends Component {
         stepParentHasErrors () {
             const fields = this.state.parent.fields
             const newErrors = {
-                lessons: fields.lessons === null
+                expectationsVar: fields.expectationsVar === null
             }
             this.setState({
                     parent: {
@@ -451,16 +448,9 @@ class RegisterContainer extends Component {
         stepCollaboratorHasErrors () {
             const fields = this.state.collaborator.fields
             const newErrors = {
-                availability: (fields.monday === null &&
-                    fields.tuesday === null &&
-                    fields.wednesday === null &&
-                    fields.thursday === null),
-                interest: (fields.magicJournal === null &&
-                    fields.serveSnack === null &&
-                    fields.animationPreparation === null &&
-                    fields.accompanyWorkshop === null &&
-                    fields.prepareSnack === null &&
-                    fields.accompanyInternet === null),
+                availability: (!fields.monday && !fields.tuesday && !fields.wednesday && !fields.thursday),
+                interest: (!fields.magicJournal && !fields.serveSnack && !fields.animationPreparation &&
+                            !fields.accompanyWorkshop && !fields.prepareSnack && !fields.accompanyInternet),
                 motivation: fields.motivation === null,
                 experience: fields.experience === null
             }
@@ -608,26 +598,88 @@ class RegisterContainer extends Component {
 
         handleRessetStepAndRedirect () {
             this.setState({
-                step: 1,
-                showPrev: false,
-                showNext: true,
-                informationsCoordonnees: {
-                    ...this.state.informationsCoordonnees,
-                    errors: {
-                        ...this.state.informationsCoordonnees.errors,
-                        sex: false,
-                        birthday: false,
-                        last_name: false,
-                        first_name: false,
-                        email: false,
-                        address: false,
-                        contacts: false,
-                        membership: false
-                    }
-                },
-                nbrChild: 0
+                ...initialiseState
             })
             this.props.onShowLoginForm()
+        }
+
+        getUserToSave (fields, idActor, roles, roleTitle) {
+            const user = require('../utilities/variables').variables.templateUser
+            const ids = require('../utilities/variables').variables.id.registerStart.check
+
+            const findRole = roles.filter(role => role.title === roleTitle)
+            user.id_role= findRole[0]._id,
+
+            user.sex= fields.sex,
+            user.address= fields.address,
+            user.birthday = (fields.birthday.getFullYear() + '/' + (fields.birthday.getMonth() + 1) + '/' + fields.birthday.getDate()),
+            user.has_child= fields.has_child,
+            user.last_name= fields.last_name,
+            user.first_name= fields.first_name,
+            user.is_subscribed= fields.is_subscribed,
+
+            user.contact = []
+            user.contact.push({title: 'home', phone: fields.contacts_home})
+            user.contact.push({title: 'work', phone: fields.contacts_work})
+            user.contact.push({title: 'personal', phone: fields.contacts_personal})
+            user.contact.push({title: 'emergency', phone: fields.contacts_emergency})
+
+            user.membership = []
+            user.membership.push({question: 'membership',response: fields.membership})
+            user.membership.push({question: 'memberCard',response: fields.membership_becomeMember_memberCard})
+            user.membership.push({question: 'discountCard',response: fields.membership_becomeMember_discountCard})
+            user.membership.push({question: 'paymentMethod',response: fields.membership_becomeMember_paymentMethod})
+
+            user.photo = 'no-photo.jpg'
+
+            // Children
+            user.garde = []
+            user.id_parent = []
+            user.school_info = []
+            user.medical_info = []
+            user.authorization = []
+
+            user.id_child = []
+            user.involvement = []
+            user.need = null
+            user.expectation = null
+
+            user.interest = []
+            user.question = []
+            user.availability = []
+            user.comment = null
+            user.experience = null
+            user.motivation = null
+
+            if (idActor !== ids.collaborator) {
+                user.involvement.push({question: 'snacks',response: fields.snacks})
+                user.involvement.push({question: 'talents',response: fields.talents})
+                user.involvement.push({question: 'support',response: fields.support})
+                user.involvement.push({question: 'organization',response: fields.organization})
+                user.involvement.push({question: 'otherInvolvement',response: fields.otherInvolvement})
+                user.need = fields.needsVar
+                user.expectation = fields.expectationsVar
+            }
+            if (idActor !== ids.parent) {
+                user.availability.push(fields.monday)
+                user.availability.push(fields.tuesday)
+                user.availability.push(fields.wednesday)
+                user.availability.push(fields.thursday)
+
+                user.interest.push(fields.magicJournal)
+                user.interest.push(fields.serveSnack)
+                user.interest.push(fields.animationPreparation)
+                user.interest.push(fields.accompanyWorkshop)
+                user.interest.push(fields.prepareSnack)
+                user.interest.push(fields.accompanyInternet)
+
+                user.comment = fields.comment
+                user.experience = fields.experience
+                user.motivation = fields.motivation
+                user.question.push({question: 'heard',response: fields.heard})
+            }
+
+            return user
         }
 
         handleSaveRegister () {
@@ -636,14 +688,39 @@ class RegisterContainer extends Component {
             }else{
                 this.setState({errorPassword: true, successRegister: false})
             }
-            /*
-            const allFields = this.state.informationsCoordonnees.fields
-            const user = require('../utilities/variables').variables.templateUser
-            user.first_name = allFields.first_name
-            user.last_name = allFields.last_name
-            user.birthday = allFields.birthday
+            let params = null
+            let role = ''
+            switch (this.props.currentActor) {
+                case actorsIds.parent:
+                    params = {...this.state.informationsCoordonnees.fields, ...this.state.parent.fields}
+                    role = 'parent'
+                    break;
+                case actorsIds.collaborator:
+                    params = {...this.state.informationsCoordonnees.fields, ...this.state.collaborator.fields}
+                    role = 'collaborater'
+                    break;
+                case actorsIds.both:
+                    params = {...this.state.informationsCoordonnees.fields, ...this.state.parent.fields, ...this.state.collaborator.fields}
+                    role = 'collab_parent'
+                    break;
+            }
+            const user = this.getUserToSave(params, this.props.currentActor, this.state.roles, role)
+            const userLogin = {
+                id_user: null,
+                email: this.state.informationsCoordonnees.fields.email,
+                password: this.state.password !== null ? this.state.password : 'abc123...',
+                is_active: false
+            }
+            Fetch.registerSaveUser(user, userLogin, this.savedUser)
             console.log(user)
-            */
+        }
+
+        savedUser(success, idUser){
+            console.log('success => ', success)
+            console.log('idUser => ', idUser)
+            if(this.props.currentActor !== actorsIds.collaborator){
+
+            }
         }
 
     //#endregion
@@ -713,10 +790,36 @@ class RegisterContainer extends Component {
 
     //#endregion
 
+    testRegister(){
+        /*
+        let role = ''
+
+        switch (this.props.currentActor) {
+            case actorsIds.collaborator:
+                role = 'collaborater'
+                break
+            case actorsIds.parent:
+                role = 'collaborater'
+                break
+            case actorsIds.both:
+                role = 'collab_parent'
+                break
+            }
+        Fetch.getIdRole('', 'super_admin', this.funcReg)
+        */
+    }
+
+    funcReg(roles, days){
+        this.setState({roles: roles, days: days})
+    }
 
     render () {
         const lang = this.getLangFile()
         const max = this.getMaxStep()
+        /*
+        console.log(this.state.roles)
+        console.log(this.state.days)
+        */
         return (
             <div className={this.state.successRegister ? 'register-container registered' : 'register-container'}>
                 {this.props.onShowLoginForm !== null && (

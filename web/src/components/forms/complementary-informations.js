@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Form from './builds-child'
+import Form from './builds'
 
 import '../../styles/_complementary-informations.scss'
 const FormConfig = require('../../forms-files/parent_complementary_informations.json').fieldsets

@@ -240,6 +240,18 @@
                     }
                 }
             }
+            .last_name,
+            .daycareServiceYesName,
+            .first_name {
+                input {
+                    text-transform: capitalize;
+                }
+            }
+            .email {
+                input {
+                    text-transform: lowercase;
+                }
+            }
         }
     }
 }

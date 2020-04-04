@@ -4,10 +4,10 @@
         "label": "title",
         "labelError": "Required"
     },
-    "sex_mme": {
+    "female": {
         "label": "Mrs"
     },
-    "sex_mr": {
+    "male": {
         "label": "Mr"
     },
     "birthday": {
@@ -75,54 +75,5 @@
     },
     "membership_becomeMember_paymentMethod": {
         "label": "Payment method"
-    },
-    "participation": {
-        "label": "Participation / Activities",
-        "labelError": "Required"
-    },
-    "participation_cuisine": {
-        "label": "Collective Kitchen"
-    },
-    "participation_debrouille": {
-        "label": "Resourcefulness (>= 50 years)"
-    },
-    "participation_jmc": {
-        "label": "JMC activities"
-    },
-    "participation_diverses": {
-        "label": "Diverse activities"
-    },
-    "participation_repas": {
-        "label": "Community meal"
-    },
-    "participation_viecomm": {
-        "label": "Community life"
-    },
-    "participation_atelier": {
-        "label": "Culinary workshop"
-    },
-    "participation_diverses_options": {
-        "label": "Specify"
-    },
-    "volunteering": {
-        "label": "Volunteering / Collaboration"
-    },
-    "volunteering_accueil": {
-        "label": "Home"
-    },
-    "volunteering_devoirs": {
-        "label": "Homework and Lessons Workshop"
-    },
-    "volunteering_diverses": {
-        "label": "Diverse activities"
-    },
-    "volunteering_citoyenne": {
-        "label": "Citizen action"
-    },
-    "volunteering_repas": {
-        "label": "Community meal"
-    },
-    "volunteering_diverses_options": {
-        "label": "Specify"
     }
 }

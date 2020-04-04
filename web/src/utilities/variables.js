@@ -56,8 +56,8 @@ const variables = {
         },
         register: {
             sex: '8R5D4GF1VD5',
-            sex_mme: '8R5D4GF1VD51',
-            sex_mr: '8R5D4GF1VD52',
+            female: '8R5D4GF1VD51',
+            male: '8R5D4GF1VD52',
 
             birthday: '7E4DE54F15ED2',
             last_name: '8E5D4FDW185S',
@@ -80,31 +80,13 @@ const variables = {
             membership_notWantMember: '8E5D4F1E5D3',
             membership_becomeMember_paymentMethod: '8E5D4F1E5D4',
             membership_becomeMember_memberCard: '8E5D4F1E5D5',
-            membership_becomeMember_discountCard: '8E5D4F1E5D6',
-
-            participation: '6DF2CD52XD1',
-            participation_cuisine: '6DF2CD52XD11',
-            participation_debrouille: '6DF2CD52XD12',
-            participation_jmc: '6DF2CD52XD13',
-            participation_diverses: '6DF2CD52XD14',
-            participation_repas: '6DF2CD52XD15',
-            participation_viecomm: '6DF2CD52XD16',
-            participation_atelier: '6DF2CD52XD17',
-            participation_diverses_options: '6DF2CD52XD18',
-
-            volunteering: 'D5F41CD52F1C',
-            volunteering_accueil: 'D5F41CD52F1C1',
-            volunteering_devoirs: 'D5F41CD52F1C2',
-            volunteering_diverses: 'D5F41CD52F1C3',
-            volunteering_citoyenne: 'D5F41CD52F1C4',
-            volunteering_repas: 'D5F41CD52F1C5',
-            volunteering_diverses_options: 'D5F41CD52F1C6'
+            membership_becomeMember_discountCard: '8E5D4F1E5D6'
         },
         childrenRegister: {
             identification: 'childrenRegisteridentification',
-            lastName: 'childrenRegisteridentification8E5D4FDW185S',
-            firstName: 'childrenRegisteridentificationQ8W7E4F2S8D',
-            birthdayChild: 'childrenRegisteridentification7E4DE54F15ED2',
+            last_name: 'childrenRegisteridentification8E5D4FDW185S',
+            first_name: 'childrenRegisteridentificationQ8W7E4F2S8D',
+            birthday: 'childrenRegisteridentification7E4DE54F15ED2',
             garde: 'childrenRegisteridentification8R5D4F1E5D',
             gardeAll: 'childrenRegisteridentification8R5D4F1E5D1',
             gardeShared: 'childrenRegisteridentification8R5D4F1E5D2',
@@ -148,18 +130,18 @@ const variables = {
         },
         complementaryInformations: {
             expectations: 'expectationsDD2FDF4VF',
-            lessons: 'expectationsDD2FDF4VF1',
+            expectationsVar: 'expectationsDD2FDF4VF1',
 
             needs: 'needshgfgdfv',
-            help: 'needshgfgdfv5421',
+            needsVar: 'needshgfgdfv5421',
 
-            implications: 'implicationsR5DF42',
+            involvement: 'implicationsR5DF42',
             availableFor: 'gehsjhdjhceyhs',
             talents: 'implicationsR5DF42U5H4J2',
             snacks: 'implicationsR5DF42SS4',
             organization: 'implicationsR5DF42ERGH',
             support: 'implicationsR5DF425FG42F1',
-            participation: 'implicationsR5DF428G5FGD4F'
+            otherInvolvement: 'implicationsR5DF428G5FGD4F'
         },
         collaboratorBenevoles: {
             availabilityInterest: 'availabilityInterest85d4c',
@@ -192,29 +174,166 @@ const variables = {
         last_name: 'Orellana',
         sex: 'male',
         address: '222 Rue Bobette',
-        birthday: '1994-12-24T00:00:00.000Z',
-        has_child: true,
+        birthday: '1994/12/24',
+        has_child: false,
         is_subscribed: false,
-
-        comment: 'Comments here',
-        experience: 'Experience here',
-        motivation: 'Motivation here',
+        contact: [
+            {
+                title: 'personal',
+                phone: '450-222-2222'
+            },
+            {
+                title: 'home',
+                phone: '450-222-2222'
+            },
+            {
+                title: 'work',
+                phone: '514-567-8976'
+            },
+            {
+                title: 'emergency',
+                phone: '450-222-2222'
+            }
+        ],
+        membership: [
+            {
+                question: 'membership',
+                response: 'YES/MAYBE/NO'
+            },
+            {
+                question: 'paymentMethod',
+                response: 'Response here'
+            },
+            {
+                question: 'memberCard',
+                response: 'YES/NO'
+            },
+            {
+                question: 'discountCard',
+                response: 'YES/NO'
+            }
+        ],
+        photo: 'no-photo.jpg',
+        id_child: [],
+        garde: [
+            {
+                question: 'garde',
+                response: 'ALL/SHARED/MOTHER/FATHER/OTHER'
+            },
+            {
+                question: 'gardeParentOption',
+                response: 'YES/NO'
+            },
+            {
+                question: 'gardeOtherOption',
+                response: 'Response Here'
+            }
+        ],
+        school_info: [
+            {
+                question: 'name',
+                response: 'Response here'
+            },
+            {
+                question: 'level',
+                response: 'Response here'
+            },
+            {
+                question: 'adl',
+                response: 'Response here'
+            },
+            {
+                question: 'redouble',
+                response: 'YES/NO'
+            },
+            {
+                question: 'lastRedoubleLevel',
+                response: 'Response here'
+            },
+            {
+                question: 'reason',
+                response: 'Response here'
+            },
+            {
+                question: 'evaluation',
+                response: 'Response here'
+            },
+            {
+                question: 'daycareService',
+                response: 'YES/NO'
+            },
+            {
+                question: 'daycareServiceYesName',
+                response: 'Response here'
+            },
+            {
+                question: 'daycareServiceYesPhone',
+                response: 'Response here'
+            }
+        ],
+        medical_info: [
+            {
+                question: 'ramq',
+                response: 'YES/NO'
+            },
+            {
+                question: 'ramqExpiration',
+                response: 'MM/AAAA'
+            },
+            {
+                question: 'allergies',
+                response: 'Response here'
+            },
+            {
+                question: 'medications',
+                response: 'Response here'
+            },
+            {
+                question: 'othersInformations',
+                response: 'Response here'
+            }
+        ],
+        authorization: [
+            {
+                question: 'publicationPicturePaper',
+                response: 'YES/NO'
+            },
+            {
+                question: 'publicationPictureInternet',
+                response: 'YES/NO'
+            }
+        ],
+        involvement: [
+            {
+                question: 'talents',
+                response: 'Response here'
+            },
+            {
+                question: 'snacks',
+                response: 'YES/NO'
+            },
+            {
+                question: 'organization',
+                response: 'YES/NO'
+            },
+            {
+                question: 'support',
+                response: 'YES/NO'
+            },
+            {
+                question: 'otherInvolvement',
+                response: 'Response here'
+            }
+        ],
         expectation: 'Expectation here',
         need: 'Need here',
-
-        id_child: [],
+        question: [
+            {
+                question: 'heard',
+                response: 'Response 1 here'
+            }
+        ],
         id_parent: [],
-        photo: 'no-photo.jpg',
-        participation: [
-            'Participation 1',
-            'Participation 2',
-            'Participation 3'
-        ],
-        volunteering: [
-            'Volunteering 1',
-            'Volunteering 2',
-            'Volunteering 3'
-        ],
         availability: [
             '5e6a3e314554933864b2c3a2',
             '5e6a3e314554933864b2c3a4'
@@ -224,85 +343,9 @@ const variables = {
             'Interest 2',
             'Interest 3'
         ],
-        contact: [
-            {
-                _id: '5e6aba823f290942e0bc136a',
-                title: 'Maison',
-                phone: '450-222-2222'
-            },
-            {
-                _id: '5e6aba823f290942e0bc136b',
-                title: 'Bureau',
-                phone: '514-567-8976'
-            }
-        ],
-        membership: [
-            {
-                _id: '5e6aba823f290942e0bc136c',
-                question: 'Question here ?',
-                response: 'Response here'
-            }
-        ],
-        involvement: [
-            {
-                _id: '5e6aba823f290942e0bc136d',
-                question: 'Question here ?',
-                response: 'Response here'
-            },
-            {
-                _id: '5e6aba823f290942e0bc136e',
-                question: 'Question 2 here ?',
-                response: 'Response 2 here'
-            }
-        ],
-        question: [
-            {
-                _id: '5e6aba823f290942e0bc136f',
-                question: 'Question 1 here',
-                response: 'Response 1 here'
-            },
-            {
-                _id: '5e6aba823f290942e0bc1370',
-                question: 'Question 2 here',
-                response: 'Response 2 here'
-            }
-        ],
-        school_info: [
-            {
-                _id: '5e6aba823f290942e0bc1371',
-                question: 'Question 1 here',
-                response: 'Response 1 here'
-            },
-            {
-                _id: '5e6aba823f290942e0bc1372',
-                question: 'Question 2 here',
-                response: 'Response 2 here'
-            }
-        ],
-        medical_info: [
-            {
-                _id: '5e6aba823f290942e0bc1373',
-                question: 'Question 1 here',
-                response: 'Response 1 here'
-            },
-            {
-                _id: '5e6aba823f290942e0bc1374',
-                question: 'Question 2 here',
-                response: 'Response 2 here'
-            }
-        ],
-        authorization: [
-            {
-                _id: '5e6aba823f290942e0bc1375',
-                question: 'Question 1 here',
-                response: 'Response 1 here'
-            },
-            {
-                _id: '5e6aba823f290942e0bc1376',
-                question: 'Question 2 here',
-                response: 'Response 2 here'
-            }
-        ]
+        comment: 'Comments here',
+        experience: 'Experience here',
+        motivation: 'Motivation here'
     },
     roles: {
         super_admin: '5e6a3e314554933864b2c3c2',

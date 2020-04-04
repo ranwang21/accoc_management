@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Form from './builds-child'
+import Form from './builds'
 
 import '../../styles/_collaborator-benevoles.scss'
 const FormConfig = require('../../forms-files/collaborator_benevoles.json').fieldsets

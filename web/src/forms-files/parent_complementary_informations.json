@@ -4,7 +4,7 @@
             "name": "expectations",
             "fields": [
                 {
-                    "name": "lessons",
+                    "name": "expectationsVar",
                     "type": "textAreaField",
                     "required": false
                 }
@@ -14,14 +14,14 @@
             "name": "needs",
             "fields": [
                 {
-                    "name": "help",
+                    "name": "needsVar",
                     "type": "textAreaField",
                     "required": false
                 }
             ]
         },
         {
-            "name": "implications",
+            "name": "involvement",
             "fields": [
                 {
                     "name": "talents",
@@ -50,7 +50,7 @@
                     ]
                 },
                 {
-                    "name": "participation",
+                    "name": "otherInvolvement",
                     "type": "textAreaField",
                     "required": false
                 }

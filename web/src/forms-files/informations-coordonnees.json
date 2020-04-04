@@ -6,10 +6,10 @@
             "type": "radioField",
             "radioOptions": [
                 {
-                    "name": "sex_mme"
+                    "name": "female"
                 },
                 {
-                    "name": "sex_mr"
+                    "name": "male"
                 }
             ]
         },
@@ -18,6 +18,12 @@
             "type": "dateField",
             "min": 18,
             "max": 100,
+            "format": "DD MMMM YYYY",
+            "views": [
+                "year",
+                "month",
+                "date"
+            ],
             "required": true
         },
         {
@@ -106,98 +112,6 @@
                     "name": "membership_becomeMember_discountCard",
                     "type": "checkboxField",
                     "required": false
-                }
-            ]
-        },
-        {
-            "name": "participation",
-            "required": true,
-            "type": "participationField",
-            "checkboxOptions1": [
-                {
-                    "name": "participation_cuisine",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "participation_debrouille",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "participation_jmc",
-                    "type": "checkboxField",
-                    "required": false
-                }
-            ],
-            "checkboxOptions2": [
-                {
-                    "name": "participation_repas",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "participation_viecomm",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "participation_atelier",
-                    "type": "checkboxField",
-                    "required": false
-                }
-            ],
-            "others": [
-                {
-                    "name": "participation_diverses",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "participation_diverses_options",
-                    "type": "textField",
-                    "required": true
-                }
-            ]
-        },
-        {
-            "name": "volunteering",
-            "required": true,
-            "type": "volunteeringField",
-            "checkboxOptions1": [
-                {
-                    "name": "volunteering_accueil",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "volunteering_devoirs",
-                    "type": "checkboxField",
-                    "required": false
-                }
-            ],
-            "checkboxOptions2": [
-                {
-                    "name": "volunteering_citoyenne",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "volunteering_repas",
-                    "type": "checkboxField",
-                    "required": false
-                }
-            ],
-            "others": [
-                {
-                    "name": "volunteering_diverses",
-                    "type": "checkboxField",
-                    "required": false
-                },
-                {
-                    "name": "volunteering_diverses_options",
-                    "type": "textField",
-                    "required": true
                 }
             ]
         }

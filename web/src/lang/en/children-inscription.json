@@ -2,15 +2,15 @@
     "title": "Child registration form ",
     "identification": {
         "label": "Identification of the child",
-        "lastName": {
+        "last_name": {
             "label": "Last name",
             "labelError": "Required"
         },
-        "firstName": {
+        "first_name": {
             "label": "First name",
             "labelError": "Required"
         },
-        "birthdayChild": {
+        "birthday": {
             "label": "Date of Birth",
             "labelError": "Required"
         },
