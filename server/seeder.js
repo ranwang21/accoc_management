@@ -1,5 +1,9 @@
 const fs = require('fs')
+const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+
+// LOAD ENV VARS
+dotenv.config({ path: './configs/config.env' })
 
 // LOAD MODELS
 const Role = require('./models/Role')

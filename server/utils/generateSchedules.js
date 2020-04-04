@@ -53,7 +53,7 @@ const generateSchedule = async (res, startDate, endDate, callBack) => {
         increment += 1
       }
       index += 1
-      if (index === classroomSchedules.length) {
+      if (index === classroomSchedules.length * 2) {
         callBack(res, schedule)
       }
     })
