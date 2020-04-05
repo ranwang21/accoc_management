@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    btnSignIn.setClickable(false);
                     Preferences.incrementVersion(LoginActivity.this);
                     Login login = new Login(edtEmail.getText().toString(), edtPassword.getText().toString());
                     String token = LoginManager.getLoginToken(login, "");
@@ -68,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
                     Log.d("JsonErrorLogin", e.getMessage());
-                }
+                    btnSignIn.setClickable(true);             }
             }
         });
     }
