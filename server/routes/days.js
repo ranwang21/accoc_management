@@ -15,17 +15,12 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(
-    advancedResults(Day),
-    protect,
-    authorize('admin', 'super_admin'),
-    getDays
-  )
+  .get(advancedResults(Day), getDays)
   .post(protect, authorize('admin', 'super_admin'), createDay)
 
 router
   .route('/:id')
-  .get(protect, getDay)
+  .get(getDay)
   .put(protect, authorize('admin', 'super_admin'), updateDay)
   .delete(protect, authorize('admin', 'super_admin'), deleteDay)
 
