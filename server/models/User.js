@@ -80,18 +80,6 @@ const UserSchema = new mongoose.Schema({
       }
     }
   ],
-  participation: [
-    {
-      type: String,
-      trim: true
-    }
-  ],
-  volunteering: [
-    {
-      type: String,
-      trim: true
-    }
-  ],
   expectation: {
     type: String,
     trim: true
@@ -144,8 +132,14 @@ const UserSchema = new mongoose.Schema({
   ],
   interest: [
     {
-      type: String,
-      trim: true
+      question: {
+        type: String,
+        trim: true
+      },
+      response: {
+        type: String,
+        trim: true
+      }
     }
   ],
   school_info: [
