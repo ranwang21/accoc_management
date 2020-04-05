@@ -56,7 +56,13 @@ public class Acceuil extends Fragment {
                     Intent intent = new Intent(getContext(), EnfantsParSalleActivity.class);
                     intent.putExtra("id_classroom", c.get_id());
                     startActivity(intent);
-
+                }
+            });
+            button.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(getActivity(), "status de " + c.getTitle(), Toast.LENGTH_SHORT).show();
+                    return false;
                 }
             });
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

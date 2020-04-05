@@ -35,7 +35,6 @@ public class ListesEnfants extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         EnfantAdapter enfantAdapter;
-        ConnectionBD.copyBdFromAssets(getContext());
         ArrayList<User> users = new ArrayList<>();
         ArrayList<Role> roles = RoleManager.getAll(getContext());
         for (Role r : roles) {

@@ -13,7 +13,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_drawer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/nav_header_desc"
@@ -21,6 +21,7 @@
         app:srcCompat="@mipmap/profilfemme" />
 
     <TextView
+        android:id="@+id/name_drawer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -29,7 +30,7 @@
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/email_drawer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txt_mail"

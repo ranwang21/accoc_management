@@ -14,6 +14,7 @@ public class Preferences {
     public static String USER_FIRSTNAME = "USER_FIRSTNAME";
     public static String USER_LASTNAME = "USER_LASTNAME";
     public static String USER_EMAIL = "USER_EMAIL";
+    public static String USER_IMG_URL = "USER_IMG_URL";
     public static void incrementVersion(Context ctx) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -22,9 +23,8 @@ public class Preferences {
     }
     public static int getVersion(Context ctx) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        int lo = sharedPref.getInt(CONNEXION_VERSION, -1);
-        return lo;
+        int version = sharedPref.getInt(CONNEXION_VERSION, -1);
+        return version;
     }
     public static void setVersion(Context ctx, int version) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -40,9 +40,8 @@ public class Preferences {
     }
     public static String getToken(Context ctx) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        String lo = sharedPref.getString(TOKEN, "");
-        return lo;
+        String token = sharedPref.getString(TOKEN, "");
+        return token;
     }
     public static void setUserInfos(Context ctx, User user, String email) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -50,24 +49,36 @@ public class Preferences {
         editor.putString(USER_FIRSTNAME, user.getFirst_name());
         editor.putString(USER_LASTNAME, user.getLast_name());
         editor.putString(USER_EMAIL, email);
+        editor.putString(USER_IMG_URL, user.getImg_url());
         editor.commit();
     }
     public static String getUserFirstName(Context ctx) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        String lo = sharedPref.getString(USER_FIRSTNAME, "");
-        return lo;
+        String userFirstName = sharedPref.getString(USER_FIRSTNAME, "");
+        return userFirstName;
     }
     public static String getUserLastName(Context ctx) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        String lo = sharedPref.getString(USER_LASTNAME, "");
-        return lo;
+        String userLastName = sharedPref.getString(USER_LASTNAME, "");
+        return userLastName;
+    }
+    public static String getUserImgUrl(Context ctx) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String imgUrl = sharedPref.getString(USER_IMG_URL, "");
+        return imgUrl;
     }
     public static String getUserEmail(Context ctx) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String email = sharedPref.getString(USER_EMAIL, "");
+        return email;
+    }
+    public static void clearUserFromPreferences(Context ctx) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
         SharedPreferences.Editor editor = sharedPref.edit();
-        String lo = sharedPref.getString(USER_EMAIL, "");
-        return lo;
+        editor.putString(USER_EMAIL, "");
+        editor.putString(USER_LASTNAME, "");
+        editor.putString(USER_FIRSTNAME, "");
+        editor.putString(USER_IMG_URL, "");
+        editor.putString(TOKEN, "");
     }
 }

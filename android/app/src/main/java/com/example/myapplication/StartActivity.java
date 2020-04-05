@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,15 +29,24 @@ public class StartActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                /* Create an Intent that will start the Main-Activity. */
-                RoleHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
-                UserHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
-                ClassroomHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
+                try{
+                    /* Create an Intent that will start the Main-Activity. */
+                    RoleHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
+                    UserHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
+                    ClassroomHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
 //        EvaluationHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
-                ScheduleHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
-                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
-                startActivity(intent);
-                finish();
+                    ScheduleHelper.getFromAPI(ConnectionBD.getBd(StartActivity.this), Preferences.getToken(StartActivity.this));
+                    Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                    startActivity(intent);
+                    finish();
+                }catch(Exception e){
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.putExtra("error","Login Failed!");
+                    startActivity(intent);
+                    Log.d("JsonErrorLogin", e.getMessage());
+                    finish();
+                }
+
             }
         }, SPLASH_DISPLAY_LENGTH);
     }

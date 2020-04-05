@@ -2,16 +2,16 @@ package com.example.myapplication.entities;
 
 public class User {
 
-    String _id;
-    String id_role;
-    String first_name;
-    String last_name;
-    String sex;
-    String address;
-    String birthday;
-    String img_url;
-    String id_collaborater;
-    String id_classroom;
+    private String _id;
+    private String id_role;
+    private String first_name;
+    private String last_name;
+    private String sex;
+    private String address;
+    private String birthday;
+    private String img_url;
+    private String id_collaborater;
+    private String id_classroom;
     public User() {
     }
     public User(String _id, String id_role, String first_name, String last_name, String id_collaborater, String id_classroom, String sex, String address, String birthday, String img_url) {

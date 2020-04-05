@@ -34,6 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         // tvErrorMessage = findViewById(R.id.tv_error_signin);
+        Intent intent = getIntent();
+        if (intent.getStringExtra("error") != null) {
+            Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
+        }
+        if (intent.getStringExtra("logout") != null) {
+            Toast.makeText(LoginActivity.this, intent.getStringExtra("logout"), Toast.LENGTH_SHORT).show();
+        }
         edtEmail = findViewById(R.id.edt_email_signin);
         edtPassword = findViewById(R.id.edt_password_signin);
         btnSignIn = findViewById(R.id.btn_signin);
@@ -49,9 +56,12 @@ public class LoginActivity extends AppCompatActivity {
                     Preferences.incrementVersion(LoginActivity.this);
                     Login login = new Login(edtEmail.getText().toString(), edtPassword.getText().toString());
                     String token = LoginManager.getLoginToken(login, "");
+                    if (token == null) {
+                        throw new Exception("Empty Token");
+                    }
                     Preferences.setToken(LoginActivity.this, token);
                     User user = LoginManager.getUserFromToken(token);
-                    Preferences.setUserInfos(LoginActivity.this,user,edtEmail.getText().toString());
+                    Preferences.setUserInfos(LoginActivity.this, user, edtEmail.getText().toString());
                     Intent intent = new Intent(getApplicationContext(), StartActivity.class);
                     startActivity(intent);
                     finish();
