@@ -3,7 +3,8 @@
         "fields": {
             "expectations": {
                 "id": "expectation",
-                "type": "textarea"
+                "type": "textarea",
+                "required": true
             }
         }
     },
@@ -11,7 +12,8 @@
         "fields": {
             "needs": {
                 "id": "needs",
-                "type": "textarea"
+                "type": "textarea",
+                "required": true
             }
         }
     },
@@ -19,7 +21,8 @@
         "fields": {
             "implication": {
                 "id": "implication",
-                "type": "textarea"
+                "type": "textarea",
+                "required": true
             },
             "services": {
                 "prepare-snack": {
