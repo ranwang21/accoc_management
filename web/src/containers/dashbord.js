@@ -76,7 +76,7 @@ class Dashbord extends Component {
         this.toggleDrawer = this.toggleDrawer.bind(this)
         this.setActorLists = this.setActorLists.bind(this)
         this.setClassRoom = this.setClassRoom.bind(this)
-        this.onImageChange = this.onImageChange.bind(this)
+        this.onUsersListChange = this.onUsersListChange.bind(this)
     }
 
     setActorLists (list) {
@@ -91,7 +91,7 @@ class Dashbord extends Component {
         })
         setTimeout(() => {
             this.setState({ showLoading: false })
-        }, 2000)
+        }, 1000)
     }
 
     setClassRoom (classRoomsList) {
@@ -163,8 +163,7 @@ class Dashbord extends Component {
         this.setState({ requiredSaveValidationChange: false })
     }
 
-    onImageChange (event) {
-        /// Fetch.image.update(this.props.cookies.get(variables.cookies.token), user, event.target.files, this.setActorLists)
+    onUsersListChange (event) {
         Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
     }
 
@@ -180,7 +179,7 @@ class Dashbord extends Component {
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
-                    handleImageChange={this.onImageChange}
+                    handleImageChange={this.onUsersListChange}
                 />)
         case variables.menus.validation:
             return (
@@ -192,10 +191,10 @@ class Dashbord extends Component {
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
-                    handleImageChange={this.onImageChange}
+                    handleImageChange={this.onUsersListChange}
                 />)
         case variables.menus.createAccount:
-            return (<CreateAccount lang={lang} />)
+            return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
             return (<ClassRoom lang={lang} />)
         case variables.menus.prints:
@@ -286,7 +285,7 @@ class Dashbord extends Component {
                     </DialogActions>
                 </Dialog>
 
-                {this.state.showLoading && <Loading lang={this.props.lang} />}
+                {this.state.showLoading && <Loading className='loading' lang={this.props.lang} />}
             </div>
         )
     }

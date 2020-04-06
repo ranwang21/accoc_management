@@ -69,7 +69,14 @@ class Table extends Component {
     }
 
     onActorSelected (event, actor) {
-        this.setState({ actorSelected: actor })
+        this.setState({
+            actorSelected: actor,
+            lastNameInput: '',
+            firstNameInput: '',
+            classRoomSelected: '',
+            schoolInput: '',
+            levelSelected: ''
+        })
     }
 
     handleSearchChange () {

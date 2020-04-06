@@ -79,7 +79,7 @@ class CreateAccount extends Component {
                 <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.both} />
             )
         case variables.actors.admin:
-            return (<CreateAdmin lang={this.props.lang} />)
+            return (<CreateAdmin lang={this.props.lang} updateUsers={this.props.updateUsers} onGetBack={this.handleRetour} />)
         }
     }
 

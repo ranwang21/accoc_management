@@ -13,6 +13,12 @@
     transition: all 0.2s;
     grid-column-gap: 0.5em;
     grid-row-gap: 0.5em;
+    position: relative;
+    > div.loading {
+        height: 100%;
+        background-color: rgba($color: #0000, $alpha: 0.5);
+        border-radius: none;
+    }
     > div {
         background-color: rgba($color: $primaryColor, $alpha: 0.2);
         border-radius: $borderRadiusMain;
