@@ -13,8 +13,11 @@ import com.example.myapplication.helpers.EvaluationHelper;
 import com.example.myapplication.helpers.RoleHelper;
 import com.example.myapplication.helpers.ScheduleHelper;
 import com.example.myapplication.helpers.UserHelper;
+import com.example.myapplication.managers.ScheduleManager;
 import com.example.myapplication.services.ConnectionBD;
 import com.example.myapplication.services.Preferences;
+
+import java.util.ArrayList;
 
 
 public class StartActivity extends AppCompatActivity {
