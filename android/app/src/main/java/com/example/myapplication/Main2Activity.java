@@ -21,6 +21,7 @@ import com.example.myapplication.fragments.ListesEnfants;
 import com.example.myapplication.fragments.Logout;
 import com.example.myapplication.fragments.Presence;
 import com.example.myapplication.managers.LoginManager;
+import com.example.myapplication.managers.ScheduleManager;
 import com.example.myapplication.services.Preferences;
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,6 +32,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
 
@@ -54,6 +57,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         if (!Preferences.getUserImgUrl(this).isEmpty()) {
             Glide.with(this).load(Preferences.getUserImgUrl(this)).into(imgProfile);
         }
+
         TextView tv_name = menu.findViewById(R.id.name_drawer);
         tv_name.setText(Preferences.getUserFirstName(this) + " " + Preferences.getUserLastName(this));
         TextView tv_email = menu.findViewById(R.id.email_drawer);

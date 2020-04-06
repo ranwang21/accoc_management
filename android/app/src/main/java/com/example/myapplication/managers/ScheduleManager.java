@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.myapplication.entities.Schedule;
 import com.example.myapplication.helpers.DataBaseHelper;
@@ -33,6 +34,7 @@ public class ScheduleManager {
     private static final String queryGetByIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where id_classroom like ?";
     private static final String queryGetByDate = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ?";
     private static final String queryGetByDateAndIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ?";
+    private static final String queryGetDistinctDates = "SELECT DISTINCT date FROM " + DataBaseHelper.SCHEDULE_TABLE_NAME;
     /**
      * getAll return all Schedule from DataBase
      *
@@ -191,6 +193,18 @@ public class ScheduleManager {
         }
         ConnectionBD.close();
         return schedules;
+    }
+    public static ArrayList<String> getUniquesDatesOneWeek(Context context) {
+        ArrayList<String> dates = new ArrayList<>();
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        Cursor cursor = bd.rawQuery(queryGetDistinctDates, new String[]{});
+        while (cursor.moveToNext()) {
+            String toto = cursor.getString(0);
+            dates.add(cursor.getString(0));
+
+        }
+        ConnectionBD.close();
+        return dates;
     }
     /**
      * Delete Schedule from DataBase
