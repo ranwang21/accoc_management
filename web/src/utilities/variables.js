@@ -10,8 +10,8 @@ const variables = {
     },
     actors: {
         children: 'IJNDVFBHCD',
-        parent: 'RGBGVBCHSN',
         collaborator: 'VBGNVGCHDNXD',
+        parent: 'RGBGVBCHSN',
         both: 'TWGSDVCHEDJH',
         admin: 'UEHSDVHSB'
     },

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Loading from '../components/loading'
 import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
 
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
@@ -61,7 +62,8 @@ class Dashbord extends Component {
             requiredSaveValidationChange: false,
             showSnack: false,
             left: false,
-            image: ''
+            image: '',
+            showLoading: true
         }
         this.currentUser = null
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
@@ -78,6 +80,7 @@ class Dashbord extends Component {
     }
 
     setActorLists (list) {
+        this.setState({ showLoading: true })
         const sortIds = (list.map(us => us._id)).sort()
         const sortUser = (sortIds.map(id => (list.filter(user => user._id === id))[0]))
         this.setState({
@@ -86,6 +89,9 @@ class Dashbord extends Component {
             inValidActors: [...sortUser.filter(isInValidActor)],
             childrens: [...sortUser.filter(isChildren)]
         })
+        setTimeout(() => {
+            this.setState({ showLoading: false })
+        }, 2000)
     }
 
     setClassRoom (classRoomsList) {
@@ -130,17 +136,23 @@ class Dashbord extends Component {
     onValidationChange (event, newValue) {
         if (newValue !== null) {
             const values = newValue.split(',')
-            const index = this.state.inValidActors.map(e => e._id).indexOf(values[0])
-            if (index !== -1) {
-                this.setState(state => {
-                    const inValidActors = state.inValidActors
-                    inValidActors[index].isValid = !(inValidActors[index].isValid)
-                    const list = inValidActors.filter(e => e.isValid === true)
-                    return {
-                        inValidActors,
-                        requiredSaveValidationChange: list.length !== 0
-                    }
-                })
+            if (values[2] === 'admin' && this.state.menuItemSelected === variables.menus.allUsers) {
+                const usersToUpdate = this.state.actors.filter(user => user._id === values[0])
+                usersToUpdate[0].isValid = values[1]
+                Fetch.updateUserValidities(this.props.cookies.get(variables.cookies.token), usersToUpdate, this.setActorLists)
+            } else {
+                const index = this.state.inValidActors.map(e => e._id).indexOf(values[0])
+                if (index !== -1) {
+                    this.setState(state => {
+                        const inValidActors = state.inValidActors
+                        inValidActors[index].isValid = !(inValidActors[index].isValid)
+                        const list = inValidActors.filter(e => e.isValid === true)
+                        return {
+                            inValidActors,
+                            requiredSaveValidationChange: list.length !== 0
+                        }
+                    })
+                }
             }
         }
     }
@@ -273,6 +285,8 @@ class Dashbord extends Component {
                         <Button onClick={this.handleConfirmLogOut} color='primary' autoFocus> {lang.modal.confirm} </Button>
                     </DialogActions>
                 </Dialog>
+
+                {this.state.showLoading && <Loading lang={this.props.lang} />}
             </div>
         )
     }

@@ -261,7 +261,9 @@ const getAllUsers = (token, callBack) => {
                                 const user = data.data[i]
                                 const login = dataLogins.data.filter(dl => dl.id_user === user._id)
                                 const role = dataRoles.data.filter(dr => dr._id === user.id_role)
-                                const validity = login[0] ? login[0].is_active : null
+                                user.idLogin = login[0] ? login[0]._id : null
+                                user.isValid = login[0] ? login[0].is_active : null
+                                user.email = login[0] ? login[0].email : null
                                 let img = null
                                 fetch(HOST + '/users/'+ user._id +'/photo', {
                                     headers: {
@@ -276,7 +278,7 @@ const getAllUsers = (token, callBack) => {
                                             img = dataImage.data
                                             user.img = img
                                             user.id_classroom = user.id_classroom ? user.id_classroom : '12345'
-                                            dataUsers.push({...user, roleTitle: role[0].title, isValid: validity })
+                                            dataUsers.push({...user, roleTitle: role[0].title })
                                         }
                                         callBack(dataUsers)
                                     })
@@ -326,7 +328,7 @@ const generateUsers = () => {
     const restParentCollaborater = {
         photo: 'no-photo.jpg',
         id_role: roles.collab_parent,
-        contact: [{ title: 'home', phone: '(514) 363-7840'}, { title: 'work', phone: null}, { title: 'personal', phone: '(514) 820-5545'}, { title: 'emergency', phone: null}],
+        contact: [{ title: 'home', phone: '(514) 300-9410'}, { title: 'work', phone: null}, { title: 'personal', phone: '(418) 854-4512'}, { title: 'emergency', phone: null}],
         has_child: true, is_subscribed: true,
         membership: [
             {question: "membership", response: "membership_becomeMember"},
@@ -375,7 +377,7 @@ const generateUsers = () => {
     const restParent = {
         photo: 'no-photo.jpg',
         id_role: roles.parent,
-        contact: [{ title: 'home', phone: '(514) 363-7840'}, { title: 'work', phone: null}, { title: 'personal', phone: '(514) 820-5545'}, { title: 'emergency', phone: null}],
+        contact: [{ title: 'home', phone: '(514) 363-7840'}, { title: 'work', phone: '(514) 820-5545'}, { title: 'personal', phone: null}, { title: 'emergency', phone: null}],
         has_child: true, is_subscribed: true,
         membership: [
             {question: "membership", response: "membership_becomeMember"},
@@ -417,7 +419,7 @@ const generateUsers = () => {
     const restCollaborater = {
         photo: 'no-photo.jpg',
         id_role: roles.collaborater,
-        contact: [{ title: 'home', phone: '(514) 363-7840'}, { title: 'work', phone: null}, { title: 'personal', phone: '(514) 820-5545'}, { title: 'emergency', phone: null}],
+        contact: [{ title: 'home', phone: '(418) 896-2145'}, { title: 'work', phone: null}, { title: 'personal', phone: '(514) 021-9654'}, { title: 'emergency', phone: null}],
         has_child: true, is_subscribed: true,
         membership: [
             {question: "membership", response: "membership_becomeMember"},
@@ -589,9 +591,7 @@ const createCollaborateur = (token, collaboraters) => {
                     body: JSON.stringify(userLogin)
                 })
                 .then(response => response.json())
-                .then(data2 => {
-                    console.log(data2)
-                })
+                .then(data2 => {})
             }
         })
     }
@@ -678,8 +678,6 @@ const createParentCollab = (token, parentCollab) => {
 const createUsers = (token, parents, collaboraters, collab_parent, childrens) => {
 
     createCollaborateur(token, collaboraters)
-    //createParent(token, parents)
-    //createParentCollab(token, parentCollab)
     const parent_and_collab_parent = [...parents, ...collab_parent]
 
     for (let i = 0; i < parent_and_collab_parent.length; i++) {
@@ -690,6 +688,7 @@ const createUsers = (token, parents, collaboraters, collab_parent, childrens) =>
             child1 = 2 + i
             child2 = null
         }
+
         fetch(HOST + '/users', {
             method: 'post',
             headers: {
@@ -702,7 +701,6 @@ const createUsers = (token, parents, collaboraters, collab_parent, childrens) =>
         .then(response => response.json())
         .then(data1 => {
             if (data1.success) {
-                console.log('user ' + (i + 1), data1.success)
                 const userLogin = {
                     id_user: data1.data._id,
                     email: user.email,
@@ -720,10 +718,38 @@ const createUsers = (token, parents, collaboraters, collab_parent, childrens) =>
                 })
                 .then(response => response.json())
                 .then(data2 => {
-                    console.log('login ' + (i + 1), data2.success)
                     if(data2.success){
+
+                        // School Name
+                        let schoolName = ''
+                        if(i <= 1){
+                            schoolName = 'Bruschési'
+                        }else if(i <= 3){
+                            schoolName = 'Laurier'
+                        }else if(i <= 5){
+                            schoolName = 'Saint Enfant Jésus'
+                        }else{
+                            schoolName = 'Saint Pierre Claver'
+                        }
+                        // School Level
+                        let schoolLevel = ''
+                        if(i === 0 || i === 4) schoolLevel = 'Secondaire 3'
+                        if(i === 2 || i === 7) schoolLevel = 'Secondaire 1'
+                        if(i === 5 || i === 1) schoolLevel = 'Primaire 6'
+                        if(i === 8 || i === 3) schoolLevel = 'Secondaire 2'
+                        if(i === 6 || i === 9) schoolLevel = 'Secondaire 4'
+                        // Allergies
+                        let allergies = ''
+                        if(i === 1 || i === 3 || i === 5 || i === 6 || i === 8 || i === 0) allergies = ''
+                        if(i === 4 || i === 7) allergies = 'Kiwi'
+                        if(i === 9) allergies = 'Produits Laitiers'
+                        if(i === 2) allergies = 'Cannelle'
+
                         const children1 = childrens[child1]
                         children1.id_parent = data1.data._id
+                        children1.school_info[0].response = schoolName
+                        children1.school_info[1].response = schoolLevel
+                        children1.medical_info[2].response = allergies
                         fetch(HOST + '/users', {
                             method: 'post',
                             headers: {
@@ -739,6 +765,9 @@ const createUsers = (token, parents, collaboraters, collab_parent, childrens) =>
                         if(child2 !== null){
                             const children2 = childrens[child2]
                             children2.id_parent = data1.data._id
+                            children2.school_info[0].response = schoolName
+                            children2.school_info[1].response = schoolLevel
+                            children2.medical_info[2].response = allergies
                             fetch(HOST + '/users', {
                                 method: 'post',
                                 headers: {
@@ -819,33 +848,21 @@ const deleteAllUser = (token) => {
 const updateUserValidities = (token, users, callBack) => {
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
-
-        fetch(HOST + '/logins', {
+        fetch(HOST + '/logins/'+ user.idLogin, {
+            method: 'PUT',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify({is_active: user.isValid})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success){
+                getAllUsers(token, callBack)
             }
         })
-            .then(response => response.json())
-            .then(data => {
-                const login = data.data.filter(userLogin => userLogin.id_user === user._id)
-                fetch(HOST + '/logins/'+ login[0]._id, {
-                    method: 'PUT',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + token
-                    },
-                    body: JSON.stringify({is_active: user.isValid})
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if(data.success){
-                            getAllUsers(token, callBack)
-                        }
-                    })
-            })
     }
 }
 

@@ -42,7 +42,7 @@ class TableListContainer extends Component {
 
     handleCloseDetail () { this.setState({ showDetail: false }) }
 
-    getValidationValue (actor) { return actor._id + ',' + Boolean(actor.isValid) }
+    getValidationValue (actor) { return actor._id + ',' + Boolean(actor.isValid) + ',' + actor.roleTitle }
 
     buildHeader (lang) {
         const headers = [
@@ -50,9 +50,21 @@ class TableListContainer extends Component {
             { id: 'nom', label: lang.head.lastName, minWidth: 170 },
             { id: 'prenom', label: lang.head.firstName, minWidth: 170 }
         ]
-        this.props.actorSelected === variables.role.child && headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
-        this.props.actorSelected === variables.role.child && headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
-        this.props.menuSelected === variables.menus.validation && headers.push({ id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' })
+        if (this.props.actorSelected === variables.role.child) {
+            headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
+            headers.push({ id: 'ecole', label: lang.head.school, minWidth: 170 })
+            headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+        }
+
+        if (this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin) {
+            headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+            headers.push({ id: 'phone', label: lang.head.phone, minWidth: 170 })
+            headers.push({ id: 'courriel', label: lang.head.courriel, minWidth: 170 })
+        }
+
+        if (this.props.menuSelected === variables.menus.validation || this.props.actorSelected === variables.role.admin) {
+            headers.push({ id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' })
+        }
 
         return (
             <TableHead>
@@ -72,23 +84,63 @@ class TableListContainer extends Component {
         )
     }
 
+    getPhoneNumberByPriority (actor) {
+        if (this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin) {
+            const personal = (actor.contact.filter(ct => ct.title === 'personal'))[0].phone
+            const work = (actor.contact.filter(ct => ct.title === 'work'))[0].phone
+            const home = (actor.contact.filter(ct => ct.title === 'home'))[0].phone
+            const emergency = (actor.contact.filter(ct => ct.title === 'emergency'))[0].phone
+
+            return personal !== null
+                ? personal
+                : (work !== null
+                    ? work
+                    : (home !== null
+                        ? home
+                        : (emergency !== null
+                            ? emergency
+                            : 'Pas de contact')))
+        }
+    }
+
+    getChildAllergies (child) {
+        let allergies = (child.medical_info[2] && child.medical_info[2].response !== '') ? child.medical_info[2].response : "Pas d'allergies"
+        allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
+
+        return allergies
+    }
+
+    getSchoolName (child) {
+        return child.school_info[0] ? child.school_info[0].response : ''
+    }
+
     buildRow (lang, actor) {
         const classRoomTitle = this.props.classRooms.filter(cl => cl._id === actor.id_classroom)
-        let allergies = actor.medical_info[2] ? actor.medical_info[2].response : "Pas d'allergies"
-        allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
+        const allergies = this.getChildAllergies(actor)
+        const school = this.getSchoolName(actor)
+        const getPhoneNumber = this.getPhoneNumberByPriority(actor)
+
         return (
-            <TableRow onClick={(even) => this.handleShowDetail(even, actor._id)} hover role='checkbox' className='table-row' tabIndex={-1} key={actor._id}>
-                <TableCell> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
-                <TableCell> {actor.last_name} </TableCell>
-                <TableCell> {actor.first_name} </TableCell>
+            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={actor._id}>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.last_name} </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.first_name} </TableCell>
                 {this.props.actorSelected === variables.role.child && (
                     <>
-                        <TableCell> {allergies} </TableCell>
-                        <TableCell> {classRoomTitle[0].title} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {allergies} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {school} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
                     </>
                 )}
-                {this.props.menuSelected === variables.menus.validation && (
-                    <TableCell align='right'>
+                {this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin && (
+                    <>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {getPhoneNumber} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.email} </TableCell>
+                    </>
+                )}
+                {(this.props.menuSelected === variables.menus.validation || this.props.actorSelected === variables.role.admin) && (
+                    <TableCell align='right' className='td-validation'>
                         <ToggleButtonGroup
                             size='small'
                             value={this.getValidationValue(actor)}
@@ -96,10 +148,10 @@ class TableListContainer extends Component {
                             onChange={this.props.handleValidationChange}
                             aria-label='text alignment'
                         >
-                            <ToggleButton className='isValid' value={actor._id + ',' + true} aria-label='left'>
+                            <ToggleButton className='isValid' value={actor._id + ',' + true + ',' + actor.roleTitle} aria-label='left'>
                                 <IsValidIcon color='primary' />
                             </ToggleButton>
-                            <ToggleButton className='isNotValid' value={actor._id + ',' + false} aria-label='right'>
+                            <ToggleButton className='isNotValid' value={actor._id + ',' + false + ',' + actor.roleTitle} aria-label='right'>
                                 <IsNotValidIcon color='error' />
                             </ToggleButton>
                         </ToggleButtonGroup>

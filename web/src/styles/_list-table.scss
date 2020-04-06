@@ -22,12 +22,12 @@
             tr {
                 background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
                 transition: all 0.2s;
-                cursor: pointer;
                 td {
                     border-color: rgba($color: $primaryColor, $alpha: 0.5);
                     padding: 0.5em;
                     font-weight: bold;
                     font-size: 1em;
+                    cursor: pointer;
                 }
                 &:hover {
                     background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.3) !important;
@@ -36,6 +36,9 @@
                     td {
                         border: none;
                     }
+                }
+                .td-validation {
+                    cursor: default;
                 }
             }
             .MuiToggleButtonGroup-grouped {
