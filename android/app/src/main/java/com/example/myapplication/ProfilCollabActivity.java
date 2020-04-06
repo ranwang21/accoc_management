@@ -43,7 +43,7 @@ public class ProfilCollabActivity extends AppCompatActivity {
         String image = b.getString("user_image");
         tv_nom.setText(fisrtName);
         tv_prenom.setText(lastName);
-        tv_birthday.setText(birthday);
+        tv_birthday.setText(birthday.substring(0,birthday.indexOf("T")));
         tv_adress.setText(address);
         tv_sexe.setText(sexe);
         Glide.with(getApplicationContext()).load(image).into(image_collaborateur);

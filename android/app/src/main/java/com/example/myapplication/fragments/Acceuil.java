@@ -50,13 +50,11 @@ public class Acceuil extends Fragment {
             button.setTextSize(24);
             button.setTextColor(Color.parseColor("#019193"));
             button.setTypeface(Typeface.MONOSPACE);
-            button.setOnClickListener(new View.OnClickListener() {
+            button.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), EnfantsParSalleActivity.class);
-                    intent.putExtra("id_classroom", c.get_id());
-                    startActivity(intent);
-
+                public boolean onLongClick(View v) {
+                    Toast.makeText(getActivity(), "status de " + c.getTitle(), Toast.LENGTH_SHORT).show();
+                    return false;
                 }
             });
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

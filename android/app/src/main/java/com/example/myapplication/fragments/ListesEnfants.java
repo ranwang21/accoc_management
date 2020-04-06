@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.example.myapplication.ProfilCollabActivity;
 import com.example.myapplication.ProfilEnfantActivity;
@@ -16,8 +17,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.SuiviQuotidienActivity;
 import com.example.myapplication.adapters.CollaborateurAdaptater;
 import com.example.myapplication.adapters.EnfantAdapter;
+import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Role;
 import com.example.myapplication.entities.User;
+import com.example.myapplication.managers.ClassroomManager;
 import com.example.myapplication.managers.RoleManager;
 import com.example.myapplication.managers.UserManager;
 import com.example.myapplication.services.ConnectionBD;
@@ -35,7 +38,6 @@ public class ListesEnfants extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         EnfantAdapter enfantAdapter;
-        ConnectionBD.copyBdFromAssets(getContext());
         ArrayList<User> users = new ArrayList<>();
         ArrayList<Role> roles = RoleManager.getAll(getContext());
         for (Role r : roles) {
@@ -52,6 +54,34 @@ public class ListesEnfants extends Fragment {
         listView.setAdapter(enfantAdapter);
         enfantAdapter.notifyDataSetChanged();
         ArrayList<User> finalUsers = users;
+        //spinner + sort by classroom
+        Spinner spinner = view.findViewById(R.id.spinner_colab);
+        ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
+        ArrayList<String> listClassroom = new ArrayList<>();
+        listClassroom.add("Tous");
+        for (Classroom c : classrooms) {
+            listClassroom.add(c.getTitle());
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, listClassroom);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String classroomName = parent.getItemAtPosition(position).toString();
+                ArrayList<User> users = UserManager.getAll(getContext());
+                if (!classroomName.equals("Tous")) {
+                    Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
+                    users = UserManager.getByIdClassroom(getContext(), classroom.get_id());
+                }
+                EnfantAdapter enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
+                listView.setAdapter(enfantAdapter);
+                enfantAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

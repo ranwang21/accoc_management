@@ -148,7 +148,7 @@ public class LoginManager {
             JSONObject jsonResult = new JSONObject(jsonFromApi);
             String userFromApi = jsonResult.getString("data");
             user = gson.fromJson(userFromApi, User.class);
-            Log.d("Json", "getUserFromToken: " + user.getFirst_name());
+            Log.d("Json", "getUserFromToken: " + user.getFirst_name() + " img_url " + user.getImg_url());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -158,7 +158,7 @@ public class LoginManager {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(login);
         String jsonFromApi = PostJson.post(jsonToSemd, "/auth/login", token);
-        String tokenFromApi = "";
+        String tokenFromApi = null;
         try {
             JSONObject jsonResult = new JSONObject(jsonFromApi);
             tokenFromApi = jsonResult.getString("token");
