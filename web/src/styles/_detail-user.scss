@@ -1,22 +1,27 @@
 @import "./base";
 .detail-user {
     > div.image {
-        height: 10em;
+        height: 15em;
         display: flex;
+        align-items: center;
+        justify-content: space-between;
         > label {
             height: 100%;
             padding: 0;
-            border-radius: 2em;
-            overflow: hidden;
+            width: 45%;
+            border-radius: 1em;
             > span {
                 height: 100%;
                 position: relative;
+                border-radius: 1em;
                 > img {
-                    width: 15em;
+                    padding: 0.1em;
+                    border-radius: 1em;
+                    width: 100%;
                     height: 100%;
-                    overflow: hidden;
                 }
                 > p {
+                    border-radius: 1em;
                     transition: all 0.3s;
                     background-color: none;
                     opacity: 0;
@@ -38,6 +43,17 @@
                     }
                 }
             }
+        }
+        > p {
+            width: 55%;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        > p.upload-success {
+            color: $secondaryColor;
+        }
+        > p.upload-error {
+            color: red;
         }
     }
 }

@@ -29,7 +29,8 @@
                     > div {
                         height: 100%;
                     }
-                    &:nth-child(3) {
+                    &:nth-child(3),
+                    &:nth-child(5) {
                         width: 15em;
                     }
                 }

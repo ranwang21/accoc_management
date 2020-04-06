@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup, Switch, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { Button, ButtonGroup, Switch, FormControl, InputLabel, Select, MenuItem, ListSubheader } from '@material-ui/core'
 import Collapse from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -35,15 +35,16 @@ class Table extends Component {
             search: true,
             lastNameInput: '',
             firstNameInput: '',
-            classRoomSelected: ''
+            classRoomSelected: '',
+            schoolInput: '',
+            levelSelected: ''
         }
         this.onActorSelected = this.onActorSelected.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
         this.handleSearchInputChange = this.handleSearchInputChange.bind(this)
     }
 
-    componentDidMount () {
-    }
+    componentDidMount () {}
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list.json') }
 
@@ -67,8 +68,8 @@ class Table extends Component {
         }
     }
 
-    onActorSelected (event, name) {
-        this.setState({ actorSelected: name })
+    onActorSelected (event, actor) {
+        this.setState({ actorSelected: actor })
     }
 
     handleSearchChange () {
@@ -76,7 +77,11 @@ class Table extends Component {
     }
 
     handleSearchInputChange (event, name) {
-        this.setState({ [name]: event.target.value })
+        if (name !== 'levelSelected' && name !== 'classRoomSelected') {
+            this.setState({ [name]: event.target.value })
+        } else {
+            (event.target.value !== undefined) && this.setState({ [name]: event.target.value })
+        }
     }
 
     getActorSelected () {
@@ -104,6 +109,7 @@ class Table extends Component {
         } else {
             let getIdClassRoom = this.props.classRooms.filter(classRoom => classRoom.title === this.state.classRoomSelected)
             getIdClassRoom = getIdClassRoom[0] ? getIdClassRoom[0] : this.props.classRooms[0]
+
             const isRole = getRoleFunction(this.getActorSelected())
             const newList = this.props.actors !== null ? this.props.actors.filter(isRole) : []
             const lastList = []
@@ -112,8 +118,10 @@ class Table extends Component {
                     const ch1 = row.first_name.toLowerCase().search(this.state.firstNameInput.toLowerCase())
                     const ch2 = row.last_name.toLowerCase().search(this.state.lastNameInput.toLowerCase())
                     if (this.getActorSelected() === variables.role.child) {
-                        const ch3 = row.id_classroom && row.id_classroom.search(getIdClassRoom._id);
-                        (ch1 !== -1 && ch2 !== -1 && ch3 !== -1) && lastList.push(row)
+                        const ch3 = row.id_classroom && row.id_classroom.search(getIdClassRoom._id)
+                        const ch4 = this.state.levelSelected !== '' ? row.school_info[1].response === this.state.levelSelected : true
+                        const ch5 = row.school_info[0].response.toLowerCase().search(this.state.schoolInput.toLowerCase());
+                        (ch1 !== -1 && ch2 !== -1 && ch3 !== -1 && ch4 === true && ch5 !== -1) && lastList.push(row)
                     } else {
                         (ch1 !== -1 && ch2 !== -1) && lastList.push(row)
                     }
@@ -125,9 +133,9 @@ class Table extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const allActors = this.updateNewActorsList()
         const menuSelected = this.props.menuSelected
         const validationsChange = this.props.inValidActors && this.props.inValidActors.filter(actor => (actor.isValid === true))
+        const allActors = this.updateNewActorsList()
 
         return (
             <div className='list'>
@@ -157,17 +165,52 @@ class Table extends Component {
                             onChange={event => this.handleSearchInputChange(event, 'firstNameInput')} label={lang.searchFirstName}
                         />
                         {this.getActorSelected() === variables.role.child && (
-                            <FormControl variant='filled'>
-                                <InputLabel color='primary'>par salle</InputLabel>
-                                <Select
-                                    value={this.state.classRoomSelected}
-                                    onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                                >
-                                    {this.props.classRooms.map(classRoom => (
-                                        <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
+                            <>
+                                <FormControl variant='filled'>
+                                    <InputLabel color='primary'>par salle</InputLabel>
+                                    <Select
+                                        value={this.state.classRoomSelected}
+                                        onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
+                                    >
+                                        {this.props.classRooms.map(classRoom => (
+                                            <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+
+                                <TextField
+                                    size='small' variant='filled'
+                                    value={this.state.schoolInput}
+                                    onChange={event => this.handleSearchInputChange(event, 'schoolInput')} label='par ecole'
+                                />
+
+                                <FormControl variant='filled'>
+                                    <InputLabel color='primary'>par niveau scolaire</InputLabel>
+                                    <Select
+                                        value={this.state.levelSelected}
+                                        onChange={event => this.handleSearchInputChange(event, 'levelSelected')}
+                                    >
+                                        <MenuItem value=''>
+                                            <em>Tous les niveaux</em>
+                                        </MenuItem>
+                                        <ListSubheader>Primaire</ListSubheader>
+                                        <MenuItem value='Primaire 1'>1er</MenuItem>
+                                        <MenuItem value='Primaire 2'>2e</MenuItem>
+                                        <MenuItem value='Primaire 3'>3e</MenuItem>
+                                        <MenuItem value='Primaire 4'>4e</MenuItem>
+                                        <MenuItem value='Primaire 5'>5e</MenuItem>
+                                        <MenuItem value='Primaire 6'>6e</MenuItem>
+
+                                        <ListSubheader>Secondaire</ListSubheader>
+                                        <MenuItem value='Secondaire 1'>I</MenuItem>
+                                        <MenuItem value='Secondaire 2'>II</MenuItem>
+                                        <MenuItem value='Secondaire 3'>III</MenuItem>
+                                        <MenuItem value='Secondaire 4'>IV</MenuItem>
+                                        <MenuItem value='Secondaire 5'>V</MenuItem>
+
+                                    </Select>
+                                </FormControl>
+                            </>
                         )}
                     </Collapse>
                 </div>

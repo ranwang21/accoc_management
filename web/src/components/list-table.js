@@ -53,7 +53,6 @@ class TableListContainer extends Component {
         this.props.actorSelected === variables.role.child && headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
         this.props.actorSelected === variables.role.child && headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
         this.props.menuSelected === variables.menus.validation && headers.push({ id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' })
-        headers.push({ id: 'details', label: lang.head.optionDetail, minWidth: 170 })
 
         return (
             <TableHead>
@@ -78,7 +77,7 @@ class TableListContainer extends Component {
         let allergies = actor.medical_info[2] ? actor.medical_info[2].response : "Pas d'allergies"
         allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
         return (
-            <TableRow hover role='checkbox' tabIndex={-1} key={actor._id}>
+            <TableRow onClick={(even) => this.handleShowDetail(even, actor._id)} hover role='checkbox' className='table-row' tabIndex={-1} key={actor._id}>
                 <TableCell> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
                 <TableCell> {actor.last_name} </TableCell>
                 <TableCell> {actor.first_name} </TableCell>
@@ -88,15 +87,6 @@ class TableListContainer extends Component {
                         <TableCell> {classRoomTitle[0].title} </TableCell>
                     </>
                 )}
-                <TableCell>
-                    <Button
-                        variant='outlined'
-                        startIcon={<InfoIcon />}
-                        onClick={(even) => this.handleShowDetail(even, actor._id)}
-                    >
-                        {lang.body.btnDetail}
-                    </Button>
-                </TableCell>
                 {this.props.menuSelected === variables.menus.validation && (
                     <TableCell align='right'>
                         <ToggleButtonGroup

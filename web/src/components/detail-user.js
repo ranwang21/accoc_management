@@ -10,9 +10,11 @@ class DetailUser extends Component {
     constructor () {
         super()
         this.state = {
-            image: null
+            image: null,
+            fileUploadedSuccess: false,
+            fileUploadedError: false
         }
-
+        this.time = 3000
         this.handleImageChange = this.handleImageChange.bind(this)
         this.setImage = this.setImage.bind(this)
         this.updateImage = this.updateImage.bind(this)
@@ -24,15 +26,22 @@ class DetailUser extends Component {
 
     setImage (dataImage) {
         if (!dataImage.success) {
-            console.log("erreur lors du chargement de l'image")
+            this.setState({ fileUploadedError: true })
+            setTimeout(() => {
+                this.setState({ fileUploadedError: false })
+            }, this.time)
         } else {
+            this.setState({ fileUploadedSuccess: true })
+            setTimeout(() => {
+                this.setState({ fileUploadedSuccess: false })
+            }, this.time)
             Fetch.image.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.updateImage)
+            this.props.onChangeImage()
         }
     }
 
     handleImageChange () {
         Fetch.image.update(this.props.cookies.get(variables.cookies.token), this.props.userSelected, event.target.files, this.setImage)
-        this.props.onChangeImage()
     }
 
     render () {
@@ -53,6 +62,12 @@ class DetailUser extends Component {
                             style={{ display: 'none' }}
                         />
                     </Button>
+                    {this.state.fileUploadedSuccess && (
+                        <p className='upload-success'>Avatar mis a jour !!!</p>
+                    )}
+                    {this.state.fileUploadedError && (
+                        <p className='upload-error'>Erreur lors du telechargement de l'image</p>
+                    )}
                 </div>
                 {[...new Array(2)]
                     .map(

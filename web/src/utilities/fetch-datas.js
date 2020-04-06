@@ -880,6 +880,17 @@ const getClassRooms = (token, callBack) => {
         })
 }
 
+const getRoles = (callBack) => {
+    fetch(HOST + '/roles')
+        .then(response => response.json())
+        .then(dataRoles => {
+            if(dataRoles.success){
+                const id_collab_parent = (dataRoles.data.filter(role => role.title === 'collab_parent'))[0]._id
+                callBack(dataRoles.data.filter(role => (role.title !== 'super_admin' && role.title !== 'collab_parent')), id_collab_parent)
+            }
+        })
+}
+
 export default {
     encodeData,
     decodeData,
@@ -898,6 +909,9 @@ export default {
     deleteAllUser,
     createUsers,
     updateUserValidities,
+    role:{
+        get: getRoles
+    },
     image:{
         get: getImage,
         update: updateUserImage
