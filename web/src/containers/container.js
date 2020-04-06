@@ -127,9 +127,20 @@ class MainContainer extends Component {
         })
     }
 
-    handleCloseSnack () { this.setState({ showSnack: false }) }
+    handleCloseSnack () {
+        this.setState({ showSnack: false })
+        this.regenerateDatas()
+    }
+
+    regenerateDatas () {
+        const datas = Fetch.generateUsers()
+        // console.log(user)
+        // Fetch.deleteAllUser(this.props.cookies.get(variables.cookies.token))
+        // Fetch.createUsers(this.props.cookies.get(variables.cookies.token), datas.parents, datas.collaboraters, datas.parentCollab, datas.childrens)
+    }
 
     render () {
+        // this.regenerateDatas()
         const lang = this.state.lang
         const langFile = this.getLangFile()
         let messageSnack = this.state.isConnected ? langFile.logInSnack : langFile.logOutSnack

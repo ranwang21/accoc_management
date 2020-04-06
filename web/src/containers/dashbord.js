@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Loading from '../components/loading'
 import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
 
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
@@ -24,68 +25,9 @@ const variables = require('../utilities/variables').variables
     return date.getFullYear() + '-' + month + '-' + day
 } */
 
-const actors = [
-    { idUser: 'dfvdfvg0', roleLabel: 'high_admin', firstName: 'admin', lastName: 'ADMINISTRATEUR', isValid: true },
-
-    { idUser: 'dfvdfvggt1', roleLabel: 'admin', firstName: 'admin1', lastName: 'ADMINISTRATEUR1', isValid: true },
-    { idUser: 'dfvdfvggt2', roleLabel: 'admin', firstName: 'admin2', lastName: 'ADMINISTRATEUR2', isValid: true },
-    { idUser: 'dfvdfvggt3', roleLabel: 'admin', firstName: 'admin3', lastName: 'ADMINISTRATEUR3', isValid: true },
-
-    { idUser: 'dfvdfvg1', roleLabel: 'only_parent', firstName: 'parent_1', lastName: 'P_NAME_1', isValid: true },
-    { idUser: 'dfvdfvg2', roleLabel: 'only_parent', firstName: 'parent_2', lastName: 'P_NAME_2', isValid: false },
-    { idUser: 'dfvdfvg3', roleLabel: 'only_parent', firstName: 'parent_3', lastName: 'P_NAME_3', isValid: true },
-    { idUser: 'dfvdfvg4', roleLabel: 'only_parent', firstName: 'parent_4', lastName: 'P_NAME_4', isValid: false },
-
-    { idUser: 'dfvdfvg5', roleLabel: 'only_collaborator', firstName: 'colaborateur_1', lastName: 'C_NAME_1', isValid: false },
-    { idUser: 'dfvdfvg6', roleLabel: 'only_collaborator', firstName: 'colaborateur_2', lastName: 'C_NAME_1', isValid: true },
-    { idUser: 'dfvdfvg7', roleLabel: 'only_collaborator', firstName: 'colaborateur_3', lastName: 'C_NAME_1', isValid: false },
-    { idUser: 'dfvdfvg8', roleLabel: 'only_collaborator', firstName: 'colaborateur_4', lastName: 'C_NAME_1', isValid: true },
-
-    { idUser: 'dfvdfvg9', roleLabel: 'both', firstName: 'both_1', lastName: 'B_NAME_1', isValid: true },
-    { idUser: 'dfvdfvg10', roleLabel: 'both', firstName: 'both_2', lastName: 'B_NAME_2', isValid: false },
-    { idUser: 'dfvdfvg11', roleLabel: 'both', firstName: 'both_3', lastName: 'B_NAME_3', isValid: true },
-    { idUser: 'dfvdfvg12', roleLabel: 'both', firstName: 'both_4', lastName: 'B_NAME_4', isValid: false },
-
-    { idUser: 'dfvdfvg13', roleLabel: 'child', firstName: 'children_ab', lastName: 'C_NAME_10', isValid: true },
-    { idUser: 'dfvdfvg14', roleLabel: 'child', firstName: 'children_qf', lastName: 'C_NAME_1', isValid: true },
-    { idUser: 'dfvdfvg15', roleLabel: 'child', firstName: 'children_lf', lastName: 'C_NAME_2', isValid: true },
-    { idUser: 'dfvdfvg16', roleLabel: 'child', firstName: 'children_gh', lastName: 'C_NAME_3', isValid: true },
-    { idUser: 'dfvdfvg17', roleLabel: 'child', firstName: 'children_af', lastName: 'C_NAME_4', isValid: true },
-    { idUser: 'dfvdfvg18', roleLabel: 'child', firstName: 'children_lo', lastName: 'C_NAME_5', isValid: true },
-    { idUser: 'dfvdfvg19', roleLabel: 'child', firstName: 'children_sg', lastName: 'C_NAME_6', isValid: true },
-    { idUser: 'dfvdfvg20', roleLabel: 'child', firstName: 'children_pl', lastName: 'C_NAME_7', isValid: true },
-    { idUser: 'dfvdfvg21', roleLabel: 'child', firstName: 'children_et', lastName: 'C_NAME_8', isValid: true },
-    { idUser: 'dfvdfvg22', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_9', isValid: true },
-    { idUser: 'dfvdfvg23', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_11', isValid: true },
-    { idUser: 'dfvdfvg24', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_12', isValid: true },
-    { idUser: 'dfvdfvg25', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_13', isValid: true },
-    { idUser: 'dfvdfvg26', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_14', isValid: true },
-    { idUser: 'dfvdfvg27', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_15', isValid: true },
-    { idUser: 'dfvdfvg28', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_16', isValid: true },
-    { idUser: 'dfvdfvg29', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_17', isValid: true },
-    { idUser: 'dfvdfvg30', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_18', isValid: true },
-    { idUser: 'dfvdfvg31', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_19', isValid: true },
-    { idUser: 'dfvdfvg32', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_20', isValid: true },
-    { idUser: 'dfvdfvg33', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_21', isValid: true },
-    { idUser: 'dfvdfvg34', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_22', isValid: true },
-    { idUser: 'dfvdfvg35', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_23', isValid: true },
-    { idUser: 'dfvdfvg36', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_24', isValid: true },
-    { idUser: 'dfvdfvg37', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_25', isValid: true },
-    { idUser: 'dfvdfvg38', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_26', isValid: true },
-    { idUser: 'dfvdfvg39', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_27', isValid: true },
-    { idUser: 'dfvdfvg40', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_28', isValid: true },
-    { idUser: 'dfvdfvg41', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_29', isValid: true },
-    { idUser: 'dfvdfvg42', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_30', isValid: true },
-    { idUser: 'dfvdfvg43', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_31', isValid: true },
-    { idUser: 'dfvdfvg44', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_32', isValid: true },
-    { idUser: 'dfvdfvg45', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_33', isValid: true },
-    { idUser: 'dfvdfvg46', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_34', isValid: true },
-    { idUser: 'dfvdfvg47', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_35', isValid: true },
-    { idUser: 'dfvdfvg48', roleLabel: 'child', firstName: 'children_pp', lastName: 'C_NAME_36', isValid: true }
-]
-
-const isValid = ({ isValid }) => isValid === true
-const isNotValid = ({ isValid }) => isValid === false
+const isValidActor = ({ roleTitle, isValid }) => (roleTitle !== 'children' && isValid === true)
+const isInValidActor = ({ roleTitle, isValid }) => (roleTitle !== 'children' && isValid === false)
+const isChildren = ({ roleTitle }) => roleTitle === 'children'
 
 const upadteMenuSelectedByRole = (role) => {
     let select = null
@@ -110,14 +52,18 @@ class Dashbord extends Component {
         super()
         this.state = {
             date: new Date(),
-            actors: null,
-            actorsForValidations: null,
+            actors: [],
+            childrens: [],
+            validActors: [],
+            inValidActors: [],
+            classRooms: [],
             menuItemSelected: variables.menus.allUsers,
             showLogOutModal: false,
             requiredSaveValidationChange: false,
             showSnack: false,
             left: false,
-            image: ''
+            image: '',
+            showLoading: true
         }
         this.currentUser = null
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
@@ -128,6 +74,28 @@ class Dashbord extends Component {
         this.onValidationChange = this.onValidationChange.bind(this)
         this.onBtnValidSave = this.onBtnValidSave.bind(this)
         this.toggleDrawer = this.toggleDrawer.bind(this)
+        this.setActorLists = this.setActorLists.bind(this)
+        this.setClassRoom = this.setClassRoom.bind(this)
+        this.onUsersListChange = this.onUsersListChange.bind(this)
+    }
+
+    setActorLists (list) {
+        this.setState({ showLoading: true })
+        const sortIds = (list.map(us => us._id)).sort()
+        const sortUser = (sortIds.map(id => (list.filter(user => user._id === id))[0]))
+        this.setState({
+            actors: [...sortUser],
+            validActors: [...sortUser.filter(isValidActor)],
+            inValidActors: [...sortUser.filter(isInValidActor)],
+            childrens: [...sortUser.filter(isChildren)]
+        })
+        setTimeout(() => {
+            this.setState({ showLoading: false })
+        }, 1000)
+    }
+
+    setClassRoom (classRoomsList) {
+        this.setState({ classRooms: [{ _id: '12345', title: 'Non défini' }, ...classRoomsList] })
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
@@ -139,11 +107,11 @@ class Dashbord extends Component {
 
     componentDidMount () {
         this.setState({
-            menuItemSelected: upadteMenuSelectedByRole(this.getCurrentUser().role),
-            actors: actors.filter(isValid),
-            actorsForValidations: actors.filter(isNotValid)
+            menuItemSelected: upadteMenuSelectedByRole(this.getCurrentUser().role)
         })
         // Fetch all users in actors
+        Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
+        Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
     }
 
     onhandleDateChange (newDate) { this.setState({ date: newDate }) }
@@ -168,29 +136,35 @@ class Dashbord extends Component {
     onValidationChange (event, newValue) {
         if (newValue !== null) {
             const values = newValue.split(',')
-            const index = this.state.actorsForValidations.map(e => e.idUser).indexOf(values[0])
-            if (index !== -1) {
-                this.setState(state => {
-                    const actorsForValidations = state.actorsForValidations
-                    actorsForValidations[index].isValid = !(actorsForValidations[index].isValid)
-                    const list = actorsForValidations.filter(e => e.isValid === true)
-                    return {
-                        actorsForValidations,
-                        requiredSaveValidationChange: list.length !== 0
-                    }
-                })
+            if (values[2] === 'admin' && this.state.menuItemSelected === variables.menus.allUsers) {
+                const usersToUpdate = this.state.actors.filter(user => user._id === values[0])
+                usersToUpdate[0].isValid = values[1]
+                Fetch.updateUserValidities(this.props.cookies.get(variables.cookies.token), usersToUpdate, this.setActorLists)
+            } else {
+                const index = this.state.inValidActors.map(e => e._id).indexOf(values[0])
+                if (index !== -1) {
+                    this.setState(state => {
+                        const inValidActors = state.inValidActors
+                        inValidActors[index].isValid = !(inValidActors[index].isValid)
+                        const list = inValidActors.filter(e => e.isValid === true)
+                        return {
+                            inValidActors,
+                            requiredSaveValidationChange: list.length !== 0
+                        }
+                    })
+                }
             }
         }
     }
 
     onBtnValidSave () {
-        // Fetch To update all users where there isValid become true
-        // Fetch all users in actors
-        this.setState({
-            actors: actors.filter(isValid),
-            actorsForValidations: actors.filter(isNotValid)
-        })
+        const usersToUpdate = this.state.inValidActors.filter(user => user.isValid === true)
+        Fetch.updateUserValidities(this.props.cookies.get(variables.cookies.token), usersToUpdate, this.setActorLists)
         this.setState({ requiredSaveValidationChange: false })
+    }
+
+    onUsersListChange (event) {
+        Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
     }
 
     switchToMenuSelected (lang) {
@@ -200,23 +174,27 @@ class Dashbord extends Component {
                 <Lists
                     lang={lang}
                     actors={this.state.actors}
-                    actorsForValidations={this.state.actorsForValidations}
+                    inValidActors={this.state.inValidActors}
+                    classRooms={this.state.classRooms}
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
+                    handleImageChange={this.onUsersListChange}
                 />)
         case variables.menus.validation:
             return (
                 <Lists
                     lang={lang}
                     actors={this.state.actors}
-                    actorsForValidations={this.state.actorsForValidations}
+                    inValidActors={this.state.inValidActors}
+                    classRooms={this.state.classRooms}
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
+                    handleImageChange={this.onUsersListChange}
                 />)
         case variables.menus.createAccount:
-            return (<CreateAccount lang={lang} />)
+            return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
             return (<ClassRoom lang={lang} />)
         case variables.menus.prints:
@@ -278,7 +256,7 @@ class Dashbord extends Component {
                                 lang={this.props.lang}
                                 menuItemSelected={this.state.menuItemSelected}
                                 handleClickMenu={this.onClickMenu}
-                                validationLength={this.state.actorsForValidations && this.state.actorsForValidations.length}
+                                validationLength={this.state.inValidActors && this.state.inValidActors.length}
                             />
                         </div>
                     </SwipeableDrawer>
@@ -289,7 +267,7 @@ class Dashbord extends Component {
                     lang={this.props.lang}
                     menuItemSelected={this.state.menuItemSelected}
                     handleClickMenu={this.onClickMenu}
-                    validationLength={this.state.actorsForValidations && this.state.actorsForValidations.length}
+                    validationLength={this.state.inValidActors && this.state.inValidActors.length}
                 />
 
                 {(this.state.menuItemSelected === variables.menus.classroomManagement || this.state.menuItemSelected === variables.menus.schedule) &&
@@ -306,6 +284,8 @@ class Dashbord extends Component {
                         <Button onClick={this.handleConfirmLogOut} color='primary' autoFocus> {lang.modal.confirm} </Button>
                     </DialogActions>
                 </Dialog>
+
+                {this.state.showLoading && <Loading className='loading' lang={this.props.lang} />}
             </div>
         )
     }

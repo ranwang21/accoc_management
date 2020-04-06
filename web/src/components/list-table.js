@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import {
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Button
+    Button, Avatar
 } from '@material-ui/core'
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import IsValidIcon from '@material-ui/icons/CheckTwoTone'
 import IsNotValidIcon from '@material-ui/icons/CloseTwoTone'
 import InfoIcon from '@material-ui/icons/InfoOutlined'
+import DetailUser from './detail-user'
+import { withCookies } from 'react-cookie'
 
 import Loading from './loading'
 import '../styles/_list-table.scss'
@@ -31,7 +33,7 @@ class TableListContainer extends Component {
     }
 
     handleShowDetail (event, id) {
-        const user = this.props.allActors.filter(actor => actor.idUser === id)
+        const user = this.props.allActors.filter(actor => actor._id === id)
         this.setState({
             showDetail: true,
             userSelected: user && user[0]
@@ -40,17 +42,29 @@ class TableListContainer extends Component {
 
     handleCloseDetail () { this.setState({ showDetail: false }) }
 
-    getValidationValue (actor) { return actor.idUser + ',' + Boolean(actor.isValid) }
+    getValidationValue (actor) { return actor._id + ',' + Boolean(actor.isValid) + ',' + actor.roleTitle }
 
     buildHeader (lang) {
         const headers = [
-            { id: 'role', label: 'ROLE', minWidth: 170 },
+            { id: 'avatar', label: lang.head.avatar, minWidth: 50, maxWidth: 50, align: 'center' },
             { id: 'nom', label: lang.head.lastName, minWidth: 170 },
-            { id: 'prenom', label: lang.head.firstName, minWidth: 170 },
-            { id: 'details', label: lang.head.optionDetail, minWidth: 170 }
+            { id: 'prenom', label: lang.head.firstName, minWidth: 170 }
         ]
-        const validHead = { id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' }
-        this.props.menuSelected === variables.menus.validation && headers.push(validHead)
+        if (this.props.actorSelected === variables.role.child) {
+            headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
+            headers.push({ id: 'ecole', label: lang.head.school, minWidth: 170 })
+            headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+        }
+
+        if (this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin) {
+            headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+            headers.push({ id: 'phone', label: lang.head.phone, minWidth: 170 })
+            headers.push({ id: 'courriel', label: lang.head.courriel, minWidth: 170 })
+        }
+
+        if (this.props.menuSelected === variables.menus.validation || this.props.actorSelected === variables.role.admin) {
+            headers.push({ id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' })
+        }
 
         return (
             <TableHead>
@@ -70,23 +84,63 @@ class TableListContainer extends Component {
         )
     }
 
+    getPhoneNumberByPriority (actor) {
+        if (this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin) {
+            const personal = (actor.contact.filter(ct => ct.title === 'personal'))[0].phone
+            const work = (actor.contact.filter(ct => ct.title === 'work'))[0].phone
+            const home = (actor.contact.filter(ct => ct.title === 'home'))[0].phone
+            const emergency = (actor.contact.filter(ct => ct.title === 'emergency'))[0].phone
+
+            return personal !== null
+                ? personal
+                : (work !== null
+                    ? work
+                    : (home !== null
+                        ? home
+                        : (emergency !== null
+                            ? emergency
+                            : 'Pas de contact')))
+        }
+    }
+
+    getChildAllergies (child) {
+        let allergies = (child.medical_info[2] && child.medical_info[2].response !== '') ? child.medical_info[2].response : "Pas d'allergies"
+        allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
+
+        return allergies
+    }
+
+    getSchoolName (child) {
+        return child.school_info[0] ? child.school_info[0].response : ''
+    }
+
     buildRow (lang, actor) {
+        const classRoomTitle = this.props.classRooms.filter(cl => cl._id === actor.id_classroom)
+        const allergies = this.getChildAllergies(actor)
+        const school = this.getSchoolName(actor)
+        const getPhoneNumber = this.getPhoneNumberByPriority(actor)
+
         return (
-            <TableRow hover role='checkbox' tabIndex={-1} key={actor.idUser}>
-                <TableCell> {actor.roleLabel} </TableCell>
-                <TableCell> {actor.lastName} </TableCell>
-                <TableCell> {actor.firstName} </TableCell>
-                <TableCell>
-                    <Button
-                        variant='outlined'
-                        startIcon={<InfoIcon />}
-                        onClick={(even) => this.handleShowDetail(even, actor.idUser)}
-                    >
-                        {lang.body.btnDetail}
-                    </Button>
-                </TableCell>
-                {this.props.menuSelected === variables.menus.validation && (
-                    <TableCell align='right'>
+            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={actor._id}>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.last_name} </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.first_name} </TableCell>
+                {this.props.actorSelected === variables.role.child && (
+                    <>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {allergies} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {school} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
+                    </>
+                )}
+                {this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin && (
+                    <>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {getPhoneNumber} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.email} </TableCell>
+                    </>
+                )}
+                {(this.props.menuSelected === variables.menus.validation || this.props.actorSelected === variables.role.admin) && (
+                    <TableCell align='right' className='td-validation'>
                         <ToggleButtonGroup
                             size='small'
                             value={this.getValidationValue(actor)}
@@ -94,10 +148,10 @@ class TableListContainer extends Component {
                             onChange={this.props.handleValidationChange}
                             aria-label='text alignment'
                         >
-                            <ToggleButton className='isValid' value={actor.idUser + ',' + true} aria-label='left'>
+                            <ToggleButton className='isValid' value={actor._id + ',' + true + ',' + actor.roleTitle} aria-label='left'>
                                 <IsValidIcon color='primary' />
                             </ToggleButton>
-                            <ToggleButton className='isNotValid' value={actor.idUser + ',' + false} aria-label='right'>
+                            <ToggleButton className='isNotValid' value={actor._id + ',' + false + ',' + actor.roleTitle} aria-label='right'>
                                 <IsNotValidIcon color='error' />
                             </ToggleButton>
                         </ToggleButtonGroup>
@@ -131,21 +185,9 @@ class TableListContainer extends Component {
                             aria-describedby='scroll-dialog-description'
                             maxWidth='sm'
                         >
-                            <DialogTitle className='title'>{this.state.userSelected.lastName + ' ' + this.state.userSelected.firstName}</DialogTitle>
+                            <DialogTitle className='title'>{this.state.userSelected.last_name + ' ' + this.state.userSelected.first_name}</DialogTitle>
                             <DialogContent>
-                                <DialogContentText
-                                    id='scroll-dialog-description'
-                                    tabIndex={-1}
-                                >
-                                    {[...new Array(2)]
-                                        .map(
-                                            () => `Cras mattis consectetur purus sit amet fermentum.
-                                                Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                                                Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                                                Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-                                        )
-                                        .join('\n')}
-                                </DialogContentText>
+                                <DetailUser lang={this.props.lang} userSelected={this.state.userSelected} onChangeImage={this.props.onChangeImage} />
                             </DialogContent>
                             <DialogActions>
                                 <Button onClick={this.handleCloseDetail} color='primary'>
@@ -167,4 +209,4 @@ class TableListContainer extends Component {
     }
 }
 
-export default TableListContainer
+export default withCookies(TableListContainer)

@@ -93,7 +93,7 @@
             "redoubleNo": {
                 "label": "Non"
             },
-            "redoubleYesOption": {
+            "lastRedoubleLevel": {
                 "label": "Laquelle?",
                 "level": [
                     {

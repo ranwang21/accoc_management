@@ -6,14 +6,14 @@
             "label": "Enfants"
         },
         {
-            "id": "RGBGVBCHSN",
-            "title": "parent",
-            "label": "Parents"
-        },
-        {
             "id": "VBGNVGCHDNXD",
             "title": "collaborator",
             "label": "Collaborateurs"
+        },
+        {
+            "id": "RGBGVBCHSN",
+            "title": "parent",
+            "label": "Parents"
         },
         {
             "id": "UEHSDVHSB",
