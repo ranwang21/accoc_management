@@ -102,8 +102,8 @@
                             "name": "redoubleNo"
                         }
                     ],
-                    "redoubleYesOption": {
-                        "name": "redoubleYesOption",
+                    "lastRedoubleLevel": {
+                        "name": "lastRedoubleLevel",
                         "type": "selectGroupedField",
                         "grouped": true,
                         "required": true

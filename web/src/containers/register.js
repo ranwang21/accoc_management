@@ -85,7 +85,7 @@ const initialiseState = {
                 schoolLevel: null,
                 adlRegister: null,
                 redouble: null,
-                redoubleYesOption: null,
+                lastRedoubleLevel: null,
                 registerReason: 'Améliorer les performances de mon enfant',
                 evaluation: null,
                 daycareService: null,
@@ -114,7 +114,7 @@ const initialiseState = {
                 schoolLevel: null,
                 adlRegister: null,
                 redouble: null,
-                redoubleYesOption: null,
+                lastRedoubleLevel: null,
                 registerReason: 'Améliorer les performances de mon enfant',
                 evaluation: null,
                 daycareService: null,
@@ -143,7 +143,7 @@ const initialiseState = {
                 schoolLevel: null,
                 adlRegister: null,
                 redouble: null,
-                redoubleYesOption: null,
+                lastRedoubleLevel: null,
                 registerReason: 'Améliorer les performances de mon enfant',
                 evaluation: null,
                 daycareService: null,
@@ -171,7 +171,7 @@ const initialiseState = {
                 schoolLevel: null,
                 adlRegister: null,
                 redouble: null,
-                redoubleYesOption: null,
+                lastRedoubleLevel: null,
                 registerReason: null,
                 evaluation: null,
                 daycareService: null,
@@ -199,7 +199,7 @@ const initialiseState = {
                 schoolLevel: null,
                 adlRegister: null,
                 redouble: null,
-                redoubleYesOption: null,
+                lastRedoubleLevel: null,
                 registerReason: null,
                 evaluation: null,
                 daycareService: null,
@@ -433,13 +433,13 @@ class RegisterContainer extends Component {
                 expectationsVar: fields.expectationsVar === null
             }
             this.setState({
-                    parent: {
-                        ...this.state.parent,
-                        errors: {
-                            ...this.state.parent.errors,
-                            ...newErrors
-                        }
+                parent: {
+                    ...this.state.parent,
+                    errors: {
+                        ...this.state.parent.errors,
+                        ...newErrors
                     }
+                }
             })
             const value = Object.values(newErrors).filter(val => val === true)
             return value.length !== 0
@@ -455,12 +455,12 @@ class RegisterContainer extends Component {
                 experience: fields.experience === null
             }
             this.setState({
-                    collaborator: {
-                        ...this.state.collaborator,
-                        errors: {
-                            ...this.state.collaborator.errors,
-                            ...newErrors
-                        }
+                collaborator: {
+                    ...this.state.collaborator,
+                    errors: {
+                        ...this.state.collaborator.errors,
+                        ...newErrors
+                    }
                 }
             })
             const value = Object.values(newErrors).filter(val => val === true)
@@ -603,85 +603,6 @@ class RegisterContainer extends Component {
             this.props.onShowLoginForm()
         }
 
-        getUserToSave (fields, idActor, roles, roleTitle) {
-            const user = require('../utilities/variables').variables.templateUser
-            const ids = require('../utilities/variables').variables.id.registerStart.check
-
-            const findRole = roles.filter(role => role.title === roleTitle)
-            user.id_role= findRole[0]._id,
-
-            user.sex= fields.sex,
-            user.address= fields.address,
-            user.birthday = (fields.birthday.getFullYear() + '/' + (fields.birthday.getMonth() + 1) + '/' + fields.birthday.getDate()),
-            user.has_child= fields.has_child,
-            user.last_name= fields.last_name,
-            user.first_name= fields.first_name,
-            user.is_subscribed= fields.is_subscribed,
-
-            user.contact = []
-            user.contact.push({title: 'home', phone: fields.contacts_home})
-            user.contact.push({title: 'work', phone: fields.contacts_work})
-            user.contact.push({title: 'personal', phone: fields.contacts_personal})
-            user.contact.push({title: 'emergency', phone: fields.contacts_emergency})
-
-            user.membership = []
-            user.membership.push({question: 'membership',response: fields.membership})
-            user.membership.push({question: 'memberCard',response: fields.membership_becomeMember_memberCard})
-            user.membership.push({question: 'discountCard',response: fields.membership_becomeMember_discountCard})
-            user.membership.push({question: 'paymentMethod',response: fields.membership_becomeMember_paymentMethod})
-
-            user.photo = 'no-photo.jpg'
-
-            // Children
-            user.garde = []
-            user.id_parent = []
-            user.school_info = []
-            user.medical_info = []
-            user.authorization = []
-
-            user.id_child = []
-            user.involvement = []
-            user.need = null
-            user.expectation = null
-
-            user.interest = []
-            user.question = []
-            user.availability = []
-            user.comment = null
-            user.experience = null
-            user.motivation = null
-
-            if (idActor !== ids.collaborator) {
-                user.involvement.push({question: 'snacks',response: fields.snacks})
-                user.involvement.push({question: 'talents',response: fields.talents})
-                user.involvement.push({question: 'support',response: fields.support})
-                user.involvement.push({question: 'organization',response: fields.organization})
-                user.involvement.push({question: 'otherInvolvement',response: fields.otherInvolvement})
-                user.need = fields.needsVar
-                user.expectation = fields.expectationsVar
-            }
-            if (idActor !== ids.parent) {
-                user.availability.push(fields.monday)
-                user.availability.push(fields.tuesday)
-                user.availability.push(fields.wednesday)
-                user.availability.push(fields.thursday)
-
-                user.interest.push(fields.magicJournal)
-                user.interest.push(fields.serveSnack)
-                user.interest.push(fields.animationPreparation)
-                user.interest.push(fields.accompanyWorkshop)
-                user.interest.push(fields.prepareSnack)
-                user.interest.push(fields.accompanyInternet)
-
-                user.comment = fields.comment
-                user.experience = fields.experience
-                user.motivation = fields.motivation
-                user.question.push({question: 'heard',response: fields.heard})
-            }
-
-            return user
-        }
-
         handleSaveRegister () {
             if((this.state.password !== '' && this.state.confirmPassword !== '') && (this.state.password === this.state.confirmPassword)){
                 this.setState({errorPassword: false, successRegister: true})
@@ -704,7 +625,7 @@ class RegisterContainer extends Component {
                     role = 'collab_parent'
                     break;
             }
-            const user = this.getUserToSave(params, this.props.currentActor, this.state.roles, role)
+            const user = this.getUserToSave(params, this.state.roles, role)
             const userLogin = {
                 id_user: null,
                 email: this.state.informationsCoordonnees.fields.email,
@@ -718,9 +639,27 @@ class RegisterContainer extends Component {
         savedUser(success, idUser){
             console.log('success => ', success)
             console.log('idUser => ', idUser)
-            if(this.props.currentActor !== actorsIds.collaborator){
-
+            const nbrChild = this.state.nbrChild
+            if (this.props.currentActor !== actorsIds.collaborator) {
+                const childRole = 'children'
+                const childFields = this.state.childrenInscription.fields
+                const child = { child1 : null, child2 : null, child3 : null, child4 : null, child5 : null }
+                /*
+                child1 = nbrChild <= 1 ? this.getUserToSave({...childFields.step1, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
+                child2 = nbrChild <= 2 ? this.getUserToSave({...childFields.step2, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
+                child3 = nbrChild <= 3 ? this.getUserToSave({...childFields.step3, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
+                child4 = nbrChild <= 4 ? this.getUserToSave({...childFields.step4, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
+                child5 = nbrChild <= 5 ? this.getUserToSave({...childFields.step5, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
+                */
+                for (let i = 0; i < nbrChild; i++) {
+                    child['child' + i] = this.getUserToSave({...childFields['step' + i], ...{ id_parent: idUser }}, this.state.roles, childRole)
+                    Fetch.saveChildren(child['child' + i], this.saveChildren)
+                }
             }
+        }
+
+        saveChildren(success){
+            console.log(success)
         }
 
     //#endregion
@@ -764,28 +703,113 @@ class RegisterContainer extends Component {
 
         buildPasswordFields (lang, name) {
             return (
-                    <FormControl variant="outlined">
-                        <InputLabel>{lang[name].label}</InputLabel>
-                        <OutlinedInput
-                            label={lang[name].label}
-                            error={this.state.errorPassword}
-                            type={this.state.showPassword ? 'text' : 'password'}
-                            value={this.state[name]}
-                            onChange={event => this.handlePasswordInputChange(event, name)}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                <IconButton
-                                    onClick={this.handleClickShowPassword}
-                                    onMouseDown={this.handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
+                <FormControl variant="outlined">
+                    <InputLabel>{lang[name].label}</InputLabel>
+                    <OutlinedInput
+                        label={lang[name].label}
+                        error={this.state.errorPassword}
+                        type={this.state.showPassword ? 'text' : 'password'}
+                        value={this.state[name]}
+                        onChange={event => this.handlePasswordInputChange(event, name)}
+                        endAdornment={
+                            <InputAdornment position="end">
+                            <IconButton
+                                onClick={this.handleClickShowPassword}
+                                onMouseDown={this.handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
             )
+        }
+
+        getUserToSave (fields, roles, roleTitle) {
+            const user = require('../utilities/variables').variables.templateUser
+            const findRole = roles.filter(role => role.title === roleTitle)
+
+            user.id_role= findRole[0]._id,
+            user.sex= fields.sex ? fields.sex : null,
+            user.address= fields.address ? fields.address : null,
+            user.birthday = (fields.birthday.getFullYear() + '/' + (fields.birthday.getMonth() + 1) + '/' + fields.birthday.getDate()),
+            user.has_child= fields.has_child ? fields.has_child : null,
+            user.last_name= fields.last_name,
+            user.first_name= fields.first_name,
+            user.is_subscribed= fields.is_subscribed ? fields.is_subscribed : null,
+            user.contact = [
+                {title: 'home', phone: fields.contacts_home ? fields.contacts_home : null},
+                {title: 'work', phone: fields.contacts_work ? fields.contacts_work : null},
+                {title: 'personal', phone: fields.contacts_personal ? fields.contacts_personal : null},
+                {title: 'emergency', phone: fields.contacts_emergency ? fields.contacts_emergency : null},
+            ]
+            user.membership = [
+                {question: 'membership',response: fields.membership ? fields.membership : null},
+                {question: 'memberCard',response: fields.membership_becomeMember_memberCard ? fields.membership_becomeMember_memberCard : null},
+                {question: 'discountCard',response: fields.membership_becomeMember_discountCard ? fields.membership_becomeMember_discountCard : null},
+                {question: 'paymentMethod',response: fields.membership_becomeMember_paymentMethod ? fields.membership_becomeMember_paymentMethod : null},
+            ]
+            user.photo = 'no-photo.jpg'
+            user.garde = [
+                {question: 'garde',response: fields.garde ? fields.garde : null},
+                {question: 'gardeParentOption', response: fields.gardeParentOption ? fields.gardeParentOption : null},
+                {question: 'gardeOtherOption', response: fields.gardeOtherOption ? fields.gardeOtherOption : null}
+            ]
+            user.id_parent= fields.id_parent ? fields.id_parent : null,
+            user.school_info = [
+                {question: 'school', response: fields.school ? fields.school : null},
+                {question: 'schoolLevel', response: fields.schoolLevel ? fields.schoolLevel : null},
+                {question: 'adlRegister',response: fields.adlRegister ? fields.adlRegister : null},
+                {question: 'redouble', response: fields.redouble ? fields.redouble : null},
+                {question: 'lastRedoubleLevel', response: fields.lastRedoubleLevel ? fields.lastRedoubleLevel : null},
+                {question: 'registerReason', response: fields.registerReason ? fields.registerReason : null},
+                {question: 'evaluation', response: fields.evaluation ? fields.evaluation : null},
+                {question: 'daycareService', response: fields.daycareService ? fields.daycareService : null},
+                {question: 'daycareServiceYesName', response: fields.daycareServiceYesName ? fields.daycareServiceYesName : null},
+                {question: 'daycareServiceYesPhone', response: fields.daycareServiceYesPhone ? fields.daycareServiceYesPhone : null}
+            ]
+            user.medical_info = [
+                {question: 'ramq', response: fields.ramq ? fields.ramq : null},
+                {question: 'expiration', response: fields.expiration ? ((fields.expiration.getMonth() + 1) + '/' + fields.expiration.getFullYear()) : null},
+                {question: 'allergies', response: fields.allergies ? fields.allergies : null},
+                {question: 'drug', response: fields.drug ? fields.drug : null},
+                {question: 'othersInfos', response: fields.othersInfos ? fields.othersInfos : null}
+            ]
+            user.authorization = [
+                {question: 'autorisationPapper', response: fields.autorisationPapper ? fields.autorisationPapper : null},
+                {question: 'autorisationInternet', response: fields.autorisationInternet ? fields.autorisationInternet : null}
+            ]
+            user.involvement = [
+                {question: 'snacks',response: fields.snacks ? fields.snacks : null},
+                {question: 'talents',response: fields.talents ? fields.talents : null},
+                {question: 'support',response: fields.support ? fields.support : null},
+                {question: 'organization',response: fields.organization ? fields.organization : null},
+                {question: 'otherInvolvement',response: fields.otherInvolvement ? fields.otherInvolvement : null}
+            ]
+            user.need = fields.needsVar ? fields.needsVar : null
+            user.expectation = fields.expectationsVar ? fields.expectationsVar : null
+            user.availability = []
+            fields.monday && user.availability.push(fields.monday)
+            fields.tuesday && user.availability.push(fields.tuesday)
+            fields.wednesday && user.availability.push(fields.wednesday)
+            fields.thursday && user.availability.push(fields.thursday)
+            user.interest = []
+            fields.magicJournal && user.interest.push(fields.magicJournal)
+            fields.serveSnack && user.interest.push(fields.serveSnack)
+            fields.animationPreparation && user.interest.push(fields.animationPreparation)
+            fields.accompanyWorkshop && user.interest.push(fields.accompanyWorkshop)
+            fields.prepareSnack && user.interest.push(fields.prepareSnack)
+            fields.accompanyInternet && user.interest.push(fields.accompanyInternet)
+            user.comment = fields.comment ? fields.comment : null
+            user.experience = fields.experience ? fields.experience : null
+            user.motivation = fields.motivation ? fields.motivation : null
+            user.question = [
+                {question: 'heard',response: fields.heard ? fields.heard : null}
+            ]
+
+            return user
         }
 
     //#endregion
@@ -816,8 +840,8 @@ class RegisterContainer extends Component {
     render () {
         const lang = this.getLangFile()
         const max = this.getMaxStep()
+        //console.log(this.state.roles)
         /*
-        console.log(this.state.roles)
         console.log(this.state.days)
         */
         return (

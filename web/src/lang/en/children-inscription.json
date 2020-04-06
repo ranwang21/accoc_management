@@ -93,7 +93,7 @@
             "redoubleNo": {
                 "label": "No"
             },
-            "redoubleYesOption": {
+            "lastRedoubleLevel": {
                 "label": "Which?",
                 "level": [
                     {

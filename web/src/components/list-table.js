@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import {
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Button
+    Button, Avatar
 } from '@material-ui/core'
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import IsValidIcon from '@material-ui/icons/CheckTwoTone'
 import IsNotValidIcon from '@material-ui/icons/CloseTwoTone'
 import InfoIcon from '@material-ui/icons/InfoOutlined'
+import DetailUser from './detail-user'
+import { withCookies } from 'react-cookie'
 
 import Loading from './loading'
 import '../styles/_list-table.scss'
@@ -31,7 +33,7 @@ class TableListContainer extends Component {
     }
 
     handleShowDetail (event, id) {
-        const user = this.props.allActors.filter(actor => actor.idUser === id)
+        const user = this.props.allActors.filter(actor => actor._id === id)
         this.setState({
             showDetail: true,
             userSelected: user && user[0]
@@ -40,17 +42,18 @@ class TableListContainer extends Component {
 
     handleCloseDetail () { this.setState({ showDetail: false }) }
 
-    getValidationValue (actor) { return actor.idUser + ',' + Boolean(actor.isValid) }
+    getValidationValue (actor) { return actor._id + ',' + Boolean(actor.isValid) }
 
     buildHeader (lang) {
         const headers = [
-            { id: 'role', label: 'ROLE', minWidth: 170 },
+            { id: 'avatar', label: lang.head.avatar, minWidth: 50, maxWidth: 50, align: 'center' },
             { id: 'nom', label: lang.head.lastName, minWidth: 170 },
-            { id: 'prenom', label: lang.head.firstName, minWidth: 170 },
-            { id: 'details', label: lang.head.optionDetail, minWidth: 170 }
+            { id: 'prenom', label: lang.head.firstName, minWidth: 170 }
         ]
-        const validHead = { id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' }
-        this.props.menuSelected === variables.menus.validation && headers.push(validHead)
+        this.props.actorSelected === variables.role.child && headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
+        this.props.actorSelected === variables.role.child && headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+        this.props.menuSelected === variables.menus.validation && headers.push({ id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' })
+        headers.push({ id: 'details', label: lang.head.optionDetail, minWidth: 170 })
 
         return (
             <TableHead>
@@ -71,16 +74,25 @@ class TableListContainer extends Component {
     }
 
     buildRow (lang, actor) {
+        const classRoomTitle = this.props.classRooms.filter(cl => cl._id === actor.id_classroom)
+        let allergies = actor.medical_info[2] ? actor.medical_info[2].response : "Pas d'allergies"
+        allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
         return (
-            <TableRow hover role='checkbox' tabIndex={-1} key={actor.idUser}>
-                <TableCell> {actor.roleLabel} </TableCell>
-                <TableCell> {actor.lastName} </TableCell>
-                <TableCell> {actor.firstName} </TableCell>
+            <TableRow hover role='checkbox' tabIndex={-1} key={actor._id}>
+                <TableCell> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
+                <TableCell> {actor.last_name} </TableCell>
+                <TableCell> {actor.first_name} </TableCell>
+                {this.props.actorSelected === variables.role.child && (
+                    <>
+                        <TableCell> {allergies} </TableCell>
+                        <TableCell> {classRoomTitle[0].title} </TableCell>
+                    </>
+                )}
                 <TableCell>
                     <Button
                         variant='outlined'
                         startIcon={<InfoIcon />}
-                        onClick={(even) => this.handleShowDetail(even, actor.idUser)}
+                        onClick={(even) => this.handleShowDetail(even, actor._id)}
                     >
                         {lang.body.btnDetail}
                     </Button>
@@ -94,10 +106,10 @@ class TableListContainer extends Component {
                             onChange={this.props.handleValidationChange}
                             aria-label='text alignment'
                         >
-                            <ToggleButton className='isValid' value={actor.idUser + ',' + true} aria-label='left'>
+                            <ToggleButton className='isValid' value={actor._id + ',' + true} aria-label='left'>
                                 <IsValidIcon color='primary' />
                             </ToggleButton>
-                            <ToggleButton className='isNotValid' value={actor.idUser + ',' + false} aria-label='right'>
+                            <ToggleButton className='isNotValid' value={actor._id + ',' + false} aria-label='right'>
                                 <IsNotValidIcon color='error' />
                             </ToggleButton>
                         </ToggleButtonGroup>
@@ -131,21 +143,9 @@ class TableListContainer extends Component {
                             aria-describedby='scroll-dialog-description'
                             maxWidth='sm'
                         >
-                            <DialogTitle className='title'>{this.state.userSelected.lastName + ' ' + this.state.userSelected.firstName}</DialogTitle>
+                            <DialogTitle className='title'>{this.state.userSelected.last_name + ' ' + this.state.userSelected.first_name}</DialogTitle>
                             <DialogContent>
-                                <DialogContentText
-                                    id='scroll-dialog-description'
-                                    tabIndex={-1}
-                                >
-                                    {[...new Array(2)]
-                                        .map(
-                                            () => `Cras mattis consectetur purus sit amet fermentum.
-                                                Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                                                Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                                                Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-                                        )
-                                        .join('\n')}
-                                </DialogContentText>
+                                <DetailUser lang={this.props.lang} userSelected={this.state.userSelected} onChangeImage={this.props.onChangeImage} />
                             </DialogContent>
                             <DialogActions>
                                 <Button onClick={this.handleCloseDetail} color='primary'>
@@ -167,4 +167,4 @@ class TableListContainer extends Component {
     }
 }
 
-export default TableListContainer
+export default withCookies(TableListContainer)

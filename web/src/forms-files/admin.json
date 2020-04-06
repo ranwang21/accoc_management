@@ -25,5 +25,58 @@
             "required": false
         }
     },
-    "update": {}
+    "update": {},
+    "user1": {
+        "membership": [
+            {
+                "question": "membership",
+                "response": "membership_becomeMember"
+            },
+            {
+                "question": "memberCard",
+                "response": null
+            },
+            {
+                "question": "discountCard",
+                "response": "true"
+            },
+            {
+                "question": "paymentMethod",
+                "response": "Carte de Crédit"
+            }
+        ],
+        "school_info": [],
+        "medical_info": [],
+        "authorization": [],
+        "involvement": [
+            {
+                "question": "snacks",
+                "response": "false"
+            },
+            {
+                "question": "talents",
+                "response": "Implications Texte Implications Texte Implications…tions Texte Implications Texte Implications Texte"
+            },
+            {
+                "question": "support",
+                "response": "true"
+            },
+            {
+                "question": "organization",
+                "response": "true"
+            },
+            {
+                "question": "otherInvolvement",
+                "response": "Participer Texte Participer Texte Participer Texte…articiper Texte Participer Texte Participer Texte"
+            }
+        ],
+        "expectation": "Attentes Texte Attentes Texte Attentes Texte Attentes Texte Attentes Texte Attentes Texte",
+        "need": "Besoins Texte Besoins Texte Besoins Texte Besoins Texte Besoins Texte Besoins Texte Besoins Texte",
+        "question": [],
+        "comment": null,
+        "experience": null,
+        "motivation": null,
+        "roleTitle": "parent",
+        "isValid": false
+    }
 }

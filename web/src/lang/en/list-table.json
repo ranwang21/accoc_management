@@ -2,6 +2,8 @@
     "head": {
         "lastName": "last name",
         "firstName": "first name",
+        "allergies": "allergies",
+        "classRoom": "classroom",
         "optionDetail": "details",
         "optionValidation": "validations"
     },

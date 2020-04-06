@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup } from '@material-ui/core'
-import Switch from '@material-ui/core/Switch'
+import { Button, ButtonGroup, Switch, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import Collapse from '@material-ui/core/Collapse'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -11,10 +10,10 @@ import '../styles/_list.scss'
 
 const variables = require('../utilities/variables').variables
 
-const isChild = ({ roleLabel }) => roleLabel === 'child'
-const isParent = ({ roleLabel }) => ((roleLabel === 'only_parent' || roleLabel === 'both'))
-const isCollaborator = ({ roleLabel }) => ((roleLabel === 'only_collaborator' || roleLabel === 'both'))
-const isAdmin = ({ roleLabel }) => (roleLabel === 'admin')
+const isChild = ({ roleTitle }) => roleTitle === 'children'
+const isParent = ({ roleTitle, isValid }) => ((roleTitle === 'parent' || roleTitle === 'collab_parent') && isValid === true)
+const isCollaborator = ({ roleTitle, isValid }) => ((roleTitle === 'collaborater' || roleTitle === 'collab_parent') && isValid === true)
+const isAdmin = ({ roleTitle, isValid }) => (roleTitle === 'admin' && isValid === true)
 
 function getRoleFunction (role) {
     switch (role) {
@@ -33,9 +32,10 @@ class Table extends Component {
         super()
         this.state = {
             actorSelected: variables.actors.children,
-            search: false,
+            search: true,
             lastNameInput: '',
-            firstNameInput: ''
+            firstNameInput: '',
+            classRoomSelected: ''
         }
         this.onActorSelected = this.onActorSelected.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
@@ -75,10 +75,8 @@ class Table extends Component {
         this.setState(state => { return { search: !state.search } })
     }
 
-    handleSearchInputChange (event) {
-        (event.target.id === 'lastName')
-            ? this.setState({ lastNameInput: event.target.value })
-            : this.setState({ firstNameInput: event.target.value })
+    handleSearchInputChange (event, name) {
+        this.setState({ [name]: event.target.value })
     }
 
     getActorSelected () {
@@ -102,16 +100,23 @@ class Table extends Component {
 
     updateNewActorsList () {
         if (this.props.menuSelected === variables.menus.validation) {
-            return this.props.actorsForValidations
+            return this.props.inValidActors
         } else {
+            let getIdClassRoom = this.props.classRooms.filter(classRoom => classRoom.title === this.state.classRoomSelected)
+            getIdClassRoom = getIdClassRoom[0] ? getIdClassRoom[0] : this.props.classRooms[0]
             const isRole = getRoleFunction(this.getActorSelected())
             const newList = this.props.actors !== null ? this.props.actors.filter(isRole) : []
             const lastList = []
             if (newList !== null) {
                 newList.map(row => {
-                    const ch1 = row.firstName.toLowerCase().search(this.state.firstNameInput.toLowerCase())
-                    const ch2 = row.lastName.toLowerCase().search(this.state.lastNameInput.toLowerCase());
-                    (ch1 !== -1 && ch2 !== -1) && lastList.push(row)
+                    const ch1 = row.first_name.toLowerCase().search(this.state.firstNameInput.toLowerCase())
+                    const ch2 = row.last_name.toLowerCase().search(this.state.lastNameInput.toLowerCase())
+                    if (this.getActorSelected() === variables.role.child) {
+                        const ch3 = row.id_classroom && row.id_classroom.search(getIdClassRoom._id);
+                        (ch1 !== -1 && ch2 !== -1 && ch3 !== -1) && lastList.push(row)
+                    } else {
+                        (ch1 !== -1 && ch2 !== -1) && lastList.push(row)
+                    }
                 })
             }
             return lastList
@@ -122,7 +127,7 @@ class Table extends Component {
         const lang = this.getLangFile()
         const allActors = this.updateNewActorsList()
         const menuSelected = this.props.menuSelected
-        const validationsChange = this.props.actorsForValidations !== null && this.props.actorsForValidations.filter(actor => (actor.isValid === true))
+        const validationsChange = this.props.inValidActors && this.props.inValidActors.filter(actor => (actor.isValid === true))
 
         return (
             <div className='list'>
@@ -131,19 +136,7 @@ class Table extends Component {
                         <ButtonGroup className='btnGroup' size='medium' color='primary' aria-label='large outlined primary button group'>
                             {lang.actors.map(actor => this.buildButton(actor))}
                         </ButtonGroup>
-                        <div className='search-container'>
-                            <Collapse className='search-fields' in={this.state.search}>
-                                <TextField
-                                    size='small' variant='outlined' id='lastName'
-                                    value={this.state.lastNameInput}
-                                    onChange={this.handleSearchInputChange} label={lang.searchLastName}
-                                />
-                                <TextField
-                                    size='small' id='firstName' variant='outlined'
-                                    value={this.state.firstNameInput}
-                                    onChange={this.handleSearchInputChange} label={lang.searchFirstName}
-                                />
-                            </Collapse>
+                        <div className='search-button'>
                             <FormControlLabel
                                 control={<Switch checked={this.state.search} onChange={this.handleSearchChange} />} label={lang.search}
                             />
@@ -151,11 +144,42 @@ class Table extends Component {
                     </div>
                 )}
 
+                <div className='search-container'>
+                    <Collapse className='search-fields' in={this.state.search}>
+                        <TextField
+                            size='small' variant='filled'
+                            value={this.state.lastNameInput}
+                            onChange={event => this.handleSearchInputChange(event, 'lastNameInput')} label={lang.searchLastName}
+                        />
+                        <TextField
+                            size='small' variant='filled'
+                            value={this.state.firstNameInput}
+                            onChange={event => this.handleSearchInputChange(event, 'firstNameInput')} label={lang.searchFirstName}
+                        />
+                        {this.getActorSelected() === variables.role.child && (
+                            <FormControl variant='filled'>
+                                <InputLabel color='primary'>par salle</InputLabel>
+                                <Select
+                                    value={this.state.classRoomSelected}
+                                    onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
+                                >
+                                    {this.props.classRooms.map(classRoom => (
+                                        <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        )}
+                    </Collapse>
+                </div>
+
                 <ListTable
                     lang={this.props.lang}
                     menuSelected={menuSelected}
                     handleValidationChange={this.props.validationChange}
                     allActors={allActors}
+                    actorSelected={this.getActorSelected()}
+                    classRooms={this.props.classRooms}
+                    onChangeImage={this.props.handleImageChange}
                 />
 
                 {(menuSelected === variables.menus.validation && validationsChange.length > 0) && (

@@ -43,7 +43,8 @@ const variables = {
             check: {
                 parent: '5S4D1CS5Z',
                 collaborator: '8S51CS85D2X',
-                both: 'E5SFC4S1ZC4S'
+                both: 'E5SFC4S1ZC4S',
+                children: 'URHDFNBNCD'
             }
         },
         createAdmin: {
@@ -169,48 +170,48 @@ const variables = {
         }
     },
     templateUser: {
-        id_role: '5e6a3e314554933864b2c3c5',
-        first_name: 'Marco',
-        last_name: 'Orellana',
-        sex: 'male',
-        address: '222 Rue Bobette',
-        birthday: '1994/12/24',
-        has_child: false,
-        is_subscribed: false,
+        id_role: null,
+        first_name: null,
+        last_name: null,
+        sex: null,
+        address: null,
+        birthday: null,
+        has_child: null,
+        is_subscribed: null,
         contact: [
             {
                 title: 'personal',
-                phone: '450-222-2222'
+                phone: null
             },
             {
                 title: 'home',
-                phone: '450-222-2222'
+                phone: null
             },
             {
                 title: 'work',
-                phone: '514-567-8976'
+                phone: null
             },
             {
                 title: 'emergency',
-                phone: '450-222-2222'
+                phone: null
             }
         ],
         membership: [
             {
                 question: 'membership',
-                response: 'YES/MAYBE/NO'
+                response: null
             },
             {
                 question: 'paymentMethod',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'memberCard',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'discountCard',
-                response: 'YES/NO'
+                response: null
             }
         ],
         photo: 'no-photo.jpg',
@@ -218,89 +219,89 @@ const variables = {
         garde: [
             {
                 question: 'garde',
-                response: 'ALL/SHARED/MOTHER/FATHER/OTHER'
+                response: null
             },
             {
                 question: 'gardeParentOption',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'gardeOtherOption',
-                response: 'Response Here'
+                response: null
             }
         ],
         school_info: [
             {
                 question: 'name',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'level',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'adl',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'redouble',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'lastRedoubleLevel',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'reason',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'evaluation',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'daycareService',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'daycareServiceYesName',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'daycareServiceYesPhone',
-                response: 'Response here'
+                response: null
             }
         ],
         medical_info: [
             {
                 question: 'ramq',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'ramqExpiration',
-                response: 'MM/AAAA'
+                response: null
             },
             {
                 question: 'allergies',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'medications',
-                response: 'Response here'
+                response: null
             },
             {
                 question: 'othersInformations',
-                response: 'Response here'
+                response: null
             }
         ],
         authorization: [
             {
                 question: 'publicationPicturePaper',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'publicationPictureInternet',
-                response: 'YES/NO'
+                response: null
             }
         ],
         involvement: [
@@ -325,15 +326,15 @@ const variables = {
                 response: 'Response here'
             }
         ],
-        expectation: 'Expectation here',
-        need: 'Need here',
+        expectation: null,
+        need: null,
         question: [
             {
                 question: 'heard',
-                response: 'Response 1 here'
+                response: null
             }
         ],
-        id_parent: [],
+        id_parent: null,
         availability: [
             '5e6a3e314554933864b2c3a2',
             '5e6a3e314554933864b2c3a4'
@@ -343,9 +344,9 @@ const variables = {
             'Interest 2',
             'Interest 3'
         ],
-        comment: 'Comments here',
-        experience: 'Experience here',
-        motivation: 'Motivation here'
+        comment: null,
+        experience: null,
+        motivation: null
     },
     roles: {
         super_admin: '5e6a3e314554933864b2c3c2',
