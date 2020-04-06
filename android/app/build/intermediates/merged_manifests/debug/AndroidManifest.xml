@@ -13,6 +13,7 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <dist:module dist:instant="true" />
@@ -21,13 +22,14 @@
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_part_1"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
+        <activity android:name="com.example.myapplication.EnfantsParSalleActivity" />
         <activity android:name="com.example.myapplication.SuiviQuotidienActivity" />
         <activity android:name="com.example.myapplication.ProfilCollabActivity" />
         <activity android:name="com.example.myapplication.ProfilEnfantActivity" />
@@ -35,14 +37,14 @@
             android:name="com.example.myapplication.Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.myapplication.StartActivity" >
+        <activity android:name="com.example.myapplication.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.myapplication.LoginActivity" />
+        <activity android:name="com.example.myapplication.StartActivity" />
 
         <provider
             android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"

@@ -7,7 +7,7 @@ class Header extends Component {
     render () {
         const lang = this.props.lang
         return (
-            <AppBar position='static'>
+            <AppBar color='secondary' position='static'>
                 <Toolbar>
                     <IconButton className='img' />
                     <div className='right-head'>

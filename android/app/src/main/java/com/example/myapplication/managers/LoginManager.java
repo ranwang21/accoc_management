@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.myapplication.entities.Login;
+import com.example.myapplication.entities.User;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
 import com.example.myapplication.services.DeleteJson;
@@ -139,12 +140,25 @@ public class LoginManager {
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         bd.update(DataBaseHelper.LOGIN_TABLE_NAME, contentValues, ID + " = " + login.get_id(), null);
     }
+    public static User getUserFromToken(String token) {
+        Gson gson = new Gson();
+        String jsonFromApi = GetJson.get("/auth/user", token);
+        User user = new User();
+        try {
+            JSONObject jsonResult = new JSONObject(jsonFromApi);
+            String userFromApi = jsonResult.getString("data");
+            user = gson.fromJson(userFromApi, User.class);
+            Log.d("Json", "getUserFromToken: " + user.getFirst_name() + " img_url " + user.getImg_url());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
     public static String getLoginToken(Login login, String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(login);
         String jsonFromApi = PostJson.post(jsonToSemd, "/auth/login", token);
-        String tokenFromApi = "";
-        Log.d("Json", "getLoginToken: " + jsonFromApi);
+        String tokenFromApi = null;
         try {
             JSONObject jsonResult = new JSONObject(jsonFromApi);
             tokenFromApi = jsonResult.getString("token");
@@ -156,9 +170,9 @@ public class LoginManager {
     }
     public static String logout() {
         Gson gson = new Gson();
-        String jsonFromApi = GetJson.get( "/auth/logout","");
+        String jsonFromApi = GetJson.get("/auth/logout", "");
         String tokenFromApi = "";
-        Log.d("Json", "getLoginToken: " + jsonFromApi);
+        Log.d("Json", "getLogout: " + jsonFromApi);
         try {
             JSONObject jsonResult = new JSONObject(jsonFromApi);
             tokenFromApi = jsonResult.getString("success");

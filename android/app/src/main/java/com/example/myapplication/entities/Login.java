@@ -6,6 +6,7 @@ public class Login {
     String email;
     String password;
 
+
     public Login() {
     }
 
@@ -50,4 +51,5 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

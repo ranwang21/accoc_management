@@ -2,6 +2,11 @@
     "head": {
         "lastName": "last name",
         "firstName": "first name",
+        "allergies": "allergies",
+        "school": "school",
+        "classRoom": "classroom",
+        "phone": "contact",
+        "courriel": "courriel",
         "optionDetail": "details",
         "optionValidation": "validations"
     },

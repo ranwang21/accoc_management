@@ -65,7 +65,8 @@
 
         <TableRow
             android:id="@+id/tablerow2"
-            android:clickable="true">
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,43 +79,71 @@
                 android:text="@string/txt_motivation"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/image_smile1"
+            <LinearLayout
+                android:id="@+id/layoutImage1"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:clickable="true"
                 android:gravity="center"
-                android:src="@drawable/smile"
-                android:visibility="invisible" />
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_neutral1"
+                <ImageView
+                    android:id="@+id/image_smile1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/smile"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage2"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:src="@drawable/neutral"
-                android:visibility="visible" />
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_sad1"
+                <ImageView
+                    android:id="@+id/image_neutral1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/neutral"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage3"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:src="@drawable/sad" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_sad1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/sad"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
 
         </TableRow>
+
 
         <TableRow android:id="@+id/tablerow3">
 
@@ -129,35 +158,68 @@
                 android:text="@string/txt_autonomie"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/image_smile2"
+            <LinearLayout
+                android:id="@+id/layoutImage11"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_neutral2"
+                <ImageView
+                    android:id="@+id/image_smile2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/smile"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage12"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_sad2"
+                <ImageView
+                    android:id="@+id/image_neutral2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/neutral"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage13"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_sad2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/sad"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
 
         </TableRow>
 
@@ -174,8 +236,8 @@
                 android:text="@string/txt_perseverance"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/image_smile3"
+            <LinearLayout
+                android:id="@+id/layoutImage21"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="1dp"
@@ -183,27 +245,59 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="Alice" />
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_neutral3"
+                <ImageView
+                    android:id="@+id/image_smile3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/smile"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage22"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_sad3"
+                <ImageView
+                    android:id="@+id/image_neutral3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/neutral"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage23"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_sad3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/sad"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
 
         </TableRow>
 
@@ -220,35 +314,68 @@
                 android:text="@string/txt_organisation"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/image_smile4"
+            <LinearLayout
+                android:id="@+id/layoutImage31"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_neutral4"
+                <ImageView
+                    android:id="@+id/image_smile4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/smile"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage32"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_sad4"
+                <ImageView
+                    android:id="@+id/image_neutral4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/neutral"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage33"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:background="#ffffff"
-                android:gravity="center" />
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_sad4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/sad"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
 
         </TableRow>
 
@@ -265,35 +392,68 @@
                 android:text="@string/txt_comportement"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/image_smile5"
+            <LinearLayout
+                android:id="@+id/layoutImage41"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_neutral5"
+                <ImageView
+                    android:id="@+id/image_smile5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/smile"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage42"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_sad5"
+                <ImageView
+                    android:id="@+id/image_neutral5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/neutral"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutImage43"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginHorizontal="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_sad5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/sad"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
 
         </TableRow>
     </TableLayout>

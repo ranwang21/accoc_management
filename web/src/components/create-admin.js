@@ -5,6 +5,7 @@ import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import Loading from '../components/loading'
 import LockIcon from '@material-ui/icons/LockRounded'
+import Snack from '../components/snack'
 const CreateAdminConfig = require('../forms-files/admin.json').create
 const variables = require('../utilities/variables').variables
 
@@ -18,7 +19,8 @@ class CreateAdmin extends Component {
                 confirmPassword: false
             },
             enableSubmit: false,
-            loading: false
+            loading: false,
+            showSnack: false
         }
 
         this.fields = {
@@ -32,6 +34,7 @@ class CreateAdmin extends Component {
         this.handleBtnClick = this.handleBtnClick.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.saveAdmin = this.saveAdmin.bind(this)
+        this.handleCloseSnack = this.handleCloseSnack.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/create-admin.json') }
@@ -95,6 +98,10 @@ class CreateAdmin extends Component {
         }
     }
 
+    handleCloseSnack () {
+        this.setState({ showSnack: false })
+    }
+
     saveAdmin (success) {
         if (success) {
             this.setState(state => {
@@ -106,10 +113,20 @@ class CreateAdmin extends Component {
                 }
                 return {
                     error: newError,
-                    loading: false
+                    loading: false,
+                    showSnack: true
                 }
             })
-            console.log('Successful !!!')
+            this.fields = {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                validation: true
+            }
+            this.props.updateUsers()
+            this.props.onGetBack()
         } else {
             this.setState(state => {
                 let newError = state.error
@@ -187,6 +204,7 @@ class CreateAdmin extends Component {
                         {this.state.loading && (<Loading lang={this.props.lang} />)}
                     </div>
                 </form>
+                <Snack show={this.state.showSnack} duration={3000} message='Nouvel administrateur ajoutee avec succes' onClose={this.handleCloseSnack} severity='success' />
             </div>
         )
     }

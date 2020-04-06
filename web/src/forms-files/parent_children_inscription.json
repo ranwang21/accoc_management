@@ -1,0 +1,224 @@
+{
+    "fieldsets": [
+        {
+            "name": "identification",
+            "fields": [
+                {
+                    "name": "last_name",
+                    "type": "textField",
+                    "required": true
+                },
+                {
+                    "name": "first_name",
+                    "type": "textField",
+                    "required": true
+                },
+                {
+                    "name": "birthday",
+                    "type": "dateField",
+                    "min": 5,
+                    "max": 17,
+                    "format": "DD MMMM YYYY",
+                    "views": [
+                        "year",
+                        "month",
+                        "date"
+                    ],
+                    "required": true
+                },
+                {
+                    "name": "garde",
+                    "required": true,
+                    "type": "membershipField",
+                    "radioOptions": [
+                        {
+                            "name": "gardeAll"
+                        },
+                        {
+                            "name": "gardeShared",
+                            "info": "gardeSharedInfo"
+                        },
+                        {
+                            "name": "gardeMother"
+                        },
+                        {
+                            "name": "gardeFather"
+                        },
+                        {
+                            "name": "gardeOther"
+                        }
+                    ],
+                    "gardeParentOption": {
+                        "name": "gardeParentOption",
+                        "required": true,
+                        "type": "radioField",
+                        "radioOptions": [
+                            {
+                                "name": "gardeParentOptionYes"
+                            },
+                            {
+                                "name": "gardeParentOptionNo"
+                            }
+                        ]
+                    },
+                    "gardeOtherOption": {
+                        "name": "gardeOtherOption",
+                        "type": "textField",
+                        "required": false
+                    }
+                }
+            ]
+        },
+        {
+            "name": "schoolInfo",
+            "fields": [
+                {
+                    "name": "school",
+                    "type": "textField",
+                    "required": true
+                },
+                {
+                    "name": "schoolLevel",
+                    "type": "selectGroupedField",
+                    "grouped": true,
+                    "required": true
+                },
+                {
+                    "name": "adlRegister",
+                    "type": "selectField",
+                    "grouped": false,
+                    "required": true,
+                    "maxNumber": 3
+                },
+                {
+                    "name": "redouble",
+                    "required": true,
+                    "type": "membershipField",
+                    "radioOptions": [
+                        {
+                            "name": "redoubleYes"
+                        },
+                        {
+                            "name": "redoubleNo"
+                        }
+                    ],
+                    "lastRedoubleLevel": {
+                        "name": "lastRedoubleLevel",
+                        "type": "selectGroupedField",
+                        "grouped": true,
+                        "required": true
+                    }
+                },
+                {
+                    "name": "registerReason",
+                    "type": "textField",
+                    "required": true
+                },
+                {
+                    "name": "evaluation",
+                    "required": true,
+                    "type": "radioField",
+                    "radioOptions": [
+                        {
+                            "name": "evaluationYes"
+                        },
+                        {
+                            "name": "evaluationNo"
+                        }
+                    ]
+                },
+                {
+                    "name": "daycareService",
+                    "required": true,
+                    "type": "membershipField",
+                    "radioOptions": [
+                        {
+                            "name": "daycareServiceYes"
+                        },
+                        {
+                            "name": "daycareServiceNo"
+                        }
+                    ],
+                    "daycareServiceYesName": {
+                        "name": "daycareServiceYesName",
+                        "type": "textField",
+                        "required": true
+                    },
+                    "daycareServiceYesPhone": {
+                        "name": "daycareServiceYesPhone",
+                        "type": "phoneField",
+                        "required": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "medicalInfo",
+            "fields": [
+                {
+                    "name": "ramq",
+                    "type": "textField",
+                    "required": false
+                },
+                {
+                    "name": "expiration",
+                    "type": "dateField",
+                    "min": -10,
+                    "max": 0,
+                    "format": "MMMM YYYY",
+                    "views": [
+                        "year",
+                        "month"
+                    ],
+                    "required": true
+                },
+                {
+                    "name": "allergies",
+                    "type": "textAreaField",
+                    "required": false
+                },
+                {
+                    "name": "drug",
+                    "type": "textAreaField",
+                    "required": false
+                },
+                {
+                    "name": "othersInfos",
+                    "type": "textAreaField",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "autorisation",
+            "fields": [
+                {
+                    "name": "autorisationPapper",
+                    "required": true,
+                    "type": "radioField",
+                    "radioOptions": [
+                        {
+                            "name": "autorisationPapperYes"
+                        },
+                        {
+                            "name": "autorisationPapperNo"
+                        }
+                    ]
+                },
+                {
+                    "name": "autorisationInternet",
+                    "required": true,
+                    "type": "radioField",
+                    "radioOptions": [
+                        {
+                            "name": "autorisationInternetYes"
+                        },
+                        {
+                            "name": "autorisationInternetNo"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

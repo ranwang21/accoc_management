@@ -15,7 +15,7 @@
     <string name="menu_send">send</string>
 
 
-    <string name="menu_logout">logout</string>
+    <string name="menu_logout">Logout</string>
     <string name="menu_presence">Presence</string>
     <string name="menu_listes_enfants">Listes  enfants</string>
     <string name="menu_listes_collaborateurs">Listes de collaborateur</string>
@@ -35,7 +35,7 @@
     <string name="salle_2">salle 2</string>
     <string name="salle_4">salle 4</string>
     <string name="logoback" />
-    <string name="home">home</string>
+    <string name="home">Home</string>
     <string name="txt_profil_enfant">Detail Enfants</string>
     <string name="txt_profil_collab">Details Collaborateurs</string>
     <string name="txt_suivi">Suivi Quotidien</string>

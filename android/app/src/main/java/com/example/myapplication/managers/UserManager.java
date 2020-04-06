@@ -29,12 +29,16 @@ public class UserManager {
     private static final String ADDRESS = "address";
     private static final String BIRTHDAY = "birthday";
     private static final String IMG_URL = "img_url";
+    private static final String ID_COLLABORATER = "id_collaborater";
+    private static final String ID_CLASSROOM = "id_classroom";
     /**
      * User TABLE'S QUERIES
      */
     private static final String queryGetAll = "select * from " + DataBaseHelper.USER_TABLE_NAME;
     private static final String queryGetById = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id like ?";
-    private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where role_id like ?";
+    private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_role like ?";
+    private static final String queryGetByClassroom = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_classroom like ?";
+    private static final String queryGetByColaborateur = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_collaborater like ?";
     /**
      * getAll return all users from DataBase
      *
@@ -54,7 +58,9 @@ public class UserManager {
                     cursor.getString(4),
                     cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7))
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9))
             );
         }
         ConnectionBD.close();
@@ -81,7 +87,9 @@ public class UserManager {
                     cursor.getString(4),
                     cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7));
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9));
         }
         ConnectionBD.close();
         return user;
@@ -93,7 +101,7 @@ public class UserManager {
      * @param idRole
      * @return ArrayList<User>
      */
-    public static ArrayList<User> getByRole(Context context, int idRole) {
+    public static ArrayList<User> getByRole(Context context, String idRole) {
         ArrayList<User> users = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByRole, new String[]{"" + idRole});
@@ -106,7 +114,30 @@ public class UserManager {
                     cursor.getString(4),
                     cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7))
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9))
+            );
+        }
+        ConnectionBD.close();
+        return users;
+    }
+    public static ArrayList<User> getByIdClassroom(Context context, String idClassroom) {
+        ArrayList<User> users = new ArrayList<>();
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        Cursor cursor = bd.rawQuery(queryGetByClassroom, new String[]{"" + idClassroom});
+        while (cursor.moveToNext()) {
+            users.add(new User(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9))
             );
         }
         ConnectionBD.close();
