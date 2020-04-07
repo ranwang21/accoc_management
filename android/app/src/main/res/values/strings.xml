@@ -56,6 +56,9 @@
     <string name="txt_soumettre">Soumettre</string>
     <string name="todo">TODO</string>
     <string name="logo_image">logo image</string>
+    <string name="button">Button</string>
+    <string name="sauvgarder" />
+    <string name="save" />
 
 
 </resources>
