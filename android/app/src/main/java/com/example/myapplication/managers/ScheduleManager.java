@@ -14,6 +14,7 @@ import com.example.myapplication.services.PostJson;
 import com.example.myapplication.services.PutJson;
 import com.google.gson.Gson;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 
@@ -35,6 +36,9 @@ public class ScheduleManager {
     private static final String queryGetByDate = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ?";
     private static final String queryGetByDateAndIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ?";
     private static final String queryGetDistinctDates = "SELECT DISTINCT date FROM " + DataBaseHelper.SCHEDULE_TABLE_NAME;
+
+
+
     /**
      * getAll return all Schedule from DataBase
      *
@@ -62,6 +66,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
     /**
      * getById return a Schedule by id from DataBase
      *
