@@ -206,7 +206,7 @@ class Dashbord extends Component {
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
-            return (<ClassRoom lang={lang} />)
+            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} />)
         case variables.menus.prints:
             return (<Print lang={lang} />)
         case variables.menus.childList:
