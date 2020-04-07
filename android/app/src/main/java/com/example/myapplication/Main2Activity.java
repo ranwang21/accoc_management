@@ -57,7 +57,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         if (!Preferences.getUserImgUrl(this).isEmpty()) {
             Glide.with(this).load(Preferences.getUserImgUrl(this)).into(imgProfile);
         }
-
         TextView tv_name = menu.findViewById(R.id.name_drawer);
         tv_name.setText(Preferences.getUserFirstName(this) + " " + Preferences.getUserLastName(this));
         TextView tv_email = menu.findViewById(R.id.email_drawer);

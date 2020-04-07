@@ -85,6 +85,8 @@ public class ListesEnfants extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User u = UserManager.getById(getContext(),finalUsers.get(position).getId_collaborater());
+                Log.d("Json", "onItemClick: " + u.getFirst_name());
                 String first_name = finalUsers.get(position).getFirst_name();
                 String last_name = finalUsers.get(position).getLast_name();
                 String birthday = finalUsers.get(position).getBirthday();

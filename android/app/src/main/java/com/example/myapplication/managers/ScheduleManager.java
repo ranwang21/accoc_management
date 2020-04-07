@@ -193,6 +193,26 @@ public class ScheduleManager {
         }
         ConnectionBD.close();
         return schedules;
+    }    public static ArrayList<Schedule> getStudentsFrom(Context context, String date, String idClassroom) {
+        ArrayList<Schedule> schedules = null;
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        Cursor cursor = bd.rawQuery(queryGetByDateAndIdClassroom, new String[]{date, idClassroom});
+        while (cursor.moveToNext()) {
+            boolean is_absent = false;
+            if (cursor.getInt(4) == 1) {
+                is_absent = true;
+            }
+            schedules.add(new Schedule(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    is_absent,
+                    cursor.getString(5))
+            );
+        }
+        ConnectionBD.close();
+        return schedules;
     }
     public static ArrayList<String> getUniquesDatesOneWeek(Context context) {
         ArrayList<String> dates = new ArrayList<>();

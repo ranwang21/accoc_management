@@ -73,7 +73,7 @@ public class UserManager {
      * @param id
      * @return User
      */
-    public static User getById(Context context, int id) {
+    public static User getById(Context context, String id) {
         User user = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
