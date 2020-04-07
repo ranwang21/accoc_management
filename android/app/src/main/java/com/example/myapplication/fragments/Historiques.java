@@ -1,6 +1,7 @@
 package com.example.myapplication.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,23 +10,30 @@ import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.EnfantAdapter;
 import com.example.myapplication.entities.Classroom;
+import com.example.myapplication.entities.Schedule;
 import com.example.myapplication.entities.User;
 import com.example.myapplication.managers.ClassroomManager;
+import com.example.myapplication.managers.ScheduleManager;
 import com.example.myapplication.managers.UserManager;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Historiques extends Fragment {
 
     Spinner spinner_salle;
+    Spinner spinner_date;
     ListView listView;
     @Nullable
     @Override
@@ -39,10 +47,46 @@ public class Historiques extends Fragment {
         for (Classroom c : classrooms) {
             listClassroom.add(c.getTitle());
         }
+        /** Spinner pour afficher par date  */
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        String dateString = sdf.format(date);
+        ArrayList<Schedule> schedules = ScheduleManager.getAll(getContext());
+        ArrayList<String> dateToDisplay = new ArrayList<>();
+        for (Schedule dateschedule : schedules) {
+            try {
+                dateToDisplay.add(sdf.format(sdf.parse(dateschedule.getDate())));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        spinner_date = view.findViewById(R.id.spinner_date);
+        spinner_date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String classroomName = parent.getItemAtPosition(position).toString();
+                Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
+//                ArrayList<User> users;
+//                if (!classroomName.equals("Tous")) {
+//                    Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
+//                    users = UserManager.getByIdClassroom(getContext(), classroom.get_id());
+//                    EnfantAdapter enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
+//                    listView.setAdapter(enfantAdapter);
+//                    enfantAdapter.notifyDataSetChanged();
+//                }
+                Toast.makeText(getContext(), "Hello Javatpoint", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        ArrayAdapter<String> arrayAdapterdate = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, dateToDisplay);
+        arrayAdapterdate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listView = view.findViewById(R.id.list_enfant_par_salle);
         spinner_salle = view.findViewById(R.id.spinner_salle);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, listClassroom);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_date.setAdapter(arrayAdapterdate);
         spinner_salle.setAdapter(arrayAdapter);
         spinner_salle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
