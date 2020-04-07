@@ -1,42 +1,33 @@
 import React, { Component } from 'react'
-import { Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { Button, FormControl, InputLabel, Select, MenuItem, TextField } from '@material-ui/core'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_child-detail.scss'
+import { Autocomplete } from '@material-ui/lab'
 const variables = require('../utilities/variables').variables
 
 class ChildDetail extends Component {
     constructor () {
         super()
         this.state = {
-            classRooms: [],
-            collaboraters: [],
-            classRoomSelected: ''
+            classRoomSelected: '',
+            collabSelected: '',
+            showUpdateBtn: false
         }
-        this.setClassRooms = this.setClassRooms.bind(this)
         this.handleSearchInputChange = this.handleSearchInputChange.bind(this)
     }
 
-    setClassRooms (data) {
-        this.setState({ classRooms: [...data] })
-    }
-
     componentDidMount () {
-        Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRooms)
     }
 
     handleSearchInputChange (event, name) {
-        if (name !== 'levelSelected' && name !== 'classRoomSelected') {
-            this.setState({ [name]: event.target.value })
-        } else {
-            (event.target.value !== undefined) && this.setState({ [name]: event.target.value })
-        }
+        (event.target.value !== undefined) && this.setState({ [name]: event.target.value })
     }
 
     getClassRoom (child) {
         let retour = 'Pas definis'
-        if (this.state.classRooms.length > 0 && child.id_classroom) {
-            const room = this.state.classRooms.filter(classRoom => classRoom._id === child.id_classroom)[0]
+        if (this.props.classRooms.length > 0 && child.id_classroom) {
+            const room = this.props.classRooms.filter(classRoom => classRoom._id === child.id_classroom)[0]
             retour = room ? room.title : 'Pas definis'
         }
         return retour
@@ -44,13 +35,13 @@ class ChildDetail extends Component {
 
     render () {
         const child = this.props.child
-        console.log(child.school_info)
-        // const schoolName = child.school_info ? child.id_classroom : 'Pas definis'
+        const classRooms = (this.props.classRooms && this.props.classRooms !== null) ? this.props.classRooms : []
+        const collabList = (this.props.collabList && this.props.collabList !== null) ? this.props.collabList : []
+        const collab = classRooms.id_collaborater ? classRooms.id_collaborater : 'Pas defini'
         return (
             <div className='child-detail'>
                 <div className='test'>
                     <fieldset className='child-classroom'>
-                        <legend>Classroom</legend>
                         <div>
                             <div>
                                 <p className='text'>{this.getClassRoom(child)}</p>
@@ -60,51 +51,26 @@ class ChildDetail extends Component {
                                         value={this.state.classRoomSelected}
                                         onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
                                     >
-                                        {this.state.classRooms.map(classRoom => (
+                                        {classRooms.map(classRoom => (
                                             <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                         ))}
                                     </Select>
                                 </FormControl>
                             </div>
                             <div>
-                                <p className='text'>{this.getClassRoom(child)}</p>
-                                <FormControl className='select' variant='filled'>
-                                    <InputLabel color='primary'>COLLABORATEURS</InputLabel>
-                                    <Select
-                                        value={this.state.classRoomSelected}
-                                        onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                                    >
-                                        {this.state.classRooms.map(classRoom => (
-                                            <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                <p className='text'>{collab}</p>
+                                <Autocomplete
+                                    onChange={(event, newValue) => this.setState({ collabSelected: newValue })}
+                                    options={collabList}
+                                    getOptionLabel={(collaborater) => collaborater.first_name + ' ' + collaborater.last_name}
+                                    renderInput={(params) => <TextField {...params} label='COLLABORATEURS' variant='filled' />}
+                                />
                             </div>
                             <div>
                                 <Button variant='outlined'>
                                     Modifier
                                 </Button>
                             </div>
-                        </div>
-                    </fieldset>
-                    <fieldset className='child-classroom'>
-                        <legend>Classroom</legend>
-                        <div>
-                            <p className='text'>{this.getClassRoom(child)}</p>
-                            <Button variant='outlined'>
-                                Modifier
-                            </Button>
-                            <FormControl className='select' variant='filled'>
-                                <InputLabel color='primary'>par salle</InputLabel>
-                                <Select
-                                    value={this.state.classRoomSelected}
-                                    onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                                >
-                                    {this.state.classRooms.map(classRoom => (
-                                        <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
                         </div>
                     </fieldset>
                 </div>
@@ -145,7 +111,7 @@ class ChildDetail extends Component {
                             </div>
                             <div>
                                 <p>Educatrice</p>
-                                <p>Nom prenom (514) 820-5545</p>
+                                <p><span>Nom prenom</span> <span>(514) 820-5545</span></p>
                             </div>
                         </div>
                     </fieldset>
@@ -163,7 +129,7 @@ class ChildDetail extends Component {
                                 value={this.state.classRoomSelected}
                                 onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
                             >
-                                {this.state.classRooms.map(classRoom => (
+                                {classRooms.map(classRoom => (
                                     <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                 ))}
                             </Select>
@@ -184,7 +150,7 @@ class ChildDetail extends Component {
                                 value={this.state.classRoomSelected}
                                 onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
                             >
-                                {this.state.classRooms.map(classRoom => (
+                                {classRooms.map(classRoom => (
                                     <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                 ))}
                             </Select>

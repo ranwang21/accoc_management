@@ -104,7 +104,12 @@ class DetailUser extends Component {
                 </div>
                 <div className='div'>
                     {this.props.userSelected.roleTitle === variables.role.child && (
-                        <ChildDetail lang={this.props.lang} child={this.props.userSelected} />
+                        <ChildDetail
+                            lang={this.props.lang}
+                            child={this.props.userSelected}
+                            classRooms={this.props.classRooms}
+                            collabList={this.props.collabList}
+                        />
                     )}
                 </div>
             </div>

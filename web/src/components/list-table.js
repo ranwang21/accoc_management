@@ -186,7 +186,14 @@ class TableListContainer extends Component {
                         >
                             <DialogTitle id='scroll-dialog-title' className='title'>DETAILS</DialogTitle>
                             <DialogContent>
-                                <DetailUser lang={this.props.lang} userSelected={this.state.userSelected} menuSelected={this.props.menuSelected} onChangeImage={this.props.onChangeImage} />
+                                <DetailUser
+                                    lang={this.props.lang}
+                                    userSelected={this.state.userSelected}
+                                    menuSelected={this.props.menuSelected}
+                                    onChangeImage={this.props.onChangeImage}
+                                    classRooms={this.props.classRooms}
+                                    collabList={this.props.collabList}
+                                />
                             </DialogContent>
                             <DialogActions className='dialog-footer'>
                                 <Button onClick={this.handleCloseDetail} color='primary'>
