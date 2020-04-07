@@ -60,28 +60,36 @@ public class Historiques extends Fragment {
                 e.printStackTrace();
             }
         }
+        ArrayAdapter<String> arrayAdapterdate = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, dateToDisplay);
+        arrayAdapterdate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_date = view.findViewById(R.id.spinner_date);
         spinner_date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String classroomName = parent.getItemAtPosition(position).toString();
                 Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
-//                ArrayList<User> users;
-//                if (!classroomName.equals("Tous")) {
-//                    Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
-//                    users = UserManager.getByIdClassroom(getContext(), classroom.get_id());
-//                    EnfantAdapter enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
-//                    listView.setAdapter(enfantAdapter);
-//                    enfantAdapter.notifyDataSetChanged();
+//
 //                }
+                ArrayList<Schedule> schedule = ScheduleManager.getByDateAndIdClassroom(getContext(), schedules.get(position).getDate(), classroomName);
+                for (Schedule shedul : schedule) {
+                    if (shedul.getId_user().equalsIgnoreCase("children")) {
+                        ArrayList<User> user = UserManager.getAll(getContext());
+                        for (User user1 : user) {
+                            String first_name = user1.getFirst_name();
+                            String last_name = user1.getFirst_name();
+                            String birthday = user1.getBirthday();
+                            String adresse = user1.getAddress();
+                            String sexe = user1.getSex();
+                        }
+                    }
+                }
+                Log.d("schedule", "schedule at position " + schedule);
                 Toast.makeText(getContext(), "Hello Javatpoint", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        ArrayAdapter<String> arrayAdapterdate = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, dateToDisplay);
-        arrayAdapterdate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listView = view.findViewById(R.id.list_enfant_par_salle);
         spinner_salle = view.findViewById(R.id.spinner_salle);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, listClassroom);
