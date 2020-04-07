@@ -11,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.example.myapplication.ProfilCollabActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.example.myapplication.ProfilEnfantActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.SuiviQuotidienActivity;
-import com.example.myapplication.adapters.CollaborateurAdaptater;
 import com.example.myapplication.adapters.EnfantAdapter;
 import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Role;
@@ -23,10 +23,6 @@ import com.example.myapplication.entities.User;
 import com.example.myapplication.managers.ClassroomManager;
 import com.example.myapplication.managers.RoleManager;
 import com.example.myapplication.managers.UserManager;
-import com.example.myapplication.services.ConnectionBD;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 

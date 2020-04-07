@@ -14,6 +14,11 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">send</string>
 
+    <string name="nom_salle"> Nom de la sale : </string>
+    <string name="nombre_place"> Nombre de place : </string>
+    <string name="num_telephone">N umero de Telephone : </string>
+    <string name="btn_quitter">Quitter</string>
+
 
     <string name="menu_logout">Logout</string>
     <string name="menu_presence">Presence</string>
