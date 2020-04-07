@@ -50,6 +50,12 @@ public class Acceuil extends Fragment {
             button.setTextSize(24);
             button.setTextColor(Color.parseColor("#019193"));
             button.setTypeface(Typeface.MONOSPACE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
             button.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
