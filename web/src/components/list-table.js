@@ -56,7 +56,7 @@ class TableListContainer extends Component {
             headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
         }
 
-        if (this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin) {
+        if (this.props.actorSelected !== variables.role.child) {
             headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
             headers.push({ id: 'phone', label: lang.head.phone, minWidth: 170 })
             headers.push({ id: 'courriel', label: lang.head.courriel, minWidth: 170 })
@@ -85,20 +85,20 @@ class TableListContainer extends Component {
     }
 
     getPhoneNumberByPriority (actor) {
-        if (this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin) {
-            const personal = (actor.contact.filter(ct => ct.title === 'personal'))[0].phone
-            const work = (actor.contact.filter(ct => ct.title === 'work'))[0].phone
-            const home = (actor.contact.filter(ct => ct.title === 'home'))[0].phone
-            const emergency = (actor.contact.filter(ct => ct.title === 'emergency'))[0].phone
+        if (this.props.actorSelected !== variables.role.child) {
+            const personal = (actor.contact.filter(ct => ct.title === 'personal'))[0]
+            const work = (actor.contact.filter(ct => ct.title === 'work'))[0]
+            const home = (actor.contact.filter(ct => ct.title === 'home'))[0]
+            const emergency = (actor.contact.filter(ct => ct.title === 'emergency'))[0]
 
-            return personal !== null
-                ? personal
-                : (work !== null
-                    ? work
-                    : (home !== null
-                        ? home
-                        : (emergency !== null
-                            ? emergency
+            return personal && personal.phone !== null
+                ? personal.phone
+                : (work && work.phone !== null
+                    ? work.phone
+                    : (home && home.phone !== null
+                        ? home.phone
+                        : (emergency && emergency.phone !== null
+                            ? emergency.phone
                             : 'Pas de contact')))
         }
     }
@@ -132,7 +132,7 @@ class TableListContainer extends Component {
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
                     </>
                 )}
-                {this.props.actorSelected !== variables.role.child && this.props.actorSelected !== variables.role.admin && (
+                {this.props.actorSelected !== variables.role.child && (
                     <>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {getPhoneNumber} </TableCell>
@@ -183,11 +183,11 @@ class TableListContainer extends Component {
                             scroll='paper'
                             aria-labelledby='scroll-dialog-title'
                             aria-describedby='scroll-dialog-description'
-                            maxWidth='sm'
+                            maxWidth='lg'
+                            fullWidth
                         >
-                            <DialogTitle className='title'>{this.state.userSelected.last_name + ' ' + this.state.userSelected.first_name}</DialogTitle>
                             <DialogContent>
-                                <DetailUser lang={this.props.lang} userSelected={this.state.userSelected} onChangeImage={this.props.onChangeImage} />
+                                <DetailUser lang={this.props.lang} userSelected={this.state.userSelected} menuSelected={this.props.menuSelected} onChangeImage={this.props.onChangeImage} />
                             </DialogContent>
                             <DialogActions>
                                 <Button onClick={this.handleCloseDetail} color='primary'>

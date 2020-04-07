@@ -83,13 +83,13 @@
 .dialog {
     > div {
         > div {
-            background-color: rgba($color: $secondaryColor, $alpha: 1);
-            background-color: $primaryColor2;
+            background-color: #d0dadb;
         }
     }
     .title h2 {
-        padding: 0 0 0 1em;
+        padding: 0;
         text-align: left;
+        font-size: 1.6em;
     }
 }
 

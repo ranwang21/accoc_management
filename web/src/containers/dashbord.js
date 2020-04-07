@@ -77,6 +77,7 @@ class Dashbord extends Component {
         this.setActorLists = this.setActorLists.bind(this)
         this.setClassRoom = this.setClassRoom.bind(this)
         this.onUsersListChange = this.onUsersListChange.bind(this)
+        this.onImageChange = this.onImageChange.bind(this)
     }
 
     setActorLists (list) {
@@ -167,6 +168,15 @@ class Dashbord extends Component {
         Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
     }
 
+    onImageChange (idUser, img) {
+        this.setState(state => {
+            const actors = state.actors
+            const index = actors.findIndex(x => x._id === idUser)
+            if (index !== -1) actors[index].img = img
+            return { actors: actors }
+        })
+    }
+
     switchToMenuSelected (lang) {
         switch (this.state.menuItemSelected) {
         case variables.menus.allUsers:
@@ -179,7 +189,7 @@ class Dashbord extends Component {
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
-                    handleImageChange={this.onUsersListChange}
+                    handleImageChange={this.onImageChange}
                 />)
         case variables.menus.validation:
             return (
@@ -191,7 +201,7 @@ class Dashbord extends Component {
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
-                    handleImageChange={this.onUsersListChange}
+                    handleImageChange={this.onImageChange}
                 />)
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)

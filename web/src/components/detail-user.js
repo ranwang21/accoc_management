@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Button } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
+import ChildDetail from './child-detail'
 import Fetch from '../utilities/fetch-datas'
+import Loading from './loading'
 import '../styles/_detail-user.scss'
 
 const variables = require('../utilities/variables').variables
@@ -10,9 +12,9 @@ class DetailUser extends Component {
     constructor () {
         super()
         this.state = {
-            image: null,
             fileUploadedSuccess: false,
-            fileUploadedError: false
+            fileUploadedError: false,
+            showLoading: false
         }
         this.time = 3000
         this.handleImageChange = this.handleImageChange.bind(this)
@@ -21,31 +23,34 @@ class DetailUser extends Component {
     }
 
     updateImage (dataImage) {
-        this.setState({ image: dataImage.data })
+        this.props.onChangeImage(this.props.userSelected._id, dataImage.data)
     }
 
     setImage (dataImage) {
         if (!dataImage.success) {
             this.setState({ fileUploadedError: true })
             setTimeout(() => {
-                this.setState({ fileUploadedError: false })
+                this.setState({ fileUploadedError: false, showLoading: false })
             }, this.time)
         } else {
             this.setState({ fileUploadedSuccess: true })
             setTimeout(() => {
-                this.setState({ fileUploadedSuccess: false })
+                this.setState({ fileUploadedSuccess: false, showLoading: false })
             }, this.time)
             Fetch.image.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.updateImage)
-            this.props.onChangeImage()
         }
     }
 
     handleImageChange () {
+        this.setState({ showLoading: true })
         Fetch.image.update(this.props.cookies.get(variables.cookies.token), this.props.userSelected, event.target.files, this.setImage)
     }
 
+    formatDate (date) {
+        return date ? new Date(date).toLocaleDateString() : 'Pas defini'
+    }
+
     render () {
-        const src = this.state.image === null ? this.props.userSelected.img : this.state.image
         return (
             <div className='detail-user'>
                 <div className='image'>
@@ -53,15 +58,24 @@ class DetailUser extends Component {
                         variant='text'
                         component='label'
                     >
-                        <img src={src} alt='avatar' />
-                        <p><span>Cliquer pour changer</span></p>
-                        <input
-                            onChange={this.handleImageChange}
-                            accept='.png, .jpg, .jpeg'
-                            type='file'
-                            style={{ display: 'none' }}
-                        />
+                        <img src={this.props.userSelected.img} alt='avatar' />
+                        {this.props.menuSelected !== variables.menus.validation && (
+                            <>
+                                <p><span>Cliquer pour changer</span></p>
+                                <input
+                                    onChange={this.handleImageChange}
+                                    accept='.png, .jpg, .jpeg'
+                                    type='file'
+                                    style={{ display: 'none' }}
+                                />
+                            </>
+                        )}
                     </Button>
+                    {this.state.showLoading && (
+                        <div className='img-loading'>
+                            <Loading lang={this.props.lang} />
+                        </div>
+                    )}
                     {this.state.fileUploadedSuccess && (
                         <p className='upload-success'>Avatar mis a jour !!!</p>
                     )}
@@ -69,14 +83,29 @@ class DetailUser extends Component {
                         <p className='upload-error'>Erreur lors du telechargement de l'image</p>
                     )}
                 </div>
-                {[...new Array(2)]
-                    .map(
-                        () => `Cras mattis consectetur purus sit amet fermentum.
-                        Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                        Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-                    )
-                    .join('\n')}
+                <div className='details-personnelles'>
+                    <div>
+                        <p>Nom:</p>
+                        <p>{this.props.userSelected.last_name.toUpperCase()}</p>
+                    </div>
+                    <div>
+                        <p>Prenom:</p>
+                        <p>{this.props.userSelected.first_name}</p>
+                    </div>
+                    <div>
+                        <p>Date de naissance:</p>
+                        <p>{this.formatDate(this.props.userSelected.birthday)}</p>
+                    </div>
+                    {this.props.userSelected.roleTitle === variables.role.child && (
+                        <div>
+                            <p>Allergies:</p>
+                            <p>{(this.props.userSelected.medical_info && this.props.userSelected.medical_info[2]) ? this.props.userSelected.medical_info[2].response : "Pas d'allergies"}</p>
+                        </div>
+                    )}
+                </div>
+                <div className='div'>
+                    <ChildDetail lang={this.props.lang} child={this.props.userSelected} />
+                </div>
             </div>
         )
     }

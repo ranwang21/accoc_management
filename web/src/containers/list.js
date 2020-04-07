@@ -125,12 +125,12 @@ class Table extends Component {
                     const ch1 = row.first_name.toLowerCase().search(this.state.firstNameInput.toLowerCase())
                     const ch2 = row.last_name.toLowerCase().search(this.state.lastNameInput.toLowerCase())
                     if (this.getActorSelected() === variables.role.child) {
-                        const ch3 = row.id_classroom && row.id_classroom.search(getIdClassRoom._id)
+                        const ch3 = this.state.classRoomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0
                         const ch4 = this.state.levelSelected !== '' ? row.school_info[1].response === this.state.levelSelected : true
                         const ch5 = row.school_info[0].response.toLowerCase().search(this.state.schoolInput.toLowerCase());
                         (ch1 !== -1 && ch2 !== -1 && ch3 !== -1 && ch4 === true && ch5 !== -1) && lastList.push(row)
                     } else if (this.getActorSelected() === variables.role.collab) {
-                        const ch3 = row.id_classroom && row.id_classroom.search(getIdClassRoom._id);
+                        const ch3 = this.state.classRoomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0;
                         (ch1 !== -1 && ch2 !== -1 && ch3 !== -1) && lastList.push(row)
                     } else {
                         (ch1 !== -1 && ch2 !== -1) && lastList.push(row)
@@ -181,6 +181,9 @@ class Table extends Component {
                                             value={this.state.classRoomSelected}
                                             onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
                                         >
+                                            <MenuItem value=''>
+                                                <em>Toutes les salles</em>
+                                            </MenuItem>
                                             {this.props.classRooms.map(classRoom => (
                                                 <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                             ))}
@@ -230,6 +233,9 @@ class Table extends Component {
                                             value={this.state.classRoomSelected}
                                             onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
                                         >
+                                            <MenuItem value=''>
+                                                <em>Toutes les salles</em>
+                                            </MenuItem>
                                             {this.props.classRooms.map(classRoom => (
                                                 <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                             ))}

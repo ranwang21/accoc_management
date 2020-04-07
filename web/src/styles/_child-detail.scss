@@ -1,0 +1,82 @@
+@import "./base";
+.child-detail {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    fieldset {
+        width: 49%;
+        border: 0.1em solid rgba($color: #000000, $alpha: 0.3);
+        border-width: 0.1em 0.05em;
+        border-radius: 0.5em;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        background-color: rgba($color: #000000, $alpha: 0.02);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        align-content: center;
+        transition: all 0.3s;
+        > legend {
+            margin-left: 1em;
+            font-size: 1.2em;
+            padding: 0 0.5em;
+            border: 0.1em solid rgba($color: #000000, $alpha: 0.3);
+            border-top: none;
+            border-bottom: none;
+            border-radius: 1em;
+        }
+        > div {
+            padding-bottom: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            height: 80%;
+            > * {
+                width: 100%;
+            }
+            .text {
+                text-align: center;
+                font-size: 1.3em;
+            }
+            > button {
+                width: 49%;
+                height: 3em;
+                margin: 0.2em 0;
+            }
+            .select {
+                margin: 0.2em 0;
+                width: 49%;
+                height: 3em;
+                > div {
+                    height: 100%;
+                }
+            }
+            .phone {
+                margin-top: 0.5em;
+                width: 49%;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 1em;
+            }
+        }
+        &:hover {
+            background-color: rgba($color: #000000, $alpha: 0.04);
+        }
+    }
+
+    .child-classroom {
+        > div {
+            > p {
+                width: 60%;
+            }
+        }
+    }
+
+    > div.child-classroom {
+    }
+    > div.child-collab {
+    }
+}
