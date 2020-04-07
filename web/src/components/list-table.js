@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import {
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell,
-    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Button, Avatar
+    Dialog, DialogActions, DialogContent, Button, Avatar, DialogTitle
 } from '@material-ui/core'
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import IsValidIcon from '@material-ui/icons/CheckTwoTone'
 import IsNotValidIcon from '@material-ui/icons/CloseTwoTone'
-import InfoIcon from '@material-ui/icons/InfoOutlined'
 import DetailUser from './detail-user'
 import { withCookies } from 'react-cookie'
 
@@ -186,10 +184,11 @@ class TableListContainer extends Component {
                             maxWidth='lg'
                             fullWidth
                         >
+                            <DialogTitle id='scroll-dialog-title' className='title'>DETAILS</DialogTitle>
                             <DialogContent>
                                 <DetailUser lang={this.props.lang} userSelected={this.state.userSelected} menuSelected={this.props.menuSelected} onChangeImage={this.props.onChangeImage} />
                             </DialogContent>
-                            <DialogActions>
+                            <DialogActions className='dialog-footer'>
                                 <Button onClick={this.handleCloseDetail} color='primary'>
                                     Cancel
                                 </Button>

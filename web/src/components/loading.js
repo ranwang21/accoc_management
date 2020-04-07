@@ -10,7 +10,6 @@ class Loading extends Component {
         return (
             <div className='loading'>
                 <div className='tree' />
-                <div className='text'>{this.getLangFile().loading}</div>
             </div>
         )
     }

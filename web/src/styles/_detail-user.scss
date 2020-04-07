@@ -5,7 +5,7 @@
     padding-bottom: 1em;
     > div.image {
         width: 50%;
-        height: 20em;
+        height: 15em;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -13,7 +13,7 @@
         > label {
             height: 100%;
             padding: 0;
-            width: 50%;
+            width: 40%;
             border-radius: 1em;
             > span {
                 height: 100%;
@@ -52,14 +52,14 @@
             position: absolute;
             height: 100%;
             padding: 0;
-            width: 50%;
+            width: 40%;
             border-radius: 1em;
             > div {
                 height: 100%;
             }
         }
         > p {
-            width: 50%;
+            width: 60%;
             text-align: center;
             font-size: 1.5em;
         }
@@ -71,29 +71,39 @@
         }
     }
     > div.details-personnelles {
-        align-self: flex-end;
+        align-self: flex-start;
         width: 50%;
-        font-size: 1.5em;
+        font-size: 1.3em;
         display: flex;
         flex-direction: column;
-        padding: 1em 0;
         height: auto;
         justify-content: space-between;
         > div {
             display: flex;
             flex-wrap: wrap;
-            padding: 0.3em 1em;
+            padding: 0.2em 1em;
             transition: all 0.2s;
             border-radius: 0.5em;
             > p:nth-of-type(1) {
                 width: 55%;
-                letter-spacing: 0.06em;
+                letter-spacing: 0.04em;
             }
             > p:nth-of-type(2) {
-                letter-spacing: 0.1em;
+                letter-spacing: 0.06em;
             }
             &:hover {
                 background-color: rgba($color: #ffff, $alpha: 0.3);
+            }
+        }
+        .text-name {
+            margin-bottom: 1.5em;
+            font-size: 2em;
+            margin-left: 0em;
+            padding-left: 0em;
+            > p {
+                margin-left: 0em;
+                padding-left: 0.3em;
+                width: 100% !important;
             }
         }
     }

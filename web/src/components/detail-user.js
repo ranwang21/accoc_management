@@ -46,11 +46,15 @@ class DetailUser extends Component {
         Fetch.image.update(this.props.cookies.get(variables.cookies.token), this.props.userSelected, event.target.files, this.setImage)
     }
 
-    formatDate (date) {
-        return date ? new Date(date).toLocaleDateString() : 'Pas defini'
-    }
-
     render () {
+        const allergies = (this.props.userSelected.medical_info &&
+            this.props.userSelected.medical_info[2] &&
+            this.props.userSelected.medical_info[2].response)
+            ? this.props.userSelected.medical_info[2].response
+            : "Pas d'allergies"
+
+        const date = this.props.userSelected.birthday ? new Date(this.props.userSelected.birthday).toLocaleDateString() : 'Pas defini'
+
         return (
             <div className='detail-user'>
                 <div className='image'>
@@ -84,27 +88,24 @@ class DetailUser extends Component {
                     )}
                 </div>
                 <div className='details-personnelles'>
-                    <div>
-                        <p>Nom:</p>
-                        <p>{this.props.userSelected.last_name.toUpperCase()}</p>
-                    </div>
-                    <div>
-                        <p>Prenom:</p>
-                        <p>{this.props.userSelected.first_name}</p>
+                    <div className='text-name'>
+                        <p>{this.props.userSelected.first_name + ' ' + this.props.userSelected.last_name.toUpperCase()}</p>
                     </div>
                     <div>
                         <p>Date de naissance:</p>
-                        <p>{this.formatDate(this.props.userSelected.birthday)}</p>
+                        <p>{date}</p>
                     </div>
                     {this.props.userSelected.roleTitle === variables.role.child && (
                         <div>
                             <p>Allergies:</p>
-                            <p>{(this.props.userSelected.medical_info && this.props.userSelected.medical_info[2]) ? this.props.userSelected.medical_info[2].response : "Pas d'allergies"}</p>
+                            <p>{allergies}</p>
                         </div>
                     )}
                 </div>
                 <div className='div'>
-                    <ChildDetail lang={this.props.lang} child={this.props.userSelected} />
+                    {this.props.userSelected.roleTitle === variables.role.child && (
+                        <ChildDetail lang={this.props.lang} child={this.props.userSelected} />
+                    )}
                 </div>
             </div>
         )

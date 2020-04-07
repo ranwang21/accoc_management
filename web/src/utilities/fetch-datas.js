@@ -897,6 +897,32 @@ const getClassRooms = (token, callBack) => {
         })
 }
 
+const getClassRoomsAndCollaborater = (token, callBack) => {
+    fetch(HOST + '/classrooms', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            callBack(data.data)
+
+    fetch(HOST + '/classrooms', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            callBack(data.data)
+        })
+        })
+}
+
 const getRoles = (callBack) => {
     fetch(HOST + '/roles')
         .then(response => response.json())
