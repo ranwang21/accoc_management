@@ -45,6 +45,7 @@ public class Schedule {
     public Boolean getIs_absent() {
         return is_absent;
     }
+
     public void setIs_absent(Boolean is_absent) {
         this.is_absent = is_absent;
     }

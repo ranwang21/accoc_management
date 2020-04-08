@@ -41,7 +41,7 @@ int idLayout;
             Button btn=convertView.findViewById(R.id.button_presence);
             TextView Fname = convertView.findViewById(R.id.textView1);
             TextView Lname = convertView.findViewById(R.id.textView2);
-            CheckBox cb = convertView.findViewById(R.id.checkBox1);
+
             ImageView img = convertView.findViewById(R.id.imageView3);
             Fname.setText(user.getFirst_name());
             Lname.setText(user.getLast_name());
