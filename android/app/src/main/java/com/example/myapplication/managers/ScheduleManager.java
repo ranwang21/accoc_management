@@ -36,6 +36,7 @@ public class ScheduleManager {
     private static final String queryGetByDate = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ?";
     private static final String queryGetByDateAndIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ?";
     private static final String queryGetDistinctDates = "SELECT DISTINCT date FROM " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date < ? " + " order by date DESC";
+    private static final  String getQueryGetByDateAndIdUser="select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ?";
     /**
      * getAll return all Schedule from DataBase
      *
@@ -192,10 +193,26 @@ public class ScheduleManager {
                     is_absent,
                     cursor.getString(5))
             );
+
         }
         ConnectionBD.close();
         return schedules;
     }
+
+    public static  ArrayList<Schedule> getGetQueryGetByDateAndIdUser(Context context ,String date,String idUser) {
+        ArrayList<Schedule>schedules=null;
+        SQLiteDatabase bd=ConnectionBD.getBd(context);
+        Cursor cursor=bd.rawQuery(getQueryGetByDateAndIdUser,new String[]{date,idUser});
+        while (cursor.moveToNext()){
+            boolean is_absent =false;
+            if(cursor.getInt(4)==1){
+                is_absent=true;
+            }
+            schedules.add(new Schedule(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),is_absent,cursor.getString(5)));
+        }ConnectionBD.close();
+        return schedules;
+    }
+
     public static ArrayList<Schedule> getStudentsFrom(Context context, String date, String idClassroom) {
         ArrayList<Schedule> schedules = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
