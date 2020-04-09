@@ -10,7 +10,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ScheduleHelper {
@@ -28,8 +30,9 @@ public class ScheduleHelper {
                 if (s.getIs_absent()) {
                     is_absent = 1;
                 }
-                Log.d("JsonGetlistSchedule", "id: " + s.get_id() + " title: " + s.getDate());
-                db.execSQL("insert into " + DataBaseHelper.SCHEDULE_TABLE_NAME + " (id, id_user, id_classroom, date, is_absent, comment) values " + "('" + s.get_id() + "','" + s.getId_user() + "','" + s.getId_classroom() + "','" + s.getDate() + "','" + is_absent + "','" + s.getComment() + "')");
+                String dateString = s.getDate().substring(0, s.getDate().indexOf("T"));
+                Log.d("JsonGetlistSchedule", "id_classroom: " + s.getId_classroom() + " title: " + dateString);
+                db.execSQL("insert into " + DataBaseHelper.SCHEDULE_TABLE_NAME + " (id, id_user, id_classroom, date, is_absent, comment) values " + "('" + s.get_id() + "','" + s.getId_user() + "','" + s.getId_classroom() + "','" + dateString + "','" + is_absent + "','" + s.getComment() + "')");
             }
         }
     }
