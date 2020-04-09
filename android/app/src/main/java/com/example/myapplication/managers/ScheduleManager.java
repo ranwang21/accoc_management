@@ -34,7 +34,7 @@ public class ScheduleManager {
     private static final String queryGetByIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where id_classroom like ?";
     private static final String queryGetByDate = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ?";
     private static final String queryGetByDateAndIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ?";
-    private static final String queryGetDistinctDates = "SELECT DISTINCT date FROM " + DataBaseHelper.SCHEDULE_TABLE_NAME;
+    private static final String queryGetDistinctDates = "SELECT DISTINCT date FROM " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date < ? " + " order by date DESC";
     /**
      * getAll return all Schedule from DataBase
      *
@@ -193,7 +193,8 @@ public class ScheduleManager {
         }
         ConnectionBD.close();
         return schedules;
-    }    public static ArrayList<Schedule> getStudentsFrom(Context context, String date, String idClassroom) {
+    }
+    public static ArrayList<Schedule> getStudentsFrom(Context context, String date, String idClassroom) {
         ArrayList<Schedule> schedules = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByDateAndIdClassroom, new String[]{date, idClassroom});
@@ -214,14 +215,13 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
-    public static ArrayList<String> getUniquesDatesOneWeek(Context context) {
+    public static ArrayList<String> getUniquesDates(Context context, String date) {
         ArrayList<String> dates = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
-        Cursor cursor = bd.rawQuery(queryGetDistinctDates, new String[]{});
+        Cursor cursor = bd.rawQuery(queryGetDistinctDates, new String[]{date});
         while (cursor.moveToNext()) {
             String toto = cursor.getString(0);
             dates.add(cursor.getString(0));
-
         }
         ConnectionBD.close();
         return dates;

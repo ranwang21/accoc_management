@@ -45,14 +45,10 @@ public class ListesEnfants extends Fragment {
                 users = UserManager.getByRole(getContext(), r.get_id());
             }
         }
-        if (users != null) {
-            Log.d("Tag", "successs");
-        }
         View view = inflater.inflate(R.layout.fragment_listes_enfants, container, false);
         listView = view.findViewById(R.id.list_enfant);
         enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
         listView.setAdapter(enfantAdapter);
-        enfantAdapter.notifyDataSetChanged();
         ArrayList<User> finalUsers = users;
         //spinner + sort by classroom
         Spinner spinner = view.findViewById(R.id.spinner_colab);
@@ -85,7 +81,7 @@ public class ListesEnfants extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User u = UserManager.getById(getContext(),finalUsers.get(position).getId_collaborater());
+                User u = UserManager.getById(getContext(), finalUsers.get(position).getId_collaborater());
                 Log.d("Json", "onItemClick: " + u.getFirst_name());
                 String first_name = finalUsers.get(position).getFirst_name();
                 String last_name = finalUsers.get(position).getLast_name();
