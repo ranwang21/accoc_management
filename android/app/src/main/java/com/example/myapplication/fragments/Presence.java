@@ -1,7 +1,5 @@
 package com.example.myapplication.fragments;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapters.CheckboxAdapter;
 import com.example.myapplication.adapters.PresenceAdapter;
 import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Role;
@@ -25,15 +20,9 @@ import com.example.myapplication.entities.Schedule;
 import com.example.myapplication.entities.User;
 import com.example.myapplication.managers.ClassroomManager;
 import com.example.myapplication.managers.RoleManager;
-import com.example.myapplication.managers.ScheduleManager;
 import com.example.myapplication.managers.UserManager;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
