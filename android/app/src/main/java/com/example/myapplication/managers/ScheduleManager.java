@@ -195,6 +195,7 @@ public class ScheduleManager {
                     is_absent,
                     cursor.getString(5))
             );
+
         }
         ConnectionBD.close();
         return schedules;

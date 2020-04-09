@@ -39,6 +39,9 @@ public class UserManager {
     private static final String queryGetByRole = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_role like ?";
     private static final String queryGetByClassroom = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_classroom like ?";
     private static final String queryGetByColaborateur = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_collaborater like ?";
+    private static final String queryGetBySchedule = "select * from " + DataBaseHelper.USER_TABLE_NAME + " where id_schedule like ?";
+
+
     /**
      * getAll return all users from DataBase
      *
@@ -93,6 +96,27 @@ public class UserManager {
         ConnectionBD.close();
         return user;
     }
+    public static ArrayList<User> getBySchedule(Context context, String idSchedule) {
+        ArrayList<User> users = new ArrayList<>();
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        Cursor cursor = bd.rawQuery(queryGetBySchedule, new String[]{"" + idSchedule});
+        while (cursor.moveToNext()) {
+            users.add(new User(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9))
+            );
+        }
+        ConnectionBD.close();
+        return users;
+    }
     /**
      * getByCategory return all users by roles from DataBase
      *
@@ -100,6 +124,7 @@ public class UserManager {
      * @param idRole
      * @return ArrayList<User>
      */
+
     public static ArrayList<User> getByRole(Context context, String idRole) {
         ArrayList<User> users = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);

@@ -58,6 +58,7 @@ class Dashbord extends Component {
             validActors: [],
             inValidActors: [],
             classRooms: [],
+            schedules: [],
             menuItemSelected: variables.menus.allUsers,
             showLogOutModal: false,
             requiredSaveValidationChange: false,
@@ -79,6 +80,7 @@ class Dashbord extends Component {
         this.setClassRoom = this.setClassRoom.bind(this)
         this.onUsersListChange = this.onUsersListChange.bind(this)
         this.onImageChange = this.onImageChange.bind(this)
+        this.setSchedules = this.setSchedules.bind(this)
     }
 
     setActorLists (list) {
@@ -100,6 +102,15 @@ class Dashbord extends Component {
         this.setState({ classRooms: [{ _id: '12345', title: 'Non défini' }, ...classRoomsList] })
     }
 
+    setSchedules (schedulesList) {
+        this.setState({
+            schedules: [{
+                _id: 'default',
+                id_user: 'default'
+            }, ...schedulesList]
+        })
+    }
+
     getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
 
     getCurrentUser () {
@@ -111,9 +122,10 @@ class Dashbord extends Component {
         this.setState({
             menuItemSelected: upadteMenuSelectedByRole(this.getCurrentUser().role)
         })
-        // Fetch all users in actors
+        // Fetch all users, actors, and schedules
         Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
         Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
+        Fetch.getAllSchedules(this.props.cookies.get(variables.cookies.token), this.setSchedules)
     }
 
     onhandleDateChange (newDate) { this.setState({ date: newDate }) }
@@ -207,7 +219,7 @@ class Dashbord extends Component {
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
-            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} />)
+            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} schedules={this.state.schedules} />)
         case variables.menus.scheduleManagement:
             return (
                 <ScheduleManagement
