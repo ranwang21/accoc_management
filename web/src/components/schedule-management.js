@@ -18,11 +18,12 @@ class CreateAccount extends Component {
             showAddContainer: true
         }
         this.addDiv = React.createRef()
-        this.handleActorSelected = this.handleActorSelected.bind(this)
+        this.handleClassRoomSelected = this.handleClassRoomSelected.bind(this)
         this.handleRetour = this.handleRetour.bind(this)
     }
 
     componentDidMount () {
+        // Fecth ClassRooms
         const role = this.getCurrentUser().role
         const list = role === variables.role.highAdmin ? this.getLangFile().addListForHighAdmin : this.getLangFile().addListForAdmin
         this.setState({ addList: [...list] })
@@ -33,7 +34,7 @@ class CreateAccount extends Component {
         return Fetch.decodeData(currentUser)
     }
 
-    handleActorSelected (event, id) {
+    handleClassRoomSelected (event, id) {
         this.setState({ actorSelected: id })
         this.addDiv.current.classList.remove('showAddDiv')
         this.addDiv.current.classList.add('hideAddDiv')
@@ -52,7 +53,7 @@ class CreateAccount extends Component {
 
     buildButton (lang, actor) {
         return (
-            <div key={actor.id} onClick={event => this.handleActorSelected(event, actor.id)}>
+            <div key={actor.id} onClick={event => this.handleClassRoomSelected(event, actor.id)}>
                 <div />
                 <div>
                     <p>{actor.label}</p>
@@ -67,19 +68,11 @@ class CreateAccount extends Component {
     switchToAddOption () {
         switch (this.state.actorSelected) {
         case variables.actors.collaborator:
-            return (
-                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.collaborator} />
-            )
+            return (<Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.collaborator} />)
         case variables.actors.parent:
-            return (
-                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.parent} />
-            )
+            return (<Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.parent} />)
         case variables.actors.both:
-            return (
-                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.both} />
-            )
-        case variables.actors.admin:
-            return (<CreateAdmin lang={this.props.lang} updateUsers={this.props.updateUsers} onGetBack={this.handleRetour} />)
+            return (<Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.both} />)
         }
     }
 
