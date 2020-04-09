@@ -24,6 +24,8 @@ const getMenuIcon = (menu) => {
         return (<CreateIcon />)
     case variables.menus.classroomManagement:
         return (<ClassroomIcon />)
+    case variables.menus.scheduleManagement:
+        return (<ScheduleIcon />)
     case variables.menus.prints:
         return (<PrintIcon />)
     case variables.menus.childList:

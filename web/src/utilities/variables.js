@@ -20,6 +20,7 @@ const variables = {
         validation: 'DHGHICSJBISKHZ',
         createAccount: 'POKJHSFNCKD',
         classroomManagement: 'KJHGFVDGWHSNGDH',
+        scheduleManagement: 'GDHVFBNCDHGN',
         prints: 'RWFFABWSMND',
         childList: 'UHNDBVDHNBN',
         profile: 'GESBVDBQUJA',

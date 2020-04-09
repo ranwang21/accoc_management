@@ -2,15 +2,16 @@
     "highAdmin": {
         "allUsers": "List of all actors",
         "validation": "Validate registrations",
-        "createAccount": "Create an Account",
+        "createAccount": "Register",
         "classroomManagement": "Classroom management",
+        "scheduleManagement": "Schedules",
         "prints": "Impressions",
         "logOut": "Sign Out"
     },
     "admin": {
         "allUsers": "List of all actors",
         "validation": "Validate registrations",
-        "createAccount": "Create an Account",
+        "createAccount": "Register",
         "classroomManagement": "Classroom management",
         "logOut": "Sign Out"
     },
