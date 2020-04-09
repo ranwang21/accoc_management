@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField'
 import {
     TableContainer, Table, Button, TableHead, TableRow, TableCell, TableBody
 } from '@material-ui/core'
-import Fetch from '../utilities/fetch-datas'
 import '../styles/_classroom.scss'
 
 class ClassRoom extends Component {
