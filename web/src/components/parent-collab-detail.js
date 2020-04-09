@@ -84,7 +84,7 @@ class ParentCollabDetail extends Component {
                                 </div>
                             </div>
                         </fieldset>
-                        <fieldset print-to-remove>
+                        <fieldset className='print-to-remove'>
                             <legend>Ses interets</legend>
                             <div>
                                 <div className='row'>
