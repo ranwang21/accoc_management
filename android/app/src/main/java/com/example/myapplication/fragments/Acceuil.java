@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.EnfantsParSalleActivity;
@@ -24,6 +25,7 @@ import com.example.myapplication.managers.ClassroomManager;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -53,16 +55,35 @@ public class Acceuil extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+//                    Toast.makeText(getActivity(), "status de " + c.getTitle(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "nombre de place  " + c.getSeat(), Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder mybuilder = new AlertDialog.Builder(getContext());
+                    View mavue = getLayoutInflater().inflate(R.layout.alert_dialog_info_salle, null);
+                    mybuilder.setView(mavue);
+                    final AlertDialog dialog = mybuilder.create();
+                    dialog.show();
+                    TextView tv_nom_salle = dialog.findViewById(R.id.tv_nom_classe);
+                    TextView tv_nbPlace = dialog.findViewById(R.id.tv_seat);
+                    TextView tv_telephone = dialog.findViewById(R.id.tv_phone);
+                    Button btn_close = dialog.findViewById(R.id.btn_quitter);
+                    tv_nom_salle.setText(c.getTitle());
+                    tv_telephone.setText(c.getPhone());
+                    tv_nbPlace.setText(String.valueOf(c.getSeat()));
+                    btn_close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
                 }
             });
-            button.setOnLongClickListener(new View.OnLongClickListener() {
+            /*button.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     Toast.makeText(getActivity(), "status de " + c.getTitle(), Toast.LENGTH_SHORT).show();
                     return false;
                 }
-            });
+            });*/
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT

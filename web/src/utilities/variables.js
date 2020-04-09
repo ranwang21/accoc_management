@@ -4,7 +4,7 @@ const variables = {
         highAdmin: 'super_admin',
         admin: 'admin',
         parent: 'parent',
-        collab: 'collaborator',
+        collab: 'collaborater',
         both: 'collab_parent',
         child: 'children'
     },
@@ -20,6 +20,7 @@ const variables = {
         validation: 'DHGHICSJBISKHZ',
         createAccount: 'POKJHSFNCKD',
         classroomManagement: 'KJHGFVDGWHSNGDH',
+        scheduleManagement: 'GDHVFBNCDHGN',
         prints: 'RWFFABWSMND',
         childList: 'UHNDBVDHNBN',
         profile: 'GESBVDBQUJA',

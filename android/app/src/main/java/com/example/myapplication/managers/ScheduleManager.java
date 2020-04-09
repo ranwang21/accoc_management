@@ -14,6 +14,7 @@ import com.example.myapplication.services.PostJson;
 import com.example.myapplication.services.PutJson;
 import com.google.gson.Gson;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 
@@ -62,6 +63,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
     /**
      * getById return a Schedule by id from DataBase
      *

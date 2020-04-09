@@ -27,9 +27,6 @@ class TableListContainer extends Component {
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list-table.json') }
 
-    componentDidMount () {
-    }
-
     handleShowDetail (event, id) {
         const user = this.props.allActors.filter(actor => actor._id === id)
         this.setState({
@@ -174,36 +171,16 @@ class TableListContainer extends Component {
                         {this.buildBody(lang, allActors)}
                     </Table>
                     {this.state.userSelected !== null && (
-                        <Dialog
-                            className='dialog'
+                        <DetailUser
                             open={this.state.showDetail}
                             onClose={this.handleCloseDetail}
-                            scroll='paper'
-                            aria-labelledby='scroll-dialog-title'
-                            aria-describedby='scroll-dialog-description'
-                            maxWidth='lg'
-                            fullWidth
-                        >
-                            <DialogTitle id='scroll-dialog-title' className='title'>DETAILS</DialogTitle>
-                            <DialogContent>
-                                <DetailUser
-                                    lang={this.props.lang}
-                                    userSelected={this.state.userSelected}
-                                    menuSelected={this.props.menuSelected}
-                                    onChangeImage={this.props.onChangeImage}
-                                    classRooms={this.props.classRooms}
-                                    collabList={this.props.collabList}
-                                />
-                            </DialogContent>
-                            <DialogActions className='dialog-footer'>
-                                <Button onClick={this.handleCloseDetail} color='primary'>
-                                    Cancel
-                                </Button>
-                                <Button onClick={this.handleCloseDetail} color='primary'>
-                                    Subscribe
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
+                            lang={this.props.lang}
+                            userSelected={this.state.userSelected}
+                            menuSelected={this.props.menuSelected}
+                            onChangeImage={this.props.onChangeImage}
+                            classRooms={this.props.classRooms}
+                            collabList={this.props.collabList}
+                        />
                     )}
                 </TableContainer>)
             : (

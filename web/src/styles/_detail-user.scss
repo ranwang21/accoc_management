@@ -5,7 +5,7 @@
     padding-bottom: 1em;
     > div.image {
         width: 50%;
-        height: 15em;
+        height: 10em;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -39,7 +39,7 @@
                     > span {
                         text-align: center;
                         letter-spacing: 0em;
-                        font-size: 1.4em;
+                        font-size: 1.3em;
                         font-weight: bolder;
                     }
                     &:hover {
@@ -61,7 +61,7 @@
         > p {
             width: 60%;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.2em;
         }
         > p.upload-success {
             color: $secondaryColor;
@@ -73,7 +73,7 @@
     > div.details-personnelles {
         align-self: flex-start;
         width: 50%;
-        font-size: 1.3em;
+        font-size: 1.2em;
         display: flex;
         flex-direction: column;
         height: auto;
@@ -83,10 +83,10 @@
             flex-wrap: wrap;
             padding: 0.2em 1em;
             transition: all 0.2s;
-            border-radius: 0.5em;
+            border-radius: 0.3em;
             > p:nth-of-type(1) {
                 width: 55%;
-                letter-spacing: 0.04em;
+                letter-spacing: 0.02em;
             }
             > p:nth-of-type(2) {
                 letter-spacing: 0.06em;
@@ -96,14 +96,148 @@
             }
         }
         .text-name {
-            margin-bottom: 1.5em;
-            font-size: 2em;
+            margin-bottom: 1em;
+            font-size: 1.5em;
             margin-left: 0em;
             padding-left: 0em;
             > p {
                 margin-left: 0em;
                 padding-left: 0.3em;
                 width: 100% !important;
+            }
+        }
+    }
+    > div.details {
+        > div.child-detail,
+        > div.parent-collab-detail,
+        > div.admin-detail {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            padding-top: 2em;
+            > div {
+                margin-bottom: 2em;
+                height: 100%;
+                width: 100%;
+                border: 0.1em solid rgba($color: #000000, $alpha: 0.3);
+                border-width: 0.1em 0.05em;
+                border-radius: 0.5em;
+                padding: 0.5em;
+                background-color: rgba($color: #000000, $alpha: 0.02);
+                display: flex;
+                flex-direction: column;
+                transition: all 0.3s;
+                > div {
+                    margin: 0;
+                    border-radius: 0.5em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    font-size: 0.9em;
+                    height: 100%;
+                    > p {
+                        &:nth-of-type(1),
+                        &:nth-of-type(2) {
+                            width: 15%;
+                        }
+                    }
+                    > div {
+                        height: 100%;
+                        width: 25%;
+                        label {
+                            font-size: 0.8em;
+                        }
+                        > div {
+                            height: 100%;
+                        }
+                        &:nth-of-type(1) {
+                            height: 100%;
+                            width: 25%;
+                        }
+                        &:nth-of-type(2) {
+                            > div {
+                                > div {
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                    > button {
+                        width: 15%;
+                        height: 100%;
+                    }
+                }
+            }
+            fieldset {
+                margin-bottom: 2em;
+                height: 100%;
+                width: 100%;
+                border: 0.1em solid rgba($color: #000000, $alpha: 0.3);
+                border-width: 0.1em 0.05em;
+                border-radius: 0.5em;
+                padding: 0.5em;
+                background-color: rgba($color: #000000, $alpha: 0.02);
+                display: flex;
+                transition: all 0.3s;
+                font-size: 1.1em;
+                > legend {
+                    margin-left: 1em;
+                    font-size: 1.2em;
+                    padding: 0 0.5em;
+                    border: 0.1em solid rgba($color: #000000, $alpha: 0.3);
+                    border-top: none;
+                    border-bottom: none;
+                    border-radius: 1em;
+                }
+                > div {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    > div {
+                        width: 48%;
+                        margin: 0.5em 0;
+                        border-radius: 0.5em;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        background-color: rgba($color: #000000, $alpha: 0.04);
+                        transition: all 0.3s;
+                        > p {
+                            font-size: 0.9em;
+                            padding-left: 1.5em;
+                            padding-right: 1.5em;
+                            &:nth-of-type(1) {
+                                padding: 0.5em;
+                            }
+                            &:nth-of-type(2) {
+                                font-size: 1.1em;
+                                text-align: center;
+                                padding-top: 0.5em;
+                                border-radius: 0.5em;
+                                color: rgb(54, 52, 52);
+                                background-color: rgba($color: #000000, $alpha: 0.03);
+                                border-bottom: 3px solid rgba($color: #000000, $alpha: 0.4);
+                                > span {
+                                    &:nth-of-type(2) {
+                                        padding-left: 2em;
+                                    }
+                                }
+                            }
+                        }
+                        &:hover {
+                            background-color: whitesmoke;
+                        }
+                    }
+                    .max {
+                        width: 100%;
+                        > p {
+                            width: 100%;
+                        }
+                    }
+                    .row {
+                        width: 100%;
+                    }
+                }
             }
         }
     }

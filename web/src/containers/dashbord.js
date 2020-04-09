@@ -9,6 +9,7 @@ import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
 import ClassRoom from '../components/classroom'
 import CreateAccount from '../components/create-account'
+import ScheduleManagement from '../components/schedule-management'
 import Profile from '../components/profile'
 import Schedule from '../components/schedule'
 import Print from '../components/print'
@@ -206,7 +207,13 @@ class Dashbord extends Component {
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
-            return (<ClassRoom lang={lang} />)
+            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} />)
+        case variables.menus.scheduleManagement:
+            return (
+                <ScheduleManagement
+                    lang={lang}
+                    classRooms={this.state.classRooms}
+                />)
         case variables.menus.prints:
             return (<Print lang={lang} />)
         case variables.menus.childList:
