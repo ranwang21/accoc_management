@@ -4,7 +4,10 @@ import {
     TableContainer, Table, Button, TableHead, TableRow, TableCell, TableBody
 } from '@material-ui/core'
 import ClassroomDetail from '../components/classroom-detail'
+import Fetch from '../utilities/fetch-datas'
 import '../styles/_classroom.scss'
+
+const variables = require('../utilities/variables').variables
 
 class ClassRoom extends Component {
     constructor () {
@@ -20,6 +23,10 @@ class ClassRoom extends Component {
         this.handleEndDateChange = this.handleEndDateChange.bind(this)
         this.renderClassRooms = this.renderClassRooms.bind(this)
         this.handleShowDetail = this.handleShowDetail.bind(this)
+    }
+
+    componentDidMount () {
+        console.log(this.props.schedules)
     }
 
     getLangFile () {
