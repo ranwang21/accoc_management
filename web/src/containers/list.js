@@ -31,7 +31,7 @@ class Table extends Component {
     constructor () {
         super()
         this.state = {
-            actorSelected: variables.actors.children,
+            actorSelected: variables.actors.parent,
             search: false,
             lastNameInput: '',
             firstNameInput: '',

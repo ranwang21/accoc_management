@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { Button, FormControl, InputLabel, Select, MenuItem, TextField } from '@material-ui/core'
-import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_child-detail.scss'
 import { Autocomplete } from '@material-ui/lab'
-const variables = require('../utilities/variables').variables
 
 class ChildDetail extends Component {
     constructor () {
@@ -40,45 +38,40 @@ class ChildDetail extends Component {
         const collab = classRooms.id_collaborater ? classRooms.id_collaborater : 'Pas defini'
         return (
             <div className='child-detail'>
-                <div className='test'>
-                    <fieldset className='child-classroom'>
+                <div>
+                    <fieldset>
                         <div>
-                            <div>
-                                <p className='text'>{this.getClassRoom(child)}</p>
-                                <FormControl className='select' variant='filled'>
-                                    <InputLabel color='primary'>SALLES</InputLabel>
-                                    <Select
-                                        value={this.state.classRoomSelected}
-                                        onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                                    >
-                                        {classRooms.map(classRoom => (
-                                            <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </div>
-                            <div>
-                                <p className='text'>{collab}</p>
-                                <Autocomplete
-                                    onChange={(event, newValue) => this.setState({ collabSelected: newValue })}
-                                    options={collabList}
-                                    getOptionLabel={(collaborater) => collaborater.first_name + ' ' + collaborater.last_name}
-                                    renderInput={(params) => <TextField {...params} label='COLLABORATEURS' variant='filled' />}
-                                />
-                            </div>
-                            <div>
-                                <Button variant='outlined'>
-                                    Modifier
-                                </Button>
-                            </div>
+                            <p className='text'>{this.getClassRoom(child)}</p>
+                            <FormControl className='select' variant='filled'>
+                                <InputLabel color='primary'>SALLES</InputLabel>
+                                <Select
+                                    value={this.state.classRoomSelected}
+                                    onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
+                                >
+                                    {classRooms.map(classRoom => (
+                                        <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <p className='text'>{collab}</p>
+                            <Autocomplete
+                                className='select'
+                                onChange={(event, newValue) => this.setState({ collabSelected: newValue })}
+                                options={collabList}
+                                getOptionLabel={(collaborater) => collaborater.first_name + ' ' + collaborater.last_name}
+                                renderInput={(params) => <TextField {...params} label='COLLABORATEURS' variant='filled' />}
+                            />
+                            <Button variant='outlined'>
+                                Modifier
+                            </Button>
                         </div>
                     </fieldset>
                 </div>
                 <div>
-                    <fieldset className='child-school'>
+                    <fieldset>
                         <legend>School Informations</legend>
                         <div>
-                            <div className='text'>
+                            <div className='max text'>
                                 <p>Nom Ecole</p>
                             </div>
                             <div>
@@ -105,97 +98,94 @@ class ChildDetail extends Component {
                                 <p>Service de garde</p>
                                 <p>OUI</p>
                             </div>
-                            <div>
+                            <div className='max'>
                                 <p>Raison de l'inscription</p>
                                 <p>texte texte texte texte texte texte texte texte texte</p>
                             </div>
-                            <div>
+                            <div className='max'>
                                 <p>Educatrice</p>
                                 <p><span>Nom prenom</span> <span>(514) 820-5545</span></p>
                             </div>
                         </div>
                     </fieldset>
                 </div>
-                <fieldset className='child-classroom'>
-                    <legend>Classroom</legend>
-                    <div>
-                        <p className='text'>{this.getClassRoom(child)}</p>
-                        <Button variant='outlined'>
-                            Modifier
-                        </Button>
-                        <FormControl className='select' variant='filled'>
-                            <InputLabel color='primary'>par salle</InputLabel>
-                            <Select
-                                value={this.state.classRoomSelected}
-                                onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                            >
-                                {classRooms.map(classRoom => (
-                                    <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
-                </fieldset>
-
-                <fieldset className='child-collab'>
-                    <legend>Collaborateur</legend>
-                    <div>
-                        <p className='text'>Nom Prenom</p>
-                        <Button variant='outlined'>
-                            Modifier
-                        </Button>
-                        <FormControl className='select' variant='filled'>
-                            <InputLabel color='primary'>par salle</InputLabel>
-                            <Select
-                                value={this.state.classRoomSelected}
-                                onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                            >
-                                {classRooms.map(classRoom => (
-                                    <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <div className='phone'>
-                            <p>Personal</p>
-                            <p>(514) 820-5545</p>
+                <div>
+                    <fieldset>
+                        <legend>Informations du parent</legend>
+                        <div>
+                            <div>
+                                <p>Nom</p>
+                                <p>last_name_parent</p>
+                            </div>
+                            <div>
+                                <p>Prenom</p>
+                                <p>first_name_parent</p>
+                            </div>
+                            <div className='max'>
+                                <p>Adresse</p>
+                                <p>9999 Av. Trans-Island A1A A1A</p>
+                            </div>
+                            <div>
+                                <p>Personal</p>
+                                <p>(514) 820-5545</p>
+                            </div>
+                            <div>
+                                <p>Work</p>
+                                <p>(514) 820-5545</p>
+                            </div>
+                            <div>
+                                <p>Home</p>
+                                <p>(514) 820-5545</p>
+                            </div>
+                            <div>
+                                <p>Emergency</p>
+                                <p>(514) 820-5545</p>
+                            </div>
                         </div>
-                        <div className='phone'>
-                            <p>Work</p>
-                            <p>(514) 820-5545</p>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>Medical Informations</legend>
+                        <div>
+                            <div>
+                                <p>RAMQ</p>
+                                <p>YES / NO</p>
+                            </div>
+                            <div>
+                                <p>Expiration</p>
+                                <p>AAAA - MM</p>
+                            </div>
+                            <div className='max'>
+                                <p>Allergies</p>
+                                <p>texte texte texte texte texte texte texte texte texte</p>
+                            </div>
+                            <div className='max'>
+                                <p>Medicaments</p>
+                                <p>texte texte texte texte texte texte texte texte texte</p>
+                            </div>
+                            <div className='max'>
+                                <p>Autres informations</p>
+                                <p>texte texte texte texte texte texte texte texte texte</p>
+                            </div>
                         </div>
-                        <div className='phone'>
-                            <p>Home</p>
-                            <p>(514) 820-5545</p>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>Autorisations</legend>
+                        <div>
+                            <div className='max'>
+                                <p>Publications de photos en version papier</p>
+                                <p>OUI / NON</p>
+                            </div>
+                            <div className='max'>
+                                <p>Publications de photos sur le site internet</p>
+                                <p>OUI / NON</p>
+                            </div>
                         </div>
-                        <div className='phone'>
-                            <p>Emergency</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                    </div>
-                </fieldset>
-
-                <fieldset className='child-collab'>
-                    <legend>Collaborateur</legend>
-                    <div>
-                        <p className='text'>Nom Prenom</p>
-                        <div className='phone'>
-                            <p>Personal</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div className='phone'>
-                            <p>Work</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div className='phone'>
-                            <p>Home</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div className='phone'>
-                            <p>Emergency</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                    </div>
-                </fieldset>
+                    </fieldset>
+                </div>
             </div>
         )
     }

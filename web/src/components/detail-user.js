@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
 import ChildDetail from './child-detail'
+import ParentCollabDetail from './parent-collab-detail'
 import Fetch from '../utilities/fetch-datas'
 import Loading from './loading'
 import '../styles/_detail-user.scss'
@@ -109,6 +110,12 @@ class DetailUser extends Component {
                             child={this.props.userSelected}
                             classRooms={this.props.classRooms}
                             collabList={this.props.collabList}
+                        />
+                    )}
+                    {(this.props.userSelected.roleTitle !== variables.role.child && this.props.userSelected.roleTitle !== variables.role.admin) && (
+                        <ParentCollabDetail
+                            lang={this.props.lang}
+                            both={this.props.userSelected}
                         />
                     )}
                 </div>

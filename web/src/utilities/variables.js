@@ -4,7 +4,7 @@ const variables = {
         highAdmin: 'super_admin',
         admin: 'admin',
         parent: 'parent',
-        collab: 'collaborator',
+        collab: 'collaborater',
         both: 'collab_parent',
         child: 'children'
     },

@@ -5,7 +5,7 @@
     padding-bottom: 1em;
     > div.image {
         width: 50%;
-        height: 15em;
+        height: 10em;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -39,7 +39,7 @@
                     > span {
                         text-align: center;
                         letter-spacing: 0em;
-                        font-size: 1.4em;
+                        font-size: 1.3em;
                         font-weight: bolder;
                     }
                     &:hover {
@@ -61,7 +61,7 @@
         > p {
             width: 60%;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.2em;
         }
         > p.upload-success {
             color: $secondaryColor;
@@ -73,7 +73,7 @@
     > div.details-personnelles {
         align-self: flex-start;
         width: 50%;
-        font-size: 1.3em;
+        font-size: 1.2em;
         display: flex;
         flex-direction: column;
         height: auto;
@@ -83,10 +83,10 @@
             flex-wrap: wrap;
             padding: 0.2em 1em;
             transition: all 0.2s;
-            border-radius: 0.5em;
+            border-radius: 0.3em;
             > p:nth-of-type(1) {
                 width: 55%;
-                letter-spacing: 0.04em;
+                letter-spacing: 0.02em;
             }
             > p:nth-of-type(2) {
                 letter-spacing: 0.06em;
@@ -96,8 +96,8 @@
             }
         }
         .text-name {
-            margin-bottom: 1.5em;
-            font-size: 2em;
+            margin-bottom: 1em;
+            font-size: 1.5em;
             margin-left: 0em;
             padding-left: 0em;
             > p {

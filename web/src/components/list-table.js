@@ -181,10 +181,10 @@ class TableListContainer extends Component {
                             scroll='paper'
                             aria-labelledby='scroll-dialog-title'
                             aria-describedby='scroll-dialog-description'
-                            maxWidth='lg'
+                            maxWidth='md'
                             fullWidth
                         >
-                            <DialogTitle id='scroll-dialog-title' className='title'>DETAILS</DialogTitle>
+                            <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations</DialogTitle>
                             <DialogContent>
                                 <DetailUser
                                     lang={this.props.lang}
