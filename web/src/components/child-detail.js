@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, FormControl, InputLabel, Select, MenuItem, TextField, FormControlLabel, Checkbox, ListSubheader } from '@material-ui/core'
+import { Button, FormControl, InputLabel, Select, MenuItem, TextField, FormControlLabel, Checkbox, ListSubheader, TextareaAutosize } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
 import { Autocomplete } from '@material-ui/lab'
 
@@ -165,14 +165,16 @@ class ChildDetail extends Component {
                                         color='primary'
                                         variant='filled'
                                         onChange={/* event => inputChange(event, fieldsConfig.name, fieldsConfig.type) */null}
-                                        value={child.school_info.educatorName !== null ? child.school_info.educatorName : "N'en a pas"}
+                                        value={child.school_info.educatorName !== null ? child.school_info.educatorName : ''}
+                                        label='Nom et prenom'
                                     />
                                     <TextField
                                         type='text'
                                         color='primary'
                                         variant='filled'
                                         onChange={/* event => inputChange(event, fieldsConfig.name, fieldsConfig.type) */null}
-                                        value={child.school_info.educatorName !== null ? child.school_info.educatorName : ''}
+                                        value={child.school_info.educatorPhone !== null ? child.school_info.educatorPhone : ''}
+                                        label='Contact'
                                     />
                                 </>
                             ) : (
