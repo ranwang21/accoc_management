@@ -27,32 +27,35 @@ import com.example.myapplication.services.ConnectionBD;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PresenceAdapter extends ArrayAdapter<User> {
+
     private ArrayList<Schedule> schedList;
-   // Context context;
+    // Context context;
     //List<String> modelItems;
-int idLayout;
-    public PresenceAdapter(Context context,int resource ,List<User> objects) {
+    int idLayout;
+    public PresenceAdapter(Context context, int resource, List<User> objects) {
         super(context, resource, objects);
         idLayout=resource;
         //     this.context = context;
-     //   this.modelItems = resource;
-    }private class ViewHolder{
+        //   this.modelItems = resource;
+    }
+    private class ViewHolder {
+
         CheckBox cb;
     }
-
     public View getView(int position, View convertView, ViewGroup parent) {
-        final User user =getItem(position);
-ViewHolder holder=null;
-        if(convertView==null) {
-            convertView=LayoutInflater.from(getContext()).inflate(idLayout,null);
+        final User user = getItem(position);
+        ViewHolder holder = null;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(idLayout, null);
             //LayoutInflater inflater = (( Activity ) context).getLayoutInflater();
-          //  convertView = inflater.inflate(R.layout.fragment_presence_row, parent, false);
-            holder=new ViewHolder();
-            Button btn=convertView.findViewById(R.id.button_presence);
+            //  convertView = inflater.inflate(R.layout.fragment_presence_row, parent, false);
+            holder = new ViewHolder();
+            Button btn = convertView.findViewById(R.id.button_presence);
             TextView Fname = convertView.findViewById(R.id.textView1);
             TextView Lname = convertView.findViewById(R.id.textView2);
-holder.cb =convertView.findViewById(R.id.checkBox1);
+            holder.cb = convertView.findViewById(R.id.checkBox1);
             ImageView img = convertView.findViewById(R.id.imageView3);
             Fname.setText(user.getFirst_name());
             Lname.setText(user.getLast_name());
@@ -90,6 +93,4 @@ boolean check;
 
         return convertView;
     }
-
-
 }

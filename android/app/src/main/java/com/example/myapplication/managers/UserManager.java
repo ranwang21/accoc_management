@@ -79,9 +79,8 @@ public class UserManager {
     public static User getById(Context context, String id) {
         User user = null;
         SQLiteDatabase bd = ConnectionBD.getBd(context);
-        Cursor cursor = bd.rawQuery(queryGetById, new String[]{"" + id});
-        if (cursor != null) {
-            cursor.moveToFirst();
+        Cursor cursor = bd.rawQuery(queryGetById, new String[]{ id});
+        while (cursor.moveToNext()) {
             user = new User(
                     cursor.getString(0),
                     cursor.getString(1),

@@ -52,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         if (Preferences.getVersion(this) == -1) {
             Preferences.setVersion(this, 1);
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'");
-        Date date = new Date(System.currentTimeMillis());
-        Log.d("Json", "onCreate: " + formatter.format(date));
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = new Date(System.currentTimeMillis());
+//        Log.d("Json", "onCreate: " + formatter.format(date));
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
