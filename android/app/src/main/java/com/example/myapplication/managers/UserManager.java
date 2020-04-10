@@ -205,6 +205,13 @@ public class UserManager {
         User userFromApi = gson.fromJson(jsonFromApi, User.class);
         UserManager.update(context, userFromApi);
     }
+    public static void uploadImageFromApi(Context context, String id, String img_url) {
+        Gson gson = new Gson();
+        String jsonToSemd = gson.toJson(img_url);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/users/" + id, img_url);
+        User userFromApi = gson.fromJson(jsonFromApi, User.class);
+        UserManager.update(context, userFromApi);
+    }
     public static void deleteToAPI(Context context, String id, String token) {
         Gson gson = new Gson();
         String jsonToSemd = gson.toJson(id);
