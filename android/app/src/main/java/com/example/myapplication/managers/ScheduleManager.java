@@ -66,6 +66,7 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
     /**
      * getById return a Schedule by id from DataBase
      *
@@ -93,6 +94,28 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedule;
     }
+/*
+    public boolean Schedule insertData (Context context,String id,String idU,String idC,String date,Boolean isabsent,String comment) {
+
+        Schedule schedule=new Schedule();
+        int is_absent = 0;
+        if (schedule.getIs_absent()) {
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID, id);
+        contentValues.put(ID_USER, idU);
+        contentValues.put(ID_CLASSROOM, idC);
+        contentValues.put(DATE, date);
+        contentValues.put(IS_ABSENT, isabsent);
+        contentValues.put(COMMENT, comment);
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        long result=bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
+       if(result==-1)
+           return false;
+       else
+           return true;
+    }*/
+
     /**
      * getById return all Schedule by id_user from DataBase
      *
@@ -200,6 +223,8 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
+
+
     public static ArrayList<String> getUniquesDates(Context context, String date) {
         ArrayList<String> dates = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
