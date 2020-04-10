@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, FormControl, InputLabel, Select, MenuItem, TextField } from '@material-ui/core'
+import { Button, FormControl, InputLabel, Select, MenuItem, TextField, FormControlLabel, Checkbox, ListSubheader } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
 import { Autocomplete } from '@material-ui/lab'
 
@@ -17,8 +17,9 @@ class ChildDetail extends Component {
     componentDidMount () {
     }
 
-    handleSearchInputChange (event, name) {
-        (event.target.value !== undefined) && this.setState({ [name]: event.target.value })
+    handleSearchInputChange (event, value, name) {
+        console.log(value)
+        this.setState({ [name]: value })
     }
 
     getClassRoom (child) {
@@ -30,38 +31,49 @@ class ChildDetail extends Component {
         return retour
     }
 
+    getCollaborater (child) {
+        let retour = 'Pas definis'
+        if (this.props.collaboraters.length > 0 && child.id_collaborater) {
+            const collaborater = this.props.collaboraters.filter(collaborater => collaborater._id === child.id_collaborater)[0]
+            retour = collaborater ? (collaborater.first_name + ' ' + collaborater.last_name) : 'Pas definis'
+        }
+        return retour
+    }
+
     render () {
+        const edit = this.props.editable
         const child = this.props.child
         const classRooms = (this.props.classRooms && this.props.classRooms !== null) ? this.props.classRooms : []
-        const collabList = (this.props.collabList && this.props.collabList !== null) ? this.props.collabList : []
-        const collab = classRooms.id_collaborater ? classRooms.id_collaborater : 'Pas defini'
+        const collaboraters = (this.props.collaboraters && this.props.collaboraters !== null) ? this.props.collaboraters : []
+        const collab = this.getClassRoom(child)
         return (
             <div className='child-detail'>
                 <div>
                     <div>
                         <p className='text'>{this.getClassRoom(child)}</p>
-                        <FormControl className='select print-to-remove' variant='filled'>
-                            <InputLabel color='primary'>SALLES</InputLabel>
-                            <Select
-                                value={this.state.classRoomSelected}
-                                onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                            >
-                                {classRooms.map(classRoom => (
-                                    <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        {edit && (
+                            <FormControl className='select print-to-remove' variant='filled'>
+                                <InputLabel color='primary'>SALLES</InputLabel>
+                                <Select
+                                    value={this.state.classRoomSelected}
+                                    onChange={event => this.handleSearchInputChange(event, event.target.value, 'classRoomSelected')}
+                                >
+                                    {classRooms.map(classRoom => (
+                                        <MenuItem key={classRoom._id} value={classRoom}>{classRoom.title}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        )}
                         <p className='text'>{collab}</p>
-                        <Autocomplete
-                            className='select  print-to-remove'
-                            onChange={(event, newValue) => this.setState({ collabSelected: newValue })}
-                            options={collabList}
-                            getOptionLabel={(collaborater) => collaborater.first_name + ' ' + collaborater.last_name}
-                            renderInput={(params) => <TextField {...params} label='COLLABORATEURS' variant='filled' />}
-                        />
-                        <Button variant='outlined' className='print-to-remove'>
-                            Modifier
-                        </Button>
+                        {edit && (
+                            <Autocomplete
+                                className='select  print-to-remove'
+                                onChange={(event, newValue) => this.handleSearchInputChange(event, newValue, 'collabSelected')}
+                                options={collaboraters}
+                                getOptionLabel={(collaborater) => collaborater.first_name + ' ' + collaborater.last_name}
+                                renderInput={(params) => <TextField {...params} label='COLLABORATEURS' variant='filled' />}
+                            />
+                        )}
                     </div>
                 </div>
                 <fieldset>
@@ -69,39 +81,107 @@ class ChildDetail extends Component {
                     <div>
                         <div className='row'>
                             <p>Nom</p>
-                            <p>Saint Pierre Claver</p>
+                            {edit ? (
+                                <TextField
+                                    type='text'
+                                    color='primary'
+                                    variant='filled'
+                                    onChange={/* event => inputChange(event, fieldsConfig.name, fieldsConfig.type) */null}
+                                    value='Saint Pierre Claver'
+                                />
+                            ) : (
+                                <p>{child.school_info.name === null ? 'Pas defini' : child.school_info.name}</p>
+                            )}
                         </div>
                         <div>
                             <p>Niveau</p>
-                            <p>Secondaire 2</p>
+                            {edit
+                                ? (
+                                    <FormControl variant='filled'>
+                                        <Select
+                                            value='Secondaire 2'
+                                            onChange={event => this.handleSearchInputChange(event, 'levelSelected')}
+                                        >
+                                            <MenuItem value='Primaire 1'>Primaire 1er</MenuItem>
+                                            <MenuItem value='Primaire 2'>Primaire 2e</MenuItem>
+                                            <MenuItem value='Primaire 3'>Primaire 3e</MenuItem>
+                                            <MenuItem value='Primaire 4'>Primaire 4e</MenuItem>
+                                            <MenuItem value='Primaire 5'>Primaire 5e</MenuItem>
+                                            <MenuItem value='Primaire 6'>Primaire 6e</MenuItem>
+                                            <MenuItem value='Secondaire 1'>Secondaire I</MenuItem>
+                                            <MenuItem value='Secondaire 2'>Secondaire II</MenuItem>
+                                            <MenuItem value='Secondaire 3'>Secondaire III</MenuItem>
+                                            <MenuItem value='Secondaire 4'>Secondaire IV</MenuItem>
+                                            <MenuItem value='Secondaire 5'>Secondaire V</MenuItem>
+
+                                        </Select>
+                                    </FormControl>
+                                )
+                                : (
+                                    <p>{child.school_info.level === null ? 'Pas defini' : child.school_info.level}</p>
+                                )}
                         </div>
                         <div>
                             <p>Inscription a ADL</p>
-                            <p>OUI</p>
+                            {edit ? (
+                                <FormControlLabel control={<Checkbox defaultChecked={!!child.school_info.adl} />} />
+                            ) : (
+                                <p>{child.school_info.adl ? 'OUI' : 'NON'}</p>
+                            )}
                         </div>
                         <div>
-                            <p>Redouble une annee</p>
-                            <p>NON</p>
-                        </div>
-                        <div>
-                            <p>Derniere annee reprise</p>
-                            <p>Neant</p>
-                        </div>
-                        <div>
-                            <p>Evaluation</p>
-                            <p>NON</p>
-                        </div>
-                        <div>
-                            <p>Service de garde</p>
-                            <p>OUI</p>
-                        </div>
-                        <div className='max'>
-                            <p>Raison de l'inscription</p>
-                            <p>texte texte texte texte texte texte texte texte texte</p>
+                            <p>Derniere annee reprise (redouble)</p>
+                            {edit ? (
+                                <FormControl variant='filled'>
+                                    <Select
+                                        value={child.school_info.redouble === null ? '' : child.school_info.redouble}
+                                        onChange={event => this.handleSearchInputChange(event, 'levelSelected')}
+                                    >
+                                        <MenuItem value='Primaire 1'>Primaire 1er</MenuItem>
+                                        <MenuItem value='Primaire 2'>Primaire 2e</MenuItem>
+                                        <MenuItem value='Primaire 3'>Primaire 3e</MenuItem>
+                                        <MenuItem value='Primaire 4'>Primaire 4e</MenuItem>
+                                        <MenuItem value='Primaire 5'>Primaire 5e</MenuItem>
+                                        <MenuItem value='Primaire 6'>Primaire 6e</MenuItem>
+                                        <MenuItem value='Secondaire 1'>Secondaire I</MenuItem>
+                                        <MenuItem value='Secondaire 2'>Secondaire II</MenuItem>
+                                        <MenuItem value='Secondaire 3'>Secondaire III</MenuItem>
+                                        <MenuItem value='Secondaire 4'>Secondaire IV</MenuItem>
+                                        <MenuItem value='Secondaire 5'>Secondaire V</MenuItem>
+
+                                    </Select>
+                                </FormControl>
+                            ) : (
+                                <p>{child.school_info.redouble === null ? 'NON' : child.school_info.redouble}</p>
+                            )}
+
                         </div>
                         <div className='row'>
                             <p>Educatrice</p>
-                            <p><span>Nom prenom</span> <span>(514) 820-5545</span></p>
+                            {edit ? (
+                                <>
+                                    <TextField
+                                        type='text'
+                                        color='primary'
+                                        variant='filled'
+                                        onChange={/* event => inputChange(event, fieldsConfig.name, fieldsConfig.type) */null}
+                                        value={child.school_info.educatorName !== null ? child.school_info.educatorName : "N'en a pas"}
+                                    />
+                                    <TextField
+                                        type='text'
+                                        color='primary'
+                                        variant='filled'
+                                        onChange={/* event => inputChange(event, fieldsConfig.name, fieldsConfig.type) */null}
+                                        value={child.school_info.educatorName !== null ? child.school_info.educatorName : ''}
+                                    />
+                                </>
+                            ) : (
+                                <p><span>{child.school_info.educatorName !== null ? child.school_info.educatorName : "N'en a pas"}</span> <span>{child.school_info.educatorPhone !== null ? child.school_info.educatorPhone : ''}</span></p>
+                            )}
+                        </div>
+                        <div className='max'>
+                            <p>Raison de l'inscription</p>
+                            <p>{child.school_info.reason === null ? 'Pas defini' : child.school_info.reason}</p>
                         </div>
                     </div>
                 </fieldset>

@@ -126,8 +126,9 @@ class Table extends Component {
                     const ch2 = row.last_name.toLowerCase().search(this.state.lastNameInput.toLowerCase())
                     if (this.getActorSelected() === variables.role.child) {
                         const ch3 = this.state.classRoomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0
-                        const ch4 = this.state.levelSelected !== '' ? row.school_info[1].response === this.state.levelSelected : true
-                        const ch5 = row.school_info[0].response.toLowerCase().search(this.state.schoolInput.toLowerCase());
+                        const ch4 = this.state.levelSelected !== '' ? row.school_info.level === this.state.levelSelected : true
+                        const name = row.school_info.name === null ? 'non defini' : row.school_info.name
+                        const ch5 = name.toLowerCase().search(this.state.schoolInput.toLowerCase());
                         (ch1 !== -1 && ch2 !== -1 && ch3 !== -1 && ch4 === true && ch5 !== -1) && lastList.push(row)
                     } else if (this.getActorSelected() === variables.role.collab) {
                         const ch3 = this.state.classRoomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0;

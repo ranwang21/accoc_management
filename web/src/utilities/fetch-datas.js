@@ -1,5 +1,106 @@
 'use-strict'
 
+const templateUser = {
+    id_role: null,
+    id_child: null, // or array
+    id_parent: null, // or array
+    id_collaborater: null,
+    id_classroom: null,
+    first_name: null,
+    last_name: null,
+    sex: null, // male or female
+    address: null,
+    birthday: null,
+    has_child: false,
+    is_subscribed: false,
+    contact: {
+        personal: null,
+        work: null,
+        home: null,
+        emergency: null
+    },
+    membership: {
+        membership: false,
+        paymentMethod: null,
+        memberCard: false,
+        discountCard: false
+    },
+    school_info: {
+        name: null,
+        level: null,
+        adl: false,
+        redouble: null,
+        evaluation: false,
+        reason: null,
+        educatorName: null,
+        educatorPhone: null
+    },
+    medical_info: {
+        ramq: null,
+        ramqExpiration: null,
+        allergies: null,
+        drugs: null,
+        othersInformations: null
+    },
+    authorization: {
+        paper: false,
+        internet: false
+    },
+    involvement: [
+        {
+            question: 'talents',
+            response: 'Response here'
+        },
+        {
+            question: 'snacks',
+            response: 'YES/NO'
+        },
+        {
+            question: 'organization',
+            response: 'YES/NO'
+        },
+        {
+            question: 'support',
+            response: 'YES/NO'
+        },
+        {
+            question: 'otherInvolvement',
+            response: 'Response here'
+        }
+    ],
+    question: [
+        {
+            question: 'garde',
+            response: null
+        },
+        {
+            question: 'gardeParentOption',
+            response: null
+        },
+        {
+            question: 'gardeOtherOption',
+            response: null
+        },
+        {
+            question: 'heard',
+            response: null
+        }
+    ],
+    availability: [
+        null,
+        null,
+        null,
+        null
+    ],
+    photo: 'no-photo.jpg',
+    expectation: null,
+    need: null,
+    interest: null, // or array
+    comment: null,
+    experience: null,
+    motivation: null
+}
+
 const HOST = 'https://maison-aurore-api.herokuapp.com'
 const jwt = require('jwt-simple')
 const secret = 'xxx'
@@ -259,13 +360,40 @@ const getAllUsers = (token, callBack) => {
                             const dataUsers = []
                             for (let i = 0; i < data.data.length; i++) {
                                 const user = data.data[i]
-                                const login = dataLogins.data.filter(dl => dl.id_user === user._id)
-                                const role = dataRoles.data.filter(dr => dr._id === user.id_role)
-                                user.idLogin = login[0] ? login[0]._id : null
-                                user.isValid = login[0] ? login[0].is_active : null
-                                user.email = login[0] ? login[0].email : null
+
+                                if(user.contact.length <= 0){
+                                    user.contact = templateUser.contact
+                                } else {
+                                    // Don't forget to delete Maison && Bureau
+                                    const phonePersonal = user.contact.filter(phone => phone.title === 'personal')
+                                    const phoneWork = user.contact.filter(phone => phone.title === 'Bureau' || phone.title === 'work')
+                                    const phoneHome = user.contact.filter(phone => phone.title === 'Maison' || phone.title === 'home')
+                                    const phoneEmergency = user.contact.filter(phone => phone.title === 'emergency')
+
+                                    user.contact = {
+                                        personal: phonePersonal.length > 0 ? phonePersonal[0].phone : null,
+                                        work: phoneWork.length > 0 ? phoneWork[0].phone : null,
+                                        home: phoneHome.length > 0 ? phoneHome[0].phone : null,
+                                        emergency: phoneEmergency.length > 0 ? phoneEmergency[0].phone : null,
+                                    }
+                                }
+                                user.membership = Array.isArray(user.membership) && templateUser.membership
+                                user.school_info = Array.isArray(user.school_info) && templateUser.school_info
+                                user.medical_info = Array.isArray(user.medical_info) && templateUser.medical_info
+                                user.authorization = Array.isArray(user.authorization) && templateUser.authorization
+
+                                const userTemplate = {
+                                    ...templateUser,
+                                    ...user
+                                }
+
+                                const login = dataLogins.data.filter(dl => dl.id_user === userTemplate._id)
+                                const role = dataRoles.data.filter(dr => dr._id === userTemplate.id_role)
+                                userTemplate.idLogin = login[0] ? login[0]._id : null
+                                userTemplate.isValid = login[0] ? login[0].is_active : null
+                                userTemplate.email = login[0] ? login[0].email : null
                                 let img = null
-                                fetch(HOST + '/users/'+ user._id +'/photo', {
+                                fetch(HOST + '/users/'+ userTemplate._id +'/photo', {
                                     headers: {
                                         Accept: 'application/json',
                                         'Content-Type': 'application/json',
@@ -276,9 +404,9 @@ const getAllUsers = (token, callBack) => {
                                     .then(dataImage => {
                                         if(dataImage.success){
                                             img = dataImage.data
-                                            user.img = img
-                                            user.id_classroom = user.id_classroom ? user.id_classroom : '12345'
-                                            dataUsers.push({...user, roleTitle: role[0].title })
+                                            userTemplate.img = img
+                                            userTemplate.id_classroom = userTemplate.id_classroom === null ? '12345' : userTemplate.id_classroom
+                                            dataUsers.push({...userTemplate, roleTitle: role[0].title })
                                         }
                                         callBack(dataUsers)
                                     })
@@ -294,41 +422,37 @@ const generateUsers = () => {
     const restChildren = {
         id_role: roles.children,
         photo: 'no-photo.jpg',
-        id_parent: null,
-        garde: [
-            {question: 'garde', response: 'All'},
-            {question: 'gardeParentOption', response: null},
-            {question: 'gardeOtherOption', response: null}
-        ],
-        school_info: [
-            {question: 'school', response: 'Ecole Nom'},
-            {question: 'schoolLevel', response: 'Secondaire 2'},
-            {question: 'adlRegister',response: 1},
-            {question: 'redouble', response: false},
-            {question: 'lastRedoubleLevel', response: null},
-            {question: 'registerReason', response: "La raison de l'inscription "},
-            {question: 'evaluation', response: false},
-            {question: 'daycareService', response: true},
-            {question: 'daycareServiceYesName', response: 'Sandrine H.'},
-            {question: 'daycareServiceYesPhone', response: '(514) 666-8989'}
-        ],
-        medical_info: [
-            {question: 'ramq', response: true},
-            {question: 'expiration', response: '02/2022'},
-            {question: 'allergies', response: 'Liste des allergies'},
-            {question: 'drug', response: 'Liste des medicaments'},
-            {question: 'othersInfos', response: 'Autres Informations...'}
-        ],
-        authorization: [
-            {question: 'autorisationPapper', response: true},
-            {question: 'autorisationInternet', response: false}
-        ]
+        school_info: {
+            name: 'Ecole Nom',
+            level: 'Secondaire 2',
+            adl: false,
+            redouble: false,
+            evaluation: false,
+            reason: "La raison de l'inscription ",
+            educatorName: 'Sandrine H.',
+            educatorPhone: '(514) 666-8989'
+        },
+        medical_info: {
+            ramq: true,
+            ramqExpiration: '02/2022',
+            allergies: 'Liste des allergies',
+            drugs: 'Liste des medicaments',
+            othersInformations: 'Autres Informations...'
+        },
+        authorization: {
+            paper: true,
+            internet: false
+        }
     }
 
     const restParentCollaborater = {
-        photo: 'no-photo.jpg',
         id_role: roles.collab_parent,
-        contact: [{ title: 'home', phone: '(514) 300-9410'}, { title: 'work', phone: null}, { title: 'personal', phone: '(418) 854-4512'}, { title: 'emergency', phone: null}],
+        contact: {
+            personal: '(418) 854-4512',
+            work: null,
+            home: '(514) 300-9410',
+            emergency: null
+        },
         has_child: true, is_subscribed: true,
         membership: [
             {question: "membership", response: "membership_becomeMember"},

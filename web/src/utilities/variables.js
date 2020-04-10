@@ -172,139 +172,51 @@ const variables = {
     },
     templateUser: {
         id_role: null,
+        id_child: null, // or array
+        id_parent: null, // or array
+        id_collaborater: null,
+        id_classroom: null,
         first_name: null,
         last_name: null,
-        sex: null,
+        sex: null, // male or female
         address: null,
         birthday: null,
-        has_child: null,
-        is_subscribed: null,
-        contact: [
-            {
-                title: 'personal',
-                phone: null
-            },
-            {
-                title: 'home',
-                phone: null
-            },
-            {
-                title: 'work',
-                phone: null
-            },
-            {
-                title: 'emergency',
-                phone: null
-            }
-        ],
-        membership: [
-            {
-                question: 'membership',
-                response: null
-            },
-            {
-                question: 'paymentMethod',
-                response: null
-            },
-            {
-                question: 'memberCard',
-                response: null
-            },
-            {
-                question: 'discountCard',
-                response: null
-            }
-        ],
+        has_child: false,
+        is_subscribed: false,
+        contact: {
+            personal: null,
+            work: null,
+            home: null,
+            emergency: null
+        },
+        membership: {
+            membership: false,
+            paymentMethod: null,
+            memberCard: false,
+            discountCard: false
+        },
         photo: 'no-photo.jpg',
-        id_child: [],
-        garde: [
-            {
-                question: 'garde',
-                response: null
-            },
-            {
-                question: 'gardeParentOption',
-                response: null
-            },
-            {
-                question: 'gardeOtherOption',
-                response: null
-            }
-        ],
-        school_info: [
-            {
-                question: 'name',
-                response: null
-            },
-            {
-                question: 'level',
-                response: null
-            },
-            {
-                question: 'adl',
-                response: null
-            },
-            {
-                question: 'redouble',
-                response: null
-            },
-            {
-                question: 'lastRedoubleLevel',
-                response: null
-            },
-            {
-                question: 'reason',
-                response: null
-            },
-            {
-                question: 'evaluation',
-                response: null
-            },
-            {
-                question: 'daycareService',
-                response: null
-            },
-            {
-                question: 'daycareServiceYesName',
-                response: null
-            },
-            {
-                question: 'daycareServiceYesPhone',
-                response: null
-            }
-        ],
-        medical_info: [
-            {
-                question: 'ramq',
-                response: null
-            },
-            {
-                question: 'ramqExpiration',
-                response: null
-            },
-            {
-                question: 'allergies',
-                response: null
-            },
-            {
-                question: 'medications',
-                response: null
-            },
-            {
-                question: 'othersInformations',
-                response: null
-            }
-        ],
-        authorization: [
-            {
-                question: 'publicationPicturePaper',
-                response: null
-            },
-            {
-                question: 'publicationPictureInternet',
-                response: null
-            }
-        ],
+        school_info: {
+            name: null,
+            level: null,
+            adl: false,
+            redouble: null,
+            evaluation: false,
+            reason: null,
+            educatorName: null,
+            educatorPhone: null
+        },
+        medical_info: {
+            ramq: null,
+            ramqExpiration: null,
+            allergies: null,
+            drugs: null,
+            othersInformations: null
+        },
+        authorization: {
+            paper: false,
+            internet: false
+        },
         involvement: [
             {
                 question: 'talents',
@@ -331,20 +243,29 @@ const variables = {
         need: null,
         question: [
             {
+                question: 'garde',
+                response: null
+            },
+            {
+                question: 'gardeParentOption',
+                response: null
+            },
+            {
+                question: 'gardeOtherOption',
+                response: null
+            },
+            {
                 question: 'heard',
                 response: null
             }
         ],
-        id_parent: null,
         availability: [
-            '5e6a3e314554933864b2c3a2',
-            '5e6a3e314554933864b2c3a4'
+            null,
+            null,
+            null,
+            null
         ],
-        interest: [
-            'Interest 1',
-            'Interest 2',
-            'Interest 3'
-        ],
+        interest: null, // or array
         comment: null,
         experience: null,
         motivation: null

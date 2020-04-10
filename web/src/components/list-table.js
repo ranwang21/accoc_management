@@ -45,18 +45,19 @@ class TableListContainer extends Component {
             { id: 'nom', label: lang.head.lastName, minWidth: 170 },
             { id: 'prenom', label: lang.head.firstName, minWidth: 170 }
         ]
-        if (this.props.actorSelected === variables.role.child) {
-            headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
-            headers.push({ id: 'ecole', label: lang.head.school, minWidth: 170 })
-            headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+        if (this.props.menuSelected !== variables.menus.validation) {
+            if (this.props.actorSelected === variables.role.child) {
+                headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
+                headers.push({ id: 'ecole', label: lang.head.school, minWidth: 170 })
+            }
+            if (this.props.actorSelected !== variables.role.admin) {
+                headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+            }
         }
-
-        if (this.props.actorSelected !== variables.role.child) {
-            headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
+        if (this.props.menuSelected === variables.menus.validation || this.props.actorSelected !== variables.role.child) {
             headers.push({ id: 'phone', label: lang.head.phone, minWidth: 170 })
             headers.push({ id: 'courriel', label: lang.head.courriel, minWidth: 170 })
         }
-
         if (this.props.menuSelected === variables.menus.validation || this.props.actorSelected === variables.role.admin) {
             headers.push({ id: 'validation', label: lang.head.optionValidation, minWidth: 70, align: 'right' })
         }
@@ -80,39 +81,24 @@ class TableListContainer extends Component {
     }
 
     getPhoneNumberByPriority (actor) {
-        if (this.props.actorSelected !== variables.role.child) {
-            const personal = (actor.contact.filter(ct => ct.title === 'personal'))[0]
-            const work = (actor.contact.filter(ct => ct.title === 'work'))[0]
-            const home = (actor.contact.filter(ct => ct.title === 'home'))[0]
-            const emergency = (actor.contact.filter(ct => ct.title === 'emergency'))[0]
-
-            return personal && personal.phone !== null
-                ? personal.phone
-                : (work && work.phone !== null
-                    ? work.phone
-                    : (home && home.phone !== null
-                        ? home.phone
-                        : (emergency && emergency.phone !== null
-                            ? emergency.phone
-                            : 'Pas de contact')))
-        }
+        const contact = actor.contact
+        if (contact.personal !== null) return contact.personal
+        else if (contact.work !== null) return contact.work
+        else if (contact.home !== null) return contact.home
+        else if (contact.emergency !== null) return contact.emergency
+        else return 'Pas de contact'
     }
 
     getChildAllergies (child) {
-        let allergies = (child.medical_info[2] && child.medical_info[2].response !== '') ? child.medical_info[2].response : "Pas d'allergies"
+        let allergies = child.medical_info.allergies !== null ? child.medical_info.allergies : "Pas d'allergies"
         allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
 
         return allergies
     }
 
-    getSchoolName (child) {
-        return child.school_info[0] ? child.school_info[0].response : ''
-    }
-
     buildRow (lang, actor) {
         const classRoomTitle = this.props.classRooms.filter(cl => cl._id === actor.id_classroom)
         const allergies = this.getChildAllergies(actor)
-        const school = this.getSchoolName(actor)
         const getPhoneNumber = this.getPhoneNumberByPriority(actor)
 
         return (
@@ -120,16 +106,19 @@ class TableListContainer extends Component {
                 <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
                 <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.last_name} </TableCell>
                 <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.first_name} </TableCell>
-                {this.props.actorSelected === variables.role.child && (
+                {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected === variables.role.child) && (
                     <>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {allergies} </TableCell>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {school} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.school_info.name === null ? 'Pas defini' : actor.school_info.name} </TableCell>
+                    </>
+                )}
+                {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected !== variables.role.admin) && (
+                    <>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
                     </>
                 )}
-                {this.props.actorSelected !== variables.role.child && (
+                {(this.props.menuSelected === variables.menus.validation || this.props.actorSelected !== variables.role.child) && (
                     <>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {getPhoneNumber} </TableCell>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.email} </TableCell>
                     </>

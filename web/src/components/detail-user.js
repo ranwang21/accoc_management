@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, DialogTitle, DialogContent, Dialog, DialogActions, IconButton } from '@material-ui/core'
 import PrintIcon from '@material-ui/icons/Print'
+import EditIcon from '@material-ui/icons/EditOutlined'
+import SaveIcon from '@material-ui/icons/SaveAltOutlined'
 import { withCookies } from 'react-cookie'
 import ChildDetail from './child-detail'
 import AdminDetail from './admin-detail'
@@ -18,13 +20,15 @@ class DetailUser extends Component {
         this.state = {
             fileUploadedSuccess: false,
             fileUploadedError: false,
-            showLoading: false
+            showLoading: false,
+            allowEditable: false
         }
         this.divToPrint = React.createRef()
         this.time = 3000
         this.handleImageChange = this.handleImageChange.bind(this)
         this.setImage = this.setImage.bind(this)
         this.updateImage = this.updateImage.bind(this)
+        this.handleEditMode = this.handleEditMode.bind(this)
     }
 
     updateImage (dataImage) {
@@ -51,6 +55,10 @@ class DetailUser extends Component {
         Fetch.image.update(this.props.cookies.get(variables.cookies.token), this.props.userSelected, event.target.files, this.setImage)
     }
 
+    handleEditMode () {
+        this.setState({ allowEditable: !this.state.allowEditable })
+    }
+
     render () {
         const allergies = (this.props.userSelected.medical_info &&
             this.props.userSelected.medical_info[2] &&
@@ -70,8 +78,9 @@ class DetailUser extends Component {
                 aria-describedby='scroll-dialog-description'
                 maxWidth='md'
                 fullWidth
+                disableBackdropClick={false}
             >
-                <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations</DialogTitle>
+                <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations {this.state.allowEditable && '(Modification en cour)'}</DialogTitle>
                 <DialogContent id='details-print' ref={el => (this.divToPrint = el)}>
                     <div className='detail-head to-be-print'>LA MAISON D'AURORE</div>
                     <div className='detail-user'>
@@ -81,7 +90,7 @@ class DetailUser extends Component {
                                 component='label'
                             >
                                 <img src={this.props.userSelected.img} alt='avatar' />
-                                {this.props.menuSelected !== variables.menus.validation && (
+                                {(this.props.menuSelected !== variables.menus.validation && this.state.allowEditable) && (
                                     <>
                                         <p><span>Cliquer pour changer</span></p>
                                         <input
@@ -127,19 +136,22 @@ class DetailUser extends Component {
                                     lang={this.props.lang}
                                     child={this.props.userSelected}
                                     classRooms={this.props.classRooms}
-                                    collabList={this.props.collabList}
+                                    collaboraters={this.props.collabList}
+                                    editable={this.state.allowEditable}
                                 />
                             )}
                             {(this.props.userSelected.roleTitle !== variables.role.child && this.props.userSelected.roleTitle !== variables.role.admin) && (
                                 <ParentCollabDetail
                                     lang={this.props.lang}
                                     both={this.props.userSelected}
+                                    editable={this.state.allowEditable}
                                 />
                             )}
                             {(this.props.userSelected.roleTitle === variables.role.admin) && (
                                 <AdminDetail
                                     lang={this.props.lang}
                                     admin={this.props.userSelected}
+                                    editable={this.state.allowEditable}
                                 />
                             )}
                         </div>
@@ -147,6 +159,14 @@ class DetailUser extends Component {
                     <div className='detail-footer to-be-print' />
                 </DialogContent>
                 <DialogActions className='dialog-footer'>
+                    <Button
+                        onClick={this.handleEditMode}
+                        variant='contained'
+                        color='secondary'
+                        startIcon={this.state.allowEditable ? <SaveIcon /> : <EditIcon />}
+                    >
+                        {this.state.allowEditable ? 'Save ' : 'Edit '} Profil
+                    </Button>
                     <PrintDetail
                         trigger={() => <IconButton><PrintIcon fontSize='large' /></IconButton>}
                         content={() => this.divToPrint}
