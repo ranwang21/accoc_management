@@ -3,8 +3,11 @@ import TextField from '@material-ui/core/TextField'
 import {
     TableContainer, Table, Button, TableHead, TableRow, TableCell, TableBody
 } from '@material-ui/core'
+import ClassroomDetail from '../components/classroom-detail'
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_classroom.scss'
+
+const variables = require('../utilities/variables').variables
 
 class ClassRoom extends Component {
     constructor () {
@@ -12,15 +15,18 @@ class ClassRoom extends Component {
         this.state = {
             startDate: '',
             endDate: '',
-            onSearch: false
+            onSearch: false,
+            showDetail: false,
+            classroomSelected: null
         }
         this.handleStartDateChange = this.handleStartDateChange.bind(this)
         this.handleEndDateChange = this.handleEndDateChange.bind(this)
         this.renderClassRooms = this.renderClassRooms.bind(this)
+        this.handleShowDetail = this.handleShowDetail.bind(this)
     }
 
     componentDidMount () {
-        this.renderClassRooms()
+        console.log(this.props.schedules)
     }
 
     getLangFile () {
@@ -48,14 +54,21 @@ class ClassRoom extends Component {
         }
     }
 
-    renderRow (classRoom, index) {
+    renderRow (classRoom) {
         return (
-            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={classRoom._id}>
+            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={classRoom._id} onClick={() => this.handleShowDetail(classRoom._id)}>
                 <TableCell> {classRoom.title} </TableCell>
                 <TableCell> {classRoom.phone} </TableCell>
                 <TableCell> {classRoom.seat} </TableCell>
             </TableRow>
         )
+    }
+
+    handleShowDetail (classRoomId) {
+        this.setState({
+            showDetail: true,
+            classroomSelected: classRoomId
+        })
     }
 
     render () {
@@ -98,6 +111,14 @@ class ClassRoom extends Component {
                         </TableHead>
                         {this.state.onSearch ? this.renderClassRooms() : null}
                     </Table>
+                    {this.state.userSelected !== null && (
+                        <ClassroomDetail
+                            open={this.state.showDetail}
+                            // onClose={this.handleCloseDetail}
+                            lang={this.props.lang}
+                            classroomSelected={this.state.classroomSelected}
+                        />
+                    )}
                 </TableContainer>
             </form>
         )

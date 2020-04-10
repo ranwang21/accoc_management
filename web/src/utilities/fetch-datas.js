@@ -932,6 +932,22 @@ const getRoles = (callBack) => {
         })
 }
 
+const getAllSchedules = (token, callBack) => {
+    fetch(HOST + '/schedules', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            callBack(data.data)
+        }
+    })
+}
+
 export default {
     encodeData,
     decodeData,
@@ -950,6 +966,7 @@ export default {
     deleteAllUser,
     createUsers,
     updateUserValidities,
+    getAllSchedules,
     role:{
         get: getRoles
     },

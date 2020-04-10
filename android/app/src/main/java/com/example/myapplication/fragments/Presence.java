@@ -1,7 +1,5 @@
 package com.example.myapplication.fragments;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapters.CheckboxAdapter;
 import com.example.myapplication.adapters.PresenceAdapter;
 import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Role;
@@ -25,15 +20,9 @@ import com.example.myapplication.entities.Schedule;
 import com.example.myapplication.entities.User;
 import com.example.myapplication.managers.ClassroomManager;
 import com.example.myapplication.managers.RoleManager;
-import com.example.myapplication.managers.ScheduleManager;
 import com.example.myapplication.managers.UserManager;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -46,21 +35,7 @@ ListView listView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-      /*  //returning our layout file
-        //change R.layout.yourlayoutfilename for each of your fragments
-        View view = inflater.inflate(R.layout.fragment_presence, container, false);
 
-
-        ListView listView = view.findViewById(R.id.list_presence);
-        /*
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_checked,listviewItems
-        );
-        listView.setAdapter(listViewAdapter);
-        PresenceAdapter adapter = new PresenceAdapter(getActivity(), listviewItems);
-        listView.setAdapter(adapter);*/
-CheckboxAdapter checkboxAdapter;
       PresenceAdapter presenceAdapter;
       ArrayList<User> users=new ArrayList<>();
       ArrayList<Role> roles = RoleManager.getAll(getContext());
@@ -109,45 +84,22 @@ CheckboxAdapter checkboxAdapter;
 
            }
        });
+       CheckBox checkBox =view.findViewById(R.id.checkBox1);
+
+
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getContext(),
                 android.R.layout.simple_list_item_checked
         );
+
         listView.setAdapter(listViewAdapter);
-        CheckBox checkBox =view.findViewById(R.id.checkBox1);
-        ArrayList<Schedule>schedules=ScheduleManager.getAll(getContext());
-        ArrayList<String>listCheck=new ArrayList<>();
-        listCheck.add("Tous");
-        for(Schedule s:schedules){
-            listCheck.add(s.get_id());
-        }
-     /*   checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                CheckboxAdapter checkboxAdapter1=new CheckboxAdapter(getContext(),R.id.checkBox1,schedules);
-                listView.setAdapter(checkboxAdapter1);
-                checkboxAdapter1.notifyDataSetChanged();
-            }
-        });
-
-      /*  ArrayList<Schedule> schedules=ScheduleManager.getAll(getContext());
-        for(Schedule sch:schedules){
-            Button btnSave=new Button(getContext());
-            btnSave.findViewById(R.id.button_presence);
-            btnSave.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    DateFormat date =new SimpleDateFormat("MMM dd yyyy, h:mm");
-                    String dateFormat =date.format(Calendar.getInstance().getTime());
-                    Schedule schedule=new Schedule();
-                    schedule.setDate(dateFormat);
-                    ScheduleManager.insert(getContext(),schedule);
-                    //CheckboxAdapter checkboxAdapter =new CheckboxAdapter(getContext(),R.layout.fragment_presence_row,schedule.get_id());
-                    CheckBox checkBox=view.findViewById(R.id.checkBox1);
-                    Toast.makeText(getActivity(), "Button Clicked", Toast.LENGTH_LONG).show();
-                }
-            });*/
+listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Schedule schedule=(Schedule)parent.getItemAtPosition(position);
+        Toast.makeText(getContext(),"Clicked on row"+schedule.get_id(),Toast.LENGTH_LONG).show();
+    }
+});
 
 
 
