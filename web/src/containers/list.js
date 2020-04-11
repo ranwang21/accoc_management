@@ -147,8 +147,8 @@ class Table extends Component {
         const menuSelected = this.props.menuSelected
         const validationsChange = this.props.inValidActors && this.props.inValidActors.filter(actor => (actor.isValid === true))
         const allActors = this.updateNewActorsList()
-        const isRole = getRoleFunction(variables.role.collab)
-        const collabList = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isRole) : []
+        const collabList = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isCollaborator) : []
+        const parentList = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isParent) : []
 
         return (
             <div className='list'>
@@ -259,6 +259,7 @@ class Table extends Component {
                     classRooms={this.props.classRooms}
                     onChangeImage={this.props.handleImageChange}
                     collabList={collabList}
+                    parentList={parentList}
                 />
 
                 {(menuSelected === variables.menus.validation && validationsChange.length > 0) && (

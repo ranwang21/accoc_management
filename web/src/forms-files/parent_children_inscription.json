@@ -4,14 +4,17 @@
             "name": "identification",
             "fields": [
                 {
-                    "name": "last_name",
-                    "type": "textField",
-                    "required": true
-                },
-                {
-                    "name": "first_name",
-                    "type": "textField",
-                    "required": true
+                    "name": "sex",
+                    "required": true,
+                    "type": "radioField",
+                    "radioOptions": [
+                        {
+                            "name": "female"
+                        },
+                        {
+                            "name": "male"
+                        }
+                    ]
                 },
                 {
                     "name": "birthday",
@@ -24,6 +27,16 @@
                         "month",
                         "date"
                     ],
+                    "required": true
+                },
+                {
+                    "name": "last_name",
+                    "type": "textField",
+                    "required": true
+                },
+                {
+                    "name": "first_name",
+                    "type": "textField",
                     "required": true
                 },
                 {
@@ -85,29 +98,14 @@
                 },
                 {
                     "name": "adlRegister",
-                    "type": "selectField",
-                    "grouped": false,
-                    "required": true,
-                    "maxNumber": 3
+                    "type": "checkboxField",
+                    "required": false
                 },
                 {
-                    "name": "redouble",
-                    "required": true,
-                    "type": "membershipField",
-                    "radioOptions": [
-                        {
-                            "name": "redoubleYes"
-                        },
-                        {
-                            "name": "redoubleNo"
-                        }
-                    ],
-                    "lastRedoubleLevel": {
-                        "name": "lastRedoubleLevel",
-                        "type": "selectGroupedField",
-                        "grouped": true,
-                        "required": true
-                    }
+                    "name": "lastRedoubleLevel",
+                    "type": "selectGroupedField",
+                    "grouped": true,
+                    "required": false
                 },
                 {
                     "name": "registerReason",
@@ -116,39 +114,24 @@
                 },
                 {
                     "name": "evaluation",
-                    "required": true,
-                    "type": "radioField",
-                    "radioOptions": [
-                        {
-                            "name": "evaluationYes"
-                        },
-                        {
-                            "name": "evaluationNo"
-                        }
-                    ]
+                    "type": "checkboxField",
+                    "required": false
                 },
                 {
                     "name": "daycareService",
-                    "required": true,
-                    "type": "membershipField",
-                    "radioOptions": [
+                    "type": "multipleField",
+                    "options": [
                         {
-                            "name": "daycareServiceYes"
+                            "name": "daycareServiceYesName",
+                            "type": "textField",
+                            "required": true
                         },
                         {
-                            "name": "daycareServiceNo"
+                            "name": "daycareServiceYesPhone",
+                            "type": "phoneField",
+                            "required": false
                         }
-                    ],
-                    "daycareServiceYesName": {
-                        "name": "daycareServiceYesName",
-                        "type": "textField",
-                        "required": true
-                    },
-                    "daycareServiceYesPhone": {
-                        "name": "daycareServiceYesPhone",
-                        "type": "phoneField",
-                        "required": true
-                    }
+                    ]
                 }
             ]
         },
@@ -157,20 +140,21 @@
             "fields": [
                 {
                     "name": "ramq",
-                    "type": "textField",
-                    "required": false
-                },
-                {
-                    "name": "expiration",
-                    "type": "dateField",
-                    "min": -10,
-                    "max": 0,
-                    "format": "MMMM YYYY",
-                    "views": [
-                        "year",
-                        "month"
-                    ],
-                    "required": true
+                    "type": "multipleField",
+                    "options": [
+                        {
+                            "name": "expiration",
+                            "type": "dateField",
+                            "min": -10,
+                            "max": 0,
+                            "format": "MMMM YYYY",
+                            "views": [
+                                "year",
+                                "month"
+                            ],
+                            "required": true
+                        }
+                    ]
                 },
                 {
                     "name": "allergies",
@@ -194,29 +178,13 @@
             "fields": [
                 {
                     "name": "autorisationPapper",
-                    "required": true,
-                    "type": "radioField",
-                    "radioOptions": [
-                        {
-                            "name": "autorisationPapperYes"
-                        },
-                        {
-                            "name": "autorisationPapperNo"
-                        }
-                    ]
+                    "type": "checkboxField",
+                    "required": false
                 },
                 {
                     "name": "autorisationInternet",
-                    "required": true,
-                    "type": "radioField",
-                    "radioOptions": [
-                        {
-                            "name": "autorisationInternetYes"
-                        },
-                        {
-                            "name": "autorisationInternetNo"
-                        }
-                    ]
+                    "type": "checkboxField",
+                    "required": false
                 }
             ]
         }

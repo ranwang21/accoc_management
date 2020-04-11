@@ -46,17 +46,17 @@ const initialiseState = {
             last_name: 'Toihoun',
             first_name: 'Derrick',
 
-            contacts_home: '(514) 363-7840',
-            contacts_work: null,
             contacts_personal: '(514) 820-5545',
+            contacts_work: null,
+            contacts_home: '(514) 363-7840',
             contacts_emergency: null,
 
-            is_subscribed: false,
             has_child: false,
+            is_subscribed: false,
 
             membership: null,
-            membership_becomeMember_memberCard: null,
-            membership_becomeMember_discountCard: null,
+            membership_becomeMember_memberCard: false,
+            membership_becomeMember_discountCard: false,
             membership_becomeMember_paymentMethod: null
         },
         errors: {
@@ -66,15 +66,16 @@ const initialiseState = {
             first_name: false,
             email: false,
             address: false,
-            contacts: false,
+            contact: false,
             membership: false
         }
     },
     childrenInscription: {
         fields: {
             step1: {
-                last_name: 'Toihoun',
-                first_name: 'Melody',
+                sex: null,
+                last_name: null,
+                first_name: null,
                 //birthday: null,
                 birthday: new Date('2007-02-15'),
                 garde: null,
@@ -83,25 +84,23 @@ const initialiseState = {
 
                 school: 'Ecole cool',
                 schoolLevel: null,
-                adlRegister: null,
-                redouble: null,
+                adlRegister: false,
                 lastRedoubleLevel: null,
                 registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: null,
-                daycareService: null,
+                evaluation: false,
                 daycareServiceYesName: 'Sandrine H.',
                 daycareServiceYesPhone: '(514) 666-8989',
 
-                ramq: null,
                 expiration: null,
                 allergies: null,
                 drug: null,
                 othersInfos: null,
 
-                autorisationPapper: null,
-                autorisationInternet: null
+                autorisationPapper: false,
+                autorisationInternet: false
             },
             step2: {
+                sex: 'male',
                 last_name: 'Toihoun',
                 first_name: 'Claude',
                 //birthday: null,
@@ -112,25 +111,23 @@ const initialiseState = {
 
                 school: 'Ecole cool',
                 schoolLevel: null,
-                adlRegister: null,
-                redouble: null,
+                adlRegister: false,
                 lastRedoubleLevel: null,
                 registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: null,
-                daycareService: null,
+                evaluation: false,
                 daycareServiceYesName: 'Sandrine H.',
                 daycareServiceYesPhone: '(514) 666-8989',
 
-                ramq: null,
                 expiration: null,
                 allergies: null,
                 drug: null,
                 othersInfos: null,
 
-                autorisationPapper: null,
-                autorisationInternet: null
+                autorisationPapper: false,
+                autorisationInternet: false
             },
             step3: {
+                sex: 'female',
                 last_name: 'Toihoun',
                 first_name: 'Marine',
                 //birthday: null,
@@ -141,25 +138,23 @@ const initialiseState = {
 
                 school: 'Ecole cool',
                 schoolLevel: null,
-                adlRegister: null,
-                redouble: null,
+                adlRegister: false,
                 lastRedoubleLevel: null,
                 registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: null,
-                daycareService: null,
+                evaluation: false,
                 daycareServiceYesName: 'Sandrine H.',
                 daycareServiceYesPhone: '(514) 666-8989',
 
-                ramq: null,
                 expiration: null,
                 allergies: null,
                 drug: null,
                 othersInfos: null,
 
-                autorisationPapper: null,
-                autorisationInternet: null
+                autorisationPapper: false,
+                autorisationInternet: false
             },
             step4: {
+                sex: null,
                 last_name: null,
                 first_name: null,
                 birthday: null,
@@ -167,27 +162,25 @@ const initialiseState = {
                 gardeParentOption: null,
                 gardeOtherOption: null,
 
-                school: null,
+                school: 'Ecole cool',
                 schoolLevel: null,
-                adlRegister: null,
-                redouble: null,
+                adlRegister: false,
                 lastRedoubleLevel: null,
-                registerReason: null,
-                evaluation: null,
-                daycareService: null,
-                daycareServiceYesName: null,
-                daycareServiceYesPhone: null,
+                registerReason: 'Améliorer les performances de mon enfant',
+                evaluation: false,
+                daycareServiceYesName: 'Sandrine H.',
+                daycareServiceYesPhone: '(514) 666-8989',
 
-                ramq: null,
                 expiration: null,
                 allergies: null,
                 drug: null,
                 othersInfos: null,
 
-                autorisationPapper: null,
-                autorisationInternet: null
+                autorisationPapper: false,
+                autorisationInternet: false
             },
             step5: {
+                sex: null,
                 last_name: null,
                 first_name: null,
                 birthday: null,
@@ -195,29 +188,27 @@ const initialiseState = {
                 gardeParentOption: null,
                 gardeOtherOption: null,
 
-                school: null,
+                school: 'Ecole cool',
                 schoolLevel: null,
-                adlRegister: null,
-                redouble: null,
+                adlRegister: false,
                 lastRedoubleLevel: null,
-                registerReason: null,
-                evaluation: null,
-                daycareService: null,
-                daycareServiceYesName: null,
-                daycareServiceYesPhone: null,
+                registerReason: 'Améliorer les performances de mon enfant',
+                evaluation: false,
+                daycareServiceYesName: 'Sandrine H.',
+                daycareServiceYesPhone: '(514) 666-8989',
 
-                ramq: null,
                 expiration: null,
                 allergies: null,
                 drug: null,
                 othersInfos: null,
 
-                autorisationPapper: null,
-                autorisationInternet: null
+                autorisationPapper: false,
+                autorisationInternet: false
             }
         },
         errors: {
             step1: {
+                sex: false,
                 last_name: false,
                 first_name: false,
                 birthday: false,
@@ -225,11 +216,10 @@ const initialiseState = {
 
                 school: false,
                 schoolLevel: false,
-                redouble: false,
-                registerReason: false,
-                evaluation: false
+                registerReason: false
             },
             step2: {
+                sex: false,
                 last_name: false,
                 first_name: false,
                 birthday: false,
@@ -237,11 +227,10 @@ const initialiseState = {
 
                 school: false,
                 schoolLevel: false,
-                redouble: false,
-                registerReason: false,
-                evaluation: false
+                registerReason: false
             },
             step3: {
+                sex: false,
                 last_name: false,
                 first_name: false,
                 birthday: false,
@@ -249,11 +238,10 @@ const initialiseState = {
 
                 school: false,
                 schoolLevel: false,
-                redouble: false,
-                registerReason: false,
-                evaluation: false
+                registerReason: false
             },
             step4: {
+                sex: false,
                 last_name: false,
                 first_name: false,
                 birthday: false,
@@ -261,11 +249,10 @@ const initialiseState = {
 
                 school: false,
                 schoolLevel: false,
-                redouble: false,
-                registerReason: false,
-                evaluation: false
+                registerReason: false
             },
             step5: {
+                sex: false,
                 last_name: false,
                 first_name: false,
                 birthday: false,
@@ -273,9 +260,7 @@ const initialiseState = {
 
                 school: false,
                 schoolLevel: false,
-                redouble: false,
-                registerReason: false,
-                evaluation: false
+                registerReason: false
             }
         }
     },
@@ -306,10 +291,12 @@ const initialiseState = {
             prepareSnack: false,
             accompanyInternet: false,
 
-            motivation: null,
-            experience: null,
-            comment: null,
-            heard: null
+            comment: 'Mon commentaire',
+            experience: 'Mes experiences',
+            motivation: 'Mes motivations',
+            heard: 'Heard',
+
+            availability: null
         },
         errors: {
             availability: false,
@@ -333,8 +320,8 @@ class RegisterContainer extends Component {
         super()
         this.state = {
             ...initialiseState,
-            roles: null,
-            days: null
+            roles: [],
+            days: []
         }
         this.handleStepClick = this.handleStepClick.bind(this)
         this.handleSaveRegister = this.handleSaveRegister.bind(this)
@@ -347,12 +334,12 @@ class RegisterContainer extends Component {
         this.onCollaboratorInputChange = this.onCollaboratorInputChange.bind(this)
         this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this)
         this.handleRessetStepAndRedirect = this.handleRessetStepAndRedirect.bind(this)
-        this.funcReg = this.funcReg.bind(this)
+        this.setRolesAndDays = this.setRolesAndDays.bind(this)
         this.savedUser = this.savedUser.bind(this)
     }
 
     componentDidMount(){
-        Fetch.getRolesAndDays(this.funcReg)
+        Fetch.getRolesAndDays(this.setRolesAndDays)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
@@ -404,17 +391,16 @@ class RegisterContainer extends Component {
             const currentStep = this.state.step
             const fields = this.state.childrenInscription.fields['step' + (currentStep - 2)]
             const newErrors = {
-                lastName: fields.lastName === null,
-                firstName: fields.firstName === null,
+                sex: fields.sex === null,
+                last_name: fields.last_name === null,
+                first_name: fields.first_name === null,
                 birthday: fields.birthday === null,
                 garde: (fields.garde === null ||
                     ((fields.garde === 'gardeMother' || fields.garde === 'gardeFather') && fields.gardeParentOption === null)),
 
                 school: fields.school === null,
                 schoolLevel: fields.schoolLevel === null,
-                redouble: (fields.redouble === null || (fields.garde === 'redoubleYes' && fields.redoubleYesOption === null)),
-                registerReason: fields.registerReason === null,
-                evaluation: fields.evaluation === null
+                registerReason: fields.registerReason === null
             }
             this.setState(state => {
                 const oldInformations = state.childrenInscription
@@ -454,9 +440,19 @@ class RegisterContainer extends Component {
                 motivation: fields.motivation === null,
                 experience: fields.experience === null
             }
+            const arrDays = []
+            fields.monday && arrDays.push(this.state.days.filter(day => day.title === 'lundi')[0]._id)
+            fields.tuesday && arrDays.push(this.state.days.filter(day => day.title === 'mardi')[0]._id)
+            fields.wednesday && arrDays.push(this.state.days.filter(day => day.title === 'mercredi')[0]._id)
+            fields.thursday && arrDays.push(this.state.days.filter(day => day.title === 'jeudi')[0]._id)
+
             this.setState({
                 collaborator: {
                     ...this.state.collaborator,
+                    fields:{
+                        ...this.state.collaborator.fields,
+                        availability: arrDays
+                    },
                     errors: {
                         ...this.state.collaborator.errors,
                         ...newErrors
@@ -629,7 +625,7 @@ class RegisterContainer extends Component {
             const userLogin = {
                 id_user: null,
                 email: this.state.informationsCoordonnees.fields.email,
-                password: this.state.password !== null ? this.state.password : 'abc123...',
+                password: 'abc123...',
                 is_active: false
             }
             Fetch.registerSaveUser(user, userLogin, this.savedUser)
@@ -644,21 +640,21 @@ class RegisterContainer extends Component {
                 const childRole = 'children'
                 const childFields = this.state.childrenInscription.fields
                 const child = { child1 : null, child2 : null, child3 : null, child4 : null, child5 : null }
-                /*
-                child1 = nbrChild <= 1 ? this.getUserToSave({...childFields.step1, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
-                child2 = nbrChild <= 2 ? this.getUserToSave({...childFields.step2, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
-                child3 = nbrChild <= 3 ? this.getUserToSave({...childFields.step3, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
-                child4 = nbrChild <= 4 ? this.getUserToSave({...childFields.step4, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
-                child5 = nbrChild <= 5 ? this.getUserToSave({...childFields.step5, ...{ id_parent: idUser }}, actorsIds.children, this.state.roles, childRole) : null
-                */
-                for (let i = 0; i < nbrChild; i++) {
-                    child['child' + i] = this.getUserToSave({...childFields['step' + i], ...{ id_parent: idUser }}, this.state.roles, childRole)
-                    Fetch.saveChildren(child['child' + i], this.saveChildren)
-                }
+
+                child.child1 = nbrChild >= 1 ? this.getUserToSave({...childFields.step1}, this.state.roles, childRole) : null
+                child.child2 = nbrChild >= 2 ? this.getUserToSave({...childFields.step2}, this.state.roles, childRole) : null
+                child.child3 = nbrChild >= 3 ? this.getUserToSave({...childFields.step3}, this.state.roles, childRole) : null
+                child.child4 = nbrChild >= 4 ? this.getUserToSave({...childFields.step4}, this.state.roles, childRole) : null
+                child.child5 = nbrChild === 5 ? this.getUserToSave({...childFields.step5}, this.state.roles, childRole) : null
+
+                const childrens = Object.values(child).filter(x => x !== null)
+                console.log(childrens)
+                Fetch.saveChildren(childrens, idUser, this.saveChildren)
             }
         }
 
         saveChildren(success){
+            console.log('children save')
             console.log(success)
         }
 
@@ -728,87 +724,83 @@ class RegisterContainer extends Component {
         }
 
         getUserToSave (fields, roles, roleTitle) {
-            const user = require('../utilities/variables').variables.templateUser
+            const templateUser = require('../utilities/variables').variables.templateUser
             const findRole = roles.filter(role => role.title === roleTitle)
 
-            user.id_role= findRole[0]._id,
-            user.sex= fields.sex ? fields.sex : null,
-            user.address= fields.address ? fields.address : null,
-            user.birthday = (fields.birthday.getFullYear() + '/' + (fields.birthday.getMonth() + 1) + '/' + fields.birthday.getDate()),
-            user.has_child= fields.has_child ? fields.has_child : null,
-            user.last_name= fields.last_name,
-            user.first_name= fields.first_name,
-            user.is_subscribed= fields.is_subscribed ? fields.is_subscribed : null,
-            user.contact = [
-                {title: 'home', phone: fields.contacts_home ? fields.contacts_home : null},
-                {title: 'work', phone: fields.contacts_work ? fields.contacts_work : null},
-                {title: 'personal', phone: fields.contacts_personal ? fields.contacts_personal : null},
-                {title: 'emergency', phone: fields.contacts_emergency ? fields.contacts_emergency : null},
-            ]
-            user.membership = [
-                {question: 'membership',response: fields.membership ? fields.membership : null},
-                {question: 'memberCard',response: fields.membership_becomeMember_memberCard ? fields.membership_becomeMember_memberCard : null},
-                {question: 'discountCard',response: fields.membership_becomeMember_discountCard ? fields.membership_becomeMember_discountCard : null},
-                {question: 'paymentMethod',response: fields.membership_becomeMember_paymentMethod ? fields.membership_becomeMember_paymentMethod : null},
-            ]
-            user.photo = 'no-photo.jpg'
-            user.garde = [
-                {question: 'garde',response: fields.garde ? fields.garde : null},
-                {question: 'gardeParentOption', response: fields.gardeParentOption ? fields.gardeParentOption : null},
-                {question: 'gardeOtherOption', response: fields.gardeOtherOption ? fields.gardeOtherOption : null}
-            ]
-            user.id_parent= fields.id_parent ? fields.id_parent : null,
-            user.school_info = [
-                {question: 'school', response: fields.school ? fields.school : null},
-                {question: 'schoolLevel', response: fields.schoolLevel ? fields.schoolLevel : null},
-                {question: 'adlRegister',response: fields.adlRegister ? fields.adlRegister : null},
-                {question: 'redouble', response: fields.redouble ? fields.redouble : null},
-                {question: 'lastRedoubleLevel', response: fields.lastRedoubleLevel ? fields.lastRedoubleLevel : null},
-                {question: 'registerReason', response: fields.registerReason ? fields.registerReason : null},
-                {question: 'evaluation', response: fields.evaluation ? fields.evaluation : null},
-                {question: 'daycareService', response: fields.daycareService ? fields.daycareService : null},
-                {question: 'daycareServiceYesName', response: fields.daycareServiceYesName ? fields.daycareServiceYesName : null},
-                {question: 'daycareServiceYesPhone', response: fields.daycareServiceYesPhone ? fields.daycareServiceYesPhone : null}
-            ]
-            user.medical_info = [
-                {question: 'ramq', response: fields.ramq ? fields.ramq : null},
-                {question: 'expiration', response: fields.expiration ? ((fields.expiration.getMonth() + 1) + '/' + fields.expiration.getFullYear()) : null},
-                {question: 'allergies', response: fields.allergies ? fields.allergies : null},
-                {question: 'drug', response: fields.drug ? fields.drug : null},
-                {question: 'othersInfos', response: fields.othersInfos ? fields.othersInfos : null}
-            ]
-            user.authorization = [
-                {question: 'autorisationPapper', response: fields.autorisationPapper ? fields.autorisationPapper : null},
-                {question: 'autorisationInternet', response: fields.autorisationInternet ? fields.autorisationInternet : null}
-            ]
-            user.involvement = [
-                {question: 'snacks',response: fields.snacks ? fields.snacks : null},
-                {question: 'talents',response: fields.talents ? fields.talents : null},
-                {question: 'support',response: fields.support ? fields.support : null},
-                {question: 'organization',response: fields.organization ? fields.organization : null},
-                {question: 'otherInvolvement',response: fields.otherInvolvement ? fields.otherInvolvement : null}
-            ]
-            user.need = fields.needsVar ? fields.needsVar : null
-            user.expectation = fields.expectationsVar ? fields.expectationsVar : null
-            user.availability = []
-            fields.monday && user.availability.push(fields.monday)
-            fields.tuesday && user.availability.push(fields.tuesday)
-            fields.wednesday && user.availability.push(fields.wednesday)
-            fields.thursday && user.availability.push(fields.thursday)
-            user.interest = []
-            fields.magicJournal && user.interest.push(fields.magicJournal)
-            fields.serveSnack && user.interest.push(fields.serveSnack)
-            fields.animationPreparation && user.interest.push(fields.animationPreparation)
-            fields.accompanyWorkshop && user.interest.push(fields.accompanyWorkshop)
-            fields.prepareSnack && user.interest.push(fields.prepareSnack)
-            fields.accompanyInternet && user.interest.push(fields.accompanyInternet)
-            user.comment = fields.comment ? fields.comment : null
-            user.experience = fields.experience ? fields.experience : null
-            user.motivation = fields.motivation ? fields.motivation : null
-            user.question = [
-                {question: 'heard',response: fields.heard ? fields.heard : null}
-            ]
+            const user = {
+                ...templateUser,
+                id_role: findRole[0]._id,
+                first_name: fields.first_name,
+                last_name: fields.last_name,
+                sex: fields.sex,
+                birthday: (fields.birthday && fields.birthday !== null) ? (fields.birthday.getFullYear() + '/' + (fields.birthday.getMonth() + 1) + '/' + fields.birthday.getDate()) : null,
+            }
+            if (roleTitle !== 'children') {
+                user.address = fields.address,
+                user.has_child = fields.has_child,
+                user.is_subscribed = fields.is_subscribed,
+                user.contact = [{
+                    personal: fields.contacts_personal,
+                    work: fields.contacts_work,
+                    home: fields.contacts_home,
+                    emergency: fields.contacts_emergency
+                }]
+                const membershipStatus = (fields.membership === 'membership_becomeMember' || fields.membership === 'membership_alreadyMember') ? true : false
+                user.membership = [{
+                    status: membershipStatus,
+                    payement_method: fields.membership_becomeMember_paymentMethod,
+                    member_card: fields.membership_becomeMember_memberCard,
+                    discount_card: fields.membership_becomeMember_discountCard
+                }]
+                if(roleTitle === 'parent' || roleTitle === 'collab_parent') {
+                    user.expectation = fields.expectationsVar,
+                    user.need = fields.needsVar,
 
+                    user.involvement[0].response = fields.talents,
+                    user.involvement[1].response = fields.snacks,
+                    user.involvement[2].response = fields.organization,
+                    user.involvement[3].response = fields.support,
+                    user.involvement[4].response = fields.otherInvolvement
+                }
+                if(roleTitle === 'collaborater' || roleTitle === 'collab_parent') {
+                    user.comment = fields.comment,
+                    user.experience = fields.experience,
+                    user.motivation = fields.motivation,
+                    user.availability = fields.availability,
+                    user.question[3].response = fields.heard,
+
+                    user.interest[0].response = fields.magicJournal,
+                    user.interest[1].response = fields.serveSnack,
+                    user.interest[2].response = fields.animationPreparation,
+                    user.interest[3].response = fields.accompanyWorkshop,
+                    user.interest[4].response = fields.prepareSnack,
+                    user.interest[5].response = fields.accompanyInternet
+                }
+            } else {
+                user.school_info = [{
+                    name: fields.school,
+                    level: fields.schoolLevel,
+                    adl: fields.adlRegister, // TRUE / FALSE
+                    redouble: fields.lastRedoubleLevel,
+                    evaluate: fields.evaluation,
+                    reason: fields.registerReason,
+                    educator_name: fields.daycareServiceYesName,
+                    educator_phone: fields.daycareServiceYesPhone,
+                }],
+                user.medical_info = [{
+                    ramq: (fields.expiration && fields.expiration !== null) ? ((fields.expiration.getMonth() + 1) + '/' + fields.expiration.getFullYear()) : null,
+                    allergies: fields.allergies,
+                    drugs: fields.drug,
+                    other_info: fields.othersInfos
+                }],
+                user.authorization = [{
+                    paper: fields.autorisationPapper,
+                    internet: fields.autorisationInternet
+                }],
+                user.question[0].response = fields.garde
+                user.question[1].response = fields.gardeParentOption
+                user.question[2].response = fields.gardeOtherOption
+            }
             return user
         }
 
@@ -833,17 +825,14 @@ class RegisterContainer extends Component {
         */
     }
 
-    funcReg(roles, days){
-        this.setState({roles: roles, days: days})
+    setRolesAndDays(roles, days){
+        const newDays = days.filter(day => day.value <= 4)
+        this.setState({roles: roles, days: newDays})
     }
 
     render () {
         const lang = this.getLangFile()
         const max = this.getMaxStep()
-        //console.log(this.state.roles)
-        /*
-        console.log(this.state.days)
-        */
         return (
             <div className={this.state.successRegister ? 'register-container registered' : 'register-container'}>
                 {this.props.onShowLoginForm !== null && (

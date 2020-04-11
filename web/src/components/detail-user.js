@@ -21,18 +21,37 @@ class DetailUser extends Component {
             fileUploadedSuccess: false,
             fileUploadedError: false,
             showLoading: false,
-            allowEditable: false
+            showEditLoading: false,
+            userEdited: {}
         }
         this.divToPrint = React.createRef()
         this.time = 3000
         this.handleImageChange = this.handleImageChange.bind(this)
         this.setImage = this.setImage.bind(this)
         this.updateImage = this.updateImage.bind(this)
-        this.handleEditMode = this.handleEditMode.bind(this)
+        this.handleEditClick = this.handleEditClick.bind(this)
+        this.onEditFieldsChange = this.onEditFieldsChange.bind(this)
+    }
+
+    componentDidMount () {
+        this.setState({ userEdited: this.props.userSelected })
+    }
+
+    onEditFieldsChange (event, value, name, subName) {
+        this.setState(state => {
+            const userEdited = state.userEdited
+            subName === null
+                ? userEdited[name] = value
+                : userEdited[name][subName] = value
+
+            return {
+                userEdited: userEdited
+            }
+        })
     }
 
     updateImage (dataImage) {
-        this.props.onChangeImage(this.props.userSelected._id, dataImage.data)
+        this.props.onChangeImage(this.props.userSelected, dataImage.data)
     }
 
     setImage (dataImage) {
@@ -55,8 +74,12 @@ class DetailUser extends Component {
         Fetch.image.update(this.props.cookies.get(variables.cookies.token), this.props.userSelected, event.target.files, this.setImage)
     }
 
-    handleEditMode () {
-        this.setState({ allowEditable: !this.state.allowEditable })
+    handleEditClick () {
+        this.props.onEditMode()
+        if (this.props.allowEditable) {
+            this.setState({ showEditLoading: true })
+            console.log('SAVE EDIT')
+        }
     }
 
     render () {
@@ -78,19 +101,18 @@ class DetailUser extends Component {
                 aria-describedby='scroll-dialog-description'
                 maxWidth='md'
                 fullWidth
-                disableBackdropClick={false}
             >
                 <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations {this.state.allowEditable && '(Modification en cour)'}</DialogTitle>
-                <DialogContent id='details-print' ref={el => (this.divToPrint = el)}>
+                <DialogContent id='details-print' className='div-dialog' ref={el => (this.divToPrint = el)}>
                     <div className='detail-head to-be-print'>LA MAISON D'AURORE</div>
-                    <div className='detail-user'>
+                    <div className={this.state.showEditLoading ? 'detail-user loading-effect' : 'detail-user'}>
                         <div className='image'>
                             <Button
                                 variant='text'
                                 component='label'
                             >
                                 <img src={this.props.userSelected.img} alt='avatar' />
-                                {(this.props.menuSelected !== variables.menus.validation && this.state.allowEditable) && (
+                                {(this.props.menuSelected !== variables.menus.validation) && (
                                     <>
                                         <p><span>Cliquer pour changer</span></p>
                                         <input
@@ -137,21 +159,24 @@ class DetailUser extends Component {
                                     child={this.props.userSelected}
                                     classRooms={this.props.classRooms}
                                     collaboraters={this.props.collabList}
-                                    editable={this.state.allowEditable}
+                                    parents={this.props.parentList}
+                                    editable={this.props.allowEditable}
+                                    userEdited={this.state.userEdited}
+                                    handleEditChange={this.onEditFieldsChange}
                                 />
                             )}
                             {(this.props.userSelected.roleTitle !== variables.role.child && this.props.userSelected.roleTitle !== variables.role.admin) && (
                                 <ParentCollabDetail
                                     lang={this.props.lang}
                                     both={this.props.userSelected}
-                                    editable={this.state.allowEditable}
+                                    editable={this.props.allowEditable}
                                 />
                             )}
                             {(this.props.userSelected.roleTitle === variables.role.admin) && (
                                 <AdminDetail
                                     lang={this.props.lang}
                                     admin={this.props.userSelected}
-                                    editable={this.state.allowEditable}
+                                    editable={this.props.allowEditable}
                                 />
                             )}
                         </div>
@@ -160,12 +185,12 @@ class DetailUser extends Component {
                 </DialogContent>
                 <DialogActions className='dialog-footer'>
                     <Button
-                        onClick={this.handleEditMode}
+                        onClick={this.handleEditClick}
                         variant='contained'
                         color='secondary'
-                        startIcon={this.state.allowEditable ? <SaveIcon /> : <EditIcon />}
+                        startIcon={this.props.allowEditable ? <SaveIcon /> : <EditIcon />}
                     >
-                        {this.state.allowEditable ? 'Save ' : 'Edit '} Profil
+                        {this.props.allowEditable ? 'Save ' : 'Edit '} Profil
                     </Button>
                     <PrintDetail
                         trigger={() => <IconButton><PrintIcon fontSize='large' /></IconButton>}

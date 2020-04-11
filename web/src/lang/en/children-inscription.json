@@ -2,6 +2,16 @@
     "title": "Child registration form ",
     "identification": {
         "label": "Identification of the child",
+        "sex": {
+            "label": "titre",
+            "labelError": "Obligatoire",
+            "female": {
+                "label": "Mrs"
+            },
+            "male": {
+                "label": "Mr"
+            }
+        },
         "last_name": {
             "label": "Last name",
             "labelError": "Required"
@@ -82,43 +92,40 @@
         },
         "adlRegister": {
             "label": "Number of ADL registrations",
-            "labelError": "Required"
+            "labelError": "Required",
+            "adlRegister": {
+                "label": "Mrs"
+            },
+            "adlRegisterNo": {
+                "label": "Mr"
+            }
         },
-        "redouble": {
+        "lastRedoubleLevel": {
             "label": "Has the child repeated a year?",
             "labelError": "Required",
-            "redoubleYes": {
-                "label": "Yes"
-            },
-            "redoubleNo": {
-                "label": "No"
-            },
-            "lastRedoubleLevel": {
-                "label": "Which?",
-                "level": [
-                    {
-                        "label": "Primary",
-                        "options": [
-                            "1st",
-                            "2nd",
-                            "3rd",
-                            "4th",
-                            "5th",
-                            "6th"
-                        ]
-                    },
-                    {
-                        "label": "Secondary",
-                        "options": [
-                            "I",
-                            "II",
-                            "III",
-                            "IV",
-                            "V"
-                        ]
-                    }
-                ]
-            }
+            "level": [
+                {
+                    "label": "Primary",
+                    "options": [
+                        "1st",
+                        "2nd",
+                        "3rd",
+                        "4th",
+                        "5th",
+                        "6th"
+                    ]
+                },
+                {
+                    "label": "Secondary",
+                    "options": [
+                        "I",
+                        "II",
+                        "III",
+                        "IV",
+                        "V"
+                    ]
+                }
+            ]
         },
         "registerReason": {
             "label": "Reason for registration",

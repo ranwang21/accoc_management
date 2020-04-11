@@ -86,6 +86,9 @@ const variables = {
         },
         childrenRegister: {
             identification: 'childrenRegisteridentification',
+            sex: 'EGHSGNDVCFEGSVNBM',
+            female: 'EGHSGNDVCFEGSVNBM1',
+            male: 'EGHSGNDVCFEGSVNBM2',
             last_name: 'childrenRegisteridentification8E5D4FDW185S',
             first_name: 'childrenRegisteridentificationQ8W7E4F2S8D',
             birthday: 'childrenRegisteridentification7E4DE54F15ED2',
@@ -103,16 +106,12 @@ const variables = {
             school: 'childrenRegisterschoolInfoRDF415DX2',
             schoolLevel: 'childrenRegisterschoolInfoRDF415DX15',
             adlRegister: 'childrenRegisterschoolInfo5S41',
-            redouble: 'childrenRegisterschoolInfoRDF8Y5GF24G1',
-            redoubleYes: 'childrenRegisterschoolInfoRDF8Y5GF24G11',
-            redoubleNo: 'childrenRegisterschoolInfoRDF8Y5GF24G12',
+            lastRedoubleLevel: 'childrenRegisterschoolInfoRDF8Y5GF24G1',
             registerReason: 'childrenRegisterschoolInfoE8RT5U4',
             evaluation: 'childrenRegisterschoolInfo5FG42F1E',
-            evaluationYes: 'childrenRegisterschoolInfo5FG42F1E1',
-            evaluationNo: 'childrenRegisterschoolInfo5FG42F1E2',
             daycareService: 'childrenRegisterschoolInfoE9R8TY4H',
-            daycareServiceYes: 'childrenRegisterschoolInfoE9R8TY4H1',
-            daycareServiceNo: 'childrenRegisterschoolInfoE9R8TY4H2',
+            daycareServiceYesName: 'childrenRegisterschoolInfoE9R8TY4H1',
+            daycareServiceYesPhone: 'childrenRegisterschoolInfoE9R8TY4H2',
 
             medicalInfo: 'childrenRegistermedicalInfo',
             ramq: 'childrenRegistermedicalInforamq',
@@ -123,11 +122,7 @@ const variables = {
 
             autorisation: 'childrenRegisterautorisation',
             autorisationPapper: 'childrenRegisterautorisation5D4F2',
-            autorisationPapperYes: 'childrenRegisterautorisation5D4F21',
-            autorisationPapperNo: 'childrenRegisterautorisation5D4F22',
-            autorisationInternet: 'childrenRegisterautorisation9WE8R5H4B',
-            autorisationInternetYes: 'childrenRegisterautorisation9WE8R5H4B1',
-            autorisationInternetNo: 'childrenRegisterautorisation9WE8R5H4B2'
+            autorisationInternet: 'childrenRegisterautorisation9WE8R5H4B'
 
         },
         complementaryInformations: {
@@ -172,51 +167,32 @@ const variables = {
     },
     templateUser: {
         id_role: null,
-        id_child: null, // or array
-        id_parent: null, // or array
+        id_child: [],
+        id_parent: [],
         id_collaborater: null,
         id_classroom: null,
         first_name: null,
         last_name: null,
-        sex: null, // male or female
+        sex: null,
         address: null,
         birthday: null,
+        photo: 'no-photo.jpg',
         has_child: false,
         is_subscribed: false,
-        contact: {
+        contact: [{
             personal: null,
             work: null,
             home: null,
             emergency: null
-        },
-        membership: {
-            membership: false,
-            paymentMethod: null,
-            memberCard: false,
-            discountCard: false
-        },
-        photo: 'no-photo.jpg',
-        school_info: {
-            name: null,
-            level: null,
-            adl: false,
-            redouble: null,
-            evaluation: false,
-            reason: null,
-            educatorName: null,
-            educatorPhone: null
-        },
-        medical_info: {
-            ramq: null,
-            ramqExpiration: null,
-            allergies: null,
-            drugs: null,
-            othersInformations: null
-        },
-        authorization: {
-            paper: false,
-            internet: false
-        },
+        }],
+        membership: [{
+            status: false,
+            payement_method: null,
+            member_card: false,
+            discount_card: false
+        }],
+        expectation: null,
+        need: null,
         involvement: [
             {
                 question: 'talents',
@@ -239,8 +215,10 @@ const variables = {
                 response: 'Response here'
             }
         ],
-        expectation: null,
-        need: null,
+        comment: null,
+        experience: null,
+        motivation: null,
+        availability: [],
         question: [
             {
                 question: 'garde',
@@ -259,16 +237,52 @@ const variables = {
                 response: null
             }
         ],
-        availability: [
-            null,
-            null,
-            null,
-            null
+        interest: [
+            {
+                question: 'magicJournal',
+                response: null
+            },
+            {
+                question: 'serveSnack',
+                response: null
+            },
+            {
+                question: 'animationPreparation',
+                response: null
+            },
+            {
+                question: 'accompanyWorkshop',
+                response: null
+            },
+            {
+                question: 'prepareSnack',
+                response: null
+            },
+            {
+                question: 'accompanyInternet',
+                response: null
+            }
         ],
-        interest: null, // or array
-        comment: null,
-        experience: null,
-        motivation: null
+        school_info: [{
+            name: null,
+            level: null,
+            adl: false,
+            redouble: null,
+            evaluate: false,
+            reason: null,
+            educator_name: null,
+            educator_phone: null
+        }],
+        medical_info: [{
+            ramq: null,
+            allergies: null,
+            drugs: null,
+            other_info: null
+        }],
+        authorization: [{
+            paper: false,
+            internet: false
+        }]
     },
     roles: {
         super_admin: '5e6a3e314554933864b2c3c2',

@@ -243,11 +243,11 @@ const registerSaveUser = (user, userLogin, callBack) => {
         body: JSON.stringify(user)
     })
         .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                userLogin = {
-                    id_user: data.data._id
-                }
+        .then(data1 => {
+            if (data1.success) {
+                console.log(data1)
+                userLogin.id_user = data1.data._id
+
                 fetch(HOST + '/logins', {
                     method: 'post',
                     headers: {
@@ -257,26 +257,30 @@ const registerSaveUser = (user, userLogin, callBack) => {
                     body: JSON.stringify(userLogin)
                 })
                     .then(response => response.json())
-                    .then(data => {
-                        callBack(data.success, userLogin.id_user)
+                    .then(data2 => {
+                        console.log(data2)
+                        callBack(data2.success, userLogin.id_user)
                     })
             }
         })
 }
 
-const saveChildren = (children, callBack) => {
-    fetch(HOST + '/users', {
-        method: 'post',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(children)
-    })
-        .then(response => response.json())
-        .then(data => {
-            callBack(data.success)
+const saveChildren = (childrens, idParent, callBack) => {
+    childrens.map(child => {
+        child.id_parent = [idParent]
+        fetch(HOST + '/users', {
+            method: 'post',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(child)
         })
+            .then(response => response.json())
+            .then(data => {
+                callBack(data)
+            })
+    })
 }
 
 const getRolesAndDays = (callBack) => {
@@ -288,6 +292,14 @@ const getRolesAndDays = (callBack) => {
                 .then(dataDays => {
                     callBack(dataRoles.data, dataDays.data)
                 })
+        })
+}
+
+const getDays = (callBack) => {
+    fetch(HOST + '/days')
+        .then(response => response.json())
+        .then(dataDays => {
+            callBack(dataDays.data)
         })
 }
 
@@ -990,6 +1002,22 @@ const updateUserValidities = (token, users, callBack) => {
     }
 }
 
+
+const updateUser = (token, user, callBack) => {
+        fetch(HOST + '/users/'+ user._id, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => response.json())
+        .then(data => { callBack(data) })
+        .catch()
+}
+
 const updateUserImage = (token, user, file, callBack) => {
     const formData = new FormData()
     formData.append("file", file[0])
@@ -1001,9 +1029,7 @@ const updateUserImage = (token, user, file, callBack) => {
             body: formData,
         })
             .then(response => response.json())
-            .then(data => {
-                callBack(data)
-            })
+            .then(data => { callBack(data) })
             .catch()
 }
 
@@ -1091,8 +1117,14 @@ export default {
     createUsers,
     updateUserValidities,
     getAllSchedules,
+    user: {
+        update: updateUser
+    },
     role:{
         get: getRoles
+    },
+    day: {
+        get: getDays
     },
     image:{
         get: getImage,

@@ -19,10 +19,12 @@ class TableListContainer extends Component {
         super()
         this.state = {
             showDetail: false,
-            userSelected: null
+            userSelected: null,
+            allowEditable: false
         }
         this.handleShowDetail = this.handleShowDetail.bind(this)
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
+        this.handleEditMode = this.handleEditMode.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list-table.json') }
@@ -31,8 +33,13 @@ class TableListContainer extends Component {
         const user = this.props.allActors.filter(actor => actor._id === id)
         this.setState({
             showDetail: true,
-            userSelected: user && user[0]
+            userSelected: user && user[0],
+            allowEditable: false
         })
+    }
+
+    handleEditMode () {
+        this.setState({ allowEditable: !this.state.allowEditable })
     }
 
     handleCloseDetail () { this.setState({ showDetail: false }) }
@@ -169,6 +176,9 @@ class TableListContainer extends Component {
                             onChangeImage={this.props.onChangeImage}
                             classRooms={this.props.classRooms}
                             collabList={this.props.collabList}
+                            parentList={this.props.parentList}
+                            allowEditable={this.state.allowEditable}
+                            onEditMode={this.handleEditMode}
                         />
                     )}
                 </TableContainer>)

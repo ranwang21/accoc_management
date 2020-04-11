@@ -208,6 +208,7 @@ const radioField = (fieldsConfig, propLang, lang, fields, errors, inputChange, i
 const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <MuiPickersUtilsProvider
+            key={lang[fieldsConfig.name]}
             libInstance={moment} utils={MomentUtils}
             locale={propLang}
         >
@@ -235,11 +236,18 @@ const multipleField = (fieldsConfig, propLang, lang, fields, errors, inputChange
                 <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
             </div>
             <div className='body'>
-                {fieldsConfig.options.map(option => (
-                    option.type === types.phoneField
-                    ? (phoneField(option, propLang, lang, fields, errors, inputChange, ids))
-                    : (checkboxField(option, propLang, lang, fields, errors, inputChange, ids))
-                ))}
+                {fieldsConfig.options.map(option => {
+                    switch(option.type){
+                        case types.text:
+                            return (textField(option, propLang, lang, fields, errors, inputChange, ids))
+                        case types.phoneField:
+                            return (phoneField(option, propLang, lang, fields, errors, inputChange, ids))
+                        case types.checkBox:
+                            return (checkboxField(option, propLang, lang, fields, errors, inputChange, ids))
+                        case types.date:
+                            return (dateField(option, propLang, lang, fields, errors, inputChange, ids))
+                    }
+                })}
             </div>
         </div>
     )
