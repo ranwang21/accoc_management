@@ -34,16 +34,20 @@ public class PresenceAdapter extends ArrayAdapter<User> {
     // Context context;
     //List<String> modelItems;
     int idLayout;
+
     public PresenceAdapter(Context context, int resource, List<User> objects) {
         super(context, resource, objects);
-        idLayout=resource;
+        idLayout = resource;
         //     this.context = context;
         //   this.modelItems = resource;
     }
+
+
     private class ViewHolder {
 
         CheckBox cb;
     }
+
     public View getView(int position, View convertView, ViewGroup parent) {
         final User user = getItem(position);
         ViewHolder holder = null;
@@ -55,12 +59,16 @@ public class PresenceAdapter extends ArrayAdapter<User> {
             Button btn = convertView.findViewById(R.id.button_presence);
             TextView Fname = convertView.findViewById(R.id.textView1);
             TextView Lname = convertView.findViewById(R.id.textView2);
-            holder.cb = convertView.findViewById(R.id.checkBox1);
+            CheckBox cb = convertView.findViewById(R.id.checkBox1);
             ImageView img = convertView.findViewById(R.id.imageView3);
             Fname.setText(user.getFirst_name());
             Lname.setText(user.getLast_name());
             Glide.with(getContext()).load(user.getImg_url()).into(img);
-convertView.setTag(holder);
+
+
+
+
+/*convertView.setTag(holder);
 holder.cb.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -78,7 +86,7 @@ boolean check;
         Toast.makeText(getContext(),"Clicked on checkbox"+checkBox.getText()+"is"+checkBox.isChecked(),Toast.LENGTH_LONG).show();
        /* if(checkBox.isChecked()){
             check=true;
-        }else {check=false}*/
+        }else {check=false}
 
 
     }
@@ -90,7 +98,8 @@ boolean check;
         holder.cb.setText(schedule.getDate());
         holder.cb.setChecked(schedule.getIs_absent());
         holder.cb.setTag(schedule);
+*/}
+            return convertView;
 
-        return convertView;
     }
 }
