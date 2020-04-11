@@ -1,106 +1,5 @@
 'use-strict'
 
-const templateUser = {
-    id_role: null,
-    id_child: null, // or array
-    id_parent: null, // or array
-    id_collaborater: null,
-    id_classroom: null,
-    first_name: null,
-    last_name: null,
-    sex: null, // male or female
-    address: null,
-    birthday: null,
-    has_child: false,
-    is_subscribed: false,
-    contact: {
-        personal: null,
-        work: null,
-        home: null,
-        emergency: null
-    },
-    membership: {
-        membership: false,
-        paymentMethod: null,
-        memberCard: false,
-        discountCard: false
-    },
-    school_info: {
-        name: null,
-        level: null,
-        adl: false,
-        redouble: null,
-        evaluation: false,
-        reason: null,
-        educatorName: null,
-        educatorPhone: null
-    },
-    medical_info: {
-        ramq: null,
-        ramqExpiration: null,
-        allergies: null,
-        drugs: null,
-        othersInformations: null
-    },
-    authorization: {
-        paper: false,
-        internet: false
-    },
-    involvement: [
-        {
-            question: 'talents',
-            response: 'Response here'
-        },
-        {
-            question: 'snacks',
-            response: 'YES/NO'
-        },
-        {
-            question: 'organization',
-            response: 'YES/NO'
-        },
-        {
-            question: 'support',
-            response: 'YES/NO'
-        },
-        {
-            question: 'otherInvolvement',
-            response: 'Response here'
-        }
-    ],
-    question: [
-        {
-            question: 'garde',
-            response: null
-        },
-        {
-            question: 'gardeParentOption',
-            response: null
-        },
-        {
-            question: 'gardeOtherOption',
-            response: null
-        },
-        {
-            question: 'heard',
-            response: null
-        }
-    ],
-    availability: [
-        null,
-        null,
-        null,
-        null
-    ],
-    photo: 'no-photo.jpg',
-    expectation: null,
-    need: null,
-    interest: null, // or array
-    comment: null,
-    experience: null,
-    motivation: null
-}
-
 const HOST = 'https://maison-aurore-api.herokuapp.com'
 const jwt = require('jwt-simple')
 const secret = 'xxx'
@@ -372,33 +271,11 @@ const getAllUsers = (token, callBack) => {
                             const dataUsers = []
                             for (let i = 0; i < data.data.length; i++) {
                                 const user = data.data[i]
-
-                                if(user.contact.length <= 0){
-                                    user.contact = templateUser.contact
-                                } else {
-                                    // Don't forget to delete Maison && Bureau
-                                    const phonePersonal = user.contact.filter(phone => phone.title === 'personal')
-                                    const phoneWork = user.contact.filter(phone => phone.title === 'Bureau' || phone.title === 'work')
-                                    const phoneHome = user.contact.filter(phone => phone.title === 'Maison' || phone.title === 'home')
-                                    const phoneEmergency = user.contact.filter(phone => phone.title === 'emergency')
-
-                                    user.contact = {
-                                        personal: phonePersonal.length > 0 ? phonePersonal[0].phone : null,
-                                        work: phoneWork.length > 0 ? phoneWork[0].phone : null,
-                                        home: phoneHome.length > 0 ? phoneHome[0].phone : null,
-                                        emergency: phoneEmergency.length > 0 ? phoneEmergency[0].phone : null,
-                                    }
-                                }
-                                user.membership = Array.isArray(user.membership) && templateUser.membership
-                                user.school_info = Array.isArray(user.school_info) && templateUser.school_info
-                                user.medical_info = Array.isArray(user.medical_info) && templateUser.medical_info
-                                user.authorization = Array.isArray(user.authorization) && templateUser.authorization
-
+                                const templateUser = require('./variables').variables.templateUser
                                 const userTemplate = {
                                     ...templateUser,
                                     ...user
                                 }
-
                                 const login = dataLogins.data.filter(dl => dl.id_user === userTemplate._id)
                                 const role = dataRoles.data.filter(dr => dr._id === userTemplate.id_role)
                                 userTemplate.idLogin = login[0] ? login[0]._id : null
@@ -418,7 +295,8 @@ const getAllUsers = (token, callBack) => {
                                             img = dataImage.data
                                             userTemplate.img = img
                                             userTemplate.id_classroom = userTemplate.id_classroom === null ? '12345' : userTemplate.id_classroom
-                                            dataUsers.push({...userTemplate, roleTitle: role[0].title })
+                                            userTemplate.roleTitle = role[0].title
+                                            dataUsers.push(userTemplate)
                                         }
                                         callBack(dataUsers)
                                     })

@@ -88,7 +88,7 @@ class TableListContainer extends Component {
     }
 
     getPhoneNumberByPriority (actor) {
-        const contact = actor.contact
+        const contact = actor.contact[0]
         if (contact.personal !== null) return contact.personal
         else if (contact.work !== null) return contact.work
         else if (contact.home !== null) return contact.home
@@ -97,7 +97,7 @@ class TableListContainer extends Component {
     }
 
     getChildAllergies (child) {
-        let allergies = child.medical_info.allergies !== null ? child.medical_info.allergies : "Pas d'allergies"
+        let allergies = child.medical_info[0].allergies !== null ? child.medical_info[0].allergies : "Pas d'allergies"
         allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
 
         return allergies
@@ -116,7 +116,7 @@ class TableListContainer extends Component {
                 {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected === variables.role.child) && (
                     <>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {allergies} </TableCell>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.school_info.name === null ? 'Pas defini' : actor.school_info.name} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.school_info[0].name === null ? 'Pas defini' : actor.school_info[0].name} </TableCell>
                     </>
                 )}
                 {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected !== variables.role.admin) && (

@@ -42,7 +42,7 @@ class DetailUser extends Component {
             const userEdited = state.userEdited
             subName === null
                 ? userEdited[name] = value
-                : userEdited[name][subName] = value
+                : userEdited[name][0][subName] = value
 
             return {
                 userEdited: userEdited
@@ -83,13 +83,9 @@ class DetailUser extends Component {
     }
 
     render () {
-        const allergies = (this.props.userSelected.medical_info &&
-            this.props.userSelected.medical_info[2] &&
-            this.props.userSelected.medical_info[2].response)
-            ? this.props.userSelected.medical_info[2].response
-            : "Pas d'allergies"
-
-        const date = this.props.userSelected.birthday ? new Date(this.props.userSelected.birthday).toLocaleDateString() : 'Pas defini'
+        const user = this.props.userSelected
+        const allergies = user.medical_info[0].allergies
+        const date = (user && user.birthday !== null) ? new Date(user.birthday).toLocaleDateString() : 'Pas defini'
 
         return (
             <Dialog
@@ -111,7 +107,7 @@ class DetailUser extends Component {
                                 variant='text'
                                 component='label'
                             >
-                                <img src={this.props.userSelected.img} alt='avatar' />
+                                <img src={user.img} alt='avatar' />
                                 {(this.props.menuSelected !== variables.menus.validation) && (
                                     <>
                                         <p><span>Cliquer pour changer</span></p>
@@ -139,16 +135,16 @@ class DetailUser extends Component {
                         </div>
                         <div className='details-personnelles'>
                             <div className='text-name'>
-                                <p>{this.props.userSelected.first_name + ' ' + this.props.userSelected.last_name.toUpperCase()}</p>
+                                <p>{user.first_name + ' ' + user.last_name.toUpperCase()}</p>
                             </div>
                             <div>
                                 <p>Date de naissance:</p>
                                 <p>{date}</p>
                             </div>
-                            {this.props.userSelected.roleTitle === variables.role.child && (
+                            {user.roleTitle === variables.role.child && (
                                 <div>
                                     <p>Allergies:</p>
-                                    <p>{allergies}</p>
+                                    <p>{allergies === null ? "Pas d'allergies" : allergies}</p>
                                 </div>
                             )}
                         </div>
@@ -156,7 +152,7 @@ class DetailUser extends Component {
                             {this.props.userSelected.roleTitle === variables.role.child && (
                                 <ChildDetail
                                     lang={this.props.lang}
-                                    child={this.props.userSelected}
+                                    child={user}
                                     classRooms={this.props.classRooms}
                                     collaboraters={this.props.collabList}
                                     parents={this.props.parentList}
@@ -165,17 +161,17 @@ class DetailUser extends Component {
                                     handleEditChange={this.onEditFieldsChange}
                                 />
                             )}
-                            {(this.props.userSelected.roleTitle !== variables.role.child && this.props.userSelected.roleTitle !== variables.role.admin) && (
+                            {(user.roleTitle !== variables.role.child && user.roleTitle !== variables.role.admin) && (
                                 <ParentCollabDetail
                                     lang={this.props.lang}
-                                    both={this.props.userSelected}
+                                    both={user}
                                     editable={this.props.allowEditable}
                                 />
                             )}
-                            {(this.props.userSelected.roleTitle === variables.role.admin) && (
+                            {(user.roleTitle === variables.role.admin) && (
                                 <AdminDetail
                                     lang={this.props.lang}
-                                    admin={this.props.userSelected}
+                                    admin={user}
                                     editable={this.props.allowEditable}
                                 />
                             )}

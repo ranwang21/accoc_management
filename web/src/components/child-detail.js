@@ -149,10 +149,10 @@ class ChildDetail extends Component {
                                     color='primary'
                                     variant='filled'
                                     onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'name')}
-                                    value={this.props.userEdited.school_info.name !== null ? this.props.userEdited.school_info.name : ''}
+                                    value={this.props.userEdited.school_info[0].name !== null ? this.props.userEdited.school_info[0].name : ''}
                                 />
                             ) : (
-                                <p>{child.school_info.name === null ? 'Indefini' : child.school_info.name}</p>
+                                <p>{child.school_info[0].name === null ? 'Indefini' : child.school_info[0].name}</p>
                             )}
                         </div>
                         <div>
@@ -161,29 +161,29 @@ class ChildDetail extends Component {
                                 ? (
                                     <FormControl variant='filled'>
                                         <Select
-                                            value={this.props.userEdited.school_info.level === null ? '' : this.props.userEdited.school_info.level}
+                                            value={this.props.userEdited.school_info[0].level === null ? '' : this.props.userEdited.school_info[0].level}
                                             onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'level')}
                                         >
                                             <MenuItem value='' disabled>
                                                 <em>Niveau Scolaire</em>
                                             </MenuItem>
-                                            <MenuItem value='Primaire 1'>Primaire 1er</MenuItem>
-                                            <MenuItem value='Primaire 2'>Primaire 2e</MenuItem>
-                                            <MenuItem value='Primaire 3'>Primaire 3e</MenuItem>
-                                            <MenuItem value='Primaire 4'>Primaire 4e</MenuItem>
-                                            <MenuItem value='Primaire 5'>Primaire 5e</MenuItem>
-                                            <MenuItem value='Primaire 6'>Primaire 6e</MenuItem>
-                                            <MenuItem value='Secondaire 1'>Secondaire I</MenuItem>
-                                            <MenuItem value='Secondaire 2'>Secondaire II</MenuItem>
-                                            <MenuItem value='Secondaire 3'>Secondaire III</MenuItem>
-                                            <MenuItem value='Secondaire 4'>Secondaire IV</MenuItem>
-                                            <MenuItem value='Secondaire 5'>Secondaire V</MenuItem>
+                                            <MenuItem value='Primaire1er'>Primaire 1er</MenuItem>
+                                            <MenuItem value='Primaire2e'>Primaire 2e</MenuItem>
+                                            <MenuItem value='Primaire3e'>Primaire 3e</MenuItem>
+                                            <MenuItem value='Primaire4e'>Primaire 4e</MenuItem>
+                                            <MenuItem value='Primaire5e'>Primaire 5e</MenuItem>
+                                            <MenuItem value='Primaire6e'>Primaire 6e</MenuItem>
+                                            <MenuItem value='SecondaireI'>Secondaire I</MenuItem>
+                                            <MenuItem value='SecondaireII'>Secondaire II</MenuItem>
+                                            <MenuItem value='SecondaireIII'>Secondaire III</MenuItem>
+                                            <MenuItem value='SecondaireIV'>Secondaire IV</MenuItem>
+                                            <MenuItem value='SecondaireV'>Secondaire V</MenuItem>
 
                                         </Select>
                                     </FormControl>
                                 )
                                 : (
-                                    <p>{child.school_info.level === null ? 'Indefini' : child.school_info.level}</p>
+                                    <p>{child.school_info[0].level === null ? 'Indefini' : child.school_info[0].level}</p>
                                 )}
                         </div>
                         <div>
@@ -192,12 +192,12 @@ class ChildDetail extends Component {
                                 <FormControlLabel control={
                                     <Checkbox
                                         onChange={(event) => this.props.handleEditChange(event, event.target.checked, 'school_info', 'adl')}
-                                        value={!!this.props.userEdited.school_info.adl}
+                                        value={!!this.props.userEdited.school_info[0].adl}
                                     />
                                 }
                                 />
                             ) : (
-                                <p>{child.school_info.adl ? 'OUI' : 'NON'}</p>
+                                <p>{child.school_info[0].adl ? 'OUI' : 'NON'}</p>
                             )}
                         </div>
                         <div className='row'>
@@ -206,25 +206,28 @@ class ChildDetail extends Component {
                                 <FormControl variant='filled'>
                                     <Select
                                         fullWidth
-                                        value={this.props.userEdited.school_info.redouble === null ? '' : this.props.userEdited.school_info.redouble}
+                                        value={this.props.userEdited.school_info[0].redouble === null ? '' : this.props.userEdited.school_info[0].redouble}
                                         onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'redouble')}
                                     >
-                                        <MenuItem value='Primaire 1'>Primaire 1er</MenuItem>
-                                        <MenuItem value='Primaire 2'>Primaire 2e</MenuItem>
-                                        <MenuItem value='Primaire 3'>Primaire 3e</MenuItem>
-                                        <MenuItem value='Primaire 4'>Primaire 4e</MenuItem>
-                                        <MenuItem value='Primaire 5'>Primaire 5e</MenuItem>
-                                        <MenuItem value='Primaire 6'>Primaire 6e</MenuItem>
-                                        <MenuItem value='Secondaire 1'>Secondaire I</MenuItem>
-                                        <MenuItem value='Secondaire 2'>Secondaire II</MenuItem>
-                                        <MenuItem value='Secondaire 3'>Secondaire III</MenuItem>
-                                        <MenuItem value='Secondaire 4'>Secondaire IV</MenuItem>
-                                        <MenuItem value='Secondaire 5'>Secondaire V</MenuItem>
+                                        <MenuItem value='' disabled>
+                                            <em>Niveau Scolaire</em>
+                                        </MenuItem>
+                                        <MenuItem value='Primaire1er'>Primaire 1er</MenuItem>
+                                        <MenuItem value='Primaire2e'>Primaire 2e</MenuItem>
+                                        <MenuItem value='Primaire3e'>Primaire 3e</MenuItem>
+                                        <MenuItem value='Primaire4e'>Primaire 4e</MenuItem>
+                                        <MenuItem value='Primaire5e'>Primaire 5e</MenuItem>
+                                        <MenuItem value='Primaire6e'>Primaire 6e</MenuItem>
+                                        <MenuItem value='SecondaireI'>Secondaire I</MenuItem>
+                                        <MenuItem value='SecondaireII'>Secondaire II</MenuItem>
+                                        <MenuItem value='SecondaireIII'>Secondaire III</MenuItem>
+                                        <MenuItem value='SecondaireIV'>Secondaire IV</MenuItem>
+                                        <MenuItem value='SecondaireV'>Secondaire V</MenuItem>
 
                                     </Select>
                                 </FormControl>
                             ) : (
-                                <p>{child.school_info.redouble === null ? 'NON' : child.school_info.redouble}</p>
+                                <p>{child.school_info[0].redouble === null ? 'Pas de reprise' : child.school_info[0].redouble}</p>
                             )}
 
                         </div>
@@ -236,34 +239,38 @@ class ChildDetail extends Component {
                                         type='text'
                                         color='primary'
                                         variant='filled'
-                                        onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'educatorName')}
-                                        value={this.props.userEdited.school_info.educatorName !== null ? this.props.userEdited.school_info.educatorName : ''}
+                                        onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'educator_name')}
+                                        value={this.props.userEdited.school_info[0].educator_name !== null ? this.props.userEdited.school_info[0].educator_name : ''}
                                         label='Nom et prenom'
                                     />
                                     <TextField
                                         type='text'
                                         color='primary'
                                         variant='filled'
-                                        onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'educatorPhone')}
-                                        value={this.props.userEdited.school_info.educatorPhone !== null ? this.props.userEdited.school_info.educatorPhone : ''}
+                                        onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'educator_phone')}
+                                        value={this.props.userEdited.school_info[0].educator_phone !== null ? this.props.userEdited.school_info[0].educator_phone : ''}
                                         label='Contact'
                                     />
                                 </>
                             ) : (
-                                <p><span>{child.school_info.educatorName !== null ? child.school_info.educatorName : "N'en a pas"}</span> <span>{child.school_info.educatorPhone !== null ? child.school_info.educatorPhone : ''}</span></p>
+                                <p>
+                                    <span>{child.school_info[0].educator_name !== null ? child.school_info[0].educator_name : "N'en a pas"}</span>
+                                    <span>{child.school_info[0].educator_phone !== null ? child.school_info[0].educator_phone : ''}</span>
+                                </p>
                             )}
                         </div>
                         <div className='max'>
                             <p>Raison de l'inscription</p>
-                            <p>{child.school_info.reason === null ? 'Indefini' : child.school_info.reason}</p>
+                            <p>{child.school_info[0].reason === null ? 'Indefini' : child.school_info[0].reason}</p>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset>
                     <legend>Informations {childParents.length > 1 ? ' des parents' : ' du parent'}</legend>
                     {(childParents.length > 0 && (
-                        childParents.map(parent => (
-                            <div key={parent._id}>
+                        childParents.map((parent, index) => (
+                            <div key={parent._id + index}>
+                                <h2 className='parent-number'>Parent {index + 1}</h2>
                                 <div>
                                     <p>Nom</p>
                                     <p>{parent.last_name}</p>
@@ -276,28 +283,28 @@ class ChildDetail extends Component {
                                     <p>Adresse</p>
                                     <p>{parent.address}</p>
                                 </div>
-                                {parent.contact.personal && (
+                                {parent.contact[0].personal && (
                                     <div>
                                         <p>Personal</p>
-                                        <p>{parent.contact.personal}</p>
+                                        <p>{parent.contact[0].personal}</p>
                                     </div>
                                 )}
-                                {parent.contact.work && (
+                                {parent.contact[0].work && (
                                     <div>
                                         <p>Work</p>
-                                        <p>{parent.contact.work}</p>
+                                        <p>{parent.contact[0].work}</p>
                                     </div>
                                 )}
-                                {parent.contact.home && (
+                                {parent.contact[0].home && (
                                     <div>
                                         <p>Home</p>
-                                        <p>{parent.contact.home}</p>
+                                        <p>{parent.contact[0].home}</p>
                                     </div>
                                 )}
-                                {parent.contact.emergency && (
+                                {parent.contact[0].emergency && (
                                     <div>
                                         <p>Emergency</p>
-                                        <p>{parent.contact.emergency}</p>
+                                        <p>{parent.contact[0].emergency}</p>
                                     </div>
                                 )}
                             </div>
@@ -307,14 +314,14 @@ class ChildDetail extends Component {
                 <fieldset className='print-to-remove'>
                     <legend>Medical Informations</legend>
                     <div>
-                        <div className={child.medical_info.ramq === null ? 'row' : ''}>
+                        <div className={child.medical_info[0].ramq === null ? 'row' : ''}>
                             <p>RAMQ</p>
-                            <p>{child.medical_info.ramq === null ? 'NON' : child.medical_info.ramq}</p>
+                            <p>{child.medical_info[0].ramq === null ? 'NON' : 'OUI'}</p>
                         </div>
-                        {child.medical_info.ramq !== null && (
+                        {child.medical_info[0].ramq !== null && (
                             <div>
                                 <p>Expiration</p>
-                                <p>{child.medical_info.ramqExpiration === null ? 'Indefini' : child.medical_info.ramqExpiration}</p>
+                                <p>{child.medical_info[0].ramq}</p>
                             </div>
                         )}
                         <div className='max'>
@@ -324,10 +331,10 @@ class ChildDetail extends Component {
                                     className='textarea'
                                     rowsMin={2}
                                     onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'alleriges')}
-                                    value={this.props.userEdited.medical_info.allergies !== null ? this.props.userEdited.medical_info.allergies : ''}
+                                    value={this.props.userEdited.medical_info[0].allergies !== null ? this.props.userEdited.medical_info[0].allergies : ''}
                                 />
                             ) : (
-                                <p>{child.medical_info.allergies}</p>
+                                <p>{child.medical_info[0].allergies}</p>
                             )}
                         </div>
                         <div className='max'>
@@ -337,10 +344,10 @@ class ChildDetail extends Component {
                                     className='textarea'
                                     rowsMin={2}
                                     onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'drugs')}
-                                    value={this.props.userEdited.medical_info.drugs !== null ? this.props.userEdited.medical_info.drugs : ''}
+                                    value={this.props.userEdited.medical_info[0].drugs !== null ? this.props.userEdited.medical_info[0].drugs : ''}
                                 />
                             ) : (
-                                <p>{child.medical_info.drugs}</p>
+                                <p>{child.medical_info[0].drugs}</p>
                             )}
                         </div>
                         <div className='max'>
@@ -349,11 +356,11 @@ class ChildDetail extends Component {
                                 <TextareaAutosize
                                     className='textarea'
                                     rowsMin={2}
-                                    onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'othersInformations')}
-                                    value={this.props.userEdited.medical_info.othersInformations !== null ? this.props.userEdited.medical_info.othersInformations : ''}
+                                    onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'other_info')}
+                                    value={this.props.userEdited.medical_info[0].other_info !== null ? this.props.userEdited.medical_info[0].other_info : ''}
                                 />
                             ) : (
-                                <p>{child.medical_info.othersInformations}</p>
+                                <p>{child.medical_info[0].other_info}</p>
                             )}
                         </div>
                     </div>
@@ -367,12 +374,12 @@ class ChildDetail extends Component {
                                 <FormControlLabel control={
                                     <Checkbox
                                         onChange={(event) => this.props.handleEditChange(event, event.target.checked, 'authorization', 'paper')}
-                                        value={!!this.props.userEdited.authorization.paper}
+                                        value={!!this.props.userEdited.authorization[0].paper}
                                     />
                                 }
                                 />
                             ) : (
-                                <p>{child.authorization.paper ? 'OUI' : 'NON'}</p>
+                                <p>{child.authorization[0].paper ? 'OUI' : 'NON'}</p>
                             )}
                         </div>
                         <div className='row'>
@@ -381,13 +388,13 @@ class ChildDetail extends Component {
                                 <FormControlLabel control={
                                     <Checkbox
                                         onChange={(event) => this.props.handleEditChange(event, event.target.checked, 'authorization', 'internet')}
-                                        value={!!this.props.userEdited.authorization.internet}
+                                        value={!!this.props.userEdited.authorization[0].internet}
                                     />
                                 }
                                 />
 
                             ) : (
-                                <p>{child.authorization.internet ? 'OUI' : 'NON'}</p>
+                                <p>{child.authorization[0].internet ? 'OUI' : 'NON'}</p>
                             )}
                         </div>
                     </div>
