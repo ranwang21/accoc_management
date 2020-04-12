@@ -5,6 +5,7 @@ const variables = require('../utilities/variables').variables
 class ParentCollabDetail extends Component {
     render () {
         const both = this.props.both
+        console.log('ici')
         return (
             <div className='parent-collab-detail'>
                 <fieldset>
@@ -18,22 +19,18 @@ class ParentCollabDetail extends Component {
                             <p>Courriel</p>
                             <p>{both.email}</p>
                         </div>
-                        <div>
-                            <p>Personal</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div>
-                            <p>Work</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div>
-                            <p>Home</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div>
-                            <p>Emergency</p>
-                            <p>(514) 820-5545</p>
-                        </div>
+                        {both.contact[1] && (
+                            <div>
+                                <p>Personal</p>
+                                <p>(514) 820-5545</p>
+                            </div>
+                        )}
+                        {both.contact[0] && (
+                            <div>
+                                <p>Personal</p>
+                                <p>(514) 820-5545</p>
+                            </div>
+                        )}
                         <div className='row print-to-remove'>
                             <p>Un ou des enfant(s) de moins de 18ans</p>
                             <p>OUI / NON</p>

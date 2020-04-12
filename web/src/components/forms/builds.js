@@ -74,7 +74,7 @@ const selectField = (fieldsConfig, propLang, lang, fields, errors, inputChange, 
         <FormControl
             key={ids[fieldsConfig.name]} variant='filled'
         >
-            <InputLabel color='secondary'>{lang[fieldsConfig.name].label}</InputLabel>
+            <InputLabel color='secondary' className={errors[fieldsConfig.name] ? 'label-error1' : ''}>{lang[fieldsConfig.name].label}</InputLabel>
             <Select
                 key={ids[fieldsConfig.name]}
                 value={fields[fieldsConfig.name] ? fields[fieldsConfig.name] : ''}
@@ -83,10 +83,21 @@ const selectField = (fieldsConfig, propLang, lang, fields, errors, inputChange, 
                 <MenuItem value='' disabled>
                     <em>{lang[fieldsConfig.name].label}</em>
                 </MenuItem>
-                {[...Array(fieldsConfig.maxNumber + 1).keys()].map(x => (
-                    <MenuItem key={fieldsConfig.name + x} value={x}>{x}</MenuItem>
-                ))}
+                {fieldsConfig.simple
+                ? (
+                    lang[fieldsConfig.name].options.map(x => (
+                        <MenuItem key={fieldsConfig.name + x.value} value={x.value}>{x.label}</MenuItem>
+                    ))
+                )
+                : (
+                    [...Array(fieldsConfig.maxNumber + 1).keys()].map(x => (
+                        <MenuItem key={fieldsConfig.name + x} value={x}>{x}</MenuItem>
+                    ))
+                )}
             </Select>
+            {errors[fieldsConfig.name] && (
+                <p className='label-error2'>{lang[fieldsConfig.name].labelError}</p>
+            )}
         </FormControl>
     )
 }
@@ -147,7 +158,7 @@ const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange, id
             key={ids[fieldsConfig.name]}
             error={errors[fieldsConfig.name] ? errors[fieldsConfig.name] : false}
             label={lang[fieldsConfig.name].label}
-            type='text'
+            type={fieldsConfig.otherType ? fieldsConfig.otherType : 'text'}
             color='primary'
             helperText={errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}
             variant='filled'

@@ -17,25 +17,33 @@ class ParentCollabDetail extends Component {
                             <p>Courriel</p>
                             <p>{admin.email}</p>
                         </div>
-                        <div>
-                            <p>Personal</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div>
-                            <p>Work</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div>
-                            <p>Home</p>
-                            <p>(514) 820-5545</p>
-                        </div>
-                        <div>
-                            <p>Emergency</p>
-                            <p>(514) 820-5545</p>
-                        </div>
+                        {(admin.contact[0] && admin.contact[0].personal !== null) && (
+                            <div>
+                                <p>Personal</p>
+                                <p>{admin.contact[0].personal}</p>
+                            </div>
+                        )}
+                        {(admin.contact[0] && admin.contact[0].work !== null) && (
+                            <div>
+                                <p>Work</p>
+                                <p>{admin.contact[0].work}</p>
+                            </div>
+                        )}
+                        {(admin.contact[0] && admin.contact[0].home !== null) && (
+                            <div>
+                                <p>Home</p>
+                                <p>{admin.contact[0].home}</p>
+                            </div>
+                        )}
+                        {(admin.contact[0] && admin.contact[0].emergency !== null) && (
+                            <div>
+                                <p>Emergency</p>
+                                <p>{admin.contact[0].emergency}</p>
+                            </div>
+                        )}
                         <div className='row'>
                             <p>Statut du compte</p>
-                            <p>VALIDE / INVALIDE</p>
+                            <p>{admin.isValid ? 'OUI' : 'NON'}</p>
                         </div>
                     </div>
                 </fieldset>

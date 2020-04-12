@@ -105,7 +105,9 @@ const addUser = (params, callBack) => {
                     const user = {
                         id_role: find[0]._id,
                         first_name: params.first_name,
-                        last_name: params.last_name
+                        last_name: params.last_name,
+                        sex: params.sex,
+                        contact: params.contact
                     }
 
                     fetch(HOST + '/users', {

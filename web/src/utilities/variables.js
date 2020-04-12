@@ -49,8 +49,11 @@ const variables = {
             }
         },
         createAdmin: {
+            sex: 'RGDHGZHX',
             lastName: '8ED5F4C1D',
             firstName: 'E85SF41CS52',
+            contactPersonal: 'IEUYGDFBGCH',
+            contactWork: 'UEYGSDFGH',
             email: 'GESGNCBN',
             password: 'SHDGBCSJZ',
             confirmPassword: 'TGSVDCBHS',

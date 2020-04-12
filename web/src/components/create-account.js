@@ -15,17 +15,24 @@ class CreateAccount extends Component {
             actorSelected: null,
             addClick: true,
             showAddButton: true,
-            showAddContainer: true
+            showAddContainer: true,
+            roles: []
         }
         this.addDiv = React.createRef()
         this.handleActorSelected = this.handleActorSelected.bind(this)
         this.handleRetour = this.handleRetour.bind(this)
+        this.setRoles = this.setRoles.bind(this)
+    }
+
+    setRoles (roles) {
+        this.setState({ roles: roles })
     }
 
     componentDidMount () {
         const role = this.getCurrentUser().role
         const list = role === variables.role.highAdmin ? this.getLangFile().addListForHighAdmin : this.getLangFile().addListForAdmin
         this.setState({ addList: [...list] })
+        Fetch.role.get(this.setRoles)
     }
 
     getCurrentUser () {
@@ -79,7 +86,7 @@ class CreateAccount extends Component {
                 <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.both} />
             )
         case variables.actors.admin:
-            return (<CreateAdmin lang={this.props.lang} updateUsers={this.props.updateUsers} onGetBack={this.handleRetour} />)
+            return (<CreateAdmin lang={this.props.lang} roles={this.state.roles} updateUsers={this.props.updateUsers} onGetBack={this.handleRetour} />)
         }
     }
 

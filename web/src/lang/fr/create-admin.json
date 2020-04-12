@@ -1,10 +1,30 @@
 {
     "title": "Compte Administrateur",
+    "sex": {
+        "label": "Titre",
+        "labelError": "Selectionner un titre",
+        "options": [
+            {
+                "value": "female",
+                "label": "Mrs"
+            },
+            {
+                "value": "male",
+                "label": "Mr"
+            }
+        ]
+    },
     "lastName": {
         "label": "Nom"
     },
     "firstName": {
         "label": "Prénom"
+    },
+    "contactPersonal": {
+        "label": "Numero personnel"
+    },
+    "contactWork": {
+        "label": "Numero de travail"
     },
     "email": {
         "label": "Adresse email",

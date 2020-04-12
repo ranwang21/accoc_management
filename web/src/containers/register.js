@@ -30,6 +30,46 @@ const registerAction = {
     withoutPassword: 'UYGDFCVFBC'
 }
 
+const childState = {
+    fields:{
+        sex: null,
+        last_name: null,
+        first_name: null,
+        birthday: null,
+        garde: null,
+        gardeParentOption: null,
+        gardeOtherOption: null,
+
+        school: null,
+        schoolLevel: null,
+        adlRegister: false,
+        lastRedoubleLevel: null,
+        registerReason: null,
+        evaluation: false,
+        daycareServiceYesName: null,
+        daycareServiceYesPhone: null,
+
+        expiration: null,
+        allergies: null,
+        drug: null,
+        othersInfos: null,
+
+        autorisationPapper: false,
+        autorisationInternet: false
+    },
+    errors:{
+        sex: false,
+        last_name: false,
+        first_name: false,
+        birthday: false,
+        garde: false,
+
+        school: false,
+        schoolLevel: false,
+        registerReason: false
+    }
+}
+
 const variables = require('../utilities/variables').variables
 const passwordIds = require('../utilities/variables').variables.id.registerPassword
 const actorsIds = require('../utilities/variables').variables.id.registerStart.check
@@ -75,198 +115,8 @@ const initialiseState = {
         }
     },
     childrenInscription: {
-        fields: {
-            step1: {
-                sex: null,
-                last_name: null,
-                first_name: null,
-                //birthday: null,
-                birthday: new Date('2007-02-15'),
-                garde: null,
-                gardeParentOption: null,
-                gardeOtherOption: null,
-
-                school: 'Ecole cool',
-                schoolLevel: null,
-                adlRegister: false,
-                lastRedoubleLevel: null,
-                registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: false,
-                daycareServiceYesName: 'Sandrine H.',
-                daycareServiceYesPhone: '(514) 666-8989',
-
-                expiration: null,
-                allergies: null,
-                drug: null,
-                othersInfos: null,
-
-                autorisationPapper: false,
-                autorisationInternet: false
-            },
-            step2: {
-                sex: 'male',
-                last_name: 'Toihoun',
-                first_name: 'Claude',
-                //birthday: null,
-                birthday: new Date('2007-02-15'),
-                garde: null,
-                gardeParentOption: null,
-                gardeOtherOption: null,
-
-                school: 'Ecole cool',
-                schoolLevel: null,
-                adlRegister: false,
-                lastRedoubleLevel: null,
-                registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: false,
-                daycareServiceYesName: 'Sandrine H.',
-                daycareServiceYesPhone: '(514) 666-8989',
-
-                expiration: null,
-                allergies: null,
-                drug: null,
-                othersInfos: null,
-
-                autorisationPapper: false,
-                autorisationInternet: false
-            },
-            step3: {
-                sex: 'female',
-                last_name: 'Toihoun',
-                first_name: 'Marine',
-                //birthday: null,
-                birthday: new Date('2007-02-15'),
-                garde: null,
-                gardeParentOption: null,
-                gardeOtherOption: null,
-
-                school: 'Ecole cool',
-                schoolLevel: null,
-                adlRegister: false,
-                lastRedoubleLevel: null,
-                registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: false,
-                daycareServiceYesName: 'Sandrine H.',
-                daycareServiceYesPhone: '(514) 666-8989',
-
-                expiration: null,
-                allergies: null,
-                drug: null,
-                othersInfos: null,
-
-                autorisationPapper: false,
-                autorisationInternet: false
-            },
-            step4: {
-                sex: null,
-                last_name: null,
-                first_name: null,
-                birthday: null,
-                garde: null,
-                gardeParentOption: null,
-                gardeOtherOption: null,
-
-                school: 'Ecole cool',
-                schoolLevel: null,
-                adlRegister: false,
-                lastRedoubleLevel: null,
-                registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: false,
-                daycareServiceYesName: 'Sandrine H.',
-                daycareServiceYesPhone: '(514) 666-8989',
-
-                expiration: null,
-                allergies: null,
-                drug: null,
-                othersInfos: null,
-
-                autorisationPapper: false,
-                autorisationInternet: false
-            },
-            step5: {
-                sex: null,
-                last_name: null,
-                first_name: null,
-                birthday: null,
-                garde: null,
-                gardeParentOption: null,
-                gardeOtherOption: null,
-
-                school: 'Ecole cool',
-                schoolLevel: null,
-                adlRegister: false,
-                lastRedoubleLevel: null,
-                registerReason: 'Améliorer les performances de mon enfant',
-                evaluation: false,
-                daycareServiceYesName: 'Sandrine H.',
-                daycareServiceYesPhone: '(514) 666-8989',
-
-                expiration: null,
-                allergies: null,
-                drug: null,
-                othersInfos: null,
-
-                autorisationPapper: false,
-                autorisationInternet: false
-            }
-        },
-        errors: {
-            step1: {
-                sex: false,
-                last_name: false,
-                first_name: false,
-                birthday: false,
-                garde: false,
-
-                school: false,
-                schoolLevel: false,
-                registerReason: false
-            },
-            step2: {
-                sex: false,
-                last_name: false,
-                first_name: false,
-                birthday: false,
-                garde: false,
-
-                school: false,
-                schoolLevel: false,
-                registerReason: false
-            },
-            step3: {
-                sex: false,
-                last_name: false,
-                first_name: false,
-                birthday: false,
-                garde: false,
-
-                school: false,
-                schoolLevel: false,
-                registerReason: false
-            },
-            step4: {
-                sex: false,
-                last_name: false,
-                first_name: false,
-                birthday: false,
-                garde: false,
-
-                school: false,
-                schoolLevel: false,
-                registerReason: false
-            },
-            step5: {
-                sex: false,
-                last_name: false,
-                first_name: false,
-                birthday: false,
-                garde: false,
-
-                school: false,
-                schoolLevel: false,
-                registerReason: false
-            }
-        }
+        fields: {},
+        errors: {}
     },
     parent: {
         fields: {
@@ -555,6 +405,18 @@ class RegisterContainer extends Component {
 
         handleChildrenFirstCount (event, newValue) {
             this.setState({ nbrChild: newValue })
+            let newState = {fields: {},errors:{}}
+            for (let i = 0; i < newValue; i++) {
+                const nbre = i + 1
+                newState.fields['step' + nbre] = {...childState.fields}
+                newState.errors['step'+ nbre] = {...childState.errors}
+            }
+            this.setState({
+                childrenInscription: {
+                    fields: { ...newState.fields },
+                    errors: { ...newState.errors }
+                }
+            })
         }
 
         handleStepClick (event, maxStep) {

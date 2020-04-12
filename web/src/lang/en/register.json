@@ -12,7 +12,8 @@
             "confirmPassword": {
                 "label": "Confirm password"
             },
-            "save": "Save"
+            "saveWithPassword": "Save with password",
+            "saveWithoutPassword": "Save without password"
         },
         "success": {}
     }

@@ -84,7 +84,7 @@ class DetailUser extends Component {
 
     render () {
         const user = this.props.userSelected
-        const allergies = user.medical_info[0].allergies
+        const allergies = (user.medical_info.length > 0 && user.medical_info[0].allergies !== null) ? user.medical_info[0].allergies : "Pas d'allergies"
         const date = (user && user.birthday !== null) ? new Date(user.birthday).toLocaleDateString() : 'Pas defini'
 
         return (
