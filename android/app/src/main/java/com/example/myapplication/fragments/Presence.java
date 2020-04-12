@@ -40,144 +40,129 @@ import androidx.fragment.app.Fragment;
 
 
 public class Presence extends Fragment {
-ListView listView;
-CheckBox checkBox;
-Button btns;
-String dateString;
-ArrayList<User> users;
-ArrayList<Schedule>schedules;
+    ListView listView;
+    CheckBox checkBox;
+    Button btns;
+    String dateString;
+    ArrayList<User> users;
+    ArrayList<Schedule>schedules;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-/*date format with today date*/
-        /*SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-        Date date =new Date(System.currentTimeMillis());
-        dateString =format.format(date);*/
-this.schedules=new ArrayList<Schedule>();
-this.schedules.addAll(schedules);
+
+        this.schedules=new ArrayList<Schedule>();
+        this.schedules.addAll(schedules);
         //user set up
-      PresenceAdapter presenceAdapter;
+        PresenceAdapter presenceAdapter;
         final ArrayList<User>[] users = new ArrayList[]{new ArrayList<>()};
-      ArrayList<Role> roles = RoleManager.getAll(getContext());
-      for (Role r:roles){
-          if(r.getTitle().equals("children")){
-              users[0] = UserManager.getByRole(getContext(),r.get_id());
-          }
-      }
-      if(users[0] !=null){
-          Log.d("Tag","success");
-      }
-      View view =inflater.inflate(R.layout.fragment_presence,container,false);
-      listView =view.findViewById(R.id.list_presence);
+        ArrayList<Role> roles = RoleManager.getAll(getContext());
+        for (Role r:roles){
+            if(r.getTitle().equals("children")){
+                users[0] = UserManager.getByRole(getContext(),r.get_id());
+            }
+        }
+        if(users[0] !=null){
+            Log.d("Tag","success");
+        }
+        View view =inflater.inflate(R.layout.fragment_presence,container,false);
+        listView =view.findViewById(R.id.list_presence);
 
-      presenceAdapter=new PresenceAdapter(getContext(),R.layout.fragment_presence_row, users[0]);
-       listView.setAdapter(presenceAdapter);
-       presenceAdapter.notifyDataSetChanged();
+        presenceAdapter=new PresenceAdapter(getContext(),R.layout.fragment_presence_row, users[0]);
+        listView.setAdapter(presenceAdapter);
+        presenceAdapter.notifyDataSetChanged();
         checkBox=view.findViewById(R.id.checkBox1);
-       //spinner set up
+        //spinner set up
         Spinner spinner=view.findViewById(R.id.spinner_presence);
-       ArrayList<Classroom>classrooms= ClassroomManager.getAll(getContext());
-       ArrayList<String>listClassroom =new ArrayList<>();
-       listClassroom.add("Tous");
-       for (Classroom c :classrooms){
-           listClassroom.add(c.getTitle());
-       }
+        ArrayList<Classroom>classrooms= ClassroomManager.getAll(getContext());
+        ArrayList<String>listClassroom =new ArrayList<>();
+        listClassroom.add("Tous");
+        for (Classroom c :classrooms){
+            listClassroom.add(c.getTitle());
+        }
         ArrayAdapter<String>arrayAdapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,listClassroom);
-       arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       spinner.setAdapter(arrayAdapter);
-       spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-         //filtred spinner
-
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               String classroomName = parent.getItemAtPosition(position).toString();
-               ArrayList<User> users =UserManager.getAll(getContext());
-               if(!classroomName.equals("Tous")){
-                   Classroom classroom =ClassroomManager.getByTitle(getContext(),classroomName);
-                   users=UserManager.getByIdClassroom(getContext(),classroom.get_id());
-               }
-               PresenceAdapter presenceAdapter =new PresenceAdapter(getContext(),R.layout.fragment_presence_row,users);
-               listView.setAdapter(presenceAdapter);
-               presenceAdapter.notifyDataSetChanged();
-
-           }
-
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
-
-           }
-       });
-
-btns=view.findViewById(R.id.button_presence);
-checkBox=view.findViewById(R.id.checkBox1);
-      /*  ArrayAdapter<String>arrayAdapte=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_checked,schedules);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            //filtred spinner
 
-checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        CheckBox cb=buttonView.findViewById(R.id.checkBox1);
-        Schedule schedule=(Schedule)cb.getTag();
-        if(isChecked)
-        Toast.makeText(getContext(),
-                "Clicked on Checkbox: " + cb.getText() +
-                        " is " + cb.isChecked(),
-                Toast.LENGTH_LONG).show();
-        schedule.setIs_absent(cb.isChecked());
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String classroomName = parent.getItemAtPosition(position).toString();
+                ArrayList<User> users =UserManager.getAll(getContext());
+                if(!classroomName.equals("Tous")){
+                    Classroom classroom =ClassroomManager.getByTitle(getContext(),classroomName);
+                    users=UserManager.getByIdClassroom(getContext(),classroom.get_id());
+                }
+                PresenceAdapter presenceAdapter =new PresenceAdapter(getContext(),R.layout.fragment_presence_row,users);
+                listView.setAdapter(presenceAdapter);
+                presenceAdapter.notifyDataSetChanged();
 
-    }
-} );
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
-Schedule sc=schedules.get(container.indexOfChild(checkBox));
 
-checkBox.setChecked(sc.getIs_absent());
-checkBox.setTag(sc);*/
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                            getContext(),
-                               android.R.layout.simple_list_item_checked
-                             );
-            listView.setAdapter(listViewAdapter);
-            ArrayList<Schedule> schedules=ScheduleManager.getAll(getContext());
-             for(Schedule sch:schedules){
-                     Button btnSave=new Button(getContext());
-                        btnSave.findViewById(R.id.button_presence);
-                        btnSave.setOnClickListener(new View.OnClickListener() {
-     @Override
+                getContext(),
+                android.R.layout.simple_list_item_checked
+        );
+        listView.setAdapter(listViewAdapter);
+
+        ArrayList<Schedule> schedules=ScheduleManager.setAll(getContext());
+        for(Schedule sch:schedules){
+            btns=new Button(getContext());
+            btns.findViewById(R.id.button_presence);
+            btns.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
 
-         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-         Date date =new Date(System.currentTimeMillis());
-         dateString =format.format(date);
+                    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+                    Date date =new Date(System.currentTimeMillis());
+                    dateString =format.format(date);
+
+                    final ArrayList<Schedule> list ;
+                    Schedule schedule= (Schedule)btns.getTag();
+schedule.setDate(String.valueOf(btns));
 
 
+                    schedule.setDate(dateString);
+                    ScheduleManager.insertData(getContext(),schedule);
+                    Toast.makeText(getContext(), "Button Clicked", Toast.LENGTH_LONG).show();
+                }
 
-                                        Schedule schedule=new Schedule();
-                                        schedule.setDate(dateString);
-                                        ScheduleManager.insert(getContext(),schedule);
-                                        //CheckboxAdapter checkboxAdapter =new CheckboxAdapter(getContext(),R.layout.fragment_presence_row,schedule.get_id());
-                                               CheckBox checkBox=view.findViewById(R.id.checkBox1);
-                                               checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                   @Override
-                                                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                       CheckBox cb=buttonView.findViewById(R.id.checkBox1);
-                                                       Schedule schedule=(Schedule)cb.getTag();
-                                                       if(isChecked)
-                                                           Toast.makeText(getContext(),
-                                                                   "Clicked on Checkbox: " + cb.getText() +
-                                                                           " is " + cb.isChecked(),
-                                                                   Toast.LENGTH_LONG).show();
-                                                       schedule.setIs_absent(cb.isChecked());
+            });
+            btns.setText(sch.getDate());
 
-                                                   }
-                                               } );
-     Toast.makeText(getContext(), "Button Clicked", Toast.LENGTH_LONG).show();
-                                    }
-         });
+            //CheckboxAdapter checkboxAdapter =new CheckboxAdapter(getContext(),R.layout.fragment_presence_row,schedule.get_id());
+            checkBox=new CheckBox(getContext());
+            checkBox=view.findViewById(R.id.checkBox1);
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    CheckBox cb=buttonView.findViewById(R.id.checkBox1);
+                    Schedule schedule1=(Schedule)cb.getTag();
+                    schedule1.setIs_absent(cb.isChecked());
+if(isChecked){
+                    if(cb.isChecked())
+                        Toast.makeText(getContext(),
+                                "Clicked on Checkbox: " + cb.getText() +
+                                        " is " + cb.isChecked(),
+                                Toast.LENGTH_LONG).show();
+                    cb.setTag(Presence.this.toString());
+                    schedule1.setIs_absent(cb.isChecked());
+                    String s=schedule1.getIs_absent().toString();
+                    System.out.println(s);
 
-                           }
+                }}
+            } );
+
+        }
 
         return view;
     }
