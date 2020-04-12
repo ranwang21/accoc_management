@@ -25,6 +25,10 @@ const types = {
     textAreaField: 'textAreaField',
     phoneField: 'phoneField'
 }
+const registerAction = {
+    withPassword: 'EUJDHFNC',
+    withoutPassword: 'UYGDFCVFBC'
+}
 
 const variables = require('../utilities/variables').variables
 const passwordIds = require('../utilities/variables').variables.id.registerPassword
@@ -312,16 +316,16 @@ const initialiseState = {
     confirmPassword: '',
     errorPassword: false,
     showPassword: false,
-    successRegister: false
+    successRegister: false,
+    roles: [],
+    days: []
 }
 
 class RegisterContainer extends Component {
     constructor () {
         super()
         this.state = {
-            ...initialiseState,
-            roles: [],
-            days: []
+            ...initialiseState
         }
         this.handleStepClick = this.handleStepClick.bind(this)
         this.handleSaveRegister = this.handleSaveRegister.bind(this)
@@ -336,6 +340,7 @@ class RegisterContainer extends Component {
         this.handleRessetStepAndRedirect = this.handleRessetStepAndRedirect.bind(this)
         this.setRolesAndDays = this.setRolesAndDays.bind(this)
         this.savedUser = this.savedUser.bind(this)
+        this.setEmailError = this.setEmailError.bind(this)
     }
 
     componentDidMount(){
@@ -361,8 +366,8 @@ class RegisterContainer extends Component {
                 birthday: fields.birthday === null,
                 last_name: fields.last_name === null,
                 first_name: fields.first_name === null,
+                email: this.checkEmailValidity(),
                 address: fields.address === null,
-                email: ((fields.email === null) || !Fetch.validateEmail(fields.email)),
                 membership: fields.membership === null,
                 contacts: contactsError
             }
@@ -599,68 +604,29 @@ class RegisterContainer extends Component {
             this.props.onShowLoginForm()
         }
 
-        handleSaveRegister () {
-            if((this.state.password !== '' && this.state.confirmPassword !== '') && (this.state.password === this.state.confirmPassword)){
-                this.setState({errorPassword: false, successRegister: true})
-            }else{
-                this.setState({errorPassword: true, successRegister: false})
+        handleSaveRegister (event, action) {
+            if (action === registerAction.withPassword) {
+                if((this.state.password !== '' && this.state.confirmPassword !== '') && (this.state.password === this.state.confirmPassword)){
+                    this.setState({errorPassword: false})
+                    this.processSavingRegister(this.state.password)
+                } else {
+                    this.setState({errorPassword: true})
+                }
+            } else if (action === registerAction.withoutPassword) {
+                const fields = this.state.informationsCoordonnees.fields
+                const passwordGeneration = fields.first_name[0] + fields.last_name.toUpperCase() + fields.birthday.getFullYear()
+                this.processSavingRegister(passwordGeneration)
             }
-            let params = null
-            let role = ''
-            switch (this.props.currentActor) {
-                case actorsIds.parent:
-                    params = {...this.state.informationsCoordonnees.fields, ...this.state.parent.fields}
-                    role = 'parent'
-                    break;
-                case actorsIds.collaborator:
-                    params = {...this.state.informationsCoordonnees.fields, ...this.state.collaborator.fields}
-                    role = 'collaborater'
-                    break;
-                case actorsIds.both:
-                    params = {...this.state.informationsCoordonnees.fields, ...this.state.parent.fields, ...this.state.collaborator.fields}
-                    role = 'collab_parent'
-                    break;
-            }
-            const user = this.getUserToSave(params, this.state.roles, role)
-            const userLogin = {
-                id_user: null,
-                email: this.state.informationsCoordonnees.fields.email,
-                password: 'abc123...',
-                is_active: false
-            }
-            Fetch.registerSaveUser(user, userLogin, this.savedUser)
-            console.log(user)
-        }
-
-        savedUser(success, idUser){
-            console.log('success => ', success)
-            console.log('idUser => ', idUser)
-            const nbrChild = this.state.nbrChild
-            if (this.props.currentActor !== actorsIds.collaborator) {
-                const childRole = 'children'
-                const childFields = this.state.childrenInscription.fields
-                const child = { child1 : null, child2 : null, child3 : null, child4 : null, child5 : null }
-
-                child.child1 = nbrChild >= 1 ? this.getUserToSave({...childFields.step1}, this.state.roles, childRole) : null
-                child.child2 = nbrChild >= 2 ? this.getUserToSave({...childFields.step2}, this.state.roles, childRole) : null
-                child.child3 = nbrChild >= 3 ? this.getUserToSave({...childFields.step3}, this.state.roles, childRole) : null
-                child.child4 = nbrChild >= 4 ? this.getUserToSave({...childFields.step4}, this.state.roles, childRole) : null
-                child.child5 = nbrChild === 5 ? this.getUserToSave({...childFields.step5}, this.state.roles, childRole) : null
-
-                const childrens = Object.values(child).filter(x => x !== null)
-                console.log(childrens)
-                Fetch.saveChildren(childrens, idUser, this.saveChildren)
-            }
-        }
-
-        saveChildren(success){
-            console.log('children save')
-            console.log(success)
         }
 
     //#endregion
 
     //#region Utilities
+
+        setRolesAndDays(roles, days){
+            const newDays = days.filter(day => day.value <= 4)
+            this.setState({roles: roles, days: newDays})
+        }
 
         getMaxStep () {
             switch (this.props.currentActor) {
@@ -695,6 +661,27 @@ class RegisterContainer extends Component {
                 }
             }
             return 'step' + funcName + 'HasErrors'
+        }
+
+        setEmailError(found){
+            this.setState({
+                informationsCoordonnees: {
+                    ...this.state.informationsCoordonnees,
+                    errors: {
+                        ...this.state.informationsCoordonnees.errors,
+                        email: found
+                    }
+                }
+            })
+        }
+
+        checkEmailValidity () {
+            const email = this.state.informationsCoordonnees.fields.email
+            if (email !== null && Fetch.validateEmail(email)) {
+                Fetch.login.checkIfExist(email, this.setEmailError)
+            } else {
+                return true
+            }
         }
 
         buildPasswordFields (lang, name) {
@@ -804,31 +791,64 @@ class RegisterContainer extends Component {
             return user
         }
 
-    //#endregion
-
-    testRegister(){
-        /*
-        let role = ''
-
-        switch (this.props.currentActor) {
-            case actorsIds.collaborator:
-                role = 'collaborater'
-                break
-            case actorsIds.parent:
-                role = 'collaborater'
-                break
-            case actorsIds.both:
-                role = 'collab_parent'
-                break
+        processSavingRegister(password){
+            let params = null
+            let role = ''
+            switch (this.props.currentActor) {
+                case actorsIds.parent:
+                    params = {...this.state.informationsCoordonnees.fields, ...this.state.parent.fields}
+                    role = 'parent'
+                    break;
+                case actorsIds.collaborator:
+                    params = {...this.state.informationsCoordonnees.fields, ...this.state.collaborator.fields}
+                    role = 'collaborater'
+                    break;
+                case actorsIds.both:
+                    params = {...this.state.informationsCoordonnees.fields, ...this.state.parent.fields, ...this.state.collaborator.fields}
+                    role = 'collab_parent'
+                    break;
             }
-        Fetch.getIdRole('', 'super_admin', this.funcReg)
-        */
-    }
+            const user = this.getUserToSave(params, this.state.roles, role)
+            const userLogin = {
+                id_user: null,
+                email: this.state.informationsCoordonnees.fields.email,
+                password: password,
+                is_active: false
+            }
+            Fetch.registerSaveUser(user, userLogin, this.savedUser)
+        }
 
-    setRolesAndDays(roles, days){
-        const newDays = days.filter(day => day.value <= 4)
-        this.setState({roles: roles, days: newDays})
-    }
+        savedUser (success, idUser) {
+            const nbrChild = this.state.nbrChild
+            if (this.props.currentActor !== actorsIds.collaborator) {
+                const childRole = 'children'
+                const childFields = this.state.childrenInscription.fields
+                const child = { child1 : null, child2 : null, child3 : null, child4 : null, child5 : null }
+
+                child.child1 = nbrChild >= 1 ? this.getUserToSave({...childFields.step1}, this.state.roles, childRole) : null
+                child.child2 = nbrChild >= 2 ? this.getUserToSave({...childFields.step2}, this.state.roles, childRole) : null
+                child.child3 = nbrChild >= 3 ? this.getUserToSave({...childFields.step3}, this.state.roles, childRole) : null
+                child.child4 = nbrChild >= 4 ? this.getUserToSave({...childFields.step4}, this.state.roles, childRole) : null
+                child.child5 = nbrChild === 5 ? this.getUserToSave({...childFields.step5}, this.state.roles, childRole) : null
+
+                const childrens = Object.values(child).filter(x => x !== null)
+                Fetch.saveChildren(childrens, idUser, this.saveChildren)
+            } else {
+                console.log('user saved')
+                this.setState({successRegister: true})
+            }
+        }
+
+        saveChildren(success){
+            if (success.success) {
+                this.setState({successRegister: true})
+                console.log('children saved')
+            } else {
+                console.log('erreur')
+            }
+        }
+
+    //#endregion
 
     render () {
         const lang = this.getLangFile()
@@ -913,9 +933,18 @@ class RegisterContainer extends Component {
                                                 {this.buildPasswordFields(lang.finalStep.registerPassword, 'confirmPassword')}
                                                 <Button
                                                     variant='outlined'
-                                                    onClick={this.handleSaveRegister}
+                                                    onClick={event => this.handleSaveRegister(event, registerAction.withPassword)}
                                                 >
-                                                    {lang.finalStep.registerPassword.save}
+                                                    {lang.finalStep.registerPassword.saveWithPassword}
+                                                </Button>
+                                            </div>
+                                            <h1>OU</h1>
+                                            <div className='fields'>
+                                                <Button
+                                                    variant='outlined'
+                                                    onClick={event => this.handleSaveRegister(event, registerAction.withoutPassword)}
+                                                >
+                                                    {lang.finalStep.registerPassword.saveWithoutPassword}
                                                 </Button>
                                             </div>
                                         </div>

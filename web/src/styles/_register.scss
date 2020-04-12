@@ -149,9 +149,13 @@
                     align-self: center;
                     height: 100%;
                     width: 55%;
+                    > h1 {
+                        text-align: center;
+                        color: rgb(68, 65, 65);
+                    }
                     > div.fields {
                         text-align: center;
-                        padding-top: 5em;
+                        padding-top: 2em;
                         display: flex;
                         flex-direction: column;
                         > * {

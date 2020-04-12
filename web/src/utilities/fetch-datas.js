@@ -17,6 +17,21 @@ const validateEmail = (email) => {
     return !!mailformat.test(email)
 }
 
+const checkIfEmailExist = (email, callBack) => {
+    fetch(HOST + '/logins')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if(data.success){
+                const getted = data.data.filter(login => login.email === email)
+                callBack((getted.length > 0 ? true : false))
+            } else {
+                //callBack(true)
+                callBack(false)
+            }
+        })
+}
+
 const authLogin = (email, password, callBack) => {
     const userToSend = {
         email: email,
@@ -880,7 +895,6 @@ const updateUserValidities = (token, users, callBack) => {
     }
 }
 
-
 const updateUser = (token, user, callBack) => {
         fetch(HOST + '/users/'+ user._id, {
             method: 'PUT',
@@ -997,6 +1011,11 @@ export default {
     getAllSchedules,
     user: {
         update: updateUser
+    },
+    login: {
+        checkIfExist: checkIfEmailExist,
+        delete: deleteLogin,
+        auth: authLogin
     },
     role:{
         get: getRoles
