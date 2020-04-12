@@ -293,6 +293,7 @@ const getAllUsers = (token, callBack) => {
                                     ...templateUser,
                                     ...user
                                 }
+
                                 const login = dataLogins.data.filter(dl => dl.id_user === userTemplate._id)
                                 const role = dataRoles.data.filter(dr => dr._id === userTemplate.id_role)
                                 userTemplate.idLogin = login[0] ? login[0]._id : null
