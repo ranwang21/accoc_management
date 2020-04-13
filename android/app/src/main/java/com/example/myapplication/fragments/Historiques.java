@@ -49,32 +49,32 @@ public class Historiques extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_historique, container, false);
         //today's date
-        User user = UserManager.getById(getContext(), "5e6a3e314554933864b2c3b3");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         dateString = formatter.format(date);
+        ArrayList<Schedule> scheduleArrayList = ScheduleManager.getAll(getContext());
+//        for(Schedule s : scheduleArrayList){
+//            User u = UserManager.getById(getContext(),s.getId_user());
+//            Log.d("Json", "name " + u.getFirst_name()+ " date " + s.getDate() + " classroom " + s.getId_classroom());
+//        }
         //dates to display
         ArrayList<String> dateToDisplay = ScheduleManager.getUniquesDates(getContext(), dateString);
         // load childrens from bd
-        ArrayList<Role> roles = RoleManager.getAll(getContext());
-        for (Role r : roles) {
-            if (r.getTitle().equals("children")) {
-                childrenRoleId = r.get_id();
-            }
-        }
+        ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
         users = new ArrayList<>();
         schedules = new ArrayList<>();
         listView = view.findViewById(R.id.list_enfant_par_salle);
-        schedules = ScheduleManager.getByDate(getContext(), dateToDisplay.get(0));
-        for (Schedule s : schedules) {
-            User u = UserManager.getById(getContext(), s.getId_user());
-            if (u != null) {
-                users.add(u);
+        for (Classroom c : classrooms) {
+            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), dateToDisplay.get(0), c.get_id());
+            if (schedulesToInsert != null) {
+                schedules.addAll(schedulesToInsert);
             }
         }
-        for (User u : users) {
-            if (!(u.getId_role().equals(childrenRoleId))) {
-                users.remove(u);
+        for (Schedule s : schedules) {
+            User u = UserManager.getById(getContext(), s.getId_user());
+            if (u != null ) {
+                Log.d("Json", "name " + u.getFirst_name()+ " date " + s.getDate() + " classroom " + s.getId_classroom());
+                users.add(u);
             }
         }
         enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
@@ -84,7 +84,6 @@ public class Historiques extends Fragment {
         arrayAdapterdate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_date = view.findViewById(R.id.spinner_date);
         //spinner salle
-        ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
         ArrayList<String> listClassroom = new ArrayList<>();
         listClassroom.add("Tous");
         for (Classroom c : classrooms) {
@@ -117,7 +116,10 @@ public class Historiques extends Fragment {
                 } else {
                     ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
                     for (Classroom c : classrooms) {
-                        schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                        ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                        if (schedulesToInsert != null) {
+                            schedules.addAll(schedulesToInsert);
+                        }
                     }
                     if (schedules != null) {
                         for (Schedule s : schedules) {
@@ -160,7 +162,10 @@ public class Historiques extends Fragment {
                 } else {
                     ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
                     for (Classroom c : classrooms) {
-                        schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                        ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                        if (schedulesToInsert != null) {
+                            schedules.addAll(schedulesToInsert);
+                        }
                     }
                     if (schedules != null) {
                         for (Schedule s : schedules) {
