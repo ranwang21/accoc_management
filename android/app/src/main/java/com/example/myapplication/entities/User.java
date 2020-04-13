@@ -26,6 +26,12 @@ public class User {
         this.id_collaborater = id_collaborater;
         this.id_classroom = id_classroom;
     }
+
+    public User(String str_fname, String str_lname) {
+        this.first_name=str_fname;
+        this.last_name=str_lname;
+    }
+
     public String get_id() {
         return _id;
     }

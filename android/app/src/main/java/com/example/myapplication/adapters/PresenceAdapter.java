@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,14 +49,16 @@ public class PresenceAdapter extends ArrayAdapter<User> {
             Button btn = convertView.findViewById(R.id.button_presence);
             TextView Fname = convertView.findViewById(R.id.textView1);
             TextView Lname = convertView.findViewById(R.id.textView2);
-            CheckBox cb = convertView.findViewById(R.id.checkBox1);
+            final CheckBox cb = convertView.findViewById(R.id.checkBox1);
             ImageView img = convertView.findViewById(R.id.imageView3);
             Fname.setText(user.getFirst_name());
             Lname.setText(user.getLast_name());
             Glide.with(getContext()).load(user.getImg_url()).into(img);
 
 
+
         }
+
 
             return convertView;
 

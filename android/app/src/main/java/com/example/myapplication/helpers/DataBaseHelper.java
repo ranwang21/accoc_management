@@ -1,8 +1,16 @@
 package com.example.myapplication.helpers;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.myapplication.entities.Schedule;
+import com.example.myapplication.entities.User;
+import com.example.myapplication.managers.ScheduleManager;
+import com.example.myapplication.services.ConnectionBD;
+
+import java.util.HashMap;
 
 import androidx.annotation.Nullable;
 
@@ -63,5 +71,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + EVALUATION_OPEN_QUESTIONS_TABLE_NAME);
         // Creation
         onCreate(db);
+
+
     }
+
+
+
 }

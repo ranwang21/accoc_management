@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import androidx.core.content.ContextCompat;
+
 
 public class ScheduleManager {
 
@@ -117,18 +119,21 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
-    public static long  insertData (Context context,Schedule schedule) {
+    public static long  insertData (Context context, Integer id, Boolean isAbscent ) {
+
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID, schedule.get_id());
-        contentValues.put(ID_USER, schedule.getId_user());
-        contentValues.put(ID_CLASSROOM, schedule.getId_classroom());
-        contentValues.put(DATE, schedule.getDate());
-        contentValues.put(IS_ABSENT, schedule.getIs_absent());
-        contentValues.put(COMMENT, schedule.getComment());
+        String strId=id.toString();
+        String[]selectionArgs={strId};
         SQLiteDatabase bd = ConnectionBD.getBd(context);
- long result=bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
- ConnectionBD.close();
+
+
+        contentValues.put(ID, strId);
+
+        contentValues.put(IS_ABSENT,isAbscent );
+        long result=bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
+
+        ConnectionBD.close();
       return result;
     }
 
