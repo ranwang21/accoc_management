@@ -70,15 +70,55 @@ const childState = {
     }
 }
 
+const parentState = {
+    fields: {
+        expectationsVar: null,
+        needsVar: null,
+        talents: null,
+        snacks: false,
+        organization: false,
+        support: false,
+        otherInvolvement: null
+    },
+    errors: {
+        expectationsVar: false
+    }
+}
+
+const collabState = {
+    fields: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        magicJournal: false,
+        serveSnack: false,
+        animationPreparation: false,
+        accompanyWorkshop: false,
+        prepareSnack: false,
+        accompanyInternet: false,
+
+        comment: 'Mon commentaire',
+        experience: 'Mes experiences',
+        motivation: 'Mes motivations',
+        heard: 'Heard',
+
+        availability: null
+    },
+    errors: {
+        availability: false,
+        interest: false,
+        motivation: false,
+        experience: false
+    }
+}
+
 const variables = require('../utilities/variables').variables
 const passwordIds = require('../utilities/variables').variables.id.registerPassword
 const actorsIds = require('../utilities/variables').variables.id.registerStart.check
 const closeId = require('../utilities/variables').variables.id.loginRegister.showLogin
+
 const initialiseState = {
-    step: 1,
-    nbrChild: 0,
-    showPrev: false,
-    showNext: true,
     informationsCoordonnees: {
         fields: {
             sex: 'male',
@@ -119,63 +159,34 @@ const initialiseState = {
         errors: {}
     },
     parent: {
-        fields: {
-            expectationsVar: null,
-            needsVar: null,
-            talents: null,
-            snacks: false,
-            organization: false,
-            support: false,
-            otherInvolvement: null
-        },
-        errors: {
-            expectationsVar: false
-        }
+        fields: {},
+        errors: {}
     },
     collaborator: {
-        fields: {
-            monday: false,
-            tuesday: false,
-            wednesday: false,
-            thursday: false,
-            magicJournal: false,
-            serveSnack: false,
-            animationPreparation: false,
-            accompanyWorkshop: false,
-            prepareSnack: false,
-            accompanyInternet: false,
-
-            comment: 'Mon commentaire',
-            experience: 'Mes experiences',
-            motivation: 'Mes motivations',
-            heard: 'Heard',
-
-            availability: null
-        },
-        errors: {
-            availability: false,
-            interest: false,
-            motivation: false,
-            experience: false
-        }
-    },
-    childCountError: false,
-    enableSubmit: false,
-    loading: false,
-    password: '',
-    confirmPassword: '',
-    errorPassword: false,
-    showPassword: false,
-    successRegister: false,
-    roles: [],
-    days: []
+        fields: {},
+        errors: {}
+    }
 }
 
 class RegisterContainer extends Component {
     constructor () {
         super()
         this.state = {
-            ...initialiseState
+            ...initialiseState,
+            step: 1,
+            nbrChild: 0,
+            showPrev: false,
+            showNext: true,
+            childCountError: false,
+            enableSubmit: false,
+            loading: false,
+            password: '',
+            confirmPassword: '',
+            errorPassword: false,
+            showPassword: false,
+            successRegister: false,
+            roles: [],
+            days: []
         }
         this.handleStepClick = this.handleStepClick.bind(this)
         this.handleSaveRegister = this.handleSaveRegister.bind(this)
@@ -195,6 +206,56 @@ class RegisterContainer extends Component {
 
     componentDidMount(){
         Fetch.getRolesAndDays(this.setRolesAndDays)
+    }
+
+    componentDidUpdate(prevProps) {
+        // Initialise parent and collaborater fieldsState when actor selected change
+        if (this.props.currentActor !== prevProps.currentActor) {
+            this.setState({
+                step: 1,
+                nbrChild: 0,
+                showPrev: false,
+                showNext: true,
+                childCountError: false,
+                enableSubmit: false,
+                loading: false,
+                password: '',
+                confirmPassword: '',
+                errorPassword: false,
+                showPassword: false,
+                successRegister: false,
+                informationsCoordonnees: {
+                    fields: { ...initialiseState.informationsCoordonnees.fields },
+                    errors: { ...initialiseState.informationsCoordonnees.errors }
+                },
+                parent: {
+                    fields: { ...initialiseState.parent.fields },
+                    errors: { ...initialiseState.parent.errors }
+                },
+                collaborator: {
+                    fields: { ...initialiseState.parent.fields },
+                    errors: { ...initialiseState.parent.errors }
+                }
+            })
+            if(this.props.currentActor === actorsIds.parent || this.props.currentActor === actorsIds.both){
+                // Load parent fieldsState
+                this.setState({
+                    parent: {
+                        fields: { ...parentState.fields },
+                        errors: { ...parentState.errors }
+                    }
+                })
+            }
+            if(this.props.currentActor === actorsIds.collaborator || this.props.currentActor === actorsIds.both){
+                // Load collaborater fieldsState
+                this.setState({
+                    collaborator: {
+                        fields: { ...collabState.fields },
+                        errors: { ...collabState.errors }
+                    }
+                })
+            }
+        }
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
@@ -460,9 +521,6 @@ class RegisterContainer extends Component {
         }
 
         handleRessetStepAndRedirect () {
-            this.setState({
-                ...initialiseState
-            })
             this.props.onShowLoginForm()
         }
 

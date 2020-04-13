@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
-    TableContainer, Table, TableHead, TableBody, TableRow, TableCell,
-    Dialog, DialogActions, DialogContent, Button, Avatar, DialogTitle
+    TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Avatar
 } from '@material-ui/core'
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import IsValidIcon from '@material-ui/icons/CheckTwoTone'
