@@ -3,9 +3,17 @@ import { withCookies } from 'react-cookie'
 const variables = require('../utilities/variables').variables
 
 class ParentCollabDetail extends Component {
+    isAvailable (day) {
+        const daysId = this.props.both.availability
+        const idDay = this.props.days.filter(x => x.title === day)[0]._id
+        return daysId.filter(d => d === idDay).length > 0
+    }
+
     render () {
         const both = this.props.both
-        console.log('ici')
+        console.log(both)
+        const yes = 'OUI'
+        const no = 'NON'
         return (
             <div className='parent-collab-detail'>
                 <fieldset>
@@ -19,21 +27,33 @@ class ParentCollabDetail extends Component {
                             <p>Courriel</p>
                             <p>{both.email}</p>
                         </div>
-                        {both.contact[1] && (
+                        {(both.contact[0] && both.contact[0].personal !== null) && (
                             <div>
                                 <p>Personal</p>
-                                <p>(514) 820-5545</p>
+                                <p>{both.contact[0].personal}</p>
                             </div>
                         )}
-                        {both.contact[0] && (
+                        {(both.contact[0] && both.contact[0].work !== null) && (
                             <div>
-                                <p>Personal</p>
-                                <p>(514) 820-5545</p>
+                                <p>Work</p>
+                                <p>{both.contact[0].work}</p>
+                            </div>
+                        )}
+                        {(both.contact[0] && both.contact[0].home !== null) && (
+                            <div>
+                                <p>Home</p>
+                                <p>{both.contact[0].home}</p>
+                            </div>
+                        )}
+                        {(both.contact[0] && both.contact[0].emergency !== null) && (
+                            <div>
+                                <p>Emergency</p>
+                                <p>{both.contact[0].emergency}</p>
                             </div>
                         )}
                         <div className='row print-to-remove'>
                             <p>Un ou des enfant(s) de moins de 18ans</p>
-                            <p>OUI / NON</p>
+                            <p>{both.has_child ? yes : no}</p>
                         </div>
                     </div>
                 </fieldset>
@@ -42,19 +62,19 @@ class ParentCollabDetail extends Component {
                     <div>
                         <div className='row'>
                             <p>Statut</p>
-                            <p>(est ou n'est pas) membre</p>
+                            <p>{both.membership[0].status ? 'EST ' : "N'EST PAS "} MEMBRE</p>
                         </div>
                         <div className='row'>
                             <p>Mode de paiement</p>
-                            <p>texte texte texte</p>
+                            <p>{both.membership[0].payement_method}</p>
                         </div>
                         <div>
                             <p>Carte membre</p>
-                            <p>OUI / NON</p>
+                            <p>{both.membership[0].member_card ? yes : no}</p>
                         </div>
                         <div>
                             <p>Carte de remise</p>
-                            <p>OUI / NON</p>
+                            <p>{both.membership[0].discount_card ? yes : no}</p>
                         </div>
                     </div>
                 </fieldset>
@@ -65,49 +85,61 @@ class ParentCollabDetail extends Component {
                             <div>
                                 <div>
                                     <p>LUNDI</p>
-                                    <p>OUI / NON</p>
+                                    <p>{this.isAvailable(variables.days.lundi) ? yes : no}</p>
                                 </div>
                                 <div>
                                     <p>MARDI</p>
-                                    <p>OUI / NON</p>
+                                    <p>{this.isAvailable(variables.days.mardi) ? yes : no}</p>
                                 </div>
                                 <div>
                                     <p>MERCREDI</p>
-                                    <p>OUI / NON</p>
+                                    <p>{this.isAvailable(variables.days.mercredi) ? yes : no}</p>
                                 </div>
                                 <div>
                                     <p>JEUDI</p>
-                                    <p>OUI / NON</p>
+                                    <p>{this.isAvailable(variables.days.jeudi) ? yes : no}</p>
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset className='print-to-remove'>
                             <legend>Ses interets</legend>
                             <div>
-                                <div className='row'>
-                                    <p>Collaborer au JM</p>
-                                    <p>OUI / NON</p>
-                                </div>
-                                <div className='row'>
-                                    <p>Servir la collation</p>
-                                    <p>OUI / NON</p>
-                                </div>
-                                <div className='row'>
-                                    <p>Animation de jeux - Preparation fetes</p>
-                                    <p>OUI / NON</p>
-                                </div>
-                                <div className='row'>
-                                    <p>Accompagner les enfants a l'atelier</p>
-                                    <p>OUI / NON</p>
-                                </div>
-                                <div className='row'>
-                                    <p>Preparer des collations</p>
-                                    <p>OUI / NON</p>
-                                </div>
-                                <div className='row'>
-                                    <p>Accompagner les enfants sur internet</p>
-                                    <p>OUI / NON</p>
-                                </div>
+                                {both.interest[0] && (
+                                    <div className='row'>
+                                        <p>Collaborer au JM</p>
+                                        <p>{both.interest[0].response === 'true' ? yes : no}</p>
+                                    </div>
+                                )}
+                                {both.interest[1] && (
+                                    <div className='row'>
+                                        <p>Servir la collation</p>
+                                        <p>{both.interest[1].response === 'true' ? yes : no}</p>
+                                    </div>
+                                )}
+                                {both.interest[2] && (
+                                    <div className='row'>
+                                        <p>Animation de jeux - Preparation fetes</p>
+                                        <p>{both.interest[2].response === 'true' ? yes : no}</p>
+                                    </div>
+                                )}
+                                {both.interest[3] && (
+                                    <div className='row'>
+                                        <p>Accompagner les enfants a l'atelier</p>
+                                        <p>{both.interest[3].response === 'true' ? yes : no}</p>
+                                    </div>
+                                )}
+                                {both.interest[4] && (
+                                    <div className='row'>
+                                        <p>Preparer des collations</p>
+                                        <p>{both.interest[4].response === 'true' ? yes : no}</p>
+                                    </div>
+                                )}
+                                {both.interest[5] && (
+                                    <div className='row'>
+                                        <p>Accompagner les enfants sur internet</p>
+                                        <p>{both.interest[5].response === 'true' ? yes : no}</p>
+                                    </div>
+                                )}
                             </div>
                         </fieldset>
                     </>
@@ -153,20 +185,27 @@ class ParentCollabDetail extends Component {
                         <div>
                             <div className='max'>
                                 <p>Motivations</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
+                                <p>{null}</p>
+                            </div>
+                            <div className='max'>
+                                <p>Motivations</p>
+                                <p>{both.motivation}</p>
                             </div>
                             <div className='max'>
                                 <p>Experiences et Formations</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
+                                <p>{both.experience}</p>
                             </div>
                             <div className='max'>
                                 <p>Commentaires</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
+                                <p>{both.comment}</p>
                             </div>
-                            <div className='max'>
-                                <p>Ou avoir entendu parler du besoin de collaborateur</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
-                            </div>
+
+                            {both.question[3] && (
+                                <div className='max'>
+                                    <p>Ou avoir entendu parler du besoin de collaborateur</p>
+                                    <p>{both.question[3].response !== null ? both.question[3].response : 'Indefini'}</p>
+                                </div>
+                            )}
                         </div>
                     </fieldset>
                 )}

@@ -150,6 +150,7 @@ const addUser = (params, callBack) => {
 }
 
 const registerSaveUser = (user, userLogin, callBack) => {
+    console.log(user)
     fetch(HOST + '/users', {
         method: 'post',
         headers: {
@@ -163,6 +164,7 @@ const registerSaveUser = (user, userLogin, callBack) => {
             if (data1.success) {
                 console.log(data1)
                 userLogin.id_user = data1.data._id
+                console.log(userLogin)
 
                 fetch(HOST + '/logins', {
                     method: 'post',
@@ -285,6 +287,7 @@ const getAllUsers = (token, callBack) => {
                     })
                         .then(response => response.json())
                         .then(data => {
+                            console.log(data.data)
                             const dataUsers = []
                             for (let i = 0; i < data.data.length; i++) {
                                 const user = data.data[i]

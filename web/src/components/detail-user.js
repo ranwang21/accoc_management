@@ -212,6 +212,7 @@ class DetailUser extends Component {
                                     lang={this.props.lang}
                                     both={user}
                                     editable={this.props.allowEditable}
+                                    days={this.props.days}
                                 />
                             )}
                             {(user.roleTitle === variables.role.admin) && (

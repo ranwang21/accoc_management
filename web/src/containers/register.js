@@ -202,9 +202,33 @@ class RegisterContainer extends Component {
         this.setRolesAndDays = this.setRolesAndDays.bind(this)
         this.savedUser = this.savedUser.bind(this)
         this.setEmailError = this.setEmailError.bind(this)
+        this.saveChildren = this.saveChildren.bind(this)
+        this.setFields = this.setFields.bind(this)
+    }
+
+    setFields(){
+        if(this.props.currentActor === actorsIds.parent || this.props.currentActor === actorsIds.both){
+            // Load parent fieldsState
+            this.setState({
+                parent: {
+                    fields: { ...parentState.fields },
+                    errors: { ...parentState.errors }
+                }
+            })
+        }
+        if(this.props.currentActor === actorsIds.collaborator || this.props.currentActor === actorsIds.both){
+            // Load collaborater fieldsState
+            this.setState({
+                collaborator: {
+                    fields: { ...collabState.fields },
+                    errors: { ...collabState.errors }
+                }
+            })
+        }
     }
 
     componentDidMount(){
+        this.setFields()
         Fetch.getRolesAndDays(this.setRolesAndDays)
     }
 
@@ -237,24 +261,7 @@ class RegisterContainer extends Component {
                     errors: { ...initialiseState.parent.errors }
                 }
             })
-            if(this.props.currentActor === actorsIds.parent || this.props.currentActor === actorsIds.both){
-                // Load parent fieldsState
-                this.setState({
-                    parent: {
-                        fields: { ...parentState.fields },
-                        errors: { ...parentState.errors }
-                    }
-                })
-            }
-            if(this.props.currentActor === actorsIds.collaborator || this.props.currentActor === actorsIds.both){
-                // Load collaborater fieldsState
-                this.setState({
-                    collaborator: {
-                        fields: { ...collabState.fields },
-                        errors: { ...collabState.errors }
-                    }
-                })
-            }
+            this.setFields()
         }
     }
 
@@ -730,7 +737,6 @@ class RegisterContainer extends Component {
             }
             const user = this.getUserToSave(params, this.state.roles, role)
             const userLogin = {
-                id_user: null,
                 email: this.state.informationsCoordonnees.fields.email,
                 password: password,
                 is_active: false
@@ -762,9 +768,10 @@ class RegisterContainer extends Component {
         saveChildren(success){
             if (success.success) {
                 this.setState({successRegister: true})
-                console.log('children saved')
+                this.props.onGetBack('register')
             } else {
                 console.log('erreur')
+                alert("Une erreur est survenu lors de l'enregistrement ")
             }
         }
 
@@ -773,6 +780,7 @@ class RegisterContainer extends Component {
     render () {
         const lang = this.getLangFile()
         const max = this.getMaxStep()
+        console.log(this.state.childrenInscription.fields)
         return (
             <div className={this.state.successRegister ? 'register-container registered' : 'register-container'}>
                 {this.props.onShowLoginForm !== null && (

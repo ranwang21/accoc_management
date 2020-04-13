@@ -151,8 +151,7 @@ class CreateAdmin extends Component {
     savedUser (data) {
         if(data){
             this.setState({ loading: false, showSnack: true })
-            this.props.updateUsers()
-            this.props.onGetBack()
+            this.props.onGetBack('register')
         }
     }
 

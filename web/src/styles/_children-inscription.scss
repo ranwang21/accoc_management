@@ -72,6 +72,7 @@
                             display: flex;
 
                             p {
+                                text-transform: uppercase !important;
                                 text-align: center;
                                 padding: 0.5em 1.5em;
                                 &:nth-child(1) {

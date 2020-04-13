@@ -2,13 +2,13 @@
     "title": "Information and contact details",
     "sex": {
         "label": "title",
-        "labelError": "Required"
-    },
-    "female": {
-        "label": "Mrs"
-    },
-    "male": {
-        "label": "Mr"
+        "labelError": "Required",
+        "female": {
+            "label": "Mrs"
+        },
+        "male": {
+            "label": "Mr"
+        }
     },
     "birthday": {
         "label": "Date of Birth",
@@ -56,16 +56,16 @@
         "title1": "Membership allows you to actively participate in the democratic life of the Aurore's House and shows proud support for the organization's mission and actions.",
         "title2": "The membership card is valid from April 1 to March 31 of the following year. It costs $ 5 to get it.",
         "label": "Membership",
-        "labelError": "Required"
-    },
-    "membership_becomeMember": {
-        "label": "Become a member"
-    },
-    "membership_alreadyMember": {
-        "label": "Already a member"
-    },
-    "membership_notWantMember": {
-        "label": "Not for the moment"
+        "labelError": "Required",
+        "membership_becomeMember": {
+            "label": "Become a member"
+        },
+        "membership_alreadyMember": {
+            "label": "Already a member"
+        },
+        "membership_notWantMember": {
+            "label": "Not for the moment"
+        }
     },
     "membership_becomeMember_memberCard": {
         "label": "Discount card"

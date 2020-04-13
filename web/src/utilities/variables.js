@@ -1,5 +1,11 @@
 'use strict'
 const variables = {
+    days: {
+        lundi: 'lundi',
+        mardi: 'mardi',
+        mercredi: 'mercredi',
+        jeudi: 'jeudi'
+    },
     role: {
         highAdmin: 'super_admin',
         admin: 'admin',

@@ -120,12 +120,12 @@ const selectGroupedField = (fieldsConfig, propLang, lang, fields, errors, inputC
 
                 <ListSubheader>{lang[fieldsConfig.name].level[0].label}</ListSubheader>
                 {lang[fieldsConfig.name].level[0].options.map(option => (
-                    <MenuItem key={lang[fieldsConfig.name].level[0].label + option} value={lang[fieldsConfig.name].level[0].label + option}>{option}</MenuItem>
+                    <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
                 ))}
 
                 <ListSubheader>{lang[fieldsConfig.name].level[1].label}</ListSubheader>
                 {lang[fieldsConfig.name].level[1].options.map(option => (
-                    <MenuItem key={lang[fieldsConfig.name].level[1].label + option} value={lang[fieldsConfig.name].level[1].label + option}>{option}</MenuItem>
+                    <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
                 ))}
             </Select>
             {errors[fieldsConfig.name] && (

@@ -20,12 +20,22 @@ class TableListContainer extends Component {
         this.state = {
             showDetail: false,
             userSelected: null,
-            allowEditable: false
+            allowEditable: false,
+            days: []
         }
         this.handleShowDetail = this.handleShowDetail.bind(this)
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
         this.handleEditMode = this.handleEditMode.bind(this)
         this.handleDeleteUser = this.handleDeleteUser.bind(this)
+        this.setDay = this.setDay.bind(this)
+    }
+
+    setDay (days) {
+        this.setState({ days: days })
+    }
+
+    componentDidMount () {
+        Fetch.day.get(this.setDay)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list-table.json') }
@@ -116,7 +126,7 @@ class TableListContainer extends Component {
         return (
             <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={actor._id}>
                 <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
-                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.last_name} </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.last_name.toUpperCase()} </TableCell>
                 <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.first_name} </TableCell>
                 {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected === variables.role.child) && (
                     <>
@@ -195,6 +205,7 @@ class TableListContainer extends Component {
                             allowEditable={this.state.allowEditable}
                             onEditMode={this.handleEditMode}
                             onDeleteUser={this.handleDeleteUser}
+                            days={this.state.days}
                         />
                     )}
                 </TableContainer>)

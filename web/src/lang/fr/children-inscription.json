@@ -6,10 +6,10 @@
             "label": "titre",
             "labelError": "Obligatoire",
             "female": {
-                "label": "Mrs"
+                "label": "Fille"
             },
             "male": {
-                "label": "Mr"
+                "label": "Garçon"
             }
         },
         "last_name": {
@@ -70,22 +70,55 @@
                 {
                     "label": "Primaire",
                     "options": [
-                        "1er",
-                        "2e",
-                        "3e",
-                        "4e",
-                        "5e",
-                        "6e"
+                        {
+                            "value": "Primaire1",
+                            "label": "1er"
+                        },
+                        {
+                            "value": "Primaire2",
+                            "label": "2e"
+                        },
+                        {
+                            "value": "Primaire3",
+                            "label": "3e"
+                        },
+                        {
+                            "value": "Primaire4",
+                            "label": "4e"
+                        },
+                        {
+                            "value": "Primaire5",
+                            "label": "5e"
+                        },
+                        {
+                            "value": "Primaire6",
+                            "label": "6e"
+                        }
                     ]
                 },
                 {
                     "label": "Secondaire",
                     "options": [
-                        "I",
-                        "II",
-                        "III",
-                        "IV",
-                        "V"
+                        {
+                            "value": "Secondaire1",
+                            "label": "I"
+                        },
+                        {
+                            "value": "Secondaire2",
+                            "label": "II"
+                        },
+                        {
+                            "value": "Secondaire3",
+                            "label": "III"
+                        },
+                        {
+                            "value": "Secondaire4",
+                            "label": "IV"
+                        },
+                        {
+                            "value": "Secondaire5",
+                            "label": "V"
+                        }
                     ]
                 }
             ]
@@ -99,24 +132,57 @@
             "labelError": "Required",
             "level": [
                 {
-                    "label": "Primary",
+                    "label": "Primaire",
                     "options": [
-                        "1st",
-                        "2nd",
-                        "3rd",
-                        "4th",
-                        "5th",
-                        "6th"
+                        {
+                            "value": "Primaire1",
+                            "label": "1er"
+                        },
+                        {
+                            "value": "Primaire2",
+                            "label": "2e"
+                        },
+                        {
+                            "value": "Primaire3",
+                            "label": "3e"
+                        },
+                        {
+                            "value": "Primaire4",
+                            "label": "4e"
+                        },
+                        {
+                            "value": "Primaire5",
+                            "label": "5e"
+                        },
+                        {
+                            "value": "Primaire6",
+                            "label": "6e"
+                        }
                     ]
                 },
                 {
-                    "label": "Secondary",
+                    "label": "Secondaire",
                     "options": [
-                        "I",
-                        "II",
-                        "III",
-                        "IV",
-                        "V"
+                        {
+                            "value": "Secondaire1",
+                            "label": "I"
+                        },
+                        {
+                            "value": "Secondaire2",
+                            "label": "II"
+                        },
+                        {
+                            "value": "Secondaire3",
+                            "label": "III"
+                        },
+                        {
+                            "value": "Secondaire4",
+                            "label": "IV"
+                        },
+                        {
+                            "value": "Secondaire5",
+                            "label": "V"
+                        }
                     ]
                 }
             ]
