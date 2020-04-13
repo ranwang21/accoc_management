@@ -6,6 +6,7 @@ import {
 import ClassroomDetail from '../components/classroom-detail'
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_classroom.scss'
+import '../styles/_detail-user.scss'
 
 const variables = require('../utilities/variables').variables
 
@@ -13,20 +14,19 @@ class ClassRoom extends Component {
     constructor () {
         super()
         this.state = {
-            startDate: '',
-            endDate: '',
+            startDate: null,
+            endDate: null,
             onSearch: false,
             showDetail: false,
+            matchedSchedules: [],
             classroomSelected: null
         }
         this.handleStartDateChange = this.handleStartDateChange.bind(this)
         this.handleEndDateChange = this.handleEndDateChange.bind(this)
         this.renderClassRooms = this.renderClassRooms.bind(this)
         this.handleShowDetail = this.handleShowDetail.bind(this)
-    }
-
-    componentDidMount () {
-        console.log(this.props.schedules)
+        this.handleCloseDetail = this.handleCloseDetail.bind(this)
+        this.handleStartDateChange = this.handleStartDateChange.bind(this)
     }
 
     getLangFile () {
@@ -41,10 +41,37 @@ class ClassRoom extends Component {
         this.setState({ endDate: event.target.value })
     }
 
-    handleSearch () {
-        if (this.state.startDate !== '' & this.state.endDate !== '') {
-            this.setState({ onSearch: true })
+    handleSearch (startDate, endDate) {
+        if (this.state.startDate !== null & this.state.endDate !== null) {
+            this.setState({
+                matchedSchedules: this.filterScheduleByDate(startDate, endDate),
+                onSearch: true
+            })
         }
+    }
+
+    filterScheduleByDate (startDate, endDate) {
+        const schedules = this.props.schedules
+        const formattedStartDate = new Date(startDate + ' 00:00:00')
+        const formattedEndDate = new Date(endDate + ' 23:59:59')
+        // find the schedules between start and end date
+        const matchedSchedules = schedules.filter(schedule => new Date(schedule.date) >= formattedStartDate && new Date(schedule.date) <= formattedEndDate)
+        return matchedSchedules
+    }
+
+    filterActors (userId) {
+        // TODO: filter actors by userId
+        // const actors = this.props.actors
+        // const matchedSchedules = this.state.matchedSchedules
+        // const userIdsInMatchedSchedules = []
+        // matchedSchedules.map(schedule => userIdsInMatchedSchedules.push(schedule.id_user))
+        // actors.map(actor => {
+        //     if (userIdsInMatchedSchedules.includes(actor._id)) {
+        //         console.log('includes: ', actor._id)
+        //     } else { console.log(actor._id) }
+        // })
+        console.log('all actors: ', this.props.actors)
+        console.log('matchedSchedules: ', this.state.matchedSchedules)
     }
 
     renderClassRooms () {
@@ -54,9 +81,13 @@ class ClassRoom extends Component {
         }
     }
 
+    componentDidMount () {
+        // console.log(this.props.schedules)
+    }
+
     renderRow (classRoom) {
         return (
-            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={classRoom._id} onClick={() => this.handleShowDetail(classRoom._id)}>
+            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={classRoom._id} onClick={() => this.handleShowDetail(classRoom)}>
                 <TableCell> {classRoom.title} </TableCell>
                 <TableCell> {classRoom.phone} </TableCell>
                 <TableCell> {classRoom.seat} </TableCell>
@@ -64,10 +95,15 @@ class ClassRoom extends Component {
         )
     }
 
-    handleShowDetail (classRoomId) {
+    handleShowDetail (classRoom) {
+        // put showdetail in the callback to make sure classroomSelected state is set before showing detail page
+        this.setState({ classroomSelected: classRoom }, () => this.filterActors(), () => this.setState({ showDetail: true }))
+    }
+
+    handleCloseDetail () {
         this.setState({
-            showDetail: true,
-            classroomSelected: classRoomId
+            showDetail: false,
+            classroomSelected: null
         })
     }
 
@@ -103,7 +139,7 @@ class ClassRoom extends Component {
                                     />
                                 </TableCell>
                                 <TableCell>
-                                    <Button variant='contained' color='primary' onClick={() => this.handleSearch()}>
+                                    <Button variant='contained' color='primary' onClick={() => this.handleSearch(this.state.startDate, this.state.endDate)}>
                                         {lang.search}
                                     </Button>
                                 </TableCell>
@@ -111,12 +147,12 @@ class ClassRoom extends Component {
                         </TableHead>
                         {this.state.onSearch ? this.renderClassRooms() : null}
                     </Table>
-                    {this.state.userSelected !== null && (
+                    {this.state.classroomSelected !== null && (
                         <ClassroomDetail
                             open={this.state.showDetail}
-                            // onClose={this.handleCloseDetail}
+                            onClose={this.handleCloseDetail}
+                            classRoom={this.state.classroomSelected}
                             lang={this.props.lang}
-                            classroomSelected={this.state.classroomSelected}
                         />
                     )}
                 </TableContainer>
