@@ -224,7 +224,7 @@ class Dashbord extends Component {
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
-            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} schedules={this.state.schedules} />)
+            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
         case variables.menus.scheduleManagement:
             return (
                 <ScheduleManagement
