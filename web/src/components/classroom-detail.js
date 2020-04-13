@@ -8,6 +8,7 @@ class ClassroomDetail extends Component {
             <Dialog
                 className='dialog'
                 open={this.props.open}
+                onClose={this.props.onClose}
                 scroll='paper'
                 aria-labelledby='scroll-dialog-title'
                 aria-describedby='scroll-dialog-description'

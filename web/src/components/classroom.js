@@ -71,6 +71,13 @@ class ClassRoom extends Component {
         })
     }
 
+    handleCloseDetail () {
+        this.setState({
+            showDetail: false,
+            classroomSelected: null
+        })
+    }
+
     render () {
         const lang = this.getLangFile()
 
@@ -114,7 +121,7 @@ class ClassRoom extends Component {
                     {this.state.userSelected !== null && (
                         <ClassroomDetail
                             open={this.state.showDetail}
-                            // onClose={this.handleCloseDetail}
+                            onClose={this.handleCloseDetail}
                             lang={this.props.lang}
                             classroomSelected={this.state.classroomSelected}
                         />
