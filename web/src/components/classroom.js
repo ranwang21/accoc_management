@@ -13,10 +13,11 @@ class ClassRoom extends Component {
     constructor () {
         super()
         this.state = {
-            startDate: '',
-            endDate: '',
+            startDate: null,
+            endDate: null,
             onSearch: false,
             showDetail: false,
+            matchedSchedules: [],
             classroomSelected: null
         }
         this.handleStartDateChange = this.handleStartDateChange.bind(this)
@@ -25,9 +26,9 @@ class ClassRoom extends Component {
         this.handleShowDetail = this.handleShowDetail.bind(this)
     }
 
-    componentDidMount () {
-        console.log(this.props.schedules)
-    }
+    // componentDidMount () {
+    //     console.log(this.props.schedules)
+    // }
 
     getLangFile () {
         return require('../lang/' + this.props.lang + '/classroom.json')
@@ -41,10 +42,21 @@ class ClassRoom extends Component {
         this.setState({ endDate: event.target.value })
     }
 
-    handleSearch () {
-        if (this.state.startDate !== '' & this.state.endDate !== '') {
-            this.setState({ onSearch: true })
+    handleSearch (startDate, endDate) {
+        if (this.state.startDate !== null & this.state.endDate !== null) {
+            this.setState({
+                matchedSchedules: this.filterScheduleByDate(startDate, endDate)
+            })
         }
+    }
+
+    filterScheduleByDate (startDate, endDate) {
+        const schedules = this.props.schedules
+        const formattedStartDate = new Date(startDate + ' 00:00:00')
+        const formattedEndDate = new Date(endDate + ' 23:59:59')
+        // find the schedules between start and end date
+        const matchedSchedules = schedules.filter(schedule => new Date(schedule.date) >= formattedStartDate && new Date(schedule.date) <= formattedEndDate)
+        return matchedSchedules
     }
 
     renderClassRooms () {
@@ -110,7 +122,7 @@ class ClassRoom extends Component {
                                     />
                                 </TableCell>
                                 <TableCell>
-                                    <Button variant='contained' color='primary' onClick={() => this.handleSearch()}>
+                                    <Button variant='contained' color='primary' onClick={() => this.handleSearch(this.state.startDate, this.state.endDate)}>
                                         {lang.search}
                                     </Button>
                                 </TableCell>

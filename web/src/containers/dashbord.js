@@ -104,7 +104,7 @@ class Dashbord extends Component {
 
     setSchedules (schedulesList) {
         this.setState({
-            schedules: [{ _id: 'default', id_user: 'default' }, ...schedulesList]
+            schedules: [ ...schedulesList]
         })
     }
 
