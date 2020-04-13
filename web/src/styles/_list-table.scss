@@ -119,6 +119,17 @@
     .title {
         background-color: rgba($color: $primaryColor, $alpha: 0.9);
     }
+    .dialog-footer {
+        justify-content: space-between;
+        > div {
+            &:nth-of-type(1) {
+                width: 100%;
+                > button {
+                    margin-right: 0.5em;
+                }
+            }
+        }
+    }
 }
 
 .table-loading {

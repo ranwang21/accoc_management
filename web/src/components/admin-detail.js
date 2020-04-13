@@ -10,10 +10,6 @@ class ParentCollabDetail extends Component {
                     <legend>Details</legend>
                     <div>
                         <div className='row'>
-                            <p>Adresse</p>
-                            <p>{admin.address}</p>
-                        </div>
-                        <div className='row'>
                             <p>Courriel</p>
                             <p>{admin.email}</p>
                         </div>

@@ -44,8 +44,6 @@ class Table extends Component {
         this.handleSearchInputChange = this.handleSearchInputChange.bind(this)
     }
 
-    componentDidMount () {}
-
     getLangFile () { return require('../lang/' + this.props.lang + '/list.json') }
 
     getCurrentUser () {
@@ -258,6 +256,7 @@ class Table extends Component {
                     actorSelected={this.getActorSelected()}
                     classRooms={this.props.classRooms}
                     onChangeImage={this.props.handleImageChange}
+                    onUsersListChange={this.props.onUsersListChange}
                     collabList={collabList}
                     parentList={parentList}
                 />

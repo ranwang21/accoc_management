@@ -95,7 +95,7 @@ class Dashbord extends Component {
         })
         setTimeout(() => {
             this.setState({ showLoading: false })
-        }, 1000)
+        }, 500)
     }
 
     setClassRoom (classRoomsList) {
@@ -177,7 +177,7 @@ class Dashbord extends Component {
         this.setState({ requiredSaveValidationChange: false })
     }
 
-    onUsersListChange (event) {
+    onUsersListChange () {
         Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
     }
 
@@ -208,6 +208,7 @@ class Dashbord extends Component {
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
                     handleImageChange={this.onUserChange}
+                    onUsersListChange={this.onUsersListChange}
                 />)
         case variables.menus.validation:
             return (

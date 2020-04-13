@@ -844,8 +844,6 @@ const deleteAllUser = (token) => {
                         Authorization: 'Bearer ' + token
                     }
                 })
-                .then(response => response.json())
-                .then(data2 => {})
             }
         })
 
@@ -869,8 +867,6 @@ const deleteAllUser = (token) => {
                                     Authorization: 'Bearer ' + token
                                 }
                             })
-                            .then(response => response.json())
-                            .then(data2 => {})
                         }
                     }
                 })
@@ -993,6 +989,27 @@ const getAllSchedules = (token, callBack) => {
     })
 }
 
+const deleteUser = (token, user) => {
+    fetch(HOST + '/logins/' + user.idLogin, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+
+    fetch(HOST + '/users/' + user._id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
+
 export default {
     encodeData,
     decodeData,
@@ -1013,7 +1030,8 @@ export default {
     updateUserValidities,
     getAllSchedules,
     user: {
-        update: updateUser
+        update: updateUser,
+        delete: deleteUser
     },
     login: {
         checkIfExist: checkIfEmailExist,

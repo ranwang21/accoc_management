@@ -6,6 +6,7 @@ import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import IsValidIcon from '@material-ui/icons/CheckTwoTone'
 import IsNotValidIcon from '@material-ui/icons/CloseTwoTone'
 import DetailUser from './detail-user'
+import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 
 import Loading from './loading'
@@ -24,6 +25,7 @@ class TableListContainer extends Component {
         this.handleShowDetail = this.handleShowDetail.bind(this)
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
         this.handleEditMode = this.handleEditMode.bind(this)
+        this.handleDeleteUser = this.handleDeleteUser.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list-table.json') }
@@ -87,7 +89,6 @@ class TableListContainer extends Component {
     }
 
     getPhoneNumberByPriority (actor) {
-        console.log(actor)
         if (actor.contact.length === 0) {
             return 'Pas de contact'
         } else {
@@ -160,6 +161,16 @@ class TableListContainer extends Component {
         return (<TableBody>{allActors.map(actor => this.buildRow(lang, actor))}</TableBody>)
     }
 
+    handleDeleteUser () {
+        Fetch.user.delete(this.props.cookies.get(variables.cookies.token), this.state.userSelected)
+        this.setState({
+            showDetail: false,
+            userSelected: null,
+            allowEditable: false
+        })
+        this.props.onUsersListChange()
+    }
+
     render () {
         const lang = this.getLangFile()
         const allActors = this.props.allActors
@@ -183,6 +194,7 @@ class TableListContainer extends Component {
                             parentList={this.props.parentList}
                             allowEditable={this.state.allowEditable}
                             onEditMode={this.handleEditMode}
+                            onDeleteUser={this.handleDeleteUser}
                         />
                     )}
                 </TableContainer>)

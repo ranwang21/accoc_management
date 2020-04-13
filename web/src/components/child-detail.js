@@ -1,18 +1,10 @@
-import moment from 'moment'
 import React, { Component } from 'react'
-import { Button, FormControl, InputLabel, Select, MenuItem, TextField, FormControlLabel, Checkbox, ListSubheader, TextareaAutosize } from '@material-ui/core'
+import { FormControl, InputLabel, Select, MenuItem, TextField, FormControlLabel, Checkbox, TextareaAutosize } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
 import { Autocomplete } from '@material-ui/lab'
 import Fetch from '../utilities/fetch-datas'
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
-import MomentUtils from '@date-io/moment'
 
 const variables = require('../utilities/variables').variables
-
-const getAgeLimit = (age) => {
-    const date = new Date()
-    return new Date((date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate())
-}
 
 class ChildDetail extends Component {
     constructor () {
@@ -71,42 +63,6 @@ class ChildDetail extends Component {
         const collab = this.getClassRoom(child)
         return (
             <div className='child-detail'>
-                {edit && (
-                    <div>
-                        <div>
-                            <TextField
-                                type='text'
-                                color='primary'
-                                variant='filled'
-                                onChange={event => this.props.handleEditChange(event, event.target.value, 'last_name', null)}
-                                value={this.props.userEdited.last_name !== null ? this.props.userEdited.last_name : ''}
-                            />
-                            <TextField
-                                type='text'
-                                color='primary'
-                                variant='filled'
-                                onChange={event => this.props.handleEditChange(event, event.target.value, 'first_name', null)}
-                                value={this.props.userEdited.first_name !== null ? this.props.userEdited.first_name : ''}
-                            />
-
-                            <MuiPickersUtilsProvider
-                                libInstance={moment} utils={MomentUtils}
-                                locale={this.props.lang}
-                            >
-                                <DatePicker
-                                    format='DD MMMM YYYY'
-                                    openTo='year'
-                                    views={['year', 'month', 'date']}
-                                    label='Birthday'
-                                    minDate={getAgeLimit(30)}
-                                    maxDate={getAgeLimit(5)}
-                                    value={this.props.userEdited.birthday !== null ? this.props.userEdited.birthday : new Date()}
-                                    onChange={event => this.props.handleEditChange(event, event._d, 'birthday', null)}
-                                />
-                            </MuiPickersUtilsProvider>
-                        </div>
-                    </div>
-                )}
                 <div>
                     <div>
                         <p className='text'>{this.getClassRoom(child)}</p>
