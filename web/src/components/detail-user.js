@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, DialogTitle, DialogContent, Dialog, DialogActions, IconButton } from '@material-ui/core'
 import PrintIcon from '@material-ui/icons/Print'
+import EditIcon from '@material-ui/icons/EditOutlined'
+import SaveIcon from '@material-ui/icons/SaveAltOutlined'
 import { withCookies } from 'react-cookie'
 import ChildDetail from './child-detail'
 import AdminDetail from './admin-detail'
@@ -18,17 +20,38 @@ class DetailUser extends Component {
         this.state = {
             fileUploadedSuccess: false,
             fileUploadedError: false,
-            showLoading: false
+            showLoading: false,
+            showEditLoading: false,
+            userEdited: {}
         }
         this.divToPrint = React.createRef()
         this.time = 3000
         this.handleImageChange = this.handleImageChange.bind(this)
         this.setImage = this.setImage.bind(this)
         this.updateImage = this.updateImage.bind(this)
+        this.handleEditClick = this.handleEditClick.bind(this)
+        this.onEditFieldsChange = this.onEditFieldsChange.bind(this)
+    }
+
+    componentDidMount () {
+        this.setState({ userEdited: this.props.userSelected })
+    }
+
+    onEditFieldsChange (event, value, name, subName) {
+        this.setState(state => {
+            const userEdited = state.userEdited
+            subName === null
+                ? userEdited[name] = value
+                : userEdited[name][0][subName] = value
+
+            return {
+                userEdited: userEdited
+            }
+        })
     }
 
     updateImage (dataImage) {
-        this.props.onChangeImage(this.props.userSelected._id, dataImage.data)
+        this.props.onChangeImage(this.props.userSelected, dataImage.data)
     }
 
     setImage (dataImage) {
@@ -51,14 +74,18 @@ class DetailUser extends Component {
         Fetch.image.update(this.props.cookies.get(variables.cookies.token), this.props.userSelected, event.target.files, this.setImage)
     }
 
-    render () {
-        const allergies = (this.props.userSelected.medical_info &&
-            this.props.userSelected.medical_info[2] &&
-            this.props.userSelected.medical_info[2].response)
-            ? this.props.userSelected.medical_info[2].response
-            : "Pas d'allergies"
+    handleEditClick () {
+        this.props.onEditMode()
+        if (this.props.allowEditable) {
+            this.setState({ showEditLoading: true })
+            console.log('SAVE EDIT')
+        }
+    }
 
-        const date = this.props.userSelected.birthday ? new Date(this.props.userSelected.birthday).toLocaleDateString() : 'Pas defini'
+    render () {
+        const user = this.props.userSelected
+        const allergies = (user.medical_info.length > 0 && user.medical_info[0].allergies !== null) ? user.medical_info[0].allergies : "Pas d'allergies"
+        const date = (user && user.birthday !== null) ? new Date(user.birthday).toLocaleDateString() : 'Pas defini'
 
         return (
             <Dialog
@@ -71,17 +98,17 @@ class DetailUser extends Component {
                 maxWidth='md'
                 fullWidth
             >
-                <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations</DialogTitle>
-                <DialogContent id='details-print' ref={el => (this.divToPrint = el)}>
+                <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations {this.state.allowEditable && '(Modification en cour)'}</DialogTitle>
+                <DialogContent id='details-print' className='div-dialog' ref={el => (this.divToPrint = el)}>
                     <div className='detail-head to-be-print'>LA MAISON D'AURORE</div>
-                    <div className='detail-user'>
+                    <div className={this.state.showEditLoading ? 'detail-user loading-effect' : 'detail-user'}>
                         <div className='image'>
                             <Button
                                 variant='text'
                                 component='label'
                             >
-                                <img src={this.props.userSelected.img} alt='avatar' />
-                                {this.props.menuSelected !== variables.menus.validation && (
+                                <img src={user.img} alt='avatar' />
+                                {(this.props.menuSelected !== variables.menus.validation) && (
                                     <>
                                         <p><span>Cliquer pour changer</span></p>
                                         <input
@@ -108,16 +135,16 @@ class DetailUser extends Component {
                         </div>
                         <div className='details-personnelles'>
                             <div className='text-name'>
-                                <p>{this.props.userSelected.first_name + ' ' + this.props.userSelected.last_name.toUpperCase()}</p>
+                                <p>{user.first_name + ' ' + user.last_name.toUpperCase()}</p>
                             </div>
                             <div>
                                 <p>Date de naissance:</p>
                                 <p>{date}</p>
                             </div>
-                            {this.props.userSelected.roleTitle === variables.role.child && (
+                            {user.roleTitle === variables.role.child && (
                                 <div>
                                     <p>Allergies:</p>
-                                    <p>{allergies}</p>
+                                    <p>{allergies === null ? "Pas d'allergies" : allergies}</p>
                                 </div>
                             )}
                         </div>
@@ -125,21 +152,27 @@ class DetailUser extends Component {
                             {this.props.userSelected.roleTitle === variables.role.child && (
                                 <ChildDetail
                                     lang={this.props.lang}
-                                    child={this.props.userSelected}
+                                    child={user}
                                     classRooms={this.props.classRooms}
-                                    collabList={this.props.collabList}
+                                    collaboraters={this.props.collabList}
+                                    parents={this.props.parentList}
+                                    editable={this.props.allowEditable}
+                                    userEdited={this.state.userEdited}
+                                    handleEditChange={this.onEditFieldsChange}
                                 />
                             )}
-                            {(this.props.userSelected.roleTitle !== variables.role.child && this.props.userSelected.roleTitle !== variables.role.admin) && (
+                            {(user.roleTitle !== variables.role.child && user.roleTitle !== variables.role.admin) && (
                                 <ParentCollabDetail
                                     lang={this.props.lang}
-                                    both={this.props.userSelected}
+                                    both={user}
+                                    editable={this.props.allowEditable}
                                 />
                             )}
-                            {(this.props.userSelected.roleTitle === variables.role.admin) && (
+                            {(user.roleTitle === variables.role.admin) && (
                                 <AdminDetail
                                     lang={this.props.lang}
-                                    admin={this.props.userSelected}
+                                    admin={user}
+                                    editable={this.props.allowEditable}
                                 />
                             )}
                         </div>
@@ -147,6 +180,14 @@ class DetailUser extends Component {
                     <div className='detail-footer to-be-print' />
                 </DialogContent>
                 <DialogActions className='dialog-footer'>
+                    <Button
+                        onClick={this.handleEditClick}
+                        variant='contained'
+                        color='secondary'
+                        startIcon={this.props.allowEditable ? <SaveIcon /> : <EditIcon />}
+                    >
+                        {this.props.allowEditable ? 'Save ' : 'Edit '} Profil
+                    </Button>
                     <PrintDetail
                         trigger={() => <IconButton><PrintIcon fontSize='large' /></IconButton>}
                         content={() => this.divToPrint}

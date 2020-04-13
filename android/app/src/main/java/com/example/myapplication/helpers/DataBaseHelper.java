@@ -46,6 +46,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_EVALUATION);
         db.execSQL(CREATE_TABLE_EVALUATION_CLOSED_QUESTIONS);
         db.execSQL(CREATE_TABLE_EVALUATION_OPEN_QUESTIONS);
+
+   //ScheduleHelper.getFromAPI(db,"");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

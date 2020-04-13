@@ -1,182 +1,170 @@
 import React, { Component } from 'react'
-import { TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core'
 import '../styles/_create-admin.scss'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import Loading from '../components/loading'
 import LockIcon from '@material-ui/icons/LockRounded'
 import Snack from '../components/snack'
+import { Button } from '@material-ui/core'
+import Form from './forms/builds'
 const CreateAdminConfig = require('../forms-files/admin.json').create
 const variables = require('../utilities/variables').variables
+
+const fieldsState = {
+    fields: {
+        sex: null,
+        firstName: null,
+        lastName: null,
+        contactPersonal: null,
+        contactWork: null,
+        email: null,
+        password: null,
+        confirmPassword: null,
+        validation: true
+    },
+    errors: {
+        sex: false,
+        email: false,
+        password: false,
+        confirmPassword: false
+    }
+}
 
 class CreateAdmin extends Component {
     constructor () {
         super()
         this.state = {
-            error: {
-                email: false,
-                password: false,
-                confirmPassword: false
-            },
-            enableSubmit: false,
+            ...fieldsState,
             loading: false,
             showSnack: false
         }
-
-        this.fields = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            validation: true
-        }
         this.handleBtnClick = this.handleBtnClick.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
-        this.saveAdmin = this.saveAdmin.bind(this)
+        this.savedUser = this.savedUser.bind(this)
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
+        this.checkValidation = this.checkValidation.bind(this)
+        this.setEmailError = this.setEmailError.bind(this)
+    }
+    componentDidMount(){
+        // Initiate all fields
+        this.setState({
+            fields: {
+                ...this.state.fields,
+                ...fieldsState.fields
+            },
+            errors: {
+                ...this.state.errors,
+                ...fieldsState.errors
+            },
+            loading: false,
+            showSnack: false
+        })
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/create-admin.json') }
 
-    handleInputChange (event, name) {
-        if (name === 'email') {
-            this.fields[name] = event.target.value.toLowerCase()
-        } else if (name === 'validation') {
-            this.fields[name] = event.target.checked
+    handleInputChange (event, name, type) {
+        let newValue = null
+        if (name === 'validation') {
+            newValue = event.target.checked
         } else {
-            this.fields[name] = event.target.value
+            newValue = event.target.value === '' ? null : event.target.value
         }
-        this.checkEmptyInput()
+        this.setState(state => {
+            const fields = state.fields
+            fields[name] = newValue
+            return { fields: fields }
+        })
     }
 
-    checkEmptyInput () {
-        (this.fields.email.length === 0 || this.fields.password.length === 0 || this.fields.confirmPassword.length === 0)
-            ? this.setState({ enableSubmit: false })
-            : this.setState({ enableSubmit: true })
+    setEmailError(found){
+        this.setState({
+            errors: {
+                ...this.state.errors,
+                email: found
+            }
+        })
+    }
+
+    checkEmailValidity () {
+        const email = this.state.fields.email
+        if (email !== null && Fetch.validateEmail(email)) {
+            Fetch.login.checkIfExist(email, this.setEmailError)
+        } else {
+            return true
+        }
+    }
+
+    checkValidation(){
+        const fields = this.state.fields
+        const newErrors = {
+            sex: fields.sex === null,
+            email: this.checkEmailValidity(),
+            password: fields.password === null || fields.password !== fields.confirmPassword,
+            confirmPassword: fields.confirmPassword === null || fields.password !== fields.confirmPassword
+        }
+        this.setState({
+            errors: {
+                ...this.state.errors,
+                ...newErrors
+            }
+        })
+        const value = Object.values(newErrors).filter(val => val === true)
+        return value.length !== 0
     }
 
     handleBtnClick () {
         this.setState({ loading: true })
-        if (!Fetch.validateEmail(this.fields.email)) {
-            this.setState(state => {
-                let newError = state.error
-                newError = {
-                    email: true,
-                    password: false,
-                    confirmPassword: false
-                }
-                return {
-                    error: newError,
-                    loading: false
-                }
-            })
-        } else if (this.fields.password !== this.fields.confirmPassword) {
-            this.setState(state => {
-                let newError = state.error
-                newError = {
-                    email: false,
-                    password: true,
-                    confirmPassword: true
-                }
-                return {
-                    error: newError,
-                    loading: false
-                }
-            })
-        } else {
-            const params = {
-                token: this.props.cookies.get(variables.cookies.token),
+        if(!this.checkValidation()){
+            const fields = this.state.fields
+            fields.firstName = fields.firstName !== null ? fields.firstName.toCapitalize() : fields.firstName
+            fields.lastName = fields.lastName !== null ? fields.lastName.toCapitalize() : fields.lastName
+
+            const idRole = this.props.roles.filter(x => x.title === 'admin')[0]._id
+
+            const templateUser = require('../utilities/variables').variables.templateUser
+            const user = {
+                ...templateUser,
                 role_title: 'admin',
-                first_name: this.fields.firstName,
-                last_name: this.fields.lastName,
-                email: this.fields.email,
-                password: this.fields.password,
-                is_active: this.fields.validation
+                first_name: fields.firstName,
+                last_name: fields.lastName,
+                sex: fields.sex,
+                contact:[
+                    {
+                        ...templateUser.contact[0],
+                        personal: fields.contactPersonal,
+                        work: fields.contactWork
+                    }
+                ],
+                id_user: null,
+                email: fields.email,
+                password: fields.password,
+                is_active: fields.validation,
+                token: this.props.cookies.get(variables.cookies.token)
             }
-            Fetch.addUser(params, this.saveAdmin)
+            /*
+            templateUser.id_role = idRole
+            templateUser.first_name = fields.firstName
+            templateUser.last_name = fields.lastName
+            templateUser.contact[0].personal = fields.contactPersonal
+            templateUser.contact[0].work = fields.contactWork*/
+            //Fetch.registerSaveUser(templateUser, userLogin, this.savedUser)
+            Fetch.addUser(user, this.savedUser)
+        } else {
+            this.setState({ loading: false })
+        }
+    }
+
+    savedUser (data) {
+        if(data){
+            this.setState({ loading: false, showSnack: true })
+            this.props.updateUsers()
+            this.props.onGetBack()
         }
     }
 
     handleCloseSnack () {
         this.setState({ showSnack: false })
-    }
-
-    saveAdmin (success) {
-        if (success) {
-            this.setState(state => {
-                let newError = state.error
-                newError = {
-                    email: false,
-                    password: false,
-                    confirmPassword: false
-                }
-                return {
-                    error: newError,
-                    loading: false,
-                    showSnack: true
-                }
-            })
-            this.fields = {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-                validation: true
-            }
-            this.props.updateUsers()
-            this.props.onGetBack()
-        } else {
-            this.setState(state => {
-                let newError = state.error
-                newError = {
-                    email: false,
-                    password: false,
-                    confirmPassword: false
-                }
-                return {
-                    error: newError
-                }
-            })
-            console.log('Something wrong !!!')
-        }
-    }
-
-    buildField (name, lang) {
-        if (name !== 'validation') {
-            const hasState = (name === 'firstName' || name === 'lastName') ? false : this.state.error[name]
-            return (
-                <TextField
-                    key={variables.id.createAdmin[name]}
-                    error={hasState}
-                    id={variables.id.createAdmin[name]}
-                    label={lang[name].label}
-                    type={CreateAdminConfig[name].type}
-                    color='primary'
-                    helperText={hasState && lang[name].labelError}
-                    variant='outlined'
-                    onChange={event => this.handleInputChange(event, name)}
-                    required={CreateAdminConfig[name].required}
-                    value={this.fields[name]}
-                />
-            )
-        } else {
-            return (
-                <FormControlLabel
-                    key={variables.id.createAdmin[name]}
-                    control={
-                        <Checkbox
-                            id={variables.id.createAdmin[name]}
-                            checked={this.fields[name]}
-                            onChange={event => this.handleInputChange(event, name)}
-                            required={CreateAdminConfig[name].required}
-                        />
-                    }
-                    label={lang[name].label}
-                />
-            )
-        }
     }
 
     render () {
@@ -186,21 +174,21 @@ class CreateAdmin extends Component {
                 <form className='' noValidate autoComplete='off'>
                     <h2>{lang.title}</h2>
                     <div className='fields'>
-                        {Object.keys(CreateAdminConfig).map(name => this.buildField(name, lang))}
-                        {this.state.enableSubmit && (
-                            <div className='div-button'>
-                                <Button
-                                    onClick={this.handleBtnClick}
-                                    variant='contained'
-                                    color='secondary'
-                                    size='small'
-                                    fullWidth={false}
-                                    startIcon={<LockIcon />}
-                                >
-                                    {lang.buttonLabel}
-                                </Button>
-                            </div>
-                        )}
+                        {CreateAdminConfig.map(field => (
+                            Form[field.type](field, this.props.lang, lang, this.state.fields, this.state.errors, this.handleInputChange, variables.id.createAdmin)
+                        ))}
+                        <div className='div-button'>
+                            <Button
+                                onClick={this.handleBtnClick}
+                                variant='contained'
+                                color='secondary'
+                                size='small'
+                                fullWidth={false}
+                                startIcon={<LockIcon />}
+                            >
+                                {lang.buttonLabel}
+                            </Button>
+                        </div>
                         {this.state.loading && (<Loading lang={this.props.lang} />)}
                     </div>
                 </form>

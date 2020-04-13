@@ -74,7 +74,7 @@ const selectField = (fieldsConfig, propLang, lang, fields, errors, inputChange, 
         <FormControl
             key={ids[fieldsConfig.name]} variant='filled'
         >
-            <InputLabel color='secondary'>{lang[fieldsConfig.name].label}</InputLabel>
+            <InputLabel color='secondary' className={errors[fieldsConfig.name] ? 'label-error1' : ''}>{lang[fieldsConfig.name].label}</InputLabel>
             <Select
                 key={ids[fieldsConfig.name]}
                 value={fields[fieldsConfig.name] ? fields[fieldsConfig.name] : ''}
@@ -83,10 +83,21 @@ const selectField = (fieldsConfig, propLang, lang, fields, errors, inputChange, 
                 <MenuItem value='' disabled>
                     <em>{lang[fieldsConfig.name].label}</em>
                 </MenuItem>
-                {[...Array(fieldsConfig.maxNumber + 1).keys()].map(x => (
-                    <MenuItem key={fieldsConfig.name + x} value={x}>{x}</MenuItem>
-                ))}
+                {fieldsConfig.simple
+                ? (
+                    lang[fieldsConfig.name].options.map(x => (
+                        <MenuItem key={fieldsConfig.name + x.value} value={x.value}>{x.label}</MenuItem>
+                    ))
+                )
+                : (
+                    [...Array(fieldsConfig.maxNumber + 1).keys()].map(x => (
+                        <MenuItem key={fieldsConfig.name + x} value={x}>{x}</MenuItem>
+                    ))
+                )}
             </Select>
+            {errors[fieldsConfig.name] && (
+                <p className='label-error2'>{lang[fieldsConfig.name].labelError}</p>
+            )}
         </FormControl>
     )
 }
@@ -147,7 +158,7 @@ const textField = (fieldsConfig, propLang, lang, fields, errors, inputChange, id
             key={ids[fieldsConfig.name]}
             error={errors[fieldsConfig.name] ? errors[fieldsConfig.name] : false}
             label={lang[fieldsConfig.name].label}
-            type='text'
+            type={fieldsConfig.otherType ? fieldsConfig.otherType : 'text'}
             color='primary'
             helperText={errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}
             variant='filled'
@@ -208,6 +219,7 @@ const radioField = (fieldsConfig, propLang, lang, fields, errors, inputChange, i
 const dateField = (fieldsConfig, propLang, lang, fields, errors, inputChange, ids) => {
     return (
         <MuiPickersUtilsProvider
+            key={lang[fieldsConfig.name]}
             libInstance={moment} utils={MomentUtils}
             locale={propLang}
         >
@@ -235,11 +247,18 @@ const multipleField = (fieldsConfig, propLang, lang, fields, errors, inputChange
                 <p>{errors[fieldsConfig.name] && lang[fieldsConfig.name].labelError}</p>
             </div>
             <div className='body'>
-                {fieldsConfig.options.map(option => (
-                    option.type === types.phoneField
-                    ? (phoneField(option, propLang, lang, fields, errors, inputChange, ids))
-                    : (checkboxField(option, propLang, lang, fields, errors, inputChange, ids))
-                ))}
+                {fieldsConfig.options.map(option => {
+                    switch(option.type){
+                        case types.text:
+                            return (textField(option, propLang, lang, fields, errors, inputChange, ids))
+                        case types.phoneField:
+                            return (phoneField(option, propLang, lang, fields, errors, inputChange, ids))
+                        case types.checkBox:
+                            return (checkboxField(option, propLang, lang, fields, errors, inputChange, ids))
+                        case types.date:
+                            return (dateField(option, propLang, lang, fields, errors, inputChange, ids))
+                    }
+                })}
             </div>
         </div>
     )

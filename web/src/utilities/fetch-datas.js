@@ -17,6 +17,21 @@ const validateEmail = (email) => {
     return !!mailformat.test(email)
 }
 
+const checkIfEmailExist = (email, callBack) => {
+    fetch(HOST + '/logins')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if(data.success){
+                const getted = data.data.filter(login => login.email === email)
+                callBack((getted.length > 0 ? true : false))
+            } else {
+                //callBack(true)
+                callBack(false)
+            }
+        })
+}
+
 const authLogin = (email, password, callBack) => {
     const userToSend = {
         email: email,
@@ -90,7 +105,9 @@ const addUser = (params, callBack) => {
                     const user = {
                         id_role: find[0]._id,
                         first_name: params.first_name,
-                        last_name: params.last_name
+                        last_name: params.last_name,
+                        sex: params.sex,
+                        contact: params.contact
                     }
 
                     fetch(HOST + '/users', {
@@ -142,11 +159,11 @@ const registerSaveUser = (user, userLogin, callBack) => {
         body: JSON.stringify(user)
     })
         .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                userLogin = {
-                    id_user: data.data._id
-                }
+        .then(data1 => {
+            if (data1.success) {
+                console.log(data1)
+                userLogin.id_user = data1.data._id
+
                 fetch(HOST + '/logins', {
                     method: 'post',
                     headers: {
@@ -156,26 +173,30 @@ const registerSaveUser = (user, userLogin, callBack) => {
                     body: JSON.stringify(userLogin)
                 })
                     .then(response => response.json())
-                    .then(data => {
-                        callBack(data.success, userLogin.id_user)
+                    .then(data2 => {
+                        console.log(data2)
+                        callBack(data2.success, userLogin.id_user)
                     })
             }
         })
 }
 
-const saveChildren = (children, callBack) => {
-    fetch(HOST + '/users', {
-        method: 'post',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(children)
-    })
-        .then(response => response.json())
-        .then(data => {
-            callBack(data.success)
+const saveChildren = (childrens, idParent, callBack) => {
+    childrens.map(child => {
+        child.id_parent = [idParent]
+        fetch(HOST + '/users', {
+            method: 'post',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(child)
         })
+            .then(response => response.json())
+            .then(data => {
+                callBack(data)
+            })
+    })
 }
 
 const getRolesAndDays = (callBack) => {
@@ -187,6 +208,14 @@ const getRolesAndDays = (callBack) => {
                 .then(dataDays => {
                     callBack(dataRoles.data, dataDays.data)
                 })
+        })
+}
+
+const getDays = (callBack) => {
+    fetch(HOST + '/days')
+        .then(response => response.json())
+        .then(dataDays => {
+            callBack(dataDays.data)
         })
 }
 
@@ -259,13 +288,19 @@ const getAllUsers = (token, callBack) => {
                             const dataUsers = []
                             for (let i = 0; i < data.data.length; i++) {
                                 const user = data.data[i]
-                                const login = dataLogins.data.filter(dl => dl.id_user === user._id)
-                                const role = dataRoles.data.filter(dr => dr._id === user.id_role)
-                                user.idLogin = login[0] ? login[0]._id : null
-                                user.isValid = login[0] ? login[0].is_active : null
-                                user.email = login[0] ? login[0].email : null
+                                const templateUser = require('./variables').variables.templateUser
+                                const userTemplate = {
+                                    ...templateUser,
+                                    ...user
+                                }
+
+                                const login = dataLogins.data.filter(dl => dl.id_user === userTemplate._id)
+                                const role = dataRoles.data.filter(dr => dr._id === userTemplate.id_role)
+                                userTemplate.idLogin = login[0] ? login[0]._id : null
+                                userTemplate.isValid = login[0] ? login[0].is_active : null
+                                userTemplate.email = login[0] ? login[0].email : null
                                 let img = null
-                                fetch(HOST + '/users/'+ user._id +'/photo', {
+                                fetch(HOST + '/users/'+ userTemplate._id +'/photo', {
                                     headers: {
                                         Accept: 'application/json',
                                         'Content-Type': 'application/json',
@@ -276,9 +311,10 @@ const getAllUsers = (token, callBack) => {
                                     .then(dataImage => {
                                         if(dataImage.success){
                                             img = dataImage.data
-                                            user.img = img
-                                            user.id_classroom = user.id_classroom ? user.id_classroom : '12345'
-                                            dataUsers.push({...user, roleTitle: role[0].title })
+                                            userTemplate.img = img
+                                            userTemplate.id_classroom = userTemplate.id_classroom === null ? '12345' : userTemplate.id_classroom
+                                            userTemplate.roleTitle = role[0].title
+                                            dataUsers.push(userTemplate)
                                         }
                                         callBack(dataUsers)
                                     })
@@ -294,41 +330,37 @@ const generateUsers = () => {
     const restChildren = {
         id_role: roles.children,
         photo: 'no-photo.jpg',
-        id_parent: null,
-        garde: [
-            {question: 'garde', response: 'All'},
-            {question: 'gardeParentOption', response: null},
-            {question: 'gardeOtherOption', response: null}
-        ],
-        school_info: [
-            {question: 'school', response: 'Ecole Nom'},
-            {question: 'schoolLevel', response: 'Secondaire 2'},
-            {question: 'adlRegister',response: 1},
-            {question: 'redouble', response: false},
-            {question: 'lastRedoubleLevel', response: null},
-            {question: 'registerReason', response: "La raison de l'inscription "},
-            {question: 'evaluation', response: false},
-            {question: 'daycareService', response: true},
-            {question: 'daycareServiceYesName', response: 'Sandrine H.'},
-            {question: 'daycareServiceYesPhone', response: '(514) 666-8989'}
-        ],
-        medical_info: [
-            {question: 'ramq', response: true},
-            {question: 'expiration', response: '02/2022'},
-            {question: 'allergies', response: 'Liste des allergies'},
-            {question: 'drug', response: 'Liste des medicaments'},
-            {question: 'othersInfos', response: 'Autres Informations...'}
-        ],
-        authorization: [
-            {question: 'autorisationPapper', response: true},
-            {question: 'autorisationInternet', response: false}
-        ]
+        school_info: {
+            name: 'Ecole Nom',
+            level: 'Secondaire 2',
+            adl: false,
+            redouble: false,
+            evaluation: false,
+            reason: "La raison de l'inscription ",
+            educatorName: 'Sandrine H.',
+            educatorPhone: '(514) 666-8989'
+        },
+        medical_info: {
+            ramq: true,
+            ramqExpiration: '02/2022',
+            allergies: 'Liste des allergies',
+            drugs: 'Liste des medicaments',
+            othersInformations: 'Autres Informations...'
+        },
+        authorization: {
+            paper: true,
+            internet: false
+        }
     }
 
     const restParentCollaborater = {
-        photo: 'no-photo.jpg',
         id_role: roles.collab_parent,
-        contact: [{ title: 'home', phone: '(514) 300-9410'}, { title: 'work', phone: null}, { title: 'personal', phone: '(418) 854-4512'}, { title: 'emergency', phone: null}],
+        contact: {
+            personal: '(418) 854-4512',
+            work: null,
+            home: '(514) 300-9410',
+            emergency: null
+        },
         has_child: true, is_subscribed: true,
         membership: [
             {question: "membership", response: "membership_becomeMember"},
@@ -866,6 +898,21 @@ const updateUserValidities = (token, users, callBack) => {
     }
 }
 
+const updateUser = (token, user, callBack) => {
+        fetch(HOST + '/users/'+ user._id, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => response.json())
+        .then(data => { callBack(data) })
+        .catch()
+}
+
 const updateUserImage = (token, user, file, callBack) => {
     const formData = new FormData()
     formData.append("file", file[0])
@@ -877,9 +924,7 @@ const updateUserImage = (token, user, file, callBack) => {
             body: formData,
         })
             .then(response => response.json())
-            .then(data => {
-                callBack(data)
-            })
+            .then(data => { callBack(data) })
             .catch()
 }
 
@@ -967,8 +1012,19 @@ export default {
     createUsers,
     updateUserValidities,
     getAllSchedules,
+    user: {
+        update: updateUser
+    },
+    login: {
+        checkIfExist: checkIfEmailExist,
+        delete: deleteLogin,
+        auth: authLogin
+    },
     role:{
         get: getRoles
+    },
+    day: {
+        get: getDays
     },
     image:{
         get: getImage,

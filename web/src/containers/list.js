@@ -126,8 +126,9 @@ class Table extends Component {
                     const ch2 = row.last_name.toLowerCase().search(this.state.lastNameInput.toLowerCase())
                     if (this.getActorSelected() === variables.role.child) {
                         const ch3 = this.state.classRoomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0
-                        const ch4 = this.state.levelSelected !== '' ? row.school_info[1].response === this.state.levelSelected : true
-                        const ch5 = row.school_info[0].response.toLowerCase().search(this.state.schoolInput.toLowerCase());
+                        const ch4 = this.state.levelSelected !== '' ? row.school_info.level === this.state.levelSelected : true
+                        const name = row.school_info[0].name === null ? 'non defini' : row.school_info[0].name
+                        const ch5 = name.toLowerCase().search(this.state.schoolInput.toLowerCase());
                         (ch1 !== -1 && ch2 !== -1 && ch3 !== -1 && ch4 === true && ch5 !== -1) && lastList.push(row)
                     } else if (this.getActorSelected() === variables.role.collab) {
                         const ch3 = this.state.classRoomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0;
@@ -146,8 +147,8 @@ class Table extends Component {
         const menuSelected = this.props.menuSelected
         const validationsChange = this.props.inValidActors && this.props.inValidActors.filter(actor => (actor.isValid === true))
         const allActors = this.updateNewActorsList()
-        const isRole = getRoleFunction(variables.role.collab)
-        const collabList = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isRole) : []
+        const collabList = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isCollaborator) : []
+        const parentList = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isParent) : []
 
         return (
             <div className='list'>
@@ -258,6 +259,7 @@ class Table extends Component {
                     classRooms={this.props.classRooms}
                     onChangeImage={this.props.handleImageChange}
                     collabList={collabList}
+                    parentList={parentList}
                 />
 
                 {(menuSelected === variables.menus.validation && validationsChange.length > 0) && (

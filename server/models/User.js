@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
   sex: {
     type: String,
     trim: true,
-    enum: ['male', 'female', 'non-binary']
+    enum: ['male', 'female']
   },
   address: {
     type: String,
@@ -57,11 +57,22 @@ const UserSchema = new mongoose.Schema({
   is_subscribed: Boolean,
   contact: [
     {
-      title: {
+      personal: {
         type: String,
-        trim: true
+        trim: true,
+        match: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
       },
-      phone: {
+      home: {
+        type: String,
+        trim: true,
+        match: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+      },
+      work: {
+        type: String,
+        trim: true,
+        match: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+      },
+      emergency: {
         type: String,
         trim: true,
         match: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
@@ -70,13 +81,18 @@ const UserSchema = new mongoose.Schema({
   ],
   membership: [
     {
-      question: {
+      status: {
+        type: Boolean
+      },
+      payement_method: {
         type: String,
         trim: true
       },
-      response: {
-        type: String,
-        trim: true
+      member_card: {
+        type: Boolean
+      },
+      discount_card: {
+        type: Boolean
       }
     }
   ],
@@ -144,11 +160,33 @@ const UserSchema = new mongoose.Schema({
   ],
   school_info: [
     {
-      question: {
+      name: {
         type: String,
         trim: true
       },
-      response: {
+      level: {
+        type: String,
+        trim: true
+      },
+      adl: {
+        type: Boolean
+      },
+      redouble: {
+        type: String,
+        trim: true
+      },
+      evaluate: {
+        type: Boolean
+      },
+      reason: {
+        type: String,
+        trim: true
+      },
+      educator_name: {
+        type: String,
+        trim: true
+      },
+      educator_phone: {
         type: String,
         trim: true
       }
@@ -156,11 +194,19 @@ const UserSchema = new mongoose.Schema({
   ],
   medical_info: [
     {
-      question: {
+      ramq: {
         type: String,
         trim: true
       },
-      response: {
+      allergies: {
+        type: String,
+        trim: true
+      },
+      drugs: {
+        type: String,
+        trim: true
+      },
+      other_info: {
         type: String,
         trim: true
       }
@@ -168,13 +214,11 @@ const UserSchema = new mongoose.Schema({
   ],
   authorization: [
     {
-      question: {
-        type: String,
-        trim: true
+      paper: {
+        type: Boolean
       },
-      response: {
-        type: String,
-        trim: true
+      internet: {
+        type: Boolean
       }
     }
   ],

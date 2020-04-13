@@ -49,8 +49,11 @@ const variables = {
             }
         },
         createAdmin: {
+            sex: 'RGDHGZHX',
             lastName: '8ED5F4C1D',
             firstName: 'E85SF41CS52',
+            contactPersonal: 'IEUYGDFBGCH',
+            contactWork: 'UEYGSDFGH',
             email: 'GESGNCBN',
             password: 'SHDGBCSJZ',
             confirmPassword: 'TGSVDCBHS',
@@ -86,6 +89,9 @@ const variables = {
         },
         childrenRegister: {
             identification: 'childrenRegisteridentification',
+            sex: 'EGHSGNDVCFEGSVNBM',
+            female: 'EGHSGNDVCFEGSVNBM1',
+            male: 'EGHSGNDVCFEGSVNBM2',
             last_name: 'childrenRegisteridentification8E5D4FDW185S',
             first_name: 'childrenRegisteridentificationQ8W7E4F2S8D',
             birthday: 'childrenRegisteridentification7E4DE54F15ED2',
@@ -103,16 +109,12 @@ const variables = {
             school: 'childrenRegisterschoolInfoRDF415DX2',
             schoolLevel: 'childrenRegisterschoolInfoRDF415DX15',
             adlRegister: 'childrenRegisterschoolInfo5S41',
-            redouble: 'childrenRegisterschoolInfoRDF8Y5GF24G1',
-            redoubleYes: 'childrenRegisterschoolInfoRDF8Y5GF24G11',
-            redoubleNo: 'childrenRegisterschoolInfoRDF8Y5GF24G12',
+            lastRedoubleLevel: 'childrenRegisterschoolInfoRDF8Y5GF24G1',
             registerReason: 'childrenRegisterschoolInfoE8RT5U4',
             evaluation: 'childrenRegisterschoolInfo5FG42F1E',
-            evaluationYes: 'childrenRegisterschoolInfo5FG42F1E1',
-            evaluationNo: 'childrenRegisterschoolInfo5FG42F1E2',
             daycareService: 'childrenRegisterschoolInfoE9R8TY4H',
-            daycareServiceYes: 'childrenRegisterschoolInfoE9R8TY4H1',
-            daycareServiceNo: 'childrenRegisterschoolInfoE9R8TY4H2',
+            daycareServiceYesName: 'childrenRegisterschoolInfoE9R8TY4H1',
+            daycareServiceYesPhone: 'childrenRegisterschoolInfoE9R8TY4H2',
 
             medicalInfo: 'childrenRegistermedicalInfo',
             ramq: 'childrenRegistermedicalInforamq',
@@ -123,11 +125,7 @@ const variables = {
 
             autorisation: 'childrenRegisterautorisation',
             autorisationPapper: 'childrenRegisterautorisation5D4F2',
-            autorisationPapperYes: 'childrenRegisterautorisation5D4F21',
-            autorisationPapperNo: 'childrenRegisterautorisation5D4F22',
-            autorisationInternet: 'childrenRegisterautorisation9WE8R5H4B',
-            autorisationInternetYes: 'childrenRegisterautorisation9WE8R5H4B1',
-            autorisationInternetNo: 'childrenRegisterautorisation9WE8R5H4B2'
+            autorisationInternet: 'childrenRegisterautorisation9WE8R5H4B'
 
         },
         complementaryInformations: {
@@ -172,139 +170,32 @@ const variables = {
     },
     templateUser: {
         id_role: null,
+        id_child: [],
+        id_parent: [],
+        id_collaborater: null,
+        id_classroom: null,
         first_name: null,
         last_name: null,
         sex: null,
         address: null,
         birthday: null,
-        has_child: null,
-        is_subscribed: null,
-        contact: [
-            {
-                title: 'personal',
-                phone: null
-            },
-            {
-                title: 'home',
-                phone: null
-            },
-            {
-                title: 'work',
-                phone: null
-            },
-            {
-                title: 'emergency',
-                phone: null
-            }
-        ],
-        membership: [
-            {
-                question: 'membership',
-                response: null
-            },
-            {
-                question: 'paymentMethod',
-                response: null
-            },
-            {
-                question: 'memberCard',
-                response: null
-            },
-            {
-                question: 'discountCard',
-                response: null
-            }
-        ],
         photo: 'no-photo.jpg',
-        id_child: [],
-        garde: [
-            {
-                question: 'garde',
-                response: null
-            },
-            {
-                question: 'gardeParentOption',
-                response: null
-            },
-            {
-                question: 'gardeOtherOption',
-                response: null
-            }
-        ],
-        school_info: [
-            {
-                question: 'name',
-                response: null
-            },
-            {
-                question: 'level',
-                response: null
-            },
-            {
-                question: 'adl',
-                response: null
-            },
-            {
-                question: 'redouble',
-                response: null
-            },
-            {
-                question: 'lastRedoubleLevel',
-                response: null
-            },
-            {
-                question: 'reason',
-                response: null
-            },
-            {
-                question: 'evaluation',
-                response: null
-            },
-            {
-                question: 'daycareService',
-                response: null
-            },
-            {
-                question: 'daycareServiceYesName',
-                response: null
-            },
-            {
-                question: 'daycareServiceYesPhone',
-                response: null
-            }
-        ],
-        medical_info: [
-            {
-                question: 'ramq',
-                response: null
-            },
-            {
-                question: 'ramqExpiration',
-                response: null
-            },
-            {
-                question: 'allergies',
-                response: null
-            },
-            {
-                question: 'medications',
-                response: null
-            },
-            {
-                question: 'othersInformations',
-                response: null
-            }
-        ],
-        authorization: [
-            {
-                question: 'publicationPicturePaper',
-                response: null
-            },
-            {
-                question: 'publicationPictureInternet',
-                response: null
-            }
-        ],
+        has_child: false,
+        is_subscribed: false,
+        contact: [{
+            personal: null,
+            work: null,
+            home: null,
+            emergency: null
+        }],
+        membership: [{
+            status: false,
+            payement_method: null,
+            member_card: false,
+            discount_card: false
+        }],
+        expectation: null,
+        need: null,
         involvement: [
             {
                 question: 'talents',
@@ -327,27 +218,74 @@ const variables = {
                 response: 'Response here'
             }
         ],
-        expectation: null,
-        need: null,
+        comment: null,
+        experience: null,
+        motivation: null,
+        availability: [],
         question: [
+            {
+                question: 'garde',
+                response: null
+            },
+            {
+                question: 'gardeParentOption',
+                response: null
+            },
+            {
+                question: 'gardeOtherOption',
+                response: null
+            },
             {
                 question: 'heard',
                 response: null
             }
         ],
-        id_parent: null,
-        availability: [
-            '5e6a3e314554933864b2c3a2',
-            '5e6a3e314554933864b2c3a4'
-        ],
         interest: [
-            'Interest 1',
-            'Interest 2',
-            'Interest 3'
+            {
+                question: 'magicJournal',
+                response: null
+            },
+            {
+                question: 'serveSnack',
+                response: null
+            },
+            {
+                question: 'animationPreparation',
+                response: null
+            },
+            {
+                question: 'accompanyWorkshop',
+                response: null
+            },
+            {
+                question: 'prepareSnack',
+                response: null
+            },
+            {
+                question: 'accompanyInternet',
+                response: null
+            }
         ],
-        comment: null,
-        experience: null,
-        motivation: null
+        school_info: [{
+            name: null,
+            level: null,
+            adl: false,
+            redouble: null,
+            evaluate: false,
+            reason: null,
+            educator_name: null,
+            educator_phone: null
+        }],
+        medical_info: [{
+            ramq: null,
+            allergies: null,
+            drugs: null,
+            other_info: null
+        }],
+        authorization: [{
+            paper: false,
+            internet: false
+        }]
     },
     roles: {
         super_admin: '5e6a3e314554933864b2c3c2',

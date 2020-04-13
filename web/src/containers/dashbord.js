@@ -79,7 +79,7 @@ class Dashbord extends Component {
         this.setActorLists = this.setActorLists.bind(this)
         this.setClassRoom = this.setClassRoom.bind(this)
         this.onUsersListChange = this.onUsersListChange.bind(this)
-        this.onImageChange = this.onImageChange.bind(this)
+        this.onUserChange = this.onUserChange.bind(this)
         this.setSchedules = this.setSchedules.bind(this)
     }
 
@@ -104,10 +104,7 @@ class Dashbord extends Component {
 
     setSchedules (schedulesList) {
         this.setState({
-            schedules: [{
-                _id: 'default',
-                id_user: 'default'
-            }, ...schedulesList]
+            schedules: [ ...schedulesList]
         })
     }
 
@@ -122,10 +119,13 @@ class Dashbord extends Component {
         this.setState({
             menuItemSelected: upadteMenuSelectedByRole(this.getCurrentUser().role)
         })
-        // Fetch all users, actors, and schedules
         Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
+        const currentUser = this.getCurrentUser()
+        if(currentUser.role === 'super_admin' || currentUser.role === 'admin') {
+        // Fetch all users, actors, and schedules
         Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
-        Fetch.getAllSchedules(this.props.cookies.get(variables.cookies.token), this.setSchedules)
+            Fetch.getAllSchedules(this.props.cookies.get(variables.cookies.token), this.setSchedules)
+        }
     }
 
     onhandleDateChange (newDate) { this.setState({ date: newDate }) }
@@ -181,12 +181,17 @@ class Dashbord extends Component {
         Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
     }
 
-    onImageChange (idUser, img) {
+    onUserChange(user, img){
         this.setState(state => {
-            const actors = state.actors
-            const index = actors.findIndex(x => x._id === idUser)
-            if (index !== -1) actors[index].img = img
-            return { actors: actors }
+            const actorsN = state.actors
+            const index = actorsN.findIndex(x => (x._id === user._id))
+            if(index !== -1) {
+                img !== null
+                ? actorsN[index].img = img
+                : actorsN[index] = {...user}
+            }
+
+            return { actors: actorsN }
         })
     }
 
@@ -202,7 +207,7 @@ class Dashbord extends Component {
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
-                    handleImageChange={this.onImageChange}
+                    handleImageChange={this.onUserChange}
                 />)
         case variables.menus.validation:
             return (
@@ -214,12 +219,12 @@ class Dashbord extends Component {
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
-                    handleImageChange={this.onImageChange}
+                    handleImageChange={this.onUserChange}
                 />)
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
-            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} schedules={this.state.schedules} />)
+            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
         case variables.menus.scheduleManagement:
             return (
                 <ScheduleManagement

@@ -12,7 +12,8 @@
             "confirmPassword": {
                 "label": "Confirmer le mot de passe"
             },
-            "save": "Enregistrer"
+            "saveWithPassword": "Enregistrer avec votre mot de passe",
+            "saveWithoutPassword": "Enregistrer sans mot de passe"
         },
         "success": {}
     }

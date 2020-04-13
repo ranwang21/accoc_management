@@ -2,6 +2,16 @@
     "title": "Fiche d'inscription d'un enfant ",
     "identification": {
         "label": "Identification de l'enfant",
+        "sex": {
+            "label": "titre",
+            "labelError": "Obligatoire",
+            "female": {
+                "label": "Mrs"
+            },
+            "male": {
+                "label": "Mr"
+            }
+        },
         "last_name": {
             "label": "Nom",
             "labelError": "Obligatoire"
@@ -81,74 +91,52 @@
             ]
         },
         "adlRegister": {
-            "label": "Nombre d'inscription à l'ADL",
+            "label": "Est inscrit à l'ADL",
             "labelError": "Obligatoire"
         },
-        "redouble": {
-            "label": "L'enfant a t-il redouble une année?",
-            "labelError": "Obligatoire",
-            "redoubleYes": {
-                "label": "Oui"
-            },
-            "redoubleNo": {
-                "label": "Non"
-            },
-            "lastRedoubleLevel": {
-                "label": "Laquelle?",
-                "level": [
-                    {
-                        "label": "Primaire",
-                        "options": [
-                            "1er",
-                            "2e",
-                            "3e",
-                            "4e",
-                            "5e",
-                            "6e"
-                        ]
-                    },
-                    {
-                        "label": "Secondaire",
-                        "options": [
-                            "I",
-                            "II",
-                            "III",
-                            "IV",
-                            "V"
-                        ]
-                    }
-                ]
-            }
+        "lastRedoubleLevel": {
+            "label": "Has the child repeated a year?",
+            "labelError": "Required",
+            "level": [
+                {
+                    "label": "Primary",
+                    "options": [
+                        "1st",
+                        "2nd",
+                        "3rd",
+                        "4th",
+                        "5th",
+                        "6th"
+                    ]
+                },
+                {
+                    "label": "Secondary",
+                    "options": [
+                        "I",
+                        "II",
+                        "III",
+                        "IV",
+                        "V"
+                    ]
+                }
+            ]
         },
         "registerReason": {
             "label": "Raison de l'inscription",
             "labelError": "Obligatoire"
         },
         "evaluation": {
-            "label": "Evaluation ",
-            "labelError": "Obligatoire",
-            "evaluationYes": {
-                "label": "Oui"
-            },
-            "evaluationNo": {
-                "label": "Non"
-            }
+            "label": "Evaluation "
         },
         "daycareService": {
             "label": "Service de garde après l'école?",
-            "labelError": "Obligatoire",
-            "daycareServiceYes": {
-                "label": "Oui"
-            },
-            "daycareServiceNo": {
-                "label": "Non"
-            },
-            "daycareServiceYesName": {
-                "label": "Nom de l'éducatrice"
-            },
-            "daycareServiceYesPhone": {
-                "label": "Numéro de téléphone de l'éducatrice"
-            }
+            "labelError": "Obligatoire"
+        },
+        "daycareServiceYesName": {
+            "label": "Nom de l'éducatrice"
+        },
+        "daycareServiceYesPhone": {
+            "label": "Numéro de téléphone de l'éducatrice"
         }
     },
     "medicalInfo": {
@@ -173,23 +161,16 @@
         "label": "Autorisation",
         "info": "J'autorise que des photos de mon enfant soient prises et utilisées dans les publications de la Maison d'Aurore :",
         "labelError": "Obligatoire",
+        "autorisation": {
+            "label": "Autorisation",
+            "info": "J'autorise que des photos de mon enfant soient prises et utilisées dans les publications de la Maison d'Aurore :",
+            "labelError": "Obligatoire"
+        },
         "autorisationPapper": {
-            "label": "en version papier",
-            "autorisationPapperYes": {
-                "label": "Oui"
-            },
-            "autorisationPapperNo": {
-                "label": "Non"
-            }
+            "label": "en version papier"
         },
         "autorisationInternet": {
-            "label": "sur le site internet",
-            "autorisationInternetYes": {
-                "label": "Oui"
-            },
-            "autorisationInternetNo": {
-                "label": "Non"
-            }
+            "label": "sur le site internet"
         }
     }
 }

@@ -93,6 +93,41 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedule;
     }
+    public static ArrayList<Schedule> setAll(Context context) {
+        ArrayList<Schedule> schedules = new ArrayList<>();
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        String sql = "INSERT INTO " + DataBaseHelper.SCHEDULE_TABLE_NAME + " VALUES (" + ID + "," + ID_USER + "," + ID_CLASSROOM + "," + DATE + "," + IS_ABSENT + "," + COMMENT + ")";
+        Cursor cursor = bd.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            boolean is_absent = false;
+            if (cursor.getInt(4) == 1) {
+                is_absent = true;
+            }
+            schedules.add(new Schedule(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    is_absent,
+                    cursor.getString(5))
+            );
+        }
+        ConnectionBD.close();
+        return schedules;
+    }
+    public static long insertData(Context context, Schedule schedule) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID, schedule.get_id());
+        contentValues.put(ID_USER, schedule.getId_user());
+        contentValues.put(ID_CLASSROOM, schedule.getId_classroom());
+        contentValues.put(DATE, schedule.getDate());
+        contentValues.put(IS_ABSENT, schedule.getIs_absent());
+        contentValues.put(COMMENT, schedule.getComment());
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        long result = bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
+        ConnectionBD.close();
+        return result;
+    }
     /**
      * getById return all Schedule by id_user from DataBase
      *
@@ -101,7 +136,7 @@ public class ScheduleManager {
      * @return ArrayList<Schedule>
      */
     public static ArrayList<Schedule> getByIdUser(Context context, String id_user) {
-        ArrayList<Schedule> schedules = null;
+        ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByIdUser, new String[]{id_user});
         while (cursor.moveToNext()) {
@@ -129,7 +164,7 @@ public class ScheduleManager {
      * @return ArrayList<Schedule>
      */
     public static ArrayList<Schedule> getByIdClassroom(Context context, String id_classroom) {
-        ArrayList<Schedule> schedules = null;
+        ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByIdClassroom, new String[]{id_classroom});
         while (cursor.moveToNext()) {
@@ -178,11 +213,10 @@ public class ScheduleManager {
         return schedules;
     }
     public static ArrayList<Schedule> getByDateAndIdClassroom(Context context, String date, String idClassroom) {
-        ArrayList<Schedule> schedules = null;
+        ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByDateAndIdClassroom, new String[]{date, idClassroom});
         while (cursor.moveToNext()) {
-            schedules = new ArrayList<>();
             boolean is_absent = false;
             if (cursor.getInt(4) == 1) {
                 is_absent = true;
@@ -195,7 +229,6 @@ public class ScheduleManager {
                     is_absent,
                     cursor.getString(5))
             );
-
         }
         ConnectionBD.close();
         return schedules;
@@ -250,7 +283,7 @@ public class ScheduleManager {
      */
     public static void insert(Context context, Schedule schedule) {
         int is_absent = 0;
-        if (schedule.getIs_absent() == true) {
+        if (schedule.getIs_absent()) {
             is_absent = 1;
         }
         ContentValues contentValues = new ContentValues();
@@ -271,7 +304,7 @@ public class ScheduleManager {
      */
     public static void update(Context context, Schedule schedule) {
         int is_absent = 0;
-        if (schedule.getIs_absent() == true) {
+        if (schedule.getIs_absent()) {
             is_absent = 1;
         }
         ContentValues contentValues = new ContentValues();
