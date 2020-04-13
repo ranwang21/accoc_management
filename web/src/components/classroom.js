@@ -6,6 +6,7 @@ import {
 import ClassroomDetail from '../components/classroom-detail'
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_classroom.scss'
+import '../styles/_detail-user.scss'
 
 const variables = require('../utilities/variables').variables
 
@@ -24,11 +25,9 @@ class ClassRoom extends Component {
         this.handleEndDateChange = this.handleEndDateChange.bind(this)
         this.renderClassRooms = this.renderClassRooms.bind(this)
         this.handleShowDetail = this.handleShowDetail.bind(this)
+        this.handleCloseDetail = this.handleCloseDetail.bind(this)
+        this.handleStartDateChange = this.handleStartDateChange.bind(this)
     }
-
-    // componentDidMount () {
-    //     console.log(this.props.schedules)
-    // }
 
     getLangFile () {
         return require('../lang/' + this.props.lang + '/classroom.json')
@@ -45,7 +44,8 @@ class ClassRoom extends Component {
     handleSearch (startDate, endDate) {
         if (this.state.startDate !== null & this.state.endDate !== null) {
             this.setState({
-                matchedSchedules: this.filterScheduleByDate(startDate, endDate)
+                matchedSchedules: this.filterScheduleByDate(startDate, endDate),
+                onSearch: true
             })
         }
     }
@@ -59,6 +59,21 @@ class ClassRoom extends Component {
         return matchedSchedules
     }
 
+    filterActors (userId) {
+        // TODO: filter actors by userId
+        // const actors = this.props.actors
+        // const matchedSchedules = this.state.matchedSchedules
+        // const userIdsInMatchedSchedules = []
+        // matchedSchedules.map(schedule => userIdsInMatchedSchedules.push(schedule.id_user))
+        // actors.map(actor => {
+        //     if (userIdsInMatchedSchedules.includes(actor._id)) {
+        //         console.log('includes: ', actor._id)
+        //     } else { console.log(actor._id) }
+        // })
+        console.log('all actors: ', this.props.actors)
+        console.log('matchedSchedules: ', this.state.matchedSchedules)
+    }
+
     renderClassRooms () {
         const classRooms = this.props.classRooms
         if (classRooms.length > 0) {
@@ -66,9 +81,13 @@ class ClassRoom extends Component {
         }
     }
 
+    componentDidMount () {
+        // console.log(this.props.schedules)
+    }
+
     renderRow (classRoom) {
         return (
-            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={classRoom._id} onClick={() => this.handleShowDetail(classRoom._id)}>
+            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={classRoom._id} onClick={() => this.handleShowDetail(classRoom)}>
                 <TableCell> {classRoom.title} </TableCell>
                 <TableCell> {classRoom.phone} </TableCell>
                 <TableCell> {classRoom.seat} </TableCell>
@@ -76,11 +95,9 @@ class ClassRoom extends Component {
         )
     }
 
-    handleShowDetail (classRoomId) {
-        this.setState({
-            showDetail: true,
-            classroomSelected: classRoomId
-        })
+    handleShowDetail (classRoom) {
+        // put showdetail in the callback to make sure classroomSelected state is set before showing detail page
+        this.setState({ classroomSelected: classRoom }, () => this.filterActors(), () => this.setState({ showDetail: true }))
     }
 
     handleCloseDetail () {
@@ -130,12 +147,12 @@ class ClassRoom extends Component {
                         </TableHead>
                         {this.state.onSearch ? this.renderClassRooms() : null}
                     </Table>
-                    {this.state.userSelected !== null && (
+                    {this.state.classroomSelected !== null && (
                         <ClassroomDetail
                             open={this.state.showDetail}
                             onClose={this.handleCloseDetail}
+                            classRoom={this.state.classroomSelected}
                             lang={this.props.lang}
-                            classroomSelected={this.state.classroomSelected}
                         />
                     )}
                 </TableContainer>
