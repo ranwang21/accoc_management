@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.myapplication.entities.User;
+import com.example.myapplication.managers.UserManager;
+import com.example.myapplication.services.HttpPostRequest;
+import com.example.myapplication.services.HttpPutRequest;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class ProfilCollabActivity extends AppCompatActivity {
@@ -35,6 +42,7 @@ public class ProfilCollabActivity extends AppCompatActivity {
         image_collaborateur = findViewById(R.id.img_collab);
         Intent i = getIntent();
         Bundle b = i.getBundleExtra("bundle");
+        String id_user = b.getString("id_user");
         String fisrtName = b.getString("user_firstname");
         String lastName = b.getString("user_lastname");
         String birthday = b.getString("user_birthday");
@@ -43,7 +51,7 @@ public class ProfilCollabActivity extends AppCompatActivity {
         String image = b.getString("user_image");
         tv_nom.setText(fisrtName);
         tv_prenom.setText(lastName);
-        tv_birthday.setText(birthday.substring(0,birthday.indexOf("T")));
+        tv_birthday.setText(birthday.substring(0, birthday.indexOf("T")));
         tv_adress.setText(address);
         tv_sexe.setText(sexe);
         Glide.with(getApplicationContext()).load(image).into(image_collaborateur);
@@ -84,6 +92,11 @@ public class ProfilCollabActivity extends AppCompatActivity {
             if (requestCode == 1) {
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                byte[] b = baos.toByteArray();
+                String temp = Base64.encodeToString(b, Base64.DEFAULT);
+                //UserManager.uploadImageFromApi(getApplicationContext(), id_user, temp);
                 Glide.with(getApplicationContext()).load(imageBitmap).centerCrop().apply(RequestOptions.circleCropTransform()).into(image_collaborateur);
             } else if (requestCode == 2) {
                 imageUri = data.getData();
