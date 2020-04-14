@@ -62,7 +62,7 @@ class ClassRoomManagement extends Component {
 
     handleEditClick (event, classroom, btnAction) {
         if(!(this.state.classroomSelected !== null && classroom._id === this.state.classroomSelected._id)){
-            this.setState({ classroomSelected: {...classroom} })
+            this.setState({ classroomSelected: { ...classroom } })
         }
         if(btnAction === action.delete) {
             Fetch.classRoom.delete(this.props.cookies.get(variables.cookies.token), classroom, this.checkDeleteError)

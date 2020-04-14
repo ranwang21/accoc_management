@@ -226,12 +226,9 @@ class Dashbord extends Component {
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
-            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
+            return (<ClassroomManagement lang={lang} />)
         case variables.menus.scheduleManagement:
-            return (
-                <ClassroomManagement
-                    lang={lang}
-                />)
+            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
         case variables.menus.prints:
             return (<Print lang={lang} />)
         case variables.menus.childList:
@@ -304,9 +301,6 @@ class Dashbord extends Component {
                     handleClickMenu={this.onClickMenu}
                     validationLength={this.state.inValidActors && this.state.inValidActors.length}
                 />
-
-                {(this.state.menuItemSelected === variables.menus.classroomManagement || this.state.menuItemSelected === variables.menus.schedule) &&
-                    (<CalendarSchedule lang={this.props.lang} date={this.state.date} handleDateChange={this.onhandleDateChange} />)}
 
                 <div className='content'>
                     {this.switchToMenuSelected(this.props.lang)}
