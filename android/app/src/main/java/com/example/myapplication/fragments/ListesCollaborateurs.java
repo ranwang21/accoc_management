@@ -49,6 +49,7 @@ public class ListesCollaborateurs extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String id_user = finalUsers.get(position).get_id();
                 String first_name = finalUsers.get(position).getFirst_name();
                 String last_name = finalUsers.get(position).getLast_name();
                 String birthday = finalUsers.get(position).getBirthday();
@@ -56,6 +57,7 @@ public class ListesCollaborateurs extends Fragment {
                 String address = finalUsers.get(position).getAddress();
                 String image = finalUsers.get(position).getImg_url();
                 Bundle bundle = new Bundle();
+                bundle.putString("id_user", id_user);
                 bundle.putString("user_firstname", first_name);
                 bundle.putString("user_lastname", last_name);
                 bundle.putString("user_birthday", birthday);

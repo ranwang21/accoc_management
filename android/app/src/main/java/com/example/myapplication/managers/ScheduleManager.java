@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import androidx.core.content.ContextCompat;
+
 
 public class ScheduleManager {
 
@@ -66,7 +68,6 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
-
     /**
      * getById return a Schedule by id from DataBase
      *
@@ -94,28 +95,46 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedule;
     }
-/*
-    public boolean Schedule insertData (Context context,String id,String idU,String idC,String date,Boolean isabsent,String comment) {
-
-        Schedule schedule=new Schedule();
-        int is_absent = 0;
-        if (schedule.getIs_absent()) {
-        }
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ID, id);
-        contentValues.put(ID_USER, idU);
-        contentValues.put(ID_CLASSROOM, idC);
-        contentValues.put(DATE, date);
-        contentValues.put(IS_ABSENT, isabsent);
-        contentValues.put(COMMENT, comment);
+    public static ArrayList<Schedule> setAll(Context context) {
+        ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
-        long result=bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
-       if(result==-1)
-           return false;
-       else
-           return true;
-    }*/
+        String sql = "INSERT INTO " + DataBaseHelper.SCHEDULE_TABLE_NAME + " VALUES (" + ID + "," + ID_USER + "," + ID_CLASSROOM + "," + DATE + "," + IS_ABSENT + "," + COMMENT + ")";
+        Cursor cursor = bd.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            boolean is_absent = false;
+            if (cursor.getInt(4) == 1) {
+                is_absent = true;
+            }
+            schedules.add(new Schedule(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    is_absent,
+                    cursor.getString(5))
+            );
+        }
+        ConnectionBD.close();
+        return schedules;
+    }
 
+    public static long  insertData (Context context, Integer id, Boolean isAbscent ) {
+
+
+        ContentValues contentValues = new ContentValues();
+        String strId=id.toString();
+        String[]selectionArgs={strId};
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+
+
+        contentValues.put(ID, strId);
+
+        contentValues.put(IS_ABSENT,isAbscent );
+        long result=bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
+
+        ConnectionBD.close();
+      return result;
+    }
     /**
      * getById return all Schedule by id_user from DataBase
      *
@@ -124,7 +143,7 @@ public class ScheduleManager {
      * @return ArrayList<Schedule>
      */
     public static ArrayList<Schedule> getByIdUser(Context context, String id_user) {
-        ArrayList<Schedule> schedules = null;
+        ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByIdUser, new String[]{id_user});
         while (cursor.moveToNext()) {
@@ -152,7 +171,7 @@ public class ScheduleManager {
      * @return ArrayList<Schedule>
      */
     public static ArrayList<Schedule> getByIdClassroom(Context context, String id_classroom) {
-        ArrayList<Schedule> schedules = null;
+        ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByIdClassroom, new String[]{id_classroom});
         while (cursor.moveToNext()) {
@@ -201,11 +220,10 @@ public class ScheduleManager {
         return schedules;
     }
     public static ArrayList<Schedule> getByDateAndIdClassroom(Context context, String date, String idClassroom) {
-        ArrayList<Schedule> schedules = null;
+        ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByDateAndIdClassroom, new String[]{date, idClassroom});
         while (cursor.moveToNext()) {
-            schedules = new ArrayList<>();
             boolean is_absent = false;
             if (cursor.getInt(4) == 1) {
                 is_absent = true;
@@ -218,13 +236,10 @@ public class ScheduleManager {
                     is_absent,
                     cursor.getString(5))
             );
-
         }
         ConnectionBD.close();
         return schedules;
     }
-
-
     public static ArrayList<String> getUniquesDates(Context context, String date) {
         ArrayList<String> dates = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
@@ -275,7 +290,7 @@ public class ScheduleManager {
      */
     public static void insert(Context context, Schedule schedule) {
         int is_absent = 0;
-        if (schedule.getIs_absent() == true) {
+        if (schedule.getIs_absent()) {
             is_absent = 1;
         }
         ContentValues contentValues = new ContentValues();
@@ -296,7 +311,7 @@ public class ScheduleManager {
      */
     public static void update(Context context, Schedule schedule) {
         int is_absent = 0;
-        if (schedule.getIs_absent() == true) {
+        if (schedule.getIs_absent()) {
             is_absent = 1;
         }
         ContentValues contentValues = new ContentValues();

@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/save"
 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                      />
 
             <Spinner
                 android:id="@+id/spinner_presence"
