@@ -38,6 +38,23 @@ exports.getLogin = asyncHandler(async (req, res, next) => {
   })
 })
 
+// @desc     Get single login by email
+// @route    GET /logins/search/:email
+// @access   Public
+exports.getLoginByEmail = asyncHandler(async (req, res, next) => {
+  const login = await Login.findOne({ email: req.params.email })
+
+  if (!login) {
+    return next(
+      new ErrorResponse(`Login not found with Email: ${req.params.email}`, 404)
+    )
+  }
+
+  res.status(200).json({
+    success: true
+  })
+})
+
 // @desc     Create login to user
 // @route    POST /logins
 // @access   Public
