@@ -259,6 +259,34 @@ const getAddressFromGoogle = () => {
         })
 }
 
+const getUser = (token, id, callBack) => {
+    fetch(HOST + '/users/' + id, {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            const templateUser = require('./variables').variables.templateUser
+            const userTemplate = {
+                ...templateUser,
+                ...data.data
+            }
+            userTemplate.medical_info = (userTemplate.medical_info.length === 0) ? templateUser.medical_info : userTemplate.medical_info
+            userTemplate.school_info = (userTemplate.school_info.length === 0) ? templateUser.school_info : userTemplate.school_info
+            userTemplate.authorization = (userTemplate.authorization.length === 0) ? templateUser.authorization : userTemplate.authorization
+            userTemplate.interest = (userTemplate.interest.length === 0) ? templateUser.interest : userTemplate.interest
+            userTemplate.question = (userTemplate.question.length === 0) ? templateUser.question : userTemplate.question
+            userTemplate.involvement = (userTemplate.involvement.length === 0) ? templateUser.involvement : userTemplate.involvement
+            userTemplate.membership = (userTemplate.membership.length === 0) ? templateUser.membership : userTemplate.membership
+            userTemplate.contact = (userTemplate.contact.length === 0) ? templateUser.contact : userTemplate.contact
+
+            callBack(userTemplate)
+        })
+}
+
 const getAllUsers = (token, callBack) => {
     fetch(HOST + '/roles', {
         headers: {
@@ -287,7 +315,6 @@ const getAllUsers = (token, callBack) => {
                     })
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data.data)
                             const dataUsers = []
                             for (let i = 0; i < data.data.length; i++) {
                                 const user = data.data[i]
@@ -296,6 +323,14 @@ const getAllUsers = (token, callBack) => {
                                     ...templateUser,
                                     ...user
                                 }
+                                userTemplate.medical_info = (userTemplate.medical_info.length === 0) ? templateUser.medical_info : userTemplate.medical_info
+                                userTemplate.school_info = (userTemplate.school_info.length === 0) ? templateUser.school_info : userTemplate.school_info
+                                userTemplate.authorization = (userTemplate.authorization.length === 0) ? templateUser.authorization : userTemplate.authorization
+                                userTemplate.interest = (userTemplate.interest.length === 0) ? templateUser.interest : userTemplate.interest
+                                userTemplate.question = (userTemplate.question.length === 0) ? templateUser.question : userTemplate.question
+                                userTemplate.involvement = (userTemplate.involvement.length === 0) ? templateUser.involvement : userTemplate.involvement
+                                userTemplate.membership = (userTemplate.membership.length === 0) ? templateUser.membership : userTemplate.membership
+                                userTemplate.contact = (userTemplate.contact.length === 0) ? templateUser.contact : userTemplate.contact
 
                                 const login = dataLogins.data.filter(dl => dl.id_user === userTemplate._id)
                                 const role = dataRoles.data.filter(dr => dr._id === userTemplate.id_role)
@@ -312,13 +347,11 @@ const getAllUsers = (token, callBack) => {
                                 })
                                     .then(response => response.json())
                                     .then(dataImage => {
-                                        if(dataImage.success){
-                                            img = dataImage.data
-                                            userTemplate.img = img
-                                            userTemplate.id_classroom = userTemplate.id_classroom === null ? '12345' : userTemplate.id_classroom
-                                            userTemplate.roleTitle = role[0].title
-                                            dataUsers.push(userTemplate)
-                                        }
+                                        userTemplate.img = dataImage.success ? dataImage.data : ''
+                                        userTemplate.id_classroom = userTemplate.id_classroom === null ? '12345' : userTemplate.id_classroom
+                                        userTemplate.roleTitle = role[0].title
+                                        dataUsers.push(userTemplate)
+
                                         callBack(dataUsers)
                                     })
                             }
@@ -941,6 +974,21 @@ const getClassRooms = (token, callBack) => {
         })
 }
 
+const updateClassRoom = (token, classroom, callBack) => {
+        fetch(HOST + '/classrooms/'+ classroom._id, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(classroom)
+        })
+        .then(response => response.json())
+        .then(data => { callBack(data.data) })
+        .catch()
+}
+
 const getClassRoomsAndCollaborater = (token, callBack) => {
     fetch(HOST + '/classrooms', {
         headers: {
@@ -1033,6 +1081,7 @@ export default {
     updateUserValidities,
     getAllSchedules,
     user: {
+        get: getUser,
         update: updateUser,
         delete: deleteUser
     },
@@ -1052,6 +1101,7 @@ export default {
         update: updateUserImage
     },
     classRoom: {
-        get: getClassRooms
+        get: getClassRooms,
+        update: updateClassRoom
     }
 }

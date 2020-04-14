@@ -48,15 +48,21 @@ class DetailUser extends Component {
         this.handleBtnClick = this.handleBtnClick.bind(this)
         this.onEditFieldsChange = this.onEditFieldsChange.bind(this)
         this.userEdited = this.userEdited.bind(this)
+        this.setEditedUser = this.setEditedUser.bind(this)
+    }
+
+    setEditedUser (user) {
+        this.setState({ userEdited: user })
     }
 
     componentDidMount () {
-        console.log('detail')
-        this.setState({
-            userEdited: {
-                ...variables.templateUser
-            }
-        })
+        Fetch.user.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.setEditedUser)
+    }
+
+    componentDidUpdate (prevProps) {
+        if (this.props.userSelected !== prevProps.userSelected) {
+            Fetch.user.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.setEditedUser)
+        }
     }
 
     onEditFieldsChange (event, value, name, subName) {
@@ -108,24 +114,18 @@ class DetailUser extends Component {
         if (btnAction === action.save || btnAction === action.cancel) {
             if (btnAction === action.save) {
                 this.setState({ showEditLoading: true })
-
-                console.log(this.state.userSelected)
-                console.log(this.state.userEdited)
-                console.log('SAVE EDIT')
                 Fetch.user.update(this.props.cookies.get(variables.cookies.token), this.state.userEdited, this.userEdited)
             } else {
-                console.log(this.props.userSelected)
-                console.log(this.state.userEdited)
                 this.setState({ allowEditable: false, showEditLoading: false })
             }
         }
     }
 
     userEdited (data) {
-        console.log(data)
         if (data.success) {
             this.props.onUsersListChange()
             this.setState({ allowEditable: false, showEditLoading: false })
+            this.props.renderShowDetail(this.state.userEdited)
         }
     }
 
@@ -133,7 +133,6 @@ class DetailUser extends Component {
         const user = this.props.userSelected
         const allergies = (user.medical_info.length > 0 && user.medical_info[0].allergies !== null) ? user.medical_info[0].allergies : "Pas d'allergies"
         const date = (user && user.birthday !== null) ? new Date(user.birthday).toLocaleDateString() : 'Pas defini'
-
         return (
             <Dialog
                 className='dialog'
@@ -227,9 +226,9 @@ class DetailUser extends Component {
                                                 openTo='year'
                                                 views={['year', 'month', 'date']}
                                                 label='Birthday'
-                                                minDate={getAgeLimit(30)}
+                                                minDate={getAgeLimit(100)}
                                                 maxDate={getAgeLimit(5)}
-                                                value={this.state.userEdited.birthday !== null ? this.state.userEdited.birthday : getAgeLimit(30)}
+                                                value={this.state.userEdited.birthday !== null ? this.state.userEdited.birthday : getAgeLimit(10)}
                                                 onChange={event => this.onEditFieldsChange(event, event._d, 'birthday', null)}
                                             />
                                         </MuiPickersUtilsProvider>
@@ -293,7 +292,7 @@ class DetailUser extends Component {
 
                         {!this.state.allowEditable && (
                         <>
-                            {(user.roleTitle !== variables.role.admin) && (
+                            {(user.roleTitle === variables.role.child) && (
                                 <Button
                                     onClick={event => this.handleBtnClick(event, action.edit)}
                                     variant='contained'

@@ -63,7 +63,6 @@ class ChildDetail extends Component {
         const edit = this.props.editable
         const classRooms = (this.props.classRooms && this.props.classRooms !== null) ? this.props.classRooms : []
         const collaboraters = (this.props.collaboraters && this.props.collaboraters !== null) ? this.props.collaboraters : []
-        // console.log(classRooms.filter(x => x._id === this.props.userEdited.id_classroom)[0])
         const valueClassroom = classRooms.filter(x => x._id === this.props.userEdited.id_classroom)[0]
         return (
             <div className='child-detail'>
@@ -287,7 +286,7 @@ class ChildDetail extends Component {
                                 <TextareaAutosize
                                     className='textarea'
                                     rowsMin={2}
-                                    onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'alleriges')}
+                                    onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'allergies')}
                                     value={this.props.userEdited.medical_info[0].allergies !== null ? this.props.userEdited.medical_info[0].allergies : ''}
                                 />
                             ) : (
@@ -331,7 +330,7 @@ class ChildDetail extends Component {
                                 <FormControlLabel control={
                                     <Checkbox
                                         onChange={(event) => this.props.handleEditChange(event, event.target.checked, 'authorization', 'paper')}
-                                        value={!!this.props.userEdited.authorization[0].paper}
+                                        checked={this.props.userEdited.authorization[0].paper}
                                     />
                                 }
                                 />
@@ -345,7 +344,7 @@ class ChildDetail extends Component {
                                 <FormControlLabel control={
                                     <Checkbox
                                         onChange={(event) => this.props.handleEditChange(event, event.target.checked, 'authorization', 'internet')}
-                                        value={!!this.props.userEdited.authorization[0].internet}
+                                        checked={this.props.userEdited.authorization[0].internet}
                                     />
                                 }
                                 />

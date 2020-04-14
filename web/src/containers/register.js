@@ -660,6 +660,9 @@ class RegisterContainer extends Component {
                     home: fields.contacts_home,
                     emergency: fields.contacts_emergency
                 }]
+                user.medical_info = []
+                user.school_info = []
+                user.authorization = []
                 const membershipStatus = (fields.membership === 'membership_becomeMember' || fields.membership === 'membership_alreadyMember') ? true : false
                 user.membership = [{
                     status: membershipStatus,
@@ -715,6 +718,9 @@ class RegisterContainer extends Component {
                 user.question[0].response = fields.garde
                 user.question[1].response = fields.gardeParentOption
                 user.question[2].response = fields.gardeOtherOption
+                user.interest = []
+                user.involvement = []
+                user.membership = []
             }
             return user
         }

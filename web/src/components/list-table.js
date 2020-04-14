@@ -26,6 +26,7 @@ class TableListContainer extends Component {
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
         this.handleDeleteUser = this.handleDeleteUser.bind(this)
         this.setDay = this.setDay.bind(this)
+        this.renderShowDetail = this.renderShowDetail.bind(this)
     }
 
     setDay (days) {
@@ -38,12 +39,18 @@ class TableListContainer extends Component {
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list-table.json') }
 
-    handleShowDetail (event, id) {
-        const user = this.props.allActors.filter(actor => actor._id === id)
+    renderShowDetail (user) {
         this.setState({
             showDetail: true,
-            userSelected: user && user[0]
+            userSelected: {
+                ...this.state.userSelected,
+                ...user
+            }
         })
+    }
+
+    handleShowDetail (event, user) {
+        this.renderShowDetail(user)
     }
 
     handleCloseDetail () { this.setState({ showDetail: false }) }
@@ -118,24 +125,24 @@ class TableListContainer extends Component {
 
         return (
             <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={actor._id}>
-                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
-                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.last_name.toUpperCase()} </TableCell>
-                <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.first_name} </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> <Avatar alt='Avatar' src={actor.img} /> </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {actor.last_name.toUpperCase()} </TableCell>
+                <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {actor.first_name} </TableCell>
                 {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected === variables.role.child) && (
                     <>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {allergies} </TableCell>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.school_info[0].name === null ? 'Pas defini' : actor.school_info[0].name} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {allergies} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {actor.school_info[0].name === null ? 'Pas defini' : actor.school_info[0].name} </TableCell>
                     </>
                 )}
                 {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected !== variables.role.admin) && (
                     <>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {classRoomTitle[0].title} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {classRoomTitle[0].title} </TableCell>
                     </>
                 )}
                 {(this.props.menuSelected === variables.menus.validation || this.props.actorSelected !== variables.role.child) && (
                     <>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {getPhoneNumber} </TableCell>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor._id)}> {actor.email} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {getPhoneNumber} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {actor.email} </TableCell>
                     </>
                 )}
                 {(this.props.menuSelected === variables.menus.validation || this.props.actorSelected === variables.role.admin) && (
@@ -195,6 +202,7 @@ class TableListContainer extends Component {
                             collabList={this.props.collabList}
                             parentList={this.props.parentList}
                             onDeleteUser={this.handleDeleteUser}
+                            renderShowDetail={this.renderShowDetail}
                             days={this.state.days}
                             onUsersListChange={this.props.onUsersListChange}
                         />

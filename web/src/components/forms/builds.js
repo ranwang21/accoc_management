@@ -337,5 +337,6 @@ export default {
     dateField,
     checkboxField,
     multipleField,
-    membershipField
+    membershipField,
+    phoneMaskCustom
 }

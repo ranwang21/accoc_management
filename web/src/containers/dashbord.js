@@ -10,6 +10,7 @@ import SideMenu from '../components/side-menu'
 import ClassRoom from '../components/classroom'
 import CreateAccount from '../components/create-account'
 import ScheduleManagement from '../components/schedule-management'
+import ClassroomManagement from './classroom-management'
 import Profile from '../components/profile'
 import Schedule from '../components/schedule'
 import Print from '../components/print'
@@ -35,7 +36,7 @@ const upadteMenuSelectedByRole = (role) => {
     switch (role) {
     case variables.role.highAdmin:
     case variables.role.admin:
-        select = variables.menus.allUsers
+        select = variables.menus.scheduleManagement
         break
     case variables.role.both:
     case variables.role.parent:
@@ -228,9 +229,8 @@ class Dashbord extends Component {
             return (<ClassRoom lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
         case variables.menus.scheduleManagement:
             return (
-                <ScheduleManagement
+                <ClassroomManagement
                     lang={lang}
-                    classRooms={this.state.classRooms}
                 />)
         case variables.menus.prints:
             return (<Print lang={lang} />)
