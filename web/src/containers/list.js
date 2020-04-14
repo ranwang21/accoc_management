@@ -37,11 +37,21 @@ class Table extends Component {
             firstNameInput: '',
             classRoomSelected: '',
             schoolInput: '',
-            levelSelected: ''
+            levelSelected: '',
+            classrooms: []
         }
+        this.setClassroom = this.setClassroom.bind(this)
         this.onActorSelected = this.onActorSelected.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
         this.handleSearchInputChange = this.handleSearchInputChange.bind(this)
+    }
+
+    componentDidMount () {
+        Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassroom)
+    }
+
+    setClassroom (classrooms) {
+        this.setState({ classrooms: classrooms })
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list.json') }
@@ -112,8 +122,8 @@ class Table extends Component {
         if (this.props.menuSelected === variables.menus.validation) {
             return this.props.inValidActors
         } else {
-            let getIdClassRoom = this.props.classRooms.filter(classRoom => classRoom.title === this.state.classRoomSelected)
-            getIdClassRoom = getIdClassRoom[0] ? getIdClassRoom[0] : this.props.classRooms[0]
+            let getIdClassRoom = this.state.classrooms.filter(classRoom => classRoom.title === this.state.classRoomSelected)
+            getIdClassRoom = getIdClassRoom[0] ? getIdClassRoom[0] : this.state.classrooms[0]
 
             const isRole = getRoleFunction(this.getActorSelected())
             const newList = this.props.actors !== null ? this.props.actors.filter(isRole) : []
@@ -185,7 +195,7 @@ class Table extends Component {
                                             <MenuItem value=''>
                                                 <em>Toutes les salles</em>
                                             </MenuItem>
-                                            {this.props.classRooms.map(classRoom => (
+                                            {this.state.classrooms.map(classRoom => (
                                                 <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                             ))}
                                         </Select>
@@ -254,7 +264,7 @@ class Table extends Component {
                     handleValidationChange={this.props.validationChange}
                     allActors={allActors}
                     actorSelected={this.getActorSelected()}
-                    classRooms={this.props.classRooms}
+                    classrooms={this.state.classrooms}
                     onChangeImage={this.props.handleImageChange}
                     onUsersListChange={this.props.onUsersListChange}
                     collabList={collabList}

@@ -119,7 +119,7 @@ class TableListContainer extends Component {
     }
 
     buildRow (lang, actor) {
-        const classRoomTitle = this.props.classRooms.filter(cl => cl._id === actor.id_classroom)
+        const classRoomTitle = this.props.classrooms.filter(cl => cl._id === actor.id_classroom)[0]
         const allergies = this.getChildAllergies(actor)
         const getPhoneNumber = this.getPhoneNumberByPriority(actor)
 
@@ -136,7 +136,7 @@ class TableListContainer extends Component {
                 )}
                 {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected !== variables.role.admin) && (
                     <>
-                        <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {classRoomTitle[0].title} </TableCell>
+                        <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {classRoomTitle ? classRoomTitle.title : 'Non defini'} </TableCell>
                     </>
                 )}
                 {(this.props.menuSelected === variables.menus.validation || this.props.actorSelected !== variables.role.child) && (
@@ -198,7 +198,7 @@ class TableListContainer extends Component {
                             userSelected={this.state.userSelected}
                             menuSelected={this.props.menuSelected}
                             onChangeImage={this.props.onChangeImage}
-                            classRooms={this.props.classRooms}
+                            classRooms={this.props.classrooms}
                             collabList={this.props.collabList}
                             parentList={this.props.parentList}
                             onDeleteUser={this.handleDeleteUser}
