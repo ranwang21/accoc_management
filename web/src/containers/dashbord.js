@@ -36,7 +36,7 @@ const upadteMenuSelectedByRole = (role) => {
     switch (role) {
     case variables.role.highAdmin:
     case variables.role.admin:
-        select = variables.menus.scheduleManagement
+        select = variables.menus.allUsers
         break
     case variables.role.both:
     case variables.role.parent:
