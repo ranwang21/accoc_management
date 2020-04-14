@@ -14,6 +14,7 @@ const action = {
     delete: 0,
     edit: 1,
     add: 2,
+    showList: 3
 }
 
 const emptyClassroom = {
@@ -21,20 +22,6 @@ const emptyClassroom = {
     seat: '',
     phone: ''
 }
-const compare = (a, b) => {
-    // Use toUpperCase() to ignore character casing
-    const bandA = a.title.toUpperCase();
-    const bandB = b.title.toUpperCase();
-
-    let comparison = 0;
-    if (bandA > bandB) {
-      comparison = 1;
-    } else if (bandA < bandB) {
-      comparison = -1;
-    }
-    return comparison;
-  }
-
 class ClassRoomManagement extends Component {
     constructor () {
         super()
@@ -53,10 +40,12 @@ class ClassRoomManagement extends Component {
         this.fecthClassroom = this.fecthClassroom.bind(this)
         this.handleAddClick = this.handleAddClick.bind(this)
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
-        this.checkDeleteError = this.checkDeleteError.bind(this)    }
+        this.checkDeleteError = this.checkDeleteError.bind(this)
+        this.handleListChild = this.handleListChild.bind(this)
+    }
 
     setClassRoom (data) {
-        this.setState({ classRooms: data.sort(compare) })
+        this.setState({ classRooms: data.sort((a, b) => (a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1)) })
     }
 
     fecthClassroom(){
@@ -75,10 +64,12 @@ class ClassRoomManagement extends Component {
         if(!(this.state.classroomSelected !== null && classroom._id === this.state.classroomSelected._id)){
             this.setState({ classroomSelected: {...classroom} })
         }
-        if(btnAction !== action.delete) {
-            this.setState({ showDialog: true, editMode: true })
-        } else {
+        if(btnAction === action.delete) {
             Fetch.classRoom.delete(this.props.cookies.get(variables.cookies.token), classroom, this.checkDeleteError)
+        } else if(btnAction === action.showList) {
+            console.log('SHOW CHILD OF THIS CLASSROOM')
+        } else {
+            this.setState({ showDialog: true, editMode: true })
         }
     }
 
@@ -135,13 +126,17 @@ class ClassRoomManagement extends Component {
         })
     }
 
+    handleListChild(){
+        event.preventDefault()
+    }
+
     renderClassroom (classRoom) {
         return (
-            <div key={classRoom._id}>
-                <h2>{classRoom.title}</h2>
-                <p><span>Total des eleves</span><span>: 80</span></p>
-                <p><span>Nombre de place</span><span>: {classRoom.seat}</span></p>
-                <p><span>Contact</span><span>: {classRoom.phone}</span></p>
+            <div className='div-salle' key={classRoom._id}>
+                <h2 onClick={event => this.handleEditClick(event, classRoom, action.showList)}>{classRoom.title}</h2>
+                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Total des eleves</span><span>: 80</span></p>
+                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Nombre de place</span><span>: {classRoom.seat}</span></p>
+                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Contact</span><span>: {classRoom.phone}</span></p>
                 <div>
                     <Button
                         onClick={event => this.handleEditClick(event, classRoom, null)}
