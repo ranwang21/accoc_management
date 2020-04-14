@@ -99,6 +99,9 @@
         flex-direction: column !important;
         height: 15em;
         justify-content: space-around;
+        > p.error-classroom {
+            color: red;
+        }
         .edit-input {
             width: 100%;
         }

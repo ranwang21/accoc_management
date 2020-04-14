@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Snack from '../components/snack'
 import Fetch from '../utilities/fetch-datas'
 import { Button, Dialog, DialogTitle, DialogContent, Typography, DialogActions, TextField, FormControl, InputLabel, Input } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/EditOutlined'
@@ -9,23 +10,53 @@ import PhoneMask from '../components/forms/builds'
 
 const variables = require('../utilities/variables').variables
 
+const action = {
+    delete: 0,
+    edit: 1,
+    add: 2,
+}
+
+const emptyClassroom = {
+    title: '',
+    seat: '',
+    phone: ''
+}
+const compare = (a, b) => {
+    // Use toUpperCase() to ignore character casing
+    const bandA = a.title.toUpperCase();
+    const bandB = b.title.toUpperCase();
+
+    let comparison = 0;
+    if (bandA > bandB) {
+      comparison = 1;
+    } else if (bandA < bandB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
 class ClassRoomManagement extends Component {
     constructor () {
         super()
         this.state = {
             classRooms: [],
             classroomSelected: null,
-            showDialog: false
+            showDialog: false,
+            editMode: false,
+            error: false,
+            showSnack: false
         }
         this.setClassRoom = this.setClassRoom.bind(this)
         this.handleEditClick = this.handleEditClick.bind(this)
         this.handleCloseDialog = this.handleCloseDialog.bind(this)
-        this.handleUpdateClassRoom = this.handleUpdateClassRoom.bind(this)
+        this.handleActionClick = this.handleActionClick.bind(this)
         this.fecthClassroom = this.fecthClassroom.bind(this)
-    }
+        this.handleAddClick = this.handleAddClick.bind(this)
+        this.handleCloseSnack = this.handleCloseSnack.bind(this)
+        this.checkDeleteError = this.checkDeleteError.bind(this)    }
 
     setClassRoom (data) {
-        this.setState({ classRooms: data })
+        this.setState({ classRooms: data.sort(compare) })
     }
 
     fecthClassroom(){
@@ -39,37 +70,28 @@ class ClassRoomManagement extends Component {
 
     getLangFile () { return require('../lang/' + this.props.lang + '/classroom-management.json') }
 
-    renderClassroom (classRoom) {
-        return (
-            <div key={classRoom._id}>
-                <h2>{classRoom.title}</h2>
-                <p><span>Total des eleves</span><span>: 80</span></p>
-                <p><span>Nombre de place</span><span>: {classRoom.seat}</span></p>
-                <p><span>Contact</span><span>: {classRoom.phone}</span></p>
-                <div>
-                    <Button
-                        onClick={event => this.handleEditClick(event, classRoom)}
-                        variant='contained'
-                        color='secondary'
-                        fullWidth
-                        startIcon={<EditIcon />}
-                    >
-                        Edit
-                    </Button>
-                </div>
-            </div>
-        )
-    }
 
-    handleEditClick (event, classroom) {
+    handleEditClick (event, classroom, btnAction) {
         if(!(this.state.classroomSelected !== null && classroom._id === this.state.classroomSelected._id)){
             this.setState({ classroomSelected: {...classroom} })
         }
-        this.setState({ showDialog: true })
+        if(btnAction !== action.delete) {
+            this.setState({ showDialog: true, editMode: true })
+        } else {
+            Fetch.classRoom.delete(this.props.cookies.get(variables.cookies.token), classroom, this.checkDeleteError)
+        }
+    }
+
+    checkDeleteError(retour) {
+        if(retour){
+            this.fecthClassroom()
+        }else{
+            this.setState({ showSnack: true })
+        }
     }
 
     handleCloseDialog () {
-        this.setState({ showDialog: false })
+        this.setState({ showDialog: false, error: false })
     }
 
     handleEditInputChange (event, name) {
@@ -83,16 +105,77 @@ class ClassRoomManagement extends Component {
         })
     }
 
-    handleUpdateClassRoom(){
-        this.setState({showDialog: false})
-        Fetch.classRoom.update(this.props.cookies.get(variables.cookies.token), this.state.classroomSelected, this.fecthClassroom)
+    checkEmptyInput(){
+        let error = true
+        if(this.state.classroomSelected.title !== '' & this.state.classroomSelected.seat !== '' && this.state.classroomSelected.phone !== ''){
+            error = false
+        }
+        return error
+    }
+
+    handleActionClick(event, btnAction) {
+            if(this.checkEmptyInput() === true) {
+                this.setState({error: true})
+            } else {
+                this.setState({error: false})
+                if(btnAction === action.edit) {
+                    Fetch.classRoom.update(this.props.cookies.get(variables.cookies.token), this.state.classroomSelected, this.fecthClassroom)
+                } else if(btnAction === action.add) {
+                    Fetch.classRoom.add(this.props.cookies.get(variables.cookies.token), this.state.classroomSelected, this.fecthClassroom)
+                }
+                this.setState({showDialog: false})
+            }
+    }
+
+    handleAddClick(){
+        this.setState({
+            classroomSelected: { ...emptyClassroom },
+            showDialog: true,
+            editMode: false
+        })
+    }
+
+    renderClassroom (classRoom) {
+        return (
+            <div key={classRoom._id}>
+                <h2>{classRoom.title}</h2>
+                <p><span>Total des eleves</span><span>: 80</span></p>
+                <p><span>Nombre de place</span><span>: {classRoom.seat}</span></p>
+                <p><span>Contact</span><span>: {classRoom.phone}</span></p>
+                <div>
+                    <Button
+                        onClick={event => this.handleEditClick(event, classRoom, null)}
+                        variant='contained'
+                        color='secondary'
+                        startIcon={<EditIcon />}
+                    >
+                        Edit
+                    </Button>
+                    <Button
+                    className='btn-delete'
+                        onClick={event => this.handleEditClick(event, classRoom, action.delete)}
+                        variant='contained'
+                        color='secondary'
+                        startIcon={<DeleteIcon />}
+                    >
+                        Delete
+                    </Button>
+                </div>
+            </div>
+        )
+    }
+
+
+    handleCloseSnack () {
+        this.setState({ showSnack: false })
     }
 
     render () {
         const lang = this.getLangFile()
         return (
+            <>
             <div className='classroom-management'>
-                <Button variant='contained' className='btn-add-classroom' color='primary'>
+                <Button variant='contained' className='btn-add-classroom' onClick={this.handleAddClick} color='primary'>
                     Ajouter une nouvelle salle
                 </Button>
                 <div>
@@ -106,9 +189,17 @@ class ClassRoomManagement extends Component {
                     open={this.state.showDialog}
                 >
                     <DialogTitle className='title' id='customized-dialog-title' onClose={this.handleCloseDialog}>
-                        Modification ({this.state.classroomSelected !== null && this.state.classroomSelected.title})
+                    {this.state.editMode && (
+                        <>Modification {this.state.classroomSelected !== null && '('+this.state.classroomSelected.title+')'}</>
+                    )}
+                    {!this.state.editMode && (
+                        <>Ajout {this.state.classroomSelected !== null && '('+this.state.classroomSelected.title+')'}</>
+                    )}
                     </DialogTitle>
                     <DialogContent dividers className='div-dialog-edit-classroom'>
+                        {this.state.error && (
+                            <p className='error-classroom'>Veuillez renseigner tous les champs</p>
+                        )}
                         {this.state.classroomSelected !== null && (
                             <>
                                 <TextField
@@ -117,6 +208,7 @@ class ClassRoomManagement extends Component {
                                     color='primary'
                                     variant='filled'
                                     label='Nom de la classe'
+                                    autoFocus
                                     onChange={event => this.handleEditInputChange(event, 'title')}
                                     value={this.state.classroomSelected.title}
                                 />
@@ -141,12 +233,27 @@ class ClassRoomManagement extends Component {
                         )}
                     </DialogContent>
                     <DialogActions className='dialog-footer'>
-                        <Button fullWidth onClick={this.handleUpdateClassRoom} color='primary'>
+                        {this.state.editMode && (
+                        <Button fullWidth onClick={event => this.handleActionClick(event, action.edit)} color='primary'>
                             Save changes
                         </Button>
+                        )}
+                        {!this.state.editMode && (
+                        <Button fullWidth onClick={event => this.handleActionClick(event, action.add)} color='primary'>
+                            Ajouter
+                        </Button>
+                        )}
                     </DialogActions>
                 </Dialog>
             </div>
+                <Snack
+                    show={this.state.showSnack}
+                    duration={5000}
+                    message={'Suppression invalide: cette salle est associee a un ou plusieurs enfants'}
+                    onClose={this.handleCloseSnack}
+                    severity='error'
+                />
+            </>
         )
     }
 }

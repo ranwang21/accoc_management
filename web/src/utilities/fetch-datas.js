@@ -985,8 +985,53 @@ const updateClassRoom = (token, classroom, callBack) => {
             body: JSON.stringify(classroom)
         })
         .then(response => response.json())
-        .then(data => { callBack(data.data) })
+        .then(data => { callBack() })
         .catch()
+}
+
+const addClassRoom = (token, classroom, callBack) => {
+        fetch(HOST + '/classrooms', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(classroom)
+        })
+        .then(response => response.json())
+        .then(data => { callBack() })
+        .catch()
+}
+
+const deleteClassRoom = (token, classroom, callBack) => {
+    fetch(HOST + '/users', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(dataUsers => {
+            if(dataUsers.success === true){
+                const users = dataUsers.data
+                const usersFilter = users.filter(x => x.id_classroom === classroom._id)
+                if(usersFilter.length === 0) {
+                    fetch(HOST + '/classrooms/' + classroom._id, {
+                        method: 'DELETE',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + token
+                        }
+                    })
+                    .then(response => {callBack(true)})
+                } else {
+                    callBack(false)
+                }
+            }
+        })
 }
 
 const getClassRoomsAndCollaborater = (token, callBack) => {
@@ -1102,6 +1147,8 @@ export default {
     },
     classRoom: {
         get: getClassRooms,
-        update: updateClassRoom
+        update: updateClassRoom,
+        add: addClassRoom,
+        delete: deleteClassRoom
     }
 }
