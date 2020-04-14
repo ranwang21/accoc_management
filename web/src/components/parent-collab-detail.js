@@ -104,41 +104,33 @@ class ParentCollabDetail extends Component {
                         <fieldset className='print-to-remove'>
                             <legend>Ses interets</legend>
                             <div>
-                                {both.interest[0] && (
-                                    <div className='row'>
-                                        <p>Collaborer au JM</p>
-                                        <p>{both.interest[0].response === 'true' ? yes : no}</p>
-                                    </div>
-                                )}
-                                {both.interest[1] && (
-                                    <div className='row'>
-                                        <p>Servir la collation</p>
-                                        <p>{both.interest[1].response === 'true' ? yes : no}</p>
-                                    </div>
-                                )}
-                                {both.interest[2] && (
-                                    <div className='row'>
-                                        <p>Animation de jeux - Preparation fetes</p>
-                                        <p>{both.interest[2].response === 'true' ? yes : no}</p>
-                                    </div>
-                                )}
-                                {both.interest[3] && (
-                                    <div className='row'>
-                                        <p>Accompagner les enfants a l'atelier</p>
-                                        <p>{both.interest[3].response === 'true' ? yes : no}</p>
-                                    </div>
-                                )}
-                                {both.interest[4] && (
-                                    <div className='row'>
-                                        <p>Preparer des collations</p>
-                                        <p>{both.interest[4].response === 'true' ? yes : no}</p>
-                                    </div>
-                                )}
-                                {both.interest[5] && (
-                                    <div className='row'>
-                                        <p>Accompagner les enfants sur internet</p>
-                                        <p>{both.interest[5].response === 'true' ? yes : no}</p>
-                                    </div>
+                                {both.interest.length > 0 && (
+                                    <>
+                                        <div className='row'>
+                                            <p>Collaborer au JM</p>
+                                            <p>{both.interest[0].response === 'true' ? yes : no}</p>
+                                        </div>
+                                        <div className='row'>
+                                            <p>Servir la collation</p>
+                                            <p>{both.interest[1].response === 'true' ? yes : no}</p>
+                                        </div>
+                                        <div className='row'>
+                                            <p>Animation de jeux - Preparation fetes</p>
+                                            <p>{both.interest[2].response === 'true' ? yes : no}</p>
+                                        </div>
+                                        <div className='row'>
+                                            <p>Accompagner les enfants a l'atelier</p>
+                                            <p>{both.interest[3].response === 'true' ? yes : no}</p>
+                                        </div>
+                                        <div className='row'>
+                                            <p>Preparer des collations</p>
+                                            <p>{both.interest[4].response === 'true' ? yes : no}</p>
+                                        </div>
+                                        <div className='row'>
+                                            <p>Accompagner les enfants sur internet</p>
+                                            <p>{both.interest[5].response === 'true' ? yes : no}</p>
+                                        </div>
+                                    </>
                                 )}
                             </div>
                         </fieldset>
@@ -148,33 +140,37 @@ class ParentCollabDetail extends Component {
                     <fieldset className='print-to-remove'>
                         <legend>Informations Complementaires{both.roleTitle === variables.role.both && ' en tant que parent'}</legend>
                         <div>
-                            <div className='row'>
-                                <p>Servir la collation pour les enfants</p>
-                                <p>OUI / NON</p>
-                            </div>
-                            <div className='row'>
-                                <p>Organisation des fetes</p>
-                                <p>OUI / NON</p>
-                            </div>
-                            <div className='row'>
-                                <p>Accompagner les enfants lors des activites</p>
-                                <p>OUI / NON</p>
-                            </div>
-                            <div className='max'>
-                                <p>Participation a d'autres activites</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
-                            </div>
+                            {both.involvement.length > 0 && (
+                                <>
+                                    <div className='max'>
+                                        <p>Ses talents</p>
+                                        <p>{both.involvement[0].response}</p>
+                                    </div>
+                                    <div className='row'>
+                                        <p>Servir la collation pour les enfants</p>
+                                        <p>{both.involvement[1].response === 'true' ? yes : no}</p>
+                                    </div>
+                                    <div className='row'>
+                                        <p>Organisation des fetes</p>
+                                        <p>{both.involvement[2].response === 'true' ? yes : no}</p>
+                                    </div>
+                                    <div className='row'>
+                                        <p>Accompagner les enfants lors des activites</p>
+                                        <p>{both.involvement[3].response === 'true' ? yes : no}</p>
+                                    </div>
+                                    <div className='max'>
+                                        <p>Participation a d'autres activites</p>
+                                        <p>{both.involvement[4].response}</p>
+                                    </div>
+                                </>
+                            )}
                             <div className='max'>
                                 <p>Ses attentes</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
+                                <p>{both.expectation}</p>
                             </div>
                             <div className='max'>
                                 <p>Ses besoins</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
-                            </div>
-                            <div className='max'>
-                                <p>Ses talents</p>
-                                <p>texte texte texte texte texte texte texte texte texte</p>
+                                <p>{both.need}</p>
                             </div>
                         </div>
                     </fieldset>
@@ -183,10 +179,6 @@ class ParentCollabDetail extends Component {
                     <fieldset className='print-to-remove'>
                         <legend>Informations Complementaires{both.roleTitle === variables.role.both && ' en tant que collaborateur'}</legend>
                         <div>
-                            <div className='max'>
-                                <p>Motivations</p>
-                                <p>{null}</p>
-                            </div>
                             <div className='max'>
                                 <p>Motivations</p>
                                 <p>{both.motivation}</p>
@@ -200,7 +192,7 @@ class ParentCollabDetail extends Component {
                                 <p>{both.comment}</p>
                             </div>
 
-                            {both.question[3] && (
+                            {both.question.length > 0 && (
                                 <div className='max'>
                                     <p>Ou avoir entendu parler du besoin de collaborateur</p>
                                     <p>{both.question[3].response !== null ? both.question[3].response : 'Indefini'}</p>

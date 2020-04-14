@@ -20,12 +20,10 @@ class TableListContainer extends Component {
         this.state = {
             showDetail: false,
             userSelected: null,
-            allowEditable: false,
             days: []
         }
         this.handleShowDetail = this.handleShowDetail.bind(this)
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
-        this.handleEditMode = this.handleEditMode.bind(this)
         this.handleDeleteUser = this.handleDeleteUser.bind(this)
         this.setDay = this.setDay.bind(this)
     }
@@ -44,13 +42,8 @@ class TableListContainer extends Component {
         const user = this.props.allActors.filter(actor => actor._id === id)
         this.setState({
             showDetail: true,
-            userSelected: user && user[0],
-            allowEditable: false
+            userSelected: user && user[0]
         })
-    }
-
-    handleEditMode () {
-        this.setState({ allowEditable: !this.state.allowEditable })
     }
 
     handleCloseDetail () { this.setState({ showDetail: false }) }
@@ -175,8 +168,7 @@ class TableListContainer extends Component {
         Fetch.user.delete(this.props.cookies.get(variables.cookies.token), this.state.userSelected)
         this.setState({
             showDetail: false,
-            userSelected: null,
-            allowEditable: false
+            userSelected: null
         })
         this.props.onUsersListChange()
     }
@@ -202,10 +194,9 @@ class TableListContainer extends Component {
                             classRooms={this.props.classRooms}
                             collabList={this.props.collabList}
                             parentList={this.props.parentList}
-                            allowEditable={this.state.allowEditable}
-                            onEditMode={this.handleEditMode}
                             onDeleteUser={this.handleDeleteUser}
                             days={this.state.days}
+                            onUsersListChange={this.props.onUsersListChange}
                         />
                     )}
                 </TableContainer>)

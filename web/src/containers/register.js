@@ -13,6 +13,11 @@ import { IconButton, Button, FormControl, InputAdornment, InputLabel, OutlinedIn
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_register.scss'
 
+const variables = require('../utilities/variables').variables
+const passwordIds = require('../utilities/variables').variables.id.registerPassword
+const actorsIds = require('../utilities/variables').variables.id.registerStart.check
+const closeId = require('../utilities/variables').variables.id.loginRegister.showLogin
+
 const types = {
     text: 'textField',
     radio: 'radioField',
@@ -25,6 +30,7 @@ const types = {
     textAreaField: 'textAreaField',
     phoneField: 'phoneField'
 }
+
 const registerAction = {
     withPassword: 'EUJDHFNC',
     withoutPassword: 'UYGDFCVFBC'
@@ -32,29 +38,29 @@ const registerAction = {
 
 const childState = {
     fields:{
-        sex: null,
-        last_name: null,
-        first_name: null,
+        sex: 'female',
+        last_name: 'Trudeau',
+        first_name: 'Aurélie',
         birthday: null,
         garde: null,
         gardeParentOption: null,
         gardeOtherOption: null,
 
-        school: null,
-        schoolLevel: null,
-        adlRegister: false,
-        lastRedoubleLevel: null,
-        registerReason: null,
-        evaluation: false,
+        school: 'Bruschési',
+        schoolLevel: 'Secondaire3',
+        adlRegister: true,
+        lastRedoubleLevel: 'Primaire5',
+        registerReason: "Raison de l'inscrpition",
+        evaluation: true,
         daycareServiceYesName: null,
         daycareServiceYesPhone: null,
 
         expiration: null,
-        allergies: null,
+        allergies: 'Cannelle',
         drug: null,
-        othersInfos: null,
+        othersInfos: 'Other Informations',
 
-        autorisationPapper: false,
+        autorisationPapper: true,
         autorisationInternet: false
     },
     errors:{
@@ -113,29 +119,24 @@ const collabState = {
     }
 }
 
-const variables = require('../utilities/variables').variables
-const passwordIds = require('../utilities/variables').variables.id.registerPassword
-const actorsIds = require('../utilities/variables').variables.id.registerStart.check
-const closeId = require('../utilities/variables').variables.id.loginRegister.showLogin
-
 const initialiseState = {
     informationsCoordonnees: {
         fields: {
             sex: 'male',
 
-            email: 'imoneparent@gmail.com',
+            email: 'claude@gmail.com',
             address: '5217 Av. Trans-Island',
             //birthday: null,
             birthday: new Date('1975-10-06'),
-            last_name: 'Toihoun',
-            first_name: 'Derrick',
+            last_name: 'Rocher',
+            first_name: 'Claude',
 
             contacts_personal: '(514) 820-5545',
-            contacts_work: null,
-            contacts_home: '(514) 363-7840',
+            contacts_work: '(514) 363-7840',
+            contacts_home: null,
             contacts_emergency: null,
 
-            has_child: false,
+            has_child: true,
             is_subscribed: false,
 
             membership: null,
@@ -671,9 +672,9 @@ class RegisterContainer extends Component {
                     user.need = fields.needsVar,
 
                     user.involvement[0].response = fields.talents,
-                    user.involvement[1].response = fields.snacks,
-                    user.involvement[2].response = fields.organization,
-                    user.involvement[3].response = fields.support,
+                    user.involvement[1].response = fields.snacks ? 'true' : 'false',
+                    user.involvement[2].response = fields.organization ? 'true' : 'false',
+                    user.involvement[3].response = fields.support ? 'true' : 'false',
                     user.involvement[4].response = fields.otherInvolvement
                 }
                 if(roleTitle === 'collaborater' || roleTitle === 'collab_parent') {
@@ -780,7 +781,6 @@ class RegisterContainer extends Component {
     render () {
         const lang = this.getLangFile()
         const max = this.getMaxStep()
-        console.log(this.state.childrenInscription.fields)
         return (
             <div className={this.state.successRegister ? 'register-container registered' : 'register-container'}>
                 {this.props.onShowLoginForm !== null && (

@@ -5,6 +5,7 @@ import { Button, DialogTitle, DialogContent, Dialog, DialogActions, IconButton, 
 import PrintIcon from '@material-ui/icons/Print'
 import EditIcon from '@material-ui/icons/EditOutlined'
 import SaveIcon from '@material-ui/icons/SaveAltOutlined'
+import CancelIcon from '@material-ui/icons/Cancel'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { withCookies } from 'react-cookie'
 import ChildDetail from './child-detail'
@@ -21,6 +22,13 @@ const getAgeLimit = (age) => {
     const date = new Date()
     return new Date((date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate())
 }
+const action = {
+    edit: '1',
+    cancel: '2',
+    save: '3',
+    delete: '4'
+}
+
 class DetailUser extends Component {
     constructor () {
         super()
@@ -29,6 +37,7 @@ class DetailUser extends Component {
             fileUploadedError: false,
             showLoading: false,
             showEditLoading: false,
+            allowEditable: false,
             userEdited: {}
         }
         this.divToPrint = React.createRef()
@@ -36,12 +45,18 @@ class DetailUser extends Component {
         this.handleImageChange = this.handleImageChange.bind(this)
         this.setImage = this.setImage.bind(this)
         this.updateImage = this.updateImage.bind(this)
-        this.handleEditClick = this.handleEditClick.bind(this)
+        this.handleBtnClick = this.handleBtnClick.bind(this)
         this.onEditFieldsChange = this.onEditFieldsChange.bind(this)
+        this.userEdited = this.userEdited.bind(this)
     }
 
     componentDidMount () {
-        this.setState({ userEdited: this.props.userSelected })
+        console.log('detail')
+        this.setState({
+            userEdited: {
+                ...variables.templateUser
+            }
+        })
     }
 
     onEditFieldsChange (event, value, name, subName) {
@@ -81,11 +96,36 @@ class DetailUser extends Component {
         Fetch.image.update(this.props.cookies.get(variables.cookies.token), this.props.userSelected, event.target.files, this.setImage)
     }
 
-    handleEditClick () {
-        this.props.onEditMode()
-        if (this.props.allowEditable) {
-            this.setState({ showEditLoading: true })
-            console.log('SAVE EDIT')
+    handleBtnClick (event, btnAction) {
+        if (btnAction === action.edit || btnAction === action.delete) {
+            if (btnAction === action.delete) {
+                this.props.onDeleteUser()
+            } else {
+                this.setState({ allowEditable: true })
+            }
+        }
+
+        if (btnAction === action.save || btnAction === action.cancel) {
+            if (btnAction === action.save) {
+                this.setState({ showEditLoading: true })
+
+                console.log(this.state.userSelected)
+                console.log(this.state.userEdited)
+                console.log('SAVE EDIT')
+                Fetch.user.update(this.props.cookies.get(variables.cookies.token), this.state.userEdited, this.userEdited)
+            } else {
+                console.log(this.props.userSelected)
+                console.log(this.state.userEdited)
+                this.setState({ allowEditable: false, showEditLoading: false })
+            }
+        }
+    }
+
+    userEdited (data) {
+        console.log(data)
+        if (data.success) {
+            this.props.onUsersListChange()
+            this.setState({ allowEditable: false, showEditLoading: false })
         }
     }
 
@@ -104,6 +144,7 @@ class DetailUser extends Component {
                 aria-describedby='scroll-dialog-description'
                 maxWidth='md'
                 fullWidth
+                disableBackdropClick={this.state.allowEditable}
             >
                 <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations {this.state.allowEditable && '(Modification en cour)'}</DialogTitle>
                 <DialogContent id='details-print' className='div-dialog' ref={el => (this.divToPrint = el)}>
@@ -158,7 +199,7 @@ class DetailUser extends Component {
                             )}
                         </div>
                         <div className='details'>
-                            {this.props.allowEditable && (
+                            {this.state.allowEditable && (
                                 <div className='first'>
                                     <div>
                                         <TextField
@@ -188,7 +229,7 @@ class DetailUser extends Component {
                                                 label='Birthday'
                                                 minDate={getAgeLimit(30)}
                                                 maxDate={getAgeLimit(5)}
-                                                value={this.state.userEdited.birthday !== null ? this.state.userEdited.birthday : new Date()}
+                                                value={this.state.userEdited.birthday !== null ? this.state.userEdited.birthday : getAgeLimit(30)}
                                                 onChange={event => this.onEditFieldsChange(event, event._d, 'birthday', null)}
                                             />
                                         </MuiPickersUtilsProvider>
@@ -202,7 +243,7 @@ class DetailUser extends Component {
                                     classRooms={this.props.classRooms}
                                     collaboraters={this.props.collabList}
                                     parents={this.props.parentList}
-                                    editable={this.props.allowEditable}
+                                    editable={this.state.allowEditable}
                                     userEdited={this.state.userEdited}
                                     handleEditChange={this.onEditFieldsChange}
                                 />
@@ -211,7 +252,7 @@ class DetailUser extends Component {
                                 <ParentCollabDetail
                                     lang={this.props.lang}
                                     both={user}
-                                    editable={this.props.allowEditable}
+                                    editable={this.state.allowEditable}
                                     days={this.props.days}
                                 />
                             )}
@@ -227,28 +268,53 @@ class DetailUser extends Component {
                 </DialogContent>
                 <DialogActions className='dialog-footer'>
                     <div>
-                        {(user.roleTitle !== variables.role.admin) && (
+                        {this.state.allowEditable && (
                         <>
                             <Button
-                                onClick={this.handleEditClick}
+                                onClick={event => this.handleBtnClick(event, action.cancel)}
                                 variant='contained'
                                 color='secondary'
                                 className='btn-edit'
-                                startIcon={this.props.allowEditable ? <SaveIcon /> : <EditIcon />}
+                                startIcon={<CancelIcon />}
                             >
-                                {this.props.allowEditable ? 'Save ' : 'Edit '} Profil
+                                Annuler
+                            </Button>
+                            <Button
+                                onClick={event => this.handleBtnClick(event, action.save)}
+                                variant='contained'
+                                color='secondary'
+                                className='btn-save'
+                                startIcon={<SaveIcon />}
+                            >
+                                Enregistrer
                             </Button>
                         </>
                         )}
-                        <Button
-                            onClick={this.props.onDeleteUser}
-                            variant='contained'
-                            color='secondary'
-                            className='btn-delete'
-                            startIcon={<DeleteIcon />}
-                        >
-                            Delete Actor
-                        </Button>
+
+                        {!this.state.allowEditable && (
+                        <>
+                            {(user.roleTitle !== variables.role.admin) && (
+                                <Button
+                                    onClick={event => this.handleBtnClick(event, action.edit)}
+                                    variant='contained'
+                                    color='secondary'
+                                    className='btn-edit'
+                                    startIcon={<EditIcon />}
+                                >
+                                    Edit
+                                </Button>
+                            )}
+                            <Button
+                                onClick={event => this.handleBtnClick(event, action.delete)}
+                                variant='contained'
+                                color='secondary'
+                                className='btn-delete'
+                                startIcon={<DeleteIcon />}
+                            >
+                                Delete
+                            </Button>
+                        </>
+                        )}
                     </div>
 
                     <div>
