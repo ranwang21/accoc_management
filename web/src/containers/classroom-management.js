@@ -25,7 +25,6 @@ class ClassRoomManagement extends Component {
     }
 
     setClassRoom (data) {
-        console.log(data)
         this.setState({ classRooms: data })
     }
 
