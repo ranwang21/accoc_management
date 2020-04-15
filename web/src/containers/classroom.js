@@ -1,12 +1,26 @@
 import React, { Component } from 'react'
 import Snack from '../components/snack'
 import Fetch from '../utilities/fetch-datas'
-import { Button, Dialog, DialogTitle, DialogContent, Typography, DialogActions, TextField, FormControl, InputLabel, Input, List, Avatar, ListItemText, ListItemAvatar, ListItem } from '@material-ui/core'
+import {
+    Button, Dialog,
+    DialogTitle,
+    DialogContent,
+    Typography,
+    DialogActions,
+    TextField,
+    FormControl,
+    InputLabel,
+    Input,
+    List,
+    Avatar,
+    ListItemText,
+    ListItemAvatar,
+    ListItem } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/EditOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PersonIcon from '@material-ui/icons/Person'
 import { withCookies } from 'react-cookie'
-import '../styles/_classroom-management.scss'
+import '../styles/_classroom.scss'
 import PhoneMask from '../components/forms/builds'
 
 const variables = require('../utilities/variables').variables
@@ -23,7 +37,9 @@ const emptyClassroom = {
     seat: '',
     phone: ''
 }
+
 class ClassRoomManagement extends Component {
+
     constructor () {
         super()
         this.state = {
@@ -67,8 +83,7 @@ class ClassRoomManagement extends Component {
         this.fecthClassroom()
     }
 
-    getLangFile () { return require('../lang/' + this.props.lang + '/classroom-management.json') }
-
+    getLangFile () { return require('../lang/' + this.props.lang + '/classroom.json') }
 
     handleEditClick (event, classroom, btnAction) {
         if(!(this.state.classroomSelected !== null && classroom._id === this.state.classroomSelected._id)){
@@ -177,7 +192,7 @@ class ClassRoomManagement extends Component {
         const lang = this.getLangFile()
         return (
             <>
-            <div className='classroom-management'>
+            <div className='classroom'>
                 <Button variant='contained' className='btn-add-classroom' onClick={this.handleAddClick} color='primary'>
                     Ajouter une nouvelle salle
                 </Button>
@@ -248,7 +263,6 @@ class ClassRoomManagement extends Component {
                         )}
                     </DialogActions>
                 </Dialog>
-
 
                 <Dialog
                     className='dialog'

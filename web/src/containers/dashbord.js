@@ -10,7 +10,7 @@ import SideMenu from '../components/side-menu'
 import Historical from './historical'
 import CreateAccount from '../components/create-account'
 import ScheduleManagement from '../components/schedule-management'
-import ClassroomManagement from './classroom-management'
+import Classroom from './classroom'
 import Profile from '../components/profile'
 import Schedule from '../components/schedule'
 import Print from '../components/print'
@@ -226,7 +226,7 @@ class Dashbord extends Component {
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
-            return (<ClassroomManagement lang={lang} />)
+            return (<Classroom lang={lang} />)
         case variables.menus.scheduleManagement:
             return (<ScheduleManagement lang={lang} />)
         case variables.menus.historical:

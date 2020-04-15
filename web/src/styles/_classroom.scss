@@ -1,6 +1,6 @@
 @import "./base";
 
-.classroom-management {
+.classroom {
     //background-color: rgba($color: rgb(255, 255, 255), $alpha: 0.6);
     border-radius: 0.5em;
     overflow: hidden;
@@ -117,7 +117,7 @@
 }
 
 @include responsive(phone) {
-    .classroom-management {
+    .classroom {
         height: 65em;
         > div {
             > div {
@@ -134,7 +134,7 @@
     }
 }
 @include responsive(tablet) {
-    .classroom-management {
+    .classroom {
         > div {
             > div {
                 height: 20em;
