@@ -72,8 +72,8 @@ public class Historiques extends Fragment {
         }
         for (Schedule s : schedules) {
             User u = UserManager.getById(getContext(), s.getId_user());
-            if (u != null ) {
-                Log.d("Json", "name " + u.getFirst_name()+ " date " + s.getDate() + " classroom " + s.getId_classroom());
+            if (u != null) {
+                Log.d("Json", "name " + u.getFirst_name() + " date " + s.getDate() + " classroom " + s.getId_classroom());
                 users.add(u);
             }
         }

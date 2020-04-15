@@ -32,7 +32,6 @@ public class ProfilCollabActivity extends AppCompatActivity {
     ImageView image_collaborateur;
     Uri filePath;
     Bitmap bitmap;
-    public static final String UPLOAD_URL = "http://maison-aurore-api.herokuapp.com/uploads/no-photo-male.png";
     private int TAKE_PICTURE_FROM_CAMERA = 1;
     private int PICK_IMAGE_REQUEST = 2;
     @Override
