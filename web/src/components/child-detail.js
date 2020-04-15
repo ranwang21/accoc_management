@@ -1,18 +1,10 @@
-import moment from 'moment'
 import React, { Component } from 'react'
-import { Button, FormControl, InputLabel, Select, MenuItem, TextField, FormControlLabel, Checkbox, ListSubheader, TextareaAutosize } from '@material-ui/core'
+import { FormControl, InputLabel, Select, MenuItem, TextField, FormControlLabel, Checkbox, TextareaAutosize, ListSubheader } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
 import { Autocomplete } from '@material-ui/lab'
 import Fetch from '../utilities/fetch-datas'
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
-import MomentUtils from '@date-io/moment'
 
 const variables = require('../utilities/variables').variables
-
-const getAgeLimit = (age) => {
-    const date = new Date()
-    return new Date((date.getFullYear() - age) + '-' + (date.getMonth() + 1) + '-' + date.getDate())
-}
 
 class ChildDetail extends Component {
     constructor () {
@@ -22,6 +14,8 @@ class ChildDetail extends Component {
             showUpdateBtn: false
         }
     }
+
+    getLangFile () { return require('../lang/' + this.props.lang + '/child-detail.json') }
 
     getClassRoom (child) {
         let retour = 'Indefini'
@@ -62,51 +56,16 @@ class ChildDetail extends Component {
     }
 
     render () {
+        const lang = this.getLangFile()
         const currentUserRole = this.getCurrentUserRole()
         const child = this.props.child
         const childParents = this.getParents()
         const edit = this.props.editable
         const classRooms = (this.props.classRooms && this.props.classRooms !== null) ? this.props.classRooms : []
         const collaboraters = (this.props.collaboraters && this.props.collaboraters !== null) ? this.props.collaboraters : []
-        const collab = this.getClassRoom(child)
+        const valueClassroom = classRooms.filter(x => x._id === this.props.userEdited.id_classroom)[0]
         return (
             <div className='child-detail'>
-                {edit && (
-                    <div>
-                        <div>
-                            <TextField
-                                type='text'
-                                color='primary'
-                                variant='filled'
-                                onChange={event => this.props.handleEditChange(event, event.target.value, 'last_name', null)}
-                                value={this.props.userEdited.last_name !== null ? this.props.userEdited.last_name : ''}
-                            />
-                            <TextField
-                                type='text'
-                                color='primary'
-                                variant='filled'
-                                onChange={event => this.props.handleEditChange(event, event.target.value, 'first_name', null)}
-                                value={this.props.userEdited.first_name !== null ? this.props.userEdited.first_name : ''}
-                            />
-
-                            <MuiPickersUtilsProvider
-                                libInstance={moment} utils={MomentUtils}
-                                locale={this.props.lang}
-                            >
-                                <DatePicker
-                                    format='DD MMMM YYYY'
-                                    openTo='year'
-                                    views={['year', 'month', 'date']}
-                                    label='Birthday'
-                                    minDate={getAgeLimit(30)}
-                                    maxDate={getAgeLimit(5)}
-                                    value={this.props.userEdited.birthday !== null ? this.props.userEdited.birthday : new Date()}
-                                    onChange={event => this.props.handleEditChange(event, event._d, 'birthday', null)}
-                                />
-                            </MuiPickersUtilsProvider>
-                        </div>
-                    </div>
-                )}
                 <div>
                     <div>
                         <p className='text'>{this.getClassRoom(child)}</p>
@@ -114,7 +73,7 @@ class ChildDetail extends Component {
                             <FormControl className='select print-to-remove' variant='filled'>
                                 <InputLabel color='primary'>SALLES</InputLabel>
                                 <Select
-                                    value={this.state.classRoomSelected === null ? '' : this.state.classRoomSelected}
+                                    value={valueClassroom || ''}
                                     onChange={event => this.props.handleEditChange(event, event.target.value._id, 'id_classroom', null)}
                                 >
                                     <MenuItem value='' disabled>
@@ -126,7 +85,7 @@ class ChildDetail extends Component {
                                 </Select>
                             </FormControl>
                         )}
-                        <p className='text'>{collab}</p>
+                        <p className='text'>{this.getCollaborater()}</p>
                         {(edit && (currentUserRole === 'super_admin' || currentUserRole === 'admin')) && (
                             <Autocomplete
                                 className='select  print-to-remove'
@@ -159,26 +118,25 @@ class ChildDetail extends Component {
                             <p>Niveau</p>
                             {(edit && (currentUserRole === 'super_admin' || currentUserRole === 'admin'))
                                 ? (
-                                    <FormControl variant='filled'>
+                                    <FormControl variant='filled' className='select-detail'>
+                                        <InputLabel>{lang.schoolLevel.label}</InputLabel>
                                         <Select
                                             value={this.props.userEdited.school_info[0].level === null ? '' : this.props.userEdited.school_info[0].level}
                                             onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'level')}
                                         >
                                             <MenuItem value='' disabled>
-                                                <em>Niveau Scolaire</em>
+                                                <em>{lang.schoolLevel.label}</em>
                                             </MenuItem>
-                                            <MenuItem value='Primaire1er'>Primaire 1er</MenuItem>
-                                            <MenuItem value='Primaire2e'>Primaire 2e</MenuItem>
-                                            <MenuItem value='Primaire3e'>Primaire 3e</MenuItem>
-                                            <MenuItem value='Primaire4e'>Primaire 4e</MenuItem>
-                                            <MenuItem value='Primaire5e'>Primaire 5e</MenuItem>
-                                            <MenuItem value='Primaire6e'>Primaire 6e</MenuItem>
-                                            <MenuItem value='SecondaireI'>Secondaire I</MenuItem>
-                                            <MenuItem value='SecondaireII'>Secondaire II</MenuItem>
-                                            <MenuItem value='SecondaireIII'>Secondaire III</MenuItem>
-                                            <MenuItem value='SecondaireIV'>Secondaire IV</MenuItem>
-                                            <MenuItem value='SecondaireV'>Secondaire V</MenuItem>
 
+                                            <ListSubheader>{lang.schoolLevel.level[0].label}</ListSubheader>
+                                            {lang.schoolLevel.level[0].options.map(option => (
+                                                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+                                            ))}
+
+                                            <ListSubheader>{lang.schoolLevel.level[1].label}</ListSubheader>
+                                            {lang.schoolLevel.level[1].options.map(option => (
+                                                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+                                            ))}
                                         </Select>
                                     </FormControl>
                                 )
@@ -203,27 +161,25 @@ class ChildDetail extends Component {
                         <div className='row'>
                             <p>Derniere annee reprise (redouble)</p>
                             {edit ? (
-                                <FormControl variant='filled'>
+                                <FormControl variant='filled' className='select-detail'>
+                                    <InputLabel>{lang.schoolLevel.label}</InputLabel>
                                     <Select
-                                        fullWidth
                                         value={this.props.userEdited.school_info[0].redouble === null ? '' : this.props.userEdited.school_info[0].redouble}
                                         onChange={(event) => this.props.handleEditChange(event, event.target.value, 'school_info', 'redouble')}
                                     >
                                         <MenuItem value='' disabled>
-                                            <em>Niveau Scolaire</em>
+                                            <em>{lang.schoolLevel.label}</em>
                                         </MenuItem>
-                                        <MenuItem value='Primaire1er'>Primaire 1er</MenuItem>
-                                        <MenuItem value='Primaire2e'>Primaire 2e</MenuItem>
-                                        <MenuItem value='Primaire3e'>Primaire 3e</MenuItem>
-                                        <MenuItem value='Primaire4e'>Primaire 4e</MenuItem>
-                                        <MenuItem value='Primaire5e'>Primaire 5e</MenuItem>
-                                        <MenuItem value='Primaire6e'>Primaire 6e</MenuItem>
-                                        <MenuItem value='SecondaireI'>Secondaire I</MenuItem>
-                                        <MenuItem value='SecondaireII'>Secondaire II</MenuItem>
-                                        <MenuItem value='SecondaireIII'>Secondaire III</MenuItem>
-                                        <MenuItem value='SecondaireIV'>Secondaire IV</MenuItem>
-                                        <MenuItem value='SecondaireV'>Secondaire V</MenuItem>
 
+                                        <ListSubheader>{lang.schoolLevel.level[0].label}</ListSubheader>
+                                        {lang.schoolLevel.level[0].options.map(option => (
+                                            <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+                                        ))}
+
+                                        <ListSubheader>{lang.schoolLevel.level[1].label}</ListSubheader>
+                                        {lang.schoolLevel.level[1].options.map(option => (
+                                            <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+                                        ))}
                                     </Select>
                                 </FormControl>
                             ) : (
@@ -330,7 +286,7 @@ class ChildDetail extends Component {
                                 <TextareaAutosize
                                     className='textarea'
                                     rowsMin={2}
-                                    onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'alleriges')}
+                                    onChange={(event) => this.props.handleEditChange(event, event.target.value, 'medical_info', 'allergies')}
                                     value={this.props.userEdited.medical_info[0].allergies !== null ? this.props.userEdited.medical_info[0].allergies : ''}
                                 />
                             ) : (
@@ -374,7 +330,7 @@ class ChildDetail extends Component {
                                 <FormControlLabel control={
                                     <Checkbox
                                         onChange={(event) => this.props.handleEditChange(event, event.target.checked, 'authorization', 'paper')}
-                                        value={!!this.props.userEdited.authorization[0].paper}
+                                        checked={this.props.userEdited.authorization[0].paper}
                                     />
                                 }
                                 />
@@ -388,7 +344,7 @@ class ChildDetail extends Component {
                                 <FormControlLabel control={
                                     <Checkbox
                                         onChange={(event) => this.props.handleEditChange(event, event.target.checked, 'authorization', 'internet')}
-                                        value={!!this.props.userEdited.authorization[0].internet}
+                                        checked={this.props.userEdited.authorization[0].internet}
                                     />
                                 }
                                 />

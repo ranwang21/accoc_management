@@ -3,6 +3,7 @@ const { protect, authorize } = require('../middlewares/auth')
 const {
   getLogins,
   getLogin,
+  getLoginByEmail,
   createLogin,
   updateLoginStatus,
   deleteLogin
@@ -28,5 +29,7 @@ router
   .get(protect, getLogin)
   .put(protect, authorize('admin', 'super_admin'), updateLoginStatus)
   .delete(protect, authorize('admin', 'super_admin'), deleteLogin)
+
+router.route('/search/:email').get(getLoginByEmail)
 
 module.exports = router

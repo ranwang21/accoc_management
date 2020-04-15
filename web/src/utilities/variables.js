@@ -1,5 +1,11 @@
 'use strict'
 const variables = {
+    days: {
+        lundi: 'lundi',
+        mardi: 'mardi',
+        mercredi: 'mercredi',
+        jeudi: 'jeudi'
+    },
     role: {
         highAdmin: 'super_admin',
         admin: 'admin',
@@ -203,19 +209,19 @@ const variables = {
             },
             {
                 question: 'snacks',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'organization',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'support',
-                response: 'YES/NO'
+                response: null
             },
             {
                 question: 'otherInvolvement',
-                response: 'Response here'
+                response: null
             }
         ],
         comment: null,

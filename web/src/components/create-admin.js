@@ -117,8 +117,8 @@ class CreateAdmin extends Component {
         this.setState({ loading: true })
         if(!this.checkValidation()){
             const fields = this.state.fields
-            fields.firstName = fields.firstName !== null ? fields.firstName.toCapitalize() : fields.firstName
-            fields.lastName = fields.lastName !== null ? fields.lastName.toCapitalize() : fields.lastName
+            fields.firstName = fields.firstName !== null ? fields.firstName : fields.firstName
+            fields.lastName = fields.lastName !== null ? fields.lastName.toUpperCase() : fields.lastName
 
             const idRole = this.props.roles.filter(x => x.title === 'admin')[0]._id
 
@@ -142,13 +142,6 @@ class CreateAdmin extends Component {
                 is_active: fields.validation,
                 token: this.props.cookies.get(variables.cookies.token)
             }
-            /*
-            templateUser.id_role = idRole
-            templateUser.first_name = fields.firstName
-            templateUser.last_name = fields.lastName
-            templateUser.contact[0].personal = fields.contactPersonal
-            templateUser.contact[0].work = fields.contactWork*/
-            //Fetch.registerSaveUser(templateUser, userLogin, this.savedUser)
             Fetch.addUser(user, this.savedUser)
         } else {
             this.setState({ loading: false })
@@ -158,8 +151,7 @@ class CreateAdmin extends Component {
     savedUser (data) {
         if(data){
             this.setState({ loading: false, showSnack: true })
-            this.props.updateUsers()
-            this.props.onGetBack()
+            this.props.onGetBack('register')
         }
     }
 

@@ -150,6 +150,7 @@ const addUser = (params, callBack) => {
 }
 
 const registerSaveUser = (user, userLogin, callBack) => {
+    console.log(user)
     fetch(HOST + '/users', {
         method: 'post',
         headers: {
@@ -163,6 +164,7 @@ const registerSaveUser = (user, userLogin, callBack) => {
             if (data1.success) {
                 console.log(data1)
                 userLogin.id_user = data1.data._id
+                console.log(userLogin)
 
                 fetch(HOST + '/logins', {
                     method: 'post',
@@ -257,6 +259,34 @@ const getAddressFromGoogle = () => {
         })
 }
 
+const getUser = (token, id, callBack) => {
+    fetch(HOST + '/users/' + id, {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            const templateUser = require('./variables').variables.templateUser
+            const userTemplate = {
+                ...templateUser,
+                ...data.data
+            }
+            userTemplate.medical_info = (userTemplate.medical_info.length === 0) ? templateUser.medical_info : userTemplate.medical_info
+            userTemplate.school_info = (userTemplate.school_info.length === 0) ? templateUser.school_info : userTemplate.school_info
+            userTemplate.authorization = (userTemplate.authorization.length === 0) ? templateUser.authorization : userTemplate.authorization
+            userTemplate.interest = (userTemplate.interest.length === 0) ? templateUser.interest : userTemplate.interest
+            userTemplate.question = (userTemplate.question.length === 0) ? templateUser.question : userTemplate.question
+            userTemplate.involvement = (userTemplate.involvement.length === 0) ? templateUser.involvement : userTemplate.involvement
+            userTemplate.membership = (userTemplate.membership.length === 0) ? templateUser.membership : userTemplate.membership
+            userTemplate.contact = (userTemplate.contact.length === 0) ? templateUser.contact : userTemplate.contact
+
+            callBack(userTemplate)
+        })
+}
+
 const getAllUsers = (token, callBack) => {
     fetch(HOST + '/roles', {
         headers: {
@@ -293,6 +323,14 @@ const getAllUsers = (token, callBack) => {
                                     ...templateUser,
                                     ...user
                                 }
+                                userTemplate.medical_info = (userTemplate.medical_info.length === 0) ? templateUser.medical_info : userTemplate.medical_info
+                                userTemplate.school_info = (userTemplate.school_info.length === 0) ? templateUser.school_info : userTemplate.school_info
+                                userTemplate.authorization = (userTemplate.authorization.length === 0) ? templateUser.authorization : userTemplate.authorization
+                                userTemplate.interest = (userTemplate.interest.length === 0) ? templateUser.interest : userTemplate.interest
+                                userTemplate.question = (userTemplate.question.length === 0) ? templateUser.question : userTemplate.question
+                                userTemplate.involvement = (userTemplate.involvement.length === 0) ? templateUser.involvement : userTemplate.involvement
+                                userTemplate.membership = (userTemplate.membership.length === 0) ? templateUser.membership : userTemplate.membership
+                                userTemplate.contact = (userTemplate.contact.length === 0) ? templateUser.contact : userTemplate.contact
 
                                 const login = dataLogins.data.filter(dl => dl.id_user === userTemplate._id)
                                 const role = dataRoles.data.filter(dr => dr._id === userTemplate.id_role)
@@ -309,13 +347,11 @@ const getAllUsers = (token, callBack) => {
                                 })
                                     .then(response => response.json())
                                     .then(dataImage => {
-                                        if(dataImage.success){
-                                            img = dataImage.data
-                                            userTemplate.img = img
-                                            userTemplate.id_classroom = userTemplate.id_classroom === null ? '12345' : userTemplate.id_classroom
-                                            userTemplate.roleTitle = role[0].title
-                                            dataUsers.push(userTemplate)
-                                        }
+                                        userTemplate.img = dataImage.success ? dataImage.data : ''
+                                        userTemplate.id_classroom = userTemplate.id_classroom === null ? '12345' : userTemplate.id_classroom
+                                        userTemplate.roleTitle = role[0].title
+                                        dataUsers.push(userTemplate)
+
                                         callBack(dataUsers)
                                     })
                             }
@@ -844,8 +880,6 @@ const deleteAllUser = (token) => {
                         Authorization: 'Bearer ' + token
                     }
                 })
-                .then(response => response.json())
-                .then(data2 => {})
             }
         })
 
@@ -869,8 +903,6 @@ const deleteAllUser = (token) => {
                                     Authorization: 'Bearer ' + token
                                 }
                             })
-                            .then(response => response.json())
-                            .then(data2 => {})
                         }
                     }
                 })
@@ -942,6 +974,66 @@ const getClassRooms = (token, callBack) => {
         })
 }
 
+const updateClassRoom = (token, classroom, callBack) => {
+        fetch(HOST + '/classrooms/'+ classroom._id, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(classroom)
+        })
+        .then(response => response.json())
+        .then(data => { callBack() })
+        .catch()
+}
+
+const addClassRoom = (token, classroom, callBack) => {
+        fetch(HOST + '/classrooms', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(classroom)
+        })
+        .then(response => response.json())
+        .then(data => { callBack() })
+        .catch()
+}
+
+const deleteClassRoom = (token, classroom, callBack) => {
+    fetch(HOST + '/users', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(dataUsers => {
+            if(dataUsers.success === true){
+                const users = dataUsers.data
+                const usersFilter = users.filter(x => x.id_classroom === classroom._id)
+                if(usersFilter.length === 0) {
+                    fetch(HOST + '/classrooms/' + classroom._id, {
+                        method: 'DELETE',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + token
+                        }
+                    })
+                    .then(response => {callBack(true)})
+                } else {
+                    callBack(false)
+                }
+            }
+        })
+}
+
 const getClassRoomsAndCollaborater = (token, callBack) => {
     fetch(HOST + '/classrooms', {
         headers: {
@@ -993,6 +1085,27 @@ const getAllSchedules = (token, callBack) => {
     })
 }
 
+const deleteUser = (token, user) => {
+    fetch(HOST + '/logins/' + user.idLogin, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+
+    fetch(HOST + '/users/' + user._id, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
+
 export default {
     encodeData,
     decodeData,
@@ -1013,7 +1126,9 @@ export default {
     updateUserValidities,
     getAllSchedules,
     user: {
-        update: updateUser
+        get: getUser,
+        update: updateUser,
+        delete: deleteUser
     },
     login: {
         checkIfExist: checkIfEmailExist,
@@ -1031,6 +1146,9 @@ export default {
         update: updateUserImage
     },
     classRoom: {
-        get: getClassRooms
+        get: getClassRooms,
+        update: updateClassRoom,
+        add: addClassRoom,
+        delete: deleteClassRoom
     }
 }

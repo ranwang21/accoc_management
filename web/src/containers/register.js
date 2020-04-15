@@ -13,6 +13,11 @@ import { IconButton, Button, FormControl, InputAdornment, InputLabel, OutlinedIn
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_register.scss'
 
+const variables = require('../utilities/variables').variables
+const passwordIds = require('../utilities/variables').variables.id.registerPassword
+const actorsIds = require('../utilities/variables').variables.id.registerStart.check
+const closeId = require('../utilities/variables').variables.id.loginRegister.showLogin
+
 const types = {
     text: 'textField',
     radio: 'radioField',
@@ -25,6 +30,7 @@ const types = {
     textAreaField: 'textAreaField',
     phoneField: 'phoneField'
 }
+
 const registerAction = {
     withPassword: 'EUJDHFNC',
     withoutPassword: 'UYGDFCVFBC'
@@ -32,29 +38,29 @@ const registerAction = {
 
 const childState = {
     fields:{
-        sex: null,
-        last_name: null,
-        first_name: null,
+        sex: 'female',
+        last_name: 'Trudeau',
+        first_name: 'Aurélie',
         birthday: null,
         garde: null,
         gardeParentOption: null,
         gardeOtherOption: null,
 
-        school: null,
-        schoolLevel: null,
-        adlRegister: false,
-        lastRedoubleLevel: null,
-        registerReason: null,
-        evaluation: false,
+        school: 'Bruschési',
+        schoolLevel: 'Secondaire3',
+        adlRegister: true,
+        lastRedoubleLevel: 'Primaire5',
+        registerReason: "Raison de l'inscrpition",
+        evaluation: true,
         daycareServiceYesName: null,
         daycareServiceYesPhone: null,
 
         expiration: null,
-        allergies: null,
+        allergies: 'Cannelle',
         drug: null,
-        othersInfos: null,
+        othersInfos: 'Other Informations',
 
-        autorisationPapper: false,
+        autorisationPapper: true,
         autorisationInternet: false
     },
     errors:{
@@ -70,32 +76,67 @@ const childState = {
     }
 }
 
-const variables = require('../utilities/variables').variables
-const passwordIds = require('../utilities/variables').variables.id.registerPassword
-const actorsIds = require('../utilities/variables').variables.id.registerStart.check
-const closeId = require('../utilities/variables').variables.id.loginRegister.showLogin
+const parentState = {
+    fields: {
+        expectationsVar: null,
+        needsVar: null,
+        talents: null,
+        snacks: false,
+        organization: false,
+        support: false,
+        otherInvolvement: null
+    },
+    errors: {
+        expectationsVar: false
+    }
+}
+
+const collabState = {
+    fields: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        magicJournal: false,
+        serveSnack: false,
+        animationPreparation: false,
+        accompanyWorkshop: false,
+        prepareSnack: false,
+        accompanyInternet: false,
+
+        comment: 'Mon commentaire',
+        experience: 'Mes experiences',
+        motivation: 'Mes motivations',
+        heard: 'Heard',
+
+        availability: null
+    },
+    errors: {
+        availability: false,
+        interest: false,
+        motivation: false,
+        experience: false
+    }
+}
+
 const initialiseState = {
-    step: 1,
-    nbrChild: 0,
-    showPrev: false,
-    showNext: true,
     informationsCoordonnees: {
         fields: {
             sex: 'male',
 
-            email: 'imoneparent@gmail.com',
+            email: 'claude@gmail.com',
             address: '5217 Av. Trans-Island',
             //birthday: null,
             birthday: new Date('1975-10-06'),
-            last_name: 'Toihoun',
-            first_name: 'Derrick',
+            last_name: 'Rocher',
+            first_name: 'Claude',
 
             contacts_personal: '(514) 820-5545',
-            contacts_work: null,
-            contacts_home: '(514) 363-7840',
+            contacts_work: '(514) 363-7840',
+            contacts_home: null,
             contacts_emergency: null,
 
-            has_child: false,
+            has_child: true,
             is_subscribed: false,
 
             membership: null,
@@ -119,63 +160,34 @@ const initialiseState = {
         errors: {}
     },
     parent: {
-        fields: {
-            expectationsVar: null,
-            needsVar: null,
-            talents: null,
-            snacks: false,
-            organization: false,
-            support: false,
-            otherInvolvement: null
-        },
-        errors: {
-            expectationsVar: false
-        }
+        fields: {},
+        errors: {}
     },
     collaborator: {
-        fields: {
-            monday: false,
-            tuesday: false,
-            wednesday: false,
-            thursday: false,
-            magicJournal: false,
-            serveSnack: false,
-            animationPreparation: false,
-            accompanyWorkshop: false,
-            prepareSnack: false,
-            accompanyInternet: false,
-
-            comment: 'Mon commentaire',
-            experience: 'Mes experiences',
-            motivation: 'Mes motivations',
-            heard: 'Heard',
-
-            availability: null
-        },
-        errors: {
-            availability: false,
-            interest: false,
-            motivation: false,
-            experience: false
-        }
-    },
-    childCountError: false,
-    enableSubmit: false,
-    loading: false,
-    password: '',
-    confirmPassword: '',
-    errorPassword: false,
-    showPassword: false,
-    successRegister: false,
-    roles: [],
-    days: []
+        fields: {},
+        errors: {}
+    }
 }
 
 class RegisterContainer extends Component {
     constructor () {
         super()
         this.state = {
-            ...initialiseState
+            ...initialiseState,
+            step: 1,
+            nbrChild: 0,
+            showPrev: false,
+            showNext: true,
+            childCountError: false,
+            enableSubmit: false,
+            loading: false,
+            password: '',
+            confirmPassword: '',
+            errorPassword: false,
+            showPassword: false,
+            successRegister: false,
+            roles: [],
+            days: []
         }
         this.handleStepClick = this.handleStepClick.bind(this)
         this.handleSaveRegister = this.handleSaveRegister.bind(this)
@@ -191,10 +203,67 @@ class RegisterContainer extends Component {
         this.setRolesAndDays = this.setRolesAndDays.bind(this)
         this.savedUser = this.savedUser.bind(this)
         this.setEmailError = this.setEmailError.bind(this)
+        this.saveChildren = this.saveChildren.bind(this)
+        this.setFields = this.setFields.bind(this)
+    }
+
+    setFields(){
+        if(this.props.currentActor === actorsIds.parent || this.props.currentActor === actorsIds.both){
+            // Load parent fieldsState
+            this.setState({
+                parent: {
+                    fields: { ...parentState.fields },
+                    errors: { ...parentState.errors }
+                }
+            })
+        }
+        if(this.props.currentActor === actorsIds.collaborator || this.props.currentActor === actorsIds.both){
+            // Load collaborater fieldsState
+            this.setState({
+                collaborator: {
+                    fields: { ...collabState.fields },
+                    errors: { ...collabState.errors }
+                }
+            })
+        }
     }
 
     componentDidMount(){
+        this.setFields()
         Fetch.getRolesAndDays(this.setRolesAndDays)
+    }
+
+    componentDidUpdate(prevProps) {
+        // Initialise parent and collaborater fieldsState when actor selected change
+        if (this.props.currentActor !== prevProps.currentActor) {
+            this.setState({
+                step: 1,
+                nbrChild: 0,
+                showPrev: false,
+                showNext: true,
+                childCountError: false,
+                enableSubmit: false,
+                loading: false,
+                password: '',
+                confirmPassword: '',
+                errorPassword: false,
+                showPassword: false,
+                successRegister: false,
+                informationsCoordonnees: {
+                    fields: { ...initialiseState.informationsCoordonnees.fields },
+                    errors: { ...initialiseState.informationsCoordonnees.errors }
+                },
+                parent: {
+                    fields: { ...initialiseState.parent.fields },
+                    errors: { ...initialiseState.parent.errors }
+                },
+                collaborator: {
+                    fields: { ...initialiseState.parent.fields },
+                    errors: { ...initialiseState.parent.errors }
+                }
+            })
+            this.setFields()
+        }
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
@@ -460,9 +529,6 @@ class RegisterContainer extends Component {
         }
 
         handleRessetStepAndRedirect () {
-            this.setState({
-                ...initialiseState
-            })
             this.props.onShowLoginForm()
         }
 
@@ -594,6 +660,9 @@ class RegisterContainer extends Component {
                     home: fields.contacts_home,
                     emergency: fields.contacts_emergency
                 }]
+                user.medical_info = []
+                user.school_info = []
+                user.authorization = []
                 const membershipStatus = (fields.membership === 'membership_becomeMember' || fields.membership === 'membership_alreadyMember') ? true : false
                 user.membership = [{
                     status: membershipStatus,
@@ -606,9 +675,9 @@ class RegisterContainer extends Component {
                     user.need = fields.needsVar,
 
                     user.involvement[0].response = fields.talents,
-                    user.involvement[1].response = fields.snacks,
-                    user.involvement[2].response = fields.organization,
-                    user.involvement[3].response = fields.support,
+                    user.involvement[1].response = fields.snacks ? 'true' : 'false',
+                    user.involvement[2].response = fields.organization ? 'true' : 'false',
+                    user.involvement[3].response = fields.support ? 'true' : 'false',
                     user.involvement[4].response = fields.otherInvolvement
                 }
                 if(roleTitle === 'collaborater' || roleTitle === 'collab_parent') {
@@ -649,6 +718,9 @@ class RegisterContainer extends Component {
                 user.question[0].response = fields.garde
                 user.question[1].response = fields.gardeParentOption
                 user.question[2].response = fields.gardeOtherOption
+                user.interest = []
+                user.involvement = []
+                user.membership = []
             }
             return user
         }
@@ -672,7 +744,6 @@ class RegisterContainer extends Component {
             }
             const user = this.getUserToSave(params, this.state.roles, role)
             const userLogin = {
-                id_user: null,
                 email: this.state.informationsCoordonnees.fields.email,
                 password: password,
                 is_active: false
@@ -704,9 +775,10 @@ class RegisterContainer extends Component {
         saveChildren(success){
             if (success.success) {
                 this.setState({successRegister: true})
-                console.log('children saved')
+                this.props.onGetBack('register')
             } else {
                 console.log('erreur')
+                alert("Une erreur est survenu lors de l'enregistrement ")
             }
         }
 
@@ -727,92 +799,91 @@ class RegisterContainer extends Component {
                         </IconButton>
                     )}
                     <div className='forms'>
-                                {this.state.step === 1 && (
-                                    <div>
-                                        <InformationCoordonnees
-                                            lang={this.props.lang}
-                                            fields={this.state.informationsCoordonnees.fields}
-                                            errors={this.state.informationsCoordonnees.errors}
-                                            inputEvent={this.onInformationsInputChange}
-                                        />
+                        {this.state.step === 1 && (
+                            <div>
+                                <InformationCoordonnees
+                                    lang={this.props.lang}
+                                    fields={this.state.informationsCoordonnees.fields}
+                                    errors={this.state.informationsCoordonnees.errors}
+                                    inputEvent={this.onInformationsInputChange}
+                                />
+                            </div>
+                        )}
+                        {(this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= 0 && this.state.step === 2) && (
+                            <div>
+                                <ChildCount
+                                    lang={this.props.lang}
+                                    childCount={this.state.nbrChild}
+                                    onChildCount={this.handleChildrenFirstCount}
+                                    childCountError={this.state.childCountError}
+                                />
+                            </div>
+                        )}
+                        {[...Array(this.state.nbrChild).keys()].map(x =>
+                        (this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= (x + 1) && this.state.step === (x + 3) && (
+                            <div key={this.state.nbrChild + x}>
+                                <ChildrenInscription
+                                    lang={this.props.lang}
+                                    nbre={this.state.step - 2}
+                                    nbreChild={this.state.nbrChild}
+                                    fields={this.state.childrenInscription.fields['step' + (x + 1)]}
+                                    errors={this.state.childrenInscription.errors['step' + (x + 1)]}
+                                    inputEvent={this.onChildrenInputChange}
+                                />
+                            </div>
+                        )))}
+                        {((this.props.currentActor === actorsIds.parent && this.state.step === (max - 1)) ||
+                            (this.props.currentActor === actorsIds.both && this.state.step === (max - 2))) && (
+                            <div>
+                                <ComplementaryInformations
+                                    lang={this.props.lang}
+                                    fields={this.state.parent.fields}
+                                    errors={this.state.parent.errors}
+                                    inputEvent={this.onParentInputChange}
+                                />
+                            </div>
+                        )}
+                        {((this.props.currentActor === actorsIds.collaborator && this.state.step === (max - 1)) ||
+                            (this.props.currentActor === actorsIds.both && this.state.step === (max - 1))) && (
+                            <div>
+                                <CollaboratorBenevoles
+                                    lang={this.props.lang}
+                                    fields={this.state.collaborator.fields}
+                                    errors={this.state.collaborator.errors}
+                                    inputEvent={this.onCollaboratorInputChange}
+                                />
+                            </div>
+                        )}
+                        {this.state.step === max && (
+                            <div className='final-div'>
+                                {!this.state.successRegister
+                                ? (
+                                    <div className='div-before-success'>
+                                        <div className='fields'>
+                                            <p>{lang.finalStep.registerPassword.label}</p>
+                                            {this.state.errorPassword && (<p className='p-error'>{lang.finalStep.registerPassword.labelError}</p>)}
+                                            {this.buildPasswordFields(lang.finalStep.registerPassword, 'password')}
+                                            {this.buildPasswordFields(lang.finalStep.registerPassword, 'confirmPassword')}
+                                            <Button
+                                                variant='outlined'
+                                                onClick={event => this.handleSaveRegister(event, registerAction.withPassword)}
+                                            >
+                                                {lang.finalStep.registerPassword.saveWithPassword}
+                                            </Button>
+                                        </div>
+                                        <h1>OU</h1>
+                                        <div className='fields'>
+                                            <Button
+                                                variant='outlined'
+                                                onClick={event => this.handleSaveRegister(event, registerAction.withoutPassword)}
+                                            >
+                                                {lang.finalStep.registerPassword.saveWithoutPassword}
+                                            </Button>
+                                        </div>
                                     </div>
-                                )}
-                                {(this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= 0 && this.state.step === 2) && (
-                                    <div>
-                                        <ChildCount
-                                            lang={this.props.lang}
-                                            childCount={this.state.nbrChild}
-                                            onChildCount={this.handleChildrenFirstCount}
-                                            childCountError={this.state.childCountError}
-                                        />
-                                    </div>
-                                )}
-                                {[...Array(this.state.nbrChild).keys()].map(x => (
-                                    this.props.currentActor !== actorsIds.collaborator && this.state.nbrChild >= (x + 1) && this.state.step === (x + 3) && (
-                                        (<div key={this.state.nbrChild + x}>
-                                            <ChildrenInscription
-                                                lang={this.props.lang}
-                                                nbre={this.state.step - 2}
-                                                nbreChild={this.state.nbrChild}
-                                                fields={this.state.childrenInscription.fields['step' + (x + 1)]}
-                                                errors={this.state.childrenInscription.errors['step' + (x + 1)]}
-                                                inputEvent={this.onChildrenInputChange}
-                                            />
-                                        </div>
-                                    ))
-                                ))}
-                                {((this.props.currentActor === actorsIds.parent && this.state.step === (max - 1)) ||
-                                    (this.props.currentActor === actorsIds.both && this.state.step === (max - 2))) && (
-                                        <div>
-                                            <ComplementaryInformations
-                                                lang={this.props.lang}
-                                                fields={this.state.parent.fields}
-                                                errors={this.state.parent.errors}
-                                                inputEvent={this.onParentInputChange}
-                                            />
-                                        </div>
-                                )}
-                                {((this.props.currentActor === actorsIds.collaborator && this.state.step === (max - 1)) ||
-                                    (this.props.currentActor === actorsIds.both && this.state.step === (max - 1))) && (
-                                        <div>
-                                            <CollaboratorBenevoles
-                                                lang={this.props.lang}
-                                                fields={this.state.collaborator.fields}
-                                                errors={this.state.collaborator.errors}
-                                                inputEvent={this.onCollaboratorInputChange}
-                                            />
-                                        </div>
-                                )}
-                            {this.state.step === max && (
-                                <div className='final-div'>
-                                    {!this.state.successRegister
-                                    ? (
-                                        <div className='div-before-success'>
-                                            <div className='fields'>
-                                                <p>{lang.finalStep.registerPassword.label}</p>
-                                                {this.state.errorPassword && (<p className='p-error'>{lang.finalStep.registerPassword.labelError}</p>)}
-                                                {this.buildPasswordFields(lang.finalStep.registerPassword, 'password')}
-                                                {this.buildPasswordFields(lang.finalStep.registerPassword, 'confirmPassword')}
-                                                <Button
-                                                    variant='outlined'
-                                                    onClick={event => this.handleSaveRegister(event, registerAction.withPassword)}
-                                                >
-                                                    {lang.finalStep.registerPassword.saveWithPassword}
-                                                </Button>
-                                            </div>
-                                            <h1>OU</h1>
-                                            <div className='fields'>
-                                                <Button
-                                                    variant='outlined'
-                                                    onClick={event => this.handleSaveRegister(event, registerAction.withoutPassword)}
-                                                >
-                                                    {lang.finalStep.registerPassword.saveWithoutPassword}
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    )
-                                    : (
-                                        <div className='div-success'>
+                                )
+                                : (
+                                    <div className='div-success'>
                                             <div>
                                                 <p>Enregistrement effectué avec succès </p>
                                                 <DoneAllIcon className='svg-done' />
@@ -821,12 +892,12 @@ class RegisterContainer extends Component {
                                                 Vous recevrez un message de confirmation dans un bref delai.</p>
                                             <p>Merci pour l'intérêt que vous portez à la Maison d'Aurore.</p>
                                         </div>
-                                    )}
-                                </div>
-                            )}
+                                )}
+                            </div>
+                        )}
                     </div>
                     {!this.state.successRegister && (
-                    <IconButton className={!this.state.showNext ? 'disable-level-button' : ''} onClick={event => this.handleStepClick(event, max)}>
+                        <IconButton className={!this.state.showNext ? 'disable-level-button' : ''} onClick={event => this.handleStepClick(event, max)}>
                         <NextIcon id='next' fontSize='large' />
                     </IconButton>
                     )}

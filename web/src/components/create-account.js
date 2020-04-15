@@ -48,7 +48,10 @@ class CreateAccount extends Component {
         parentDiv.classList.add('fullSize')
     }
 
-    handleRetour () {
+    handleRetour (param) {
+        if (param === 'register') {
+            this.props.updateUsers()
+        }
         this.addDiv.current.classList.remove('hideAddDiv')
         this.addDiv.current.classList.add('showAddDiv')
         const parentDiv = this.addDiv.current.parentElement
@@ -74,19 +77,13 @@ class CreateAccount extends Component {
     switchToAddOption () {
         switch (this.state.actorSelected) {
         case variables.actors.collaborator:
-            return (
-                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.collaborator} />
-            )
+            return (<Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.collaborator} onGetBack={this.handleRetour} />)
         case variables.actors.parent:
-            return (
-                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.parent} />
-            )
+            return (<Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.parent} onGetBack={this.handleRetour} />)
         case variables.actors.both:
-            return (
-                <Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.both} />
-            )
+            return (<Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.both} onGetBack={this.handleRetour} />)
         case variables.actors.admin:
-            return (<CreateAdmin lang={this.props.lang} roles={this.state.roles} updateUsers={this.props.updateUsers} onGetBack={this.handleRetour} />)
+            return (<CreateAdmin lang={this.props.lang} roles={this.state.roles} onGetBack={this.handleRetour} />)
         }
     }
 
