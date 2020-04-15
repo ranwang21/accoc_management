@@ -1031,6 +1031,21 @@ const getClassRooms = (token, callBack) => {
         })
 }
 
+const getAllClassRooms = (token, callBack) => {
+
+    fetch(HOST + '/classrooms', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(dataClassRoom => {
+            callBack(dataClassRoom.data)
+        })
+}
+
 const updateClassRoom = (token, classroom, callBack) => {
         fetch(HOST + '/classrooms/'+ classroom._id, {
             method: 'PUT',
@@ -1186,6 +1201,7 @@ export default {
     },
     classRoom: {
         get: getClassRooms,
+        getAll: getAllClassRooms,
         update: updateClassRoom,
         add: addClassRoom,
         delete: deleteClassRoom

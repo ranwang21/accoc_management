@@ -57,8 +57,6 @@ class Dashbord extends Component {
             childrens: [],
             validActors: [],
             inValidActors: [],
-            classRooms: [],
-            schedules: [],
             menuItemSelected: variables.menus.allUsers,
             showLogOutModal: false,
             requiredSaveValidationChange: false,
@@ -77,10 +75,8 @@ class Dashbord extends Component {
         this.onBtnValidSave = this.onBtnValidSave.bind(this)
         this.toggleDrawer = this.toggleDrawer.bind(this)
         this.setActorLists = this.setActorLists.bind(this)
-        this.setClassRoom = this.setClassRoom.bind(this)
         this.onUsersListChange = this.onUsersListChange.bind(this)
         this.onUserChange = this.onUserChange.bind(this)
-        this.setSchedules = this.setSchedules.bind(this)
     }
 
     setActorLists (list) {
@@ -98,16 +94,6 @@ class Dashbord extends Component {
         }, 500)
     }
 
-    setClassRoom (classRoomsList) {
-        this.setState({ classRooms: [{ _id: '12345', title: 'Non défini' }, ...classRoomsList] })
-    }
-
-    setSchedules (schedulesList) {
-        this.setState({
-            schedules: [ ...schedulesList]
-        })
-    }
-
     getLangFile () { return require('../lang/' + this.props.lang + '/dashbord.json') }
 
     getCurrentUser () {
@@ -122,9 +108,8 @@ class Dashbord extends Component {
         Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
         const currentUser = this.getCurrentUser()
         if(currentUser.role === 'super_admin' || currentUser.role === 'admin') {
-        // Fetch all users, actors, and schedules
-        Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
-            Fetch.getAllSchedules(this.props.cookies.get(variables.cookies.token), this.setSchedules)
+            // Fetch all users, actors, and schedules
+            // Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
         }
     }
 
@@ -203,7 +188,6 @@ class Dashbord extends Component {
                     lang={lang}
                     actors={this.state.actors}
                     inValidActors={this.state.inValidActors}
-                    classRooms={this.state.classRooms}
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
@@ -216,7 +200,6 @@ class Dashbord extends Component {
                     lang={lang}
                     actors={this.state.actors}
                     inValidActors={this.state.inValidActors}
-                    classRooms={this.state.classRooms}
                     menuSelected={this.state.menuItemSelected}
                     validationChange={this.onValidationChange}
                     handleBtnValidSave={this.onBtnValidSave}
@@ -229,7 +212,7 @@ class Dashbord extends Component {
         case variables.menus.scheduleManagement:
             return (<Schedule lang={lang} />)
         case variables.menus.historical:
-            return (<Historical lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
+            return (<Historical lang={lang} actors={this.state.actors} />)
         case variables.menus.prints:
             return (<Print lang={lang} />)
         case variables.menus.childList:

@@ -247,7 +247,7 @@ class Table extends Component {
                                             <MenuItem value=''>
                                                 <em>Toutes les salles</em>
                                             </MenuItem>
-                                            {this.props.classRooms.map(classRoom => (
+                                            {this.state.classrooms.map(classRoom => (
                                                 <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                             ))}
                                         </Select>

@@ -3,15 +3,19 @@ import TextField from '@material-ui/core/TextField'
 import {
     TableContainer, Table, Button, TableHead, TableRow, TableCell, TableBody
 } from '@material-ui/core'
-import ClassroomDetail from '../components/historical-detail'
+import HistoricalDetail from '../components/historical-detail'
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_historical.scss'
 import '../styles/_detail-user.scss'
+import { withCookies } from 'react-cookie'
+const variables = require('../utilities/variables').variables
 
 class Historical extends Component {
     constructor () {
         super()
         this.state = {
+            schedules: [],
+            classrooms: [],
             startDate: null,
             endDate: null,
             onSearch: false,
@@ -19,12 +23,30 @@ class Historical extends Component {
             matchedSchedules: [],
             classroomSelected: null
         }
+        this.setSchedules = this.setSchedules.bind(this)
+        this.setClassroom = this.setClassroom.bind(this)
         this.handleStartDateChange = this.handleStartDateChange.bind(this)
         this.handleEndDateChange = this.handleEndDateChange.bind(this)
         this.renderClassRooms = this.renderClassRooms.bind(this)
         this.handleShowDetail = this.handleShowDetail.bind(this)
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
         this.handleStartDateChange = this.handleStartDateChange.bind(this)
+    }
+
+    componentDidMount () {
+        // console.log(this.state.schedules)
+        Fetch.getAllSchedules(this.props.cookies.get(variables.cookies.token), this.setSchedules)
+        Fetch.classRoom.getAll(this.props.cookies.get(variables.cookies.token), this.setClassroom)
+    }
+
+    setClassroom (classrooms) {
+        this.setState({ classrooms: classrooms })
+    }
+
+    setSchedules (schedulesList) {
+        this.setState({
+            schedules: [...schedulesList]
+        })
     }
 
     getLangFile () {
@@ -49,7 +71,7 @@ class Historical extends Component {
     }
 
     filterScheduleByDate (startDate, endDate) {
-        const schedules = this.props.schedules
+        const schedules = this.state.schedules
         const formattedStartDate = new Date(startDate + ' 00:00:00')
         const formattedEndDate = new Date(endDate + ' 23:59:59')
         // find the schedules between start and end date
@@ -73,14 +95,10 @@ class Historical extends Component {
     }
 
     renderClassRooms () {
-        const classRooms = this.props.classRooms
+        const classRooms = this.state.classrooms
         if (classRooms.length > 0) {
             return (<TableBody>{classRooms.map(classRoom => this.renderRow(classRoom))}</TableBody>)
         }
-    }
-
-    componentDidMount () {
-        // console.log(this.props.schedules)
     }
 
     renderRow (classRoom) {
@@ -146,7 +164,7 @@ class Historical extends Component {
                         {this.state.onSearch ? this.renderClassRooms() : null}
                     </Table>
                     {this.state.classroomSelected !== null && (
-                        <ClassroomDetail
+                        <HistoricalDetail
                             open={this.state.showDetail}
                             onClose={this.handleCloseDetail}
                             classRoom={this.state.classroomSelected}
@@ -159,4 +177,4 @@ class Historical extends Component {
     }
 }
 
-export default Historical
+export default withCookies(Historical)
