@@ -1159,6 +1159,22 @@ const deleteUser = (token, user) => {
     })
 }
 
+const getChildrenAndCollab = (token, callBack) => {
+    fetch(HOST + '/users', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            callBack(data.data.filter(x => x.id_classroom !== null))
+        }
+    })
+}
+
 export default {
     encodeData,
     decodeData,
@@ -1178,6 +1194,10 @@ export default {
     createUsers,
     updateUserValidities,
     getAllSchedules,
+    schedule: {
+        get: getAllSchedules,
+        user: getChildrenAndCollab
+    },
     user: {
         get: getUser,
         update: updateUser,

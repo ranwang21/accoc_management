@@ -57,6 +57,27 @@ class TableListContainer extends Component {
 
     getValidationValue (actor) { return actor._id + ',' + Boolean(actor.isValid) + ',' + actor.roleTitle }
 
+
+    getPhoneNumberByPriority (actor) {
+        if (actor.contact.length === 0) {
+            return 'Pas de contact'
+        } else {
+            const contact = actor.contact[0]
+            if (contact.personal !== null) return contact.personal
+            else if (contact.work !== null) return contact.work
+            else if (contact.home !== null) return contact.home
+            else if (contact.emergency !== null) return contact.emergency
+            else return 'Pas de contact'
+        }
+    }
+
+    getChildAllergies (child) {
+        let allergies = (child.medical_info.length > 0 && child.medical_info[0].allergies !== null) ? child.medical_info[0].allergies : "Pas d'allergies"
+        allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
+
+        return allergies
+    }
+
     buildHeader (lang) {
         const headers = [
             { id: 'avatar', label: lang.head.avatar, minWidth: 50, maxWidth: 50, align: 'center' },
@@ -96,26 +117,6 @@ class TableListContainer extends Component {
                 </TableRow>
             </TableHead>
         )
-    }
-
-    getPhoneNumberByPriority (actor) {
-        if (actor.contact.length === 0) {
-            return 'Pas de contact'
-        } else {
-            const contact = actor.contact[0]
-            if (contact.personal !== null) return contact.personal
-            else if (contact.work !== null) return contact.work
-            else if (contact.home !== null) return contact.home
-            else if (contact.emergency !== null) return contact.emergency
-            else return 'Pas de contact'
-        }
-    }
-
-    getChildAllergies (child) {
-        let allergies = (child.medical_info.length > 0 && child.medical_info[0].allergies !== null) ? child.medical_info[0].allergies : "Pas d'allergies"
-        allergies = allergies.length > 20 ? (allergies.substring(0, 17) + '...') : allergies
-
-        return allergies
     }
 
     buildRow (lang, actor) {

@@ -1,0 +1,9 @@
+{
+    "head": {
+        "lastName": "nom",
+        "firstName": "prénom",
+        "classRoom": "Salle",
+        "date": "Date",
+        "isAbsent": "Absecnce"
+    }
+}
