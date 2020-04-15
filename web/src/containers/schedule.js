@@ -4,7 +4,8 @@ import MomentUtils from '@date-io/moment'
 import { withCookies } from 'react-cookie'
 import Fetch from '../utilities/fetch-datas'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import GenerationIcon from '@material-ui/icons/Cached'
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, FormControl, InputLabel, Select, MenuItem, Button } from '@material-ui/core'
 import '../styles/_schedule.scss'
 
 const variables = require('../utilities/variables').variables
@@ -17,25 +18,56 @@ class Schedule extends Component {
             users: [],
             classrooms: [],
             generation: {
-                startDate: '2020/04/07',
-                endDate: '2020/04/14'
+                startDate: '',
+                endDate: ''
             }
         }
         this.setSchedules = this.setSchedules.bind(this)
+        this.handleDateClick = this.handleDateClick.bind(this)
+        this.handleGenerateClick = this.handleGenerateClick.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/schedule.json') }
 
-    componentDidMount () {
+    fetchSchedules () {
         Fetch.schedule.get(this.props.cookies.get(variables.cookies.token), this.setSchedules)
+    }
+
+    componentDidMount () {
+        const date = new Date()
+        this.setState({
+            generation: {
+                startDate: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate(),
+                endDate: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+            }
+        })
+        this.fetchSchedules()
         Fetch.schedule.user(this.props.cookies.get(variables.cookies.token), data => this.setState({ users: [...data] }))
         Fetch.classroom.getAll(this.props.cookies.get(variables.cookies.token), data => this.setState({ classrooms: [...data] }))
     }
 
     setSchedules (dataSchedules) {
+        console.log('new schedules fetch')
         this.setState({
             schedules: [...dataSchedules].sort((a, b) => (a.id_user > b.id_user ? 1 : -1))
         })
+    }
+
+    handleDateClick (date, name) {
+        const newDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+        this.setState({
+            generation: {
+                ...this.state.generation,
+                [name]: newDate
+            }
+        })
+    }
+
+    handleGenerateClick(){
+        const generate = this.state.generation
+        if (generate.startDate !== generate.endDate) {
+            Fetch.schedule.add(this.props.cookies.get(variables.cookies.token), generate, this.fetchSchedules)
+        }
     }
 
     buildHeader (lang) {
@@ -82,29 +114,60 @@ class Schedule extends Component {
 
     render () {
         const lang = this.getLangFile()
+        const startDate = this.state.generation.startDate === '' ? new Date() : new Date(this.state.generation.startDate)
+        const endDate = this.state.generation.endDate === '' ? startDate : new Date(this.state.generation.endDate)
         return (
             <div className='schedule'>
                 <div className='generate-container'>
+                    <p>generation des horaires</p>
+                    <div>
+                        <MuiPickersUtilsProvider
+                            libInstance={moment} utils={MomentUtils}
+                            locale={this.props.lang}
+                        >
+                            <KeyboardDatePicker
+                                minDate={new Date()}
+                                margin='dense'
+                                label='du'
+                                format='DD MMMM YYYY'
+                                value={startDate}
+                                onChange={event => this.handleDateClick(event._d, 'startDate')}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date'
+                                }}
+                            />
+                            <KeyboardDatePicker
+                                minDate={startDate}
+                                margin='dense'
+                                label='au'
+                                format='DD MMMM YYYY'
+                                value={endDate}
+                                onChange={event => this.handleDateClick(event._d, 'endDate')}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date'
+                                }}
+                            />
+                        </MuiPickersUtilsProvider>
+                        <Button
+                            onClick={this.handleGenerateClick}
+                            variant='contained'
+                            color='default'
+                            startIcon={<GenerationIcon />}
+                        >
+                            GENERER
+                        </Button>
+
+                    </div>
+                </div>
+                <div className='search-container'>
                     <MuiPickersUtilsProvider
                         libInstance={moment} utils={MomentUtils}
                         locale={this.props.lang}
                     >
                         <KeyboardDatePicker
-                            margin='normal'
-                            id='date-picker-dialog'
-                            label='Date picker dialog'
-                            format='MM/dd/yyyy'
-                            value={new Date()}
-                            onChange={null}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date'
-                            }}
-                        />
-                        <KeyboardDatePicker
-                            margin='normal'
-                            id='date-picker-dialog'
-                            label='Date picker dialog'
-                            format='MM/dd/yyyy'
+                            margin='dense'
+                            label='date'
+                            format='DD MMMM YYYY'
                             value={new Date()}
                             onChange={null}
                             KeyboardButtonProps={{
@@ -112,22 +175,10 @@ class Schedule extends Component {
                             }}
                         />
                     </MuiPickersUtilsProvider>
-                </div>
-                <div className='search-container'>
-                    <TextField
-                        size='small' variant='filled'
-                        value={this.state.lastNameInput}
-                        onChange={event => this.handleSearchInputChange(event, 'lastNameInput')} label={lang.searchLastName}
-                    />
-                    <TextField
-                        size='small' variant='filled'
-                        value={this.state.firstNameInput}
-                        onChange={event => this.handleSearchInputChange(event, 'firstNameInput')} label={lang.searchFirstName}
-                    />
                     <FormControl variant='filled'>
                         <InputLabel color='primary'>par salle</InputLabel>
                         <Select
-                            value={this.state.classRoomSelected}
+                            value=''
                             onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
                         >
                             <MenuItem value=''>

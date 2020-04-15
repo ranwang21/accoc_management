@@ -1169,6 +1169,21 @@ const getAllSchedules = (token, callBack) => {
     })
 }
 
+const addSchedule = (token, schedule, callBack) => {
+        fetch(HOST + '/schedules', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(schedule)
+        })
+        .then(response => response.json())
+        .then(data => { callBack() })
+        .catch()
+}
+
 const deleteUser = (token, user) => {
     fetch(HOST + '/logins/' + user.idLogin, {
         method: 'DELETE',
@@ -1226,7 +1241,8 @@ export default {
     getAllSchedules,
     schedule: {
         get: getAllSchedules,
-        user: getChildrenAndCollab
+        user: getChildrenAndCollab,
+        add: addSchedule
     },
     user: {
         get: getUser,
