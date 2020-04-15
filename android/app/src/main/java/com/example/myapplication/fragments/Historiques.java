@@ -59,24 +59,27 @@ public class Historiques extends Fragment {
         schedules = new ArrayList<>();
         listView = view.findViewById(R.id.list_enfant_par_salle);
         for (Classroom c : classrooms) {
-            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), dateToDisplay.get(0), c.get_id());
-            if (schedulesToInsert != null) {
-                schedules.addAll(schedulesToInsert);
+            if (!dateToDisplay.isEmpty()) {
+                ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), dateToDisplay.get(0), c.get_id());
+                if (schedulesToInsert != null) {
+                    schedules.addAll(schedulesToInsert);
+                }
             }
-        }
-        for (Schedule s : schedules) {
-            User u = UserManager.getById(getContext(), s.getId_user());
-            if (u != null) {
-                Log.d("Json", "name " + u.getFirst_name() + " date " + s.getDate() + " classroom " + s.getId_classroom());
-                users.add(u);
+            for (Schedule s : schedules) {
+                User u = UserManager.getById(getContext(), s.getId_user());
+                if (u != null) {
+                    Log.d("Json", "name " + u.getFirst_name() + " date " + s.getDate() + " classroom " + s.getId_classroom());
+                    users.add(u);
+                }
             }
+            enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
+            listView.setAdapter(enfantAdapter);
+            //spinner date
+            ArrayAdapter<String> arrayAdapterdate = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, dateToDisplay);
+            arrayAdapterdate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_date = view.findViewById(R.id.spinner_date);
+            spinner_date.setAdapter(arrayAdapterdate);
         }
-        enfantAdapter = new EnfantAdapter(getContext(), R.layout.collaborateur_listview, users);
-        listView.setAdapter(enfantAdapter);
-        //spinner date
-        ArrayAdapter<String> arrayAdapterdate = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, dateToDisplay);
-        arrayAdapterdate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_date = view.findViewById(R.id.spinner_date);
         //spinner salle
         ArrayList<String> listClassroom = new ArrayList<>();
         listClassroom.add("Tous");
@@ -86,48 +89,49 @@ public class Historiques extends Fragment {
         spinner_salle = view.findViewById(R.id.spinner_salle);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, listClassroom);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_date.setAdapter(arrayAdapterdate);
         spinner_salle.setAdapter(arrayAdapter);
         //spinner date event
         spinner_date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedDate = parent.getItemAtPosition(position).toString();
-                String selectedClassroom = spinner_salle.getSelectedItem().toString();
-                users = new ArrayList<>();
-                schedules = new ArrayList<>();
-                if (!selectedClassroom.equals("Tous")) {
-                    Classroom classroom = ClassroomManager.getByTitle(getContext(), selectedClassroom);
-                    schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, classroom.get_id());
-                    if (schedules != null) {
-                        for (Schedule s : schedules) {
-                            User u = UserManager.getById(getContext(), s.getId_user());
-                            if (u != null) {
-                                users.add(u);
+                if (!dateToDisplay.isEmpty()) {
+                    String selectedDate = parent.getItemAtPosition(position).toString();
+                    String selectedClassroom = spinner_salle.getSelectedItem().toString();
+                    users = new ArrayList<>();
+                    schedules = new ArrayList<>();
+                    if (!selectedClassroom.equals("Tous")) {
+                        Classroom classroom = ClassroomManager.getByTitle(getContext(), selectedClassroom);
+                        schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, classroom.get_id());
+                        if (schedules != null) {
+                            for (Schedule s : schedules) {
+                                User u = UserManager.getById(getContext(), s.getId_user());
+                                if (u != null) {
+                                    users.add(u);
+                                }
+                            }
+                        }
+                    } else {
+                        ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
+                        for (Classroom c : classrooms) {
+                            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                            if (schedulesToInsert != null) {
+                                schedules.addAll(schedulesToInsert);
+                            }
+                        }
+                        if (schedules != null) {
+                            for (Schedule s : schedules) {
+                                User u = UserManager.getById(getContext(), s.getId_user());
+                                if (u != null) {
+                                    users.add(u);
+                                }
                             }
                         }
                     }
-                } else {
-                    ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
-                    for (Classroom c : classrooms) {
-                        ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
-                        if (schedulesToInsert != null) {
-                            schedules.addAll(schedulesToInsert);
-                        }
-                    }
-                    if (schedules != null) {
-                        for (Schedule s : schedules) {
-                            User u = UserManager.getById(getContext(), s.getId_user());
-                            if (u != null) {
-                                users.add(u);
-                            }
-                        }
-                    }
+                    enfantAdapter.clear();
+                    enfantAdapter.addAll(users);
+                    listView.setAdapter(enfantAdapter);
+                    enfantAdapter.notifyDataSetChanged();
                 }
-                enfantAdapter.clear();
-                enfantAdapter.addAll(users);
-                listView.setAdapter(enfantAdapter);
-                enfantAdapter.notifyDataSetChanged();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -137,43 +141,45 @@ public class Historiques extends Fragment {
         spinner_salle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                users = new ArrayList<>();
-                schedules = new ArrayList<>();
-                String classroomName = parent.getItemAtPosition(position).toString();
-                String selectedDate = spinner_date.getSelectedItem().toString();
-                if (!classroomName.equals("Tous")) {
-                    Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
-                    schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, classroom.get_id());
-                    if (schedules != null) {
-                        for (Schedule s : schedules) {
-                            String userId = s.getId_user();
-                            User u = UserManager.getById(getContext(), s.getId_user());
-                            if (u != null) {
-                                users.add(u);
+                if (!dateToDisplay.isEmpty()) {
+                    users = new ArrayList<>();
+                    schedules = new ArrayList<>();
+                    String classroomName = parent.getItemAtPosition(position).toString();
+                    String selectedDate = spinner_date.getSelectedItem().toString();
+                    if (!classroomName.equals("Tous")) {
+                        Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
+                        schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, classroom.get_id());
+                        if (schedules != null) {
+                            for (Schedule s : schedules) {
+                                String userId = s.getId_user();
+                                User u = UserManager.getById(getContext(), s.getId_user());
+                                if (u != null) {
+                                    users.add(u);
+                                }
+                            }
+                        }
+                    } else {
+                        ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
+                        for (Classroom c : classrooms) {
+                            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                            if (schedulesToInsert != null) {
+                                schedules.addAll(schedulesToInsert);
+                            }
+                        }
+                        if (schedules != null) {
+                            for (Schedule s : schedules) {
+                                User u = UserManager.getById(getContext(), s.getId_user());
+                                if (u != null) {
+                                    users.add(u);
+                                }
                             }
                         }
                     }
-                } else {
-                    ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
-                    for (Classroom c : classrooms) {
-                        ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
-                        if (schedulesToInsert != null) {
-                            schedules.addAll(schedulesToInsert);
-                        }
-                    }
-                    if (schedules != null) {
-                        for (Schedule s : schedules) {
-                            User u = UserManager.getById(getContext(), s.getId_user());
-                            if (u != null) {
-                                users.add(u);
-                            }
-                        }
-                    }
+                    enfantAdapter.clear();
+                    enfantAdapter.addAll(users);
+                    listView.setAdapter(enfantAdapter);
+                    enfantAdapter.notifyDataSetChanged();
                 }
-                enfantAdapter.clear();
-                enfantAdapter.addAll(users);
-                listView.setAdapter(enfantAdapter);
-                enfantAdapter.notifyDataSetChanged();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
