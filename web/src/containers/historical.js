@@ -36,7 +36,7 @@ class Historical extends Component {
     componentDidMount () {
         // console.log(this.state.schedules)
         Fetch.getAllSchedules(this.props.cookies.get(variables.cookies.token), this.setSchedules)
-        Fetch.classRoom.getAll(this.props.cookies.get(variables.cookies.token), this.setClassroom)
+        Fetch.classroom.getAll(this.props.cookies.get(variables.cookies.token), this.setClassroom)
     }
 
     setClassroom (classrooms) {

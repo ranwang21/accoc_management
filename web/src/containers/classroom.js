@@ -15,7 +15,9 @@ import {
     Avatar,
     ListItemText,
     ListItemAvatar,
-    ListItem } from '@material-ui/core'
+    ListItem,
+    Checkbox,
+    FormControlLabel} from '@material-ui/core'
 import EditIcon from '@material-ui/icons/EditOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PersonIcon from '@material-ui/icons/Person'
@@ -35,7 +37,8 @@ const action = {
 const emptyClassroom = {
     title: '',
     seat: '',
-    phone: ''
+    phone: '',
+    days: []
 }
 
 class ClassRoomManagement extends Component {
@@ -43,10 +46,12 @@ class ClassRoomManagement extends Component {
     constructor () {
         super()
         this.state = {
-            classRooms: [],
-            classroomSelected: null,
+            classrooms: [],
+            scheduleClassroom: [],
             childrens: [],
+            days: [],
             childSelectedList: [],
+            classroomSelected: null,
             showDialog: false,
             showListDialog: false,
             editMode: false,
@@ -68,14 +73,15 @@ class ClassRoomManagement extends Component {
             x.childLength = childLength
         })
         this.setState({
-            classRooms: dataClassroom.sort((a, b) => (a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1)),
+            classrooms: dataClassroom.sort((a, b) => (a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1)),
             childrens: dataChildren.sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1))
         })
     }
 
     fecthClassroom(){
-        Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
-        //Fetch.user.onlyChild(this.props.cookies.get(variables.cookies.token), this.setChildren)
+        Fetch.classroom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
+        Fetch.classroom.getSchedules(this.props.cookies.get(variables.cookies.token), data => this.setState({scheduleClassroom: [...data]}))
+        Fetch.day.get(data => this.setState({days: [...data]}))
     }
 
     componentDidMount () {
@@ -87,10 +93,14 @@ class ClassRoomManagement extends Component {
 
     handleEditClick (event, classroom, btnAction) {
         if(!(this.state.classroomSelected !== null && classroom._id === this.state.classroomSelected._id)){
-            this.setState({ classroomSelected: { ...classroom } })
+            this.setState({
+                classroomSelected: {
+                    ...classroom,
+                    days: [...classroom.days]
+                }
+            })
         }
         if(btnAction === action.showList) {
-            console.log('SHOW CHILD OF THIS CLASSROOM')
             this.setState({
                 childSelectedList: this.state.childrens.filter(child => child.id_classroom === classroom._id),
                 showListDialog: true
@@ -104,15 +114,30 @@ class ClassRoomManagement extends Component {
         this.setState({ showDialog: false, showListDialog: false, error: false })
     }
 
-    handleEditInputChange (event, name) {
-        const newValue = event.target.value
-        this.setState(state => {
-            const classroomSelected = state.classroomSelected
-            classroomSelected[name] = newValue
-            return {
-                classroomSelected: classroomSelected
-            }
-        })
+    handleEditInputChange (event, name, idDay) {
+        if(name !== 'days'){
+            const newValue = event.target.value
+            this.setState(state => {
+                const classroomSelected = state.classroomSelected
+                classroomSelected[name] = newValue
+                return {
+                    classroomSelected: classroomSelected
+                }
+            })
+        } else {
+            this.setState(state => {
+                const classroomSelected = state.classroomSelected
+                const index = classroomSelected.days.findIndex(x => x === idDay)
+                if(index === -1){
+                    classroomSelected.days.push(idDay)
+                }else{
+                    classroomSelected.days.splice(index, 1)
+                }
+                return {
+                    classroomSelected: classroomSelected
+                }
+            })
+        }
     }
 
     checkEmptyInput(){
@@ -128,19 +153,24 @@ class ClassRoomManagement extends Component {
             this.checkEmptyInput()
                 ? this.setState({error: true})
                 : (
-                    Fetch.classRoom.add(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
+                    Fetch.classroom.add(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
                     this.setState({error: false, showDialog: false})
                 )
         } else if (btnAction === action.edit){
+            const classroomSchedule = {
+                _id: classroom.idSchedule,
+                id_day: classroom.days
+            }
             this.checkEmptyInput()
                 ? this.setState({error: true})
                 : (
-                    Fetch.classRoom.update(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
+                    Fetch.classroom.update(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
+                    Fetch.classroom.updateSchedules(this.props.cookies.get(variables.cookies.token), classroomSchedule, this.fecthClassroom),
                     this.setState({error: false, showDialog: false})
                 )
         } else if (btnAction === action.delete){
             classroom.childLength === 0
-                ? Fetch.classRoom.delete(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom)
+                ? Fetch.classroom.delete(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom)
                 : this.setState({ showSnack: true })
         }
     }
@@ -155,20 +185,38 @@ class ClassRoomManagement extends Component {
 
     renderClassroom (classRoom) {
         const childLength = this.state.childrens.filter(child => child.id_classroom === classRoom._id).length
+        const schedules = this.state.scheduleClassroom.filter(x => x.id_classroom === classRoom._id)[0]
+        classRoom.idSchedule = schedules._id
+        classRoom.days = schedules.id_day
+
         return (
             <div className='div-salle' key={classRoom._id}>
                 <h2 onClick={event => this.handleEditClick(event, classRoom, action.showList)}>{classRoom.title}</h2>
-                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Total des eleves</span><span>: {classRoom.childLength}</span></p>
+                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Total des élèves</span><span>: {classRoom.childLength}</span></p>
                 <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Nombre de place</span><span>: {classRoom.seat}</span></p>
                 <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Contact</span><span>: {classRoom.phone}</span></p>
-                <div>
+                <div className='availability'>
+                    <p>Disponibilités</p>
+                    <p>
+                        {classRoom.days.length > 0 && classRoom.days.map(x => {
+                            const getDay = this.state.days.filter(day => day._id === x)
+                            if(getDay.length > 0){
+                                return (<span key={x}>{getDay[0].title}</span>)
+                            }
+                        })}
+                        {classRoom.days.length === 0 && (
+                            <span>pas de disponibilité</span>
+                        )}
+                    </p>
+                </div>
+                <div className='btn'>
                     <Button
                         onClick={event => this.handleEditClick(event, classRoom, null)}
                         variant='contained'
                         color='secondary'
                         startIcon={<EditIcon />}
                     >
-                        Edit
+                        Modifier
                     </Button>
                     <Button
                     className='btn-delete'
@@ -177,7 +225,7 @@ class ClassRoomManagement extends Component {
                         color='secondary'
                         startIcon={<DeleteIcon />}
                     >
-                        Delete
+                        Supprimer
                     </Button>
                 </div>
             </div>
@@ -189,7 +237,7 @@ class ClassRoomManagement extends Component {
     }
 
     render () {
-        const lang = this.getLangFile()
+        // const lang = this.getLangFile()
         return (
             <>
             <div className='classroom'>
@@ -197,7 +245,7 @@ class ClassRoomManagement extends Component {
                     Ajouter une nouvelle salle
                 </Button>
                 <div>
-                    {this.state.classRooms.map(classroom => this.renderClassroom(classroom))}
+                    {this.state.classrooms.map(classroom => this.renderClassroom(classroom))}
                 </div>
 
                 <Dialog
@@ -227,7 +275,7 @@ class ClassRoomManagement extends Component {
                                     variant='filled'
                                     label='Nom de la classe'
                                     autoFocus
-                                    onChange={event => this.handleEditInputChange(event, 'title')}
+                                    onChange={event => this.handleEditInputChange(event, 'title', null)}
                                     value={this.state.classroomSelected.title}
                                 />
                                 <TextField
@@ -235,18 +283,30 @@ class ClassRoomManagement extends Component {
                                     color='primary'
                                     variant='filled'
                                     label='Nombre de place'
-                                    onChange={event => this.handleEditInputChange(event, 'seat')}
+                                    onChange={event => this.handleEditInputChange(event, 'seat', null)}
                                     value={this.state.classroomSelected.seat}
                                 />
 
                                 <FormControl>
                                     <InputLabel>Contact</InputLabel>
                                     <Input
-                                        onChange={event => this.handleEditInputChange(event, 'phone')}
+                                        onChange={event => this.handleEditInputChange(event, 'phone', null)}
                                         value={this.state.classroomSelected.phone}
                                         inputComponent={PhoneMask.phoneMaskCustom}
                                     />
                                 </FormControl>
+                                {this.state.classroomSelected._id && this.state.days.map(day => (
+                                    <FormControlLabel
+                                        key={day._id}
+                                        control={
+                                            <Checkbox
+                                                checked={this.state.classroomSelected.days.filter(x => x === day._id).length > 0}
+                                                onChange={event => this.handleEditInputChange(event, 'days', day._id)}
+                                            />
+                                        }
+                                        label={day.title.toUpperCase()}
+                                    />
+                                ))}
                             </>
                         )}
                     </DialogContent>

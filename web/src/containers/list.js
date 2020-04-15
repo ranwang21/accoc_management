@@ -47,7 +47,7 @@ class Table extends Component {
     }
 
     componentDidMount () {
-        Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassroom)
+        Fetch.classroom.get(this.props.cookies.get(variables.cookies.token), this.setClassroom)
     }
 
     setClassroom (classrooms) {

@@ -1,6 +1,9 @@
+import moment from 'moment'
 import React, { Component } from 'react'
+import MomentUtils from '@date-io/moment'
 import { withCookies } from 'react-cookie'
 import Fetch from '../utilities/fetch-datas'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import '../styles/_schedule.scss'
 
@@ -12,7 +15,11 @@ class Schedule extends Component {
         this.state = {
             schedules: [],
             users: [],
-            classrooms: []
+            classrooms: [],
+            generation: {
+                startDate: '2020/04/07',
+                endDate: '2020/04/14'
+            }
         }
         this.setSchedules = this.setSchedules.bind(this)
     }
@@ -22,7 +29,7 @@ class Schedule extends Component {
     componentDidMount () {
         Fetch.schedule.get(this.props.cookies.get(variables.cookies.token), this.setSchedules)
         Fetch.schedule.user(this.props.cookies.get(variables.cookies.token), data => this.setState({ users: [...data] }))
-        Fetch.classRoom.getAll(this.props.cookies.get(variables.cookies.token), data => this.setState({ classrooms: [...data] }))
+        Fetch.classroom.getAll(this.props.cookies.get(variables.cookies.token), data => this.setState({ classrooms: [...data] }))
     }
 
     setSchedules (dataSchedules) {
@@ -77,7 +84,35 @@ class Schedule extends Component {
         const lang = this.getLangFile()
         return (
             <div className='schedule'>
-                <div className='generate-container' />
+                <div className='generate-container'>
+                    <MuiPickersUtilsProvider
+                        libInstance={moment} utils={MomentUtils}
+                        locale={this.props.lang}
+                    >
+                        <KeyboardDatePicker
+                            margin='normal'
+                            id='date-picker-dialog'
+                            label='Date picker dialog'
+                            format='MM/dd/yyyy'
+                            value={new Date()}
+                            onChange={null}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date'
+                            }}
+                        />
+                        <KeyboardDatePicker
+                            margin='normal'
+                            id='date-picker-dialog'
+                            label='Date picker dialog'
+                            format='MM/dd/yyyy'
+                            value={new Date()}
+                            onChange={null}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date'
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>
+                </div>
                 <div className='search-container'>
                     <TextField
                         size='small' variant='filled'

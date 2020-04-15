@@ -217,7 +217,7 @@ const getDays = (callBack) => {
     fetch(HOST + '/days')
         .then(response => response.json())
         .then(dataDays => {
-            callBack(dataDays.data)
+            callBack(dataDays.data.filter(x => (x.title !== 'samedi' && x.title !== 'dimanche')))
         })
 }
 
@@ -1046,6 +1046,21 @@ const getAllClassRooms = (token, callBack) => {
         })
 }
 
+const getClassRoomSchedules = (token, callBack) => {
+
+    fetch(HOST + '/classroom-schedules', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            callBack(data.data)
+        })
+}
+
 const updateClassRoom = (token, classroom, callBack) => {
         fetch(HOST + '/classrooms/'+ classroom._id, {
             method: 'PUT',
@@ -1055,6 +1070,21 @@ const updateClassRoom = (token, classroom, callBack) => {
                 Authorization: 'Bearer ' + token
             },
             body: JSON.stringify(classroom)
+        })
+        .then(response => response.json())
+        .then(data => { callBack() })
+        .catch()
+}
+
+const updateClassRoomSchedules = (token, classroomSchedule, callBack) => {
+        fetch(HOST + '/classroom-schedules/'+ classroomSchedule._id, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(classroomSchedule)
         })
         .then(response => response.json())
         .then(data => { callBack() })
@@ -1219,10 +1249,12 @@ export default {
         get: getImage,
         update: updateUserImage
     },
-    classRoom: {
+    classroom: {
         get: getClassRooms,
         getAll: getAllClassRooms,
+        getSchedules: getClassRoomSchedules,
         update: updateClassRoom,
+        updateSchedules: updateClassRoomSchedules,
         add: addClassRoom,
         delete: deleteClassRoom
     }
