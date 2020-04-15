@@ -18,13 +18,13 @@ public class Schedule {
         this.is_absent = is_absent;
         this.comment = comment;
     }
-
-    public Schedule(Boolean cb_str) {
-        this.is_absent=cb_str;
+    public Schedule(String _id, Boolean is_absent) {
+        this._id = _id;
+        this.is_absent = is_absent;
     }
-
-
-
+    public Schedule(Boolean cb_str) {
+        this.is_absent = cb_str;
+    }
     public String get_id() {
         return _id;
     }
@@ -52,7 +52,6 @@ public class Schedule {
     public boolean getIs_absent() {
         return is_absent;
     }
-
     public void setIs_absent(Boolean is_absent) {
         this.is_absent = is_absent;
     }

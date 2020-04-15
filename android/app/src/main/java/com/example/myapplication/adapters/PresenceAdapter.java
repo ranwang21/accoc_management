@@ -33,19 +33,17 @@ import java.util.List;
 public class PresenceAdapter extends ArrayAdapter<User> {
 
     int idLayout;
-    Schedule schedule;
-
+    ArrayList<Schedule> schedules;
+    String date;
     public PresenceAdapter(Context context, int resource, List<User> objects) {
         super(context, resource, objects);
         idLayout = resource;
-        ;
+        schedules = new ArrayList<>();
     }
-
     public View getView(int position, View convertView, ViewGroup parent) {
         final User user = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(idLayout, null);
-
             Button btn = convertView.findViewById(R.id.button_presence);
             TextView Fname = convertView.findViewById(R.id.textView1);
             TextView Lname = convertView.findViewById(R.id.textView2);
@@ -54,22 +52,25 @@ public class PresenceAdapter extends ArrayAdapter<User> {
             Fname.setText(user.getFirst_name());
             Lname.setText(user.getLast_name());
             Glide.with(getContext()).load(user.getImg_url()).into(img);
-           boolean isFilled=false;
-cb.setChecked(isFilled);
+            boolean isFilled = false;
+            cb.setChecked(isFilled);
             cb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(cb.isChecked()){
-                         schedule.setIs_absent(cb.isChecked());
-                        ScheduleManager.insertAbscent(getContext(),isFilled);
-
-
+                    Schedule schedule = ScheduleManager.getByIdUserAndDate(getContext(), user.get_id(), date);
+                    if (schedule != null) {
+                        schedule.setIs_absent(cb.isChecked());
+                        schedules.add(schedule);
                     }
                 }
             });
         }
-            return convertView;
-
-
+        return convertView;
+    }
+    public ArrayList<Schedule> getSchedules() {
+        return schedules;
+    }
+    public void setDate(String date) {
+        this.date = date;
     }
 }
