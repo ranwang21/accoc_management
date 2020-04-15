@@ -960,6 +960,23 @@ const updateUserImage = (token, user, file, callBack) => {
             .catch()
 }
 
+const getChildrens = (token, callBack) => {
+    fetch(HOST + '/users', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                const childrens = data.data.filter(x => x.id_classroom !== null)
+                callBack(childrens)
+            }
+        })
+}
+
 const getClassRooms = (token, callBack) => {
     fetch(HOST + '/classrooms', {
         headers: {
@@ -1128,7 +1145,8 @@ export default {
     user: {
         get: getUser,
         update: updateUser,
-        delete: deleteUser
+        delete: deleteUser,
+        onlyChild: getChildrens
     },
     login: {
         checkIfExist: checkIfEmailExist,

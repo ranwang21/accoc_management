@@ -27,6 +27,7 @@ class ClassRoomManagement extends Component {
         super()
         this.state = {
             classRooms: [],
+            childrens: [],
             classroomSelected: null,
             showDialog: false,
             editMode: false,
@@ -34,6 +35,7 @@ class ClassRoomManagement extends Component {
             showSnack: false
         }
         this.setClassRoom = this.setClassRoom.bind(this)
+        this.setChildren = this.setChildren.bind(this)
         this.handleEditClick = this.handleEditClick.bind(this)
         this.handleCloseDialog = this.handleCloseDialog.bind(this)
         this.handleActionClick = this.handleActionClick.bind(this)
@@ -41,19 +43,23 @@ class ClassRoomManagement extends Component {
         this.handleAddClick = this.handleAddClick.bind(this)
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
         this.checkDeleteError = this.checkDeleteError.bind(this)
-        this.handleListChild = this.handleListChild.bind(this)
     }
 
     setClassRoom (data) {
         this.setState({ classRooms: data.sort((a, b) => (a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1)) })
     }
 
+    setChildren (data) {
+        this.setState({ childrens: data.sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1)) })
+    }
+
     fecthClassroom(){
         Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
+        Fetch.user.onlyChild(this.props.cookies.get(variables.cookies.token), this.setChildren)
     }
 
     componentDidMount () {
-        // Fecth ClassRooms
+        // Fecth ClassRooms and Children
         this.fecthClassroom()
     }
 
@@ -124,10 +130,6 @@ class ClassRoomManagement extends Component {
             showDialog: true,
             editMode: false
         })
-    }
-
-    handleListChild(){
-        event.preventDefault()
     }
 
     renderClassroom (classRoom) {
@@ -240,6 +242,7 @@ class ClassRoomManagement extends Component {
                         )}
                     </DialogActions>
                 </Dialog>
+
             </div>
                 <Snack
                     show={this.state.showSnack}
