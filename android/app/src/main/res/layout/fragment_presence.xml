@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/silver"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,40 +13,32 @@
         android:orientation="horizontal"
         android:showDividers="beginning|end|none">
 
-
         <ImageView
             android:id="@+id/imageView5"
-
-            android:layout_width="192dp"
-            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:contentDescription="@string/logo_image"
             app:srcCompat="@drawable/logo" />
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
-
             android:fitsSystemWindows="false"
             android:orientation="vertical"
-            android:translationX="200dp">
+            android:translationX="150dp">
 
             <Button
                 android:id="@+id/button_presence"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/save"
-android:clickable="true"
+                android:clickable="true"
                 android:focusable="true"
-                      />
+                android:text="@string/save" />
 
             <Spinner
                 android:id="@+id/spinner_presence"
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </LinearLayout>
@@ -56,8 +49,7 @@ android:clickable="true"
         android:layout_height="fill_parent"
         android:choiceMode="multipleChoiceModal"
         android:clickable="true"
-        android:focusable="true" >
+        android:focusable="true"></ListView>
 
-    </ListView>
 
 </LinearLayout>

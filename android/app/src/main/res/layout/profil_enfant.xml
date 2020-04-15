@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/silver"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,14 +21,14 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/profilchild" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -36,8 +37,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="nom "
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tv_prenom"
@@ -46,9 +47,21 @@
                     android:layout_gravity="center_horizontal"
                     android:paddingLeft="10dp"
                     android:text="prenom"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/upload_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/buttonstyle"
+                android:text="upload">
+
+            </Button>
+
         </LinearLayout>
 
     </LinearLayout>
@@ -56,7 +69,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -65,10 +78,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/addresse" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adresse                    "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -77,8 +92,8 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="H4L3N4 Boulevard  vertu"
-                android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textColor="@color/textcolor"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -96,10 +111,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/birthdays" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date de naissance  "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_birthday"
@@ -108,7 +125,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="Your birthday"
-                android:textColor="@color/white"
+                android:textColor="@color/textcolor"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -118,7 +135,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/silver" />
 
 
         <LinearLayout
@@ -128,10 +145,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/imag_telephone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telephone                "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_tepehone"
@@ -140,7 +159,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="(438)2279716"
-                android:textColor="@color/white"
+                android:textColor="@color/textcolor"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -160,10 +179,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/icon_gender" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexe                          "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_gender"
@@ -172,7 +193,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="sexe"
-                android:textColor="@color/white"
+                android:textColor="@color/textcolor"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -193,7 +214,7 @@
                 android:layout_marginTop="35dp"
                 android:background="@drawable/buttonstyle"
                 android:text="@string/txt_suivi"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
 

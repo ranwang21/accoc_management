@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/silver"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="275dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,14 +20,14 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/photocollaborator" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="nom "
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="25sp" />
 
                 <TextView
@@ -46,7 +46,7 @@
                     android:layout_gravity="center_horizontal"
                     android:paddingLeft="10dp"
                     android:text="prenom"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -55,6 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/buttonstyle"
                 android:text="upload">
 
             </Button>
@@ -74,10 +76,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/addresse" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adresse                    "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -86,7 +90,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="H4L3N4 Boulevard  vertu"
-                android:textColor="@color/white"
+                android:textColor="@color/textcolor"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -105,10 +109,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/birthdays" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date de naissance  "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_birthday"
@@ -117,7 +123,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="Your birthday"
-                android:textColor="@color/white"
+                android:textColor="@color/textcolor"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -137,10 +143,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/imag_telephone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telephone               "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_tepehone"
@@ -149,7 +157,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="(438)2279716"
-                android:textColor="@color/white"
+                android:textColor="@color/textcolor"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -169,10 +177,12 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/icon_gender" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexe                          "
+                android:textColor="@color/black"
+                android:textSize="25sp"></TextView>
 
             <TextView
                 android:id="@+id/tv_gender"
@@ -181,7 +191,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="sexe"
-                android:textColor="@color/white"
+                android:textColor="@color/silver"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -193,13 +203,6 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/save_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="save"
-                android:textSize="25sp"
-                android:textStyle="bold" />
         </LinearLayout>
 
 

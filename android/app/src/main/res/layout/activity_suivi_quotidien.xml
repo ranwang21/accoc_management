@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/fontColor"
     android:orientation="vertical"
     tools:context=".SuiviQuotidienActivity">
 
@@ -483,7 +483,7 @@
             android:layout_margin="5dp"
             android:padding="10dp"
             android:text="@string/txt_difficulte"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"></TextView>
 
@@ -508,8 +508,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="10dp"
-            android:text="@string/txt_force"
-            android:textColor="@color/white"
+            android:text= "@string/txt_force"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"></TextView>
 
@@ -535,7 +535,7 @@
             android:layout_margin="5dp"
             android:padding="10dp"
             android:text="@string/txt_a_faire"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"></TextView>
 
@@ -566,7 +566,7 @@
             android:background="@drawable/buttonstyle"
             android:gravity="center"
             android:text="@string/txt_soumettre"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
     </LinearLayout>

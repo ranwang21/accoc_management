@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -15,13 +16,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nom_salle"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_nom_classe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nom de la classe :"
+            android:layout_marginLeft="35dp"
+            android:text="              Nom de la classe :"
+            android:textColor="@color/textcolor"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -36,13 +40,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nombre_place"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_seat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" nbseat :"
+            android:layout_marginLeft="25dp"
+            android:text="           nbseat "
+            android:textColor="@color/textcolor"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -58,13 +65,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/num_telephone"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="telphone :"
+            android:layout_marginLeft="70dp"
+            android:text="                        telphone "
+            android:textColor="@color/textcolor"
             android:textSize="20sp" />
     </LinearLayout>
 

@@ -55,8 +55,6 @@ public class Acceuil extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Toast.makeText(getActivity(), "status de " + c.getTitle(), Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(getActivity(), "nombre de place  " + c.getSeat(), Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder mybuilder = new AlertDialog.Builder(getContext());
                     View mavue = getLayoutInflater().inflate(R.layout.alert_dialog_info_salle, null);
                     mybuilder.setView(mavue);
@@ -77,19 +75,13 @@ public class Acceuil extends Fragment {
                     });
                 }
             });
-            /*button.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Toast.makeText(getActivity(), "status de " + c.getTitle(), Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            });*/
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params.setMargins(0, 30, 0, 0);
             button.setLayoutParams(params);
+            button.setTextColor(Color.BLACK);
             LinearLayout ll_acceuil = view.findViewById(R.id.acceui_layout);
             ll_acceuil.addView(button);
         }
@@ -101,50 +93,4 @@ public class Acceuil extends Fragment {
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Acceuil");
     }
-//    @Override
-//    public void onClick(View view) {
-//        Fragment fragment = null;
-//        switch (view.getId()) {
-//            case R.id.salle1:
-//                fragment = new ListesEnfants();
-//                break;
-//            case R.id.salle2:
-//                fragment = new ListesEnfants();
-//                break;
-//            case R.id.salle3:
-//                fragment = new ListesEnfants();
-//                break;
-//            case R.id.salle4:
-//                fragment = new ListesEnfants();
-//                break;
-//            default:
-//                break;
-//        }
-//        if (fragment != null) {
-//            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.add(R.id.acceui_layout, fragment).commit();
-//            fragmentTransaction.setPrimaryNavigationFragment(fragment);
-//        }
-//    }
-//    @Override
-//    public boolean onLongClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.salle1:
-//                Toast.makeText(getActivity(), "status de la salle 1", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.salle2:
-//                Toast.makeText(getActivity(), "status de la salle 2", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.salle3:
-//                Toast.makeText(getActivity(), "status de la salle 3", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.salle4:
-//                Toast.makeText(getActivity(), "status de la salle 4", Toast.LENGTH_SHORT).show();
-//                break;
-//            default:
-//                break;
-//        }
-//        return false;
-//    }
 }
