@@ -9,10 +9,9 @@ import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
 import Historical from './historical'
 import CreateAccount from '../components/create-account'
-import ScheduleManagement from '../components/schedule-management'
+import Schedule from './schedule'
 import Classroom from './classroom'
 import Profile from '../components/profile'
-import Schedule from '../components/schedule'
 import Print from '../components/print'
 import Snack from '../components/snack'
 import Lists from './list'
@@ -228,7 +227,7 @@ class Dashbord extends Component {
         case variables.menus.classroomManagement:
             return (<Classroom lang={lang} />)
         case variables.menus.scheduleManagement:
-            return (<ScheduleManagement lang={lang} />)
+            return (<Schedule lang={lang} />)
         case variables.menus.historical:
             return (<Historical lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
         case variables.menus.prints:
