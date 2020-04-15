@@ -47,7 +47,7 @@ class Table extends Component {
     }
 
     componentDidMount () {
-        Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassroom)
+        Fetch.classroom.get(this.props.cookies.get(variables.cookies.token), this.setClassroom)
     }
 
     setClassroom (classrooms) {
@@ -247,7 +247,7 @@ class Table extends Component {
                                             <MenuItem value=''>
                                                 <em>Toutes les salles</em>
                                             </MenuItem>
-                                            {this.props.classRooms.map(classRoom => (
+                                            {this.state.classrooms.map(classRoom => (
                                                 <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
                                             ))}
                                         </Select>

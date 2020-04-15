@@ -5,10 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
-import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Schedule;
-import com.example.myapplication.entities.User;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
 import com.example.myapplication.services.DeleteJson;
@@ -16,10 +15,8 @@ import com.example.myapplication.services.PostJson;
 import com.example.myapplication.services.PutJson;
 import com.google.gson.Gson;
 
-import java.sql.Date;
 import java.util.ArrayList;
-
-import androidx.core.content.ContextCompat;
+import java.util.List;
 
 
 public class ScheduleManager {
@@ -117,23 +114,11 @@ public class ScheduleManager {
         ConnectionBD.close();
         return schedules;
     }
-
-    public static long  insertData (Context context, Integer id, Boolean isAbscent ) {
-
-
+    public static void insertAbscent(Context context, boolean absent) {
         ContentValues contentValues = new ContentValues();
-        String strId=id.toString();
-        String[]selectionArgs={strId};
+        contentValues.put(IS_ABSENT, String.valueOf(absent));
         SQLiteDatabase bd = ConnectionBD.getBd(context);
-
-
-        contentValues.put(ID, strId);
-
-        contentValues.put(IS_ABSENT,isAbscent );
-        long result=bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
-
-        ConnectionBD.close();
-      return result;
+        bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, IS_ABSENT + "=?", new String[]{});
     }
     /**
      * getById return all Schedule by id_user from DataBase
@@ -142,7 +127,7 @@ public class ScheduleManager {
      * @param id_user
      * @return ArrayList<Schedule>
      */
-    public static ArrayList<Schedule> getByIdUser(Context context, String id_user) {
+    public static ArrayList<Schedule> getByIdUserAndDate(Context context, String id_user) {
         ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByIdUser, new String[]{id_user});
@@ -315,13 +300,9 @@ public class ScheduleManager {
             is_absent = 1;
         }
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID_USER, schedule.getId_user());
-        contentValues.put(ID_CLASSROOM, schedule.getId_classroom());
-        contentValues.put(DATE, schedule.getDate());
         contentValues.put(IS_ABSENT, is_absent);
-        contentValues.put(COMMENT, schedule.getComment());
         SQLiteDatabase bd = ConnectionBD.getBd(context);
-        bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, ID + " = " + schedule.get_id(), null);
+        bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME, contentValues, ID + " like " + "\"" + schedule.get_id() + "\"", null);
     }
     public static void postToAPI(Context context, Schedule schedule, String token) {
         Gson gson = new Gson();
@@ -332,10 +313,11 @@ public class ScheduleManager {
     }
     public static void putToAPI(Context context, Schedule schedule, String token) {
         Gson gson = new Gson();
-        String jsonToSemd = gson.toJson(schedule);
-        String jsonFromApi = PutJson.put(jsonToSemd, "/schedules", token);
-        Schedule scheduleFromApi = gson.fromJson(jsonFromApi, Schedule.class);
-        ScheduleManager.update(context, scheduleFromApi);
+        Schedule scheduleToSend = new Schedule(schedule.get_id(), schedule.getIs_absent());
+        String jsonToSemd = gson.toJson(scheduleToSend);
+        String jsonFromApi = PutJson.put(jsonToSemd, "/schedules/" + scheduleToSend.get_id(), token);
+        Log.d("Json", "putToAPI: " + jsonFromApi);
+        ScheduleManager.update(context, schedule);
     }
     public static void deleteToAPI(Context context, String id, String token) {
         Gson gson = new Gson();

@@ -27,6 +27,7 @@ const variables = {
         createAccount: 'POKJHSFNCKD',
         classroomManagement: 'KJHGFVDGWHSNGDH',
         scheduleManagement: 'GDHVFBNCDHGN',
+        historical: 'OEIUHGDVFBEJDHBFV',
         prints: 'RWFFABWSMND',
         childList: 'UHNDBVDHNBN',
         profile: 'GESBVDBQUJA',

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Button, DialogTitle, DialogContent, Dialog, DialogActions, IconButton, TableContainer, Table, TableBody, TableRow, TableCell, TableHead, TextField } from '@material-ui/core'
+import { DialogTitle, DialogContent, Dialog, TableContainer, Table, TableBody, TableRow, TableCell, TableHead } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
 
-class ClassroomDetail extends Component {
+class HistoricalDetail extends Component {
     getLangFile () {
-        return require('../lang/' + this.props.lang + '/classroom-detail.json')
+        return require('../lang/' + this.props.lang + '/historical-detail.json')
     }
 
     componentDidMount () {
@@ -62,4 +62,4 @@ class ClassroomDetail extends Component {
     }
 }
 
-export default withCookies(ClassroomDetail)
+export default withCookies(HistoricalDetail)

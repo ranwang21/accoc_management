@@ -217,7 +217,7 @@ const getDays = (callBack) => {
     fetch(HOST + '/days')
         .then(response => response.json())
         .then(dataDays => {
-            callBack(dataDays.data)
+            callBack(dataDays.data.filter(x => (x.title !== 'samedi' && x.title !== 'dimanche')))
         })
 }
 
@@ -960,8 +960,95 @@ const updateUserImage = (token, user, file, callBack) => {
             .catch()
 }
 
+const getChildrens = (token, callBack) => {
+    fetch(HOST + '/roles', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(dataRoles => {
+            if(dataRoles.success) {
+                const childRole = dataRoles.data.filter(x => x.title === 'children')[0]
+                fetch(HOST + '/users', {
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + token
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.success) {
+                            const childrens = data.data.filter(x => x.id_role === childRole._id)
+                            callBack(childrens)
+                        }
+                    })
+            }
+        })
+}
+
 const getClassRooms = (token, callBack) => {
+
     fetch(HOST + '/classrooms', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(dataClassRoom => {
+            fetch(HOST + '/roles', {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            })
+                .then(response => response.json())
+                .then(dataRoles => {
+                    if(dataRoles.success) {
+                        const childRole = dataRoles.data.filter(x => x.title === 'children')[0]
+                        fetch(HOST + '/users', {
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
+                                Authorization: 'Bearer ' + token
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data.success) {
+                                    const childrens = data.data.filter(x => x.id_role === childRole._id)
+                                    callBack(dataClassRoom.data, childrens)
+                                }
+                            })
+                    }
+                })
+        })
+}
+
+const getAllClassRooms = (token, callBack) => {
+
+    fetch(HOST + '/classrooms', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+        .then(response => response.json())
+        .then(dataClassRoom => {
+            callBack(dataClassRoom.data)
+        })
+}
+
+const getClassRoomSchedules = (token, callBack) => {
+
+    fetch(HOST + '/classroom-schedules', {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -989,6 +1076,21 @@ const updateClassRoom = (token, classroom, callBack) => {
         .catch()
 }
 
+const updateClassRoomSchedules = (token, classroomSchedule, callBack) => {
+        fetch(HOST + '/classroom-schedules/'+ classroomSchedule._id, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(classroomSchedule)
+        })
+        .then(response => response.json())
+        .then(data => { callBack() })
+        .catch()
+}
+
 const addClassRoom = (token, classroom, callBack) => {
         fetch(HOST + '/classrooms', {
             method: 'POST',
@@ -1005,33 +1107,15 @@ const addClassRoom = (token, classroom, callBack) => {
 }
 
 const deleteClassRoom = (token, classroom, callBack) => {
-    fetch(HOST + '/users', {
+    fetch(HOST + '/classrooms/' + classroom._id, {
+        method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + token
         }
     })
-        .then(response => response.json())
-        .then(dataUsers => {
-            if(dataUsers.success === true){
-                const users = dataUsers.data
-                const usersFilter = users.filter(x => x.id_classroom === classroom._id)
-                if(usersFilter.length === 0) {
-                    fetch(HOST + '/classrooms/' + classroom._id, {
-                        method: 'DELETE',
-                        headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + token
-                        }
-                    })
-                    .then(response => {callBack(true)})
-                } else {
-                    callBack(false)
-                }
-            }
-        })
+    .then(response => {callBack(true)})
 }
 
 const getClassRoomsAndCollaborater = (token, callBack) => {
@@ -1085,6 +1169,21 @@ const getAllSchedules = (token, callBack) => {
     })
 }
 
+const addSchedule = (token, schedule, callBack) => {
+        fetch(HOST + '/schedules', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(schedule)
+        })
+        .then(response => response.json())
+        .then(data => { callBack() })
+        .catch()
+}
+
 const deleteUser = (token, user) => {
     fetch(HOST + '/logins/' + user.idLogin, {
         method: 'DELETE',
@@ -1105,6 +1204,21 @@ const deleteUser = (token, user) => {
     })
 }
 
+const getChildrenAndCollab = (token, callBack) => {
+    fetch(HOST + '/users', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            callBack(data.data.filter(x => x.id_classroom !== null))
+        }
+    })
+}
 
 export default {
     encodeData,
@@ -1125,10 +1239,16 @@ export default {
     createUsers,
     updateUserValidities,
     getAllSchedules,
+    schedule: {
+        get: getAllSchedules,
+        user: getChildrenAndCollab,
+        add: addSchedule
+    },
     user: {
         get: getUser,
         update: updateUser,
-        delete: deleteUser
+        delete: deleteUser,
+        onlyChild: getChildrens
     },
     login: {
         checkIfExist: checkIfEmailExist,
@@ -1145,9 +1265,12 @@ export default {
         get: getImage,
         update: updateUserImage
     },
-    classRoom: {
+    classroom: {
         get: getClassRooms,
+        getAll: getAllClassRooms,
+        getSchedules: getClassRoomSchedules,
         update: updateClassRoom,
+        updateSchedules: updateClassRoomSchedules,
         add: addClassRoom,
         delete: deleteClassRoom
     }
