@@ -49,7 +49,7 @@ public class Schedule {
     public void setDate(String date) {
         this.date = date;
     }
-    public Boolean getIs_absent() {
+    public boolean getIs_absent() {
         return is_absent;
     }
 

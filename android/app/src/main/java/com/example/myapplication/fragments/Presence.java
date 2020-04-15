@@ -54,6 +54,7 @@ public class Presence extends Fragment {
     String dateString;
     ArrayList<User> users;
     ArrayList<Schedule>schedules;
+    ArrayList<ScheduleManager>scheduleManagers;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -114,25 +115,14 @@ public class Presence extends Fragment {
         });
 
 
-User user=new User();
 
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getContext(),
-                android.R.layout.simple_list_item_checked
-        );
+                android.R.layout.simple_list_item_checked);
         listView.setAdapter(listViewAdapter);
-       /* SQLiteDatabase bd= ConnectionBD.getBd(getContext());
-        Cursor cursor=bd.query(DataBaseHelper.SCHEDULE_TABLE_NAME, null,null,null,null,null,null);
-        checkboxAdapter adapter=new checkboxAdapter(getContext(),cursor);
-        listView.setAdapter(adapter);
-       HashMap<Integer,Schedule>scheduleHashMap=adapter.getScheduleHashMap();
-       for (Map.Entry<Integer,Schedule>entry:scheduleHashMap.entrySet()){
-           Schedule key =entry.getValue();
-           Schedule val=entry.getValue();
-           long schedules =ScheduleManager.insertData(getContext(),getId(),val.getIs_absent());
-bd.compileStatement(String.valueOf(schedules));
 
-       }*/
+
+
         return view;
 
     }

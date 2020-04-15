@@ -20,6 +20,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Schedule;
 import com.example.myapplication.entities.User;
+import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.managers.ClassroomManager;
 import com.example.myapplication.managers.ScheduleManager;
 import com.example.myapplication.managers.UserManager;
@@ -31,14 +32,13 @@ import java.util.List;
 
 public class PresenceAdapter extends ArrayAdapter<User> {
 
-    private ArrayList<Schedule> schedList= new ArrayList<Schedule>();
-
     int idLayout;
+    Schedule schedule;
 
     public PresenceAdapter(Context context, int resource, List<User> objects) {
         super(context, resource, objects);
         idLayout = resource;
-       ;
+        ;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -54,13 +54,22 @@ public class PresenceAdapter extends ArrayAdapter<User> {
             Fname.setText(user.getFirst_name());
             Lname.setText(user.getLast_name());
             Glide.with(getContext()).load(user.getImg_url()).into(img);
+           boolean isFilled=false;
+cb.setChecked(isFilled);
+            cb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(cb.isChecked()){
+                         schedule.setIs_absent(cb.isChecked());
+                        ScheduleManager.insertAbscent(getContext(),isFilled);
 
 
-
+                    }
+                }
+            });
         }
-
-
             return convertView;
+
 
     }
 }

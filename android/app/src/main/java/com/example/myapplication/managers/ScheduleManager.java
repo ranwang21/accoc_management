@@ -4,11 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import android.widget.ArrayAdapter;
 
-import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Schedule;
-import com.example.myapplication.entities.User;
 import com.example.myapplication.helpers.DataBaseHelper;
 import com.example.myapplication.services.ConnectionBD;
 import com.example.myapplication.services.DeleteJson;
@@ -16,10 +14,8 @@ import com.example.myapplication.services.PostJson;
 import com.example.myapplication.services.PutJson;
 import com.google.gson.Gson;
 
-import java.sql.Date;
 import java.util.ArrayList;
-
-import androidx.core.content.ContextCompat;
+import java.util.List;
 
 
 public class ScheduleManager {
@@ -118,23 +114,14 @@ public class ScheduleManager {
         return schedules;
     }
 
-    public static long  insertData (Context context, Integer id, Boolean isAbscent ) {
+  public static void  insertAbscent(Context context, boolean absent) {
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(IS_ABSENT, String.valueOf(absent));
+        SQLiteDatabase bd=ConnectionBD.getBd(context);
+        bd.update(DataBaseHelper.SCHEDULE_TABLE_NAME,contentValues,IS_ABSENT+"=?",new String[]{});
 
 
-        ContentValues contentValues = new ContentValues();
-        String strId=id.toString();
-        String[]selectionArgs={strId};
-        SQLiteDatabase bd = ConnectionBD.getBd(context);
-
-
-        contentValues.put(ID, strId);
-
-        contentValues.put(IS_ABSENT,isAbscent );
-        long result=bd.insert(DataBaseHelper.SCHEDULE_TABLE_NAME, null, contentValues);
-
-        ConnectionBD.close();
-      return result;
-    }
+  }
     /**
      * getById return all Schedule by id_user from DataBase
      *
@@ -343,4 +330,6 @@ public class ScheduleManager {
         String jsonFromApi = DeleteJson.delete("/schedules/" + id, token);
         ScheduleManager.delete(context, id);
     }
+
+
 }
