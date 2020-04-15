@@ -67,127 +67,139 @@ class ClassRoomManagement extends Component {
         this.handleCloseSnack = this.handleCloseSnack.bind(this)
     }
 
-    setClassRoom (dataClassroom, dataChildren) {
-        dataClassroom.map(x => {
-            const childLength = dataChildren.filter(child => child.id_classroom === x._id).length
-            x.childLength = childLength
-        })
-        this.setState({
-            classrooms: dataClassroom.sort((a, b) => (a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1)),
-            childrens: dataChildren.sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1))
-        })
-    }
-
-    fecthClassroom(){
-        Fetch.classroom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
-        Fetch.classroom.getSchedules(this.props.cookies.get(variables.cookies.token), data => this.setState({scheduleClassroom: [...data]}))
-        Fetch.day.get(data => this.setState({days: [...data]}))
-    }
-
     componentDidMount () {
-        // Fecth ClassRooms and Children
         this.fecthClassroom()
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/classroom.json') }
 
-    handleEditClick (event, classroom, btnAction) {
-        if(!(this.state.classroomSelected !== null && classroom._id === this.state.classroomSelected._id)){
+
+    //#region Event functions
+
+        handleAddClick(){
             this.setState({
-                classroomSelected: {
-                    ...classroom,
-                    days: [...classroom.days]
-                }
+                classroomSelected: { ...emptyClassroom },
+                showDialog: true,
+                editMode: false
             })
         }
-        if(btnAction === action.showList) {
-            this.setState({
-                childSelectedList: this.state.childrens.filter(child => child.id_classroom === classroom._id),
-                showListDialog: true
-            })
-        } else {
-            this.setState({ showDialog: true, editMode: true })
-        }
-    }
 
-    handleCloseDialog () {
-        this.setState({ showDialog: false, showListDialog: false, error: false })
-    }
-
-    handleEditInputChange (event, name, idDay) {
-        if(name !== 'days'){
-            const newValue = event.target.value
-            this.setState(state => {
-                const classroomSelected = state.classroomSelected
-                classroomSelected[name] = newValue
-                return {
-                    classroomSelected: classroomSelected
-                }
-            })
-        } else {
-            this.setState(state => {
-                const classroomSelected = state.classroomSelected
-                const index = classroomSelected.days.findIndex(x => x === idDay)
-                if(index === -1){
-                    classroomSelected.days.push(idDay)
-                }else{
-                    classroomSelected.days.splice(index, 1)
-                }
-                return {
-                    classroomSelected: classroomSelected
-                }
-            })
-        }
-    }
-
-    checkEmptyInput(){
-        let error = true
-        if(this.state.classroomSelected.title !== '' & this.state.classroomSelected.seat !== '' && this.state.classroomSelected.phone !== ''){
-            error = false
-        }
-        return error
-    }
-
-    handleActionClick(event, btnAction, classroom) {
-        if (btnAction === action.add){
-            this.checkEmptyInput()
-                ? this.setState({error: true})
-                : (
-                    Fetch.classroom.add(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
-                    this.setState({error: false, showDialog: false})
-                )
-        } else if (btnAction === action.edit){
-            const classroomSchedule = {
-                _id: classroom.idSchedule,
-                id_day: classroom.days
+        handleEditClick (event, classroom, btnAction) {
+            if(!(this.state.classroomSelected !== null && classroom._id === this.state.classroomSelected._id)){
+                this.setState({
+                    classroomSelected: {
+                        ...classroom,
+                        days: [...classroom.days]
+                    }
+                })
             }
-            this.checkEmptyInput()
-                ? this.setState({error: true})
-                : (
-                    Fetch.classroom.update(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
-                    Fetch.classroom.updateSchedules(this.props.cookies.get(variables.cookies.token), classroomSchedule, this.fecthClassroom),
-                    this.setState({error: false, showDialog: false})
-                )
-        } else if (btnAction === action.delete){
-            classroom.childLength === 0
-                ? Fetch.classroom.delete(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom)
-                : this.setState({ showSnack: true })
+            if(btnAction === action.showList) {
+                this.setState({
+                    childSelectedList: this.state.childrens.filter(child => child.id_classroom === classroom._id),
+                    showListDialog: true
+                })
+            } else {
+                this.setState({ showDialog: true, editMode: true })
+            }
         }
-    }
 
-    handleAddClick(){
-        this.setState({
-            classroomSelected: { ...emptyClassroom },
-            showDialog: true,
-            editMode: false
-        })
-    }
+        handleCloseDialog () {
+            this.setState({ showDialog: false, showListDialog: false, error: false })
+        }
+
+        handleCloseSnack () {
+            this.setState({ showSnack: false })
+        }
+
+        handleEditInputChange (event, name, idDay) {
+            if(name !== 'days'){
+                const newValue = event.target.value
+                this.setState(state => {
+                    const classroomSelected = state.classroomSelected
+                    classroomSelected[name] = newValue
+                    return {
+                        classroomSelected: classroomSelected
+                    }
+                })
+            } else {
+                this.setState(state => {
+                    const classroomSelected = state.classroomSelected
+                    const index = classroomSelected.days.findIndex(x => x === idDay)
+                    if(index === -1){
+                        classroomSelected.days.push(idDay)
+                    }else{
+                        classroomSelected.days.splice(index, 1)
+                    }
+                    return {
+                        classroomSelected: classroomSelected
+                    }
+                })
+            }
+        }
+
+        handleActionClick(event, btnAction, classroom) {
+            if (btnAction === action.add){
+                this.checkEmptyInput()
+                    ? this.setState({error: true})
+                    : (
+                        Fetch.classroom.add(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
+                        this.setState({error: false, showDialog: false})
+                    )
+            } else if (btnAction === action.edit){
+                const classroomSchedule = {
+                    _id: classroom.idSchedule,
+                    id_day: classroom.days
+                }
+                this.checkEmptyInput()
+                    ? this.setState({error: true})
+                    : (
+                        Fetch.classroom.update(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom),
+                        Fetch.classroom.updateSchedules(this.props.cookies.get(variables.cookies.token), classroomSchedule, this.fecthClassroom),
+                        this.setState({error: false, showDialog: false})
+                    )
+            } else if (btnAction === action.delete){
+                classroom.childLength === 0
+                    ? Fetch.classroom.delete(this.props.cookies.get(variables.cookies.token), classroom, this.fecthClassroom)
+                    : this.setState({ showSnack: true })
+            }
+        }
+
+    //#endregion
+
+    //#region Utilities functions
+
+        setClassRoom (dataClassroom, dataChildren) {
+            dataClassroom.map(x => {
+                const childLength = dataChildren.filter(child => child.id_classroom === x._id).length
+                x.childLength = childLength
+            })
+            this.setState({
+                classrooms: dataClassroom.sort((a, b) => (a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1)),
+                childrens: dataChildren.sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1))
+            })
+        }
+
+        fecthClassroom(){
+            Fetch.classroom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
+            Fetch.classroom.getSchedules(this.props.cookies.get(variables.cookies.token), data => this.setState({scheduleClassroom: [...data]}))
+            Fetch.day.get(data => this.setState({days: [...data]}))
+        }
+
+        checkEmptyInput(){
+            let error = true
+            if(this.state.classroomSelected.title !== '' & this.state.classroomSelected.seat !== '' && this.state.classroomSelected.phone !== ''){
+                error = false
+            }
+            return error
+        }
+
+    //#endregion
 
     renderClassroom (classRoom) {
         const childLength = this.state.childrens.filter(child => child.id_classroom === classRoom._id).length
-        const schedules = this.state.scheduleClassroom.filter(x => x.id_classroom === classRoom._id)[0]
-        classRoom.idSchedule = schedules._id
-        classRoom.days = schedules.id_day
+        const schedules = this.state.scheduleClassroom.filter(x => x.id_classroom === classRoom._id)
+        classRoom.idSchedule = schedules.length > 0 ? schedules[0]._id : null
+        classRoom.days = schedules.length > 0 ? schedules[0].id_day : []
 
         return (
             <div className='div-salle' key={classRoom._id}>
@@ -230,10 +242,6 @@ class ClassRoomManagement extends Component {
                 </div>
             </div>
         )
-    }
-
-    handleCloseSnack () {
-        this.setState({ showSnack: false })
     }
 
     render () {
