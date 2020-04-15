@@ -1144,7 +1144,6 @@ const deleteUser = (token, user) => {
     })
 }
 
-
 export default {
     encodeData,
     decodeData,

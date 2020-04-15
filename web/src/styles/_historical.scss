@@ -1,7 +1,7 @@
 @import "./base";
 
-.classroom{
-    padding: .5rem;
+.classroom {
+    padding: 0.5rem;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -10,6 +10,6 @@
     border-radius: $borderRadiusMain;
 }
 
-.child-number{
+.child-number {
     text-align: center;
 }

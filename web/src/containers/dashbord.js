@@ -7,7 +7,7 @@ import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined'
 
 import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
-import ClassRoom from '../components/classroom'
+import Historical from './historical'
 import CreateAccount from '../components/create-account'
 import ScheduleManagement from '../components/schedule-management'
 import ClassroomManagement from './classroom-management'
@@ -228,7 +228,9 @@ class Dashbord extends Component {
         case variables.menus.classroomManagement:
             return (<ClassroomManagement lang={lang} />)
         case variables.menus.scheduleManagement:
-            return (<ClassRoom lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
+            return (<ScheduleManagement lang={lang} />)
+        case variables.menus.historical:
+            return (<Historical lang={lang} classRooms={this.state.classRooms} actors={this.state.actors} schedules={this.state.schedules} />)
         case variables.menus.prints:
             return (<Print lang={lang} />)
         case variables.menus.childList:

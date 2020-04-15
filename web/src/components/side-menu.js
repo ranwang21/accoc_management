@@ -6,6 +6,7 @@ import CreateIcon from '@material-ui/icons/AddBoxOutlined'
 import ClassroomIcon from '@material-ui/icons/HomeWork'
 import DetailsIcon from '@material-ui/icons/Details'
 import ScheduleIcon from '@material-ui/icons/Schedule'
+import HistoryIcon from '@material-ui/icons/History'
 import PrintIcon from '@material-ui/icons/Print'
 import LogOutIcon from '@material-ui/icons/PowerSettingsNew'
 import Fetch from '../utilities/fetch-datas'
@@ -26,6 +27,8 @@ const getMenuIcon = (menu) => {
         return (<ClassroomIcon />)
     case variables.menus.scheduleManagement:
         return (<ScheduleIcon />)
+    case variables.menus.historical:
+        return (<HistoryIcon />)
     case variables.menus.prints:
         return (<PrintIcon />)
     case variables.menus.childList:

@@ -5,6 +5,7 @@
         "createAccount": "Inscription",
         "classroomManagement": "Gestion des salles",
         "scheduleManagement": "Horaires",
+        "historical": "Historiques",
         "prints": "Impressions",
         "logOut": "Se déconnecter"
     },

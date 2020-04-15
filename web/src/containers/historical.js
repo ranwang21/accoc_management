@@ -3,14 +3,12 @@ import TextField from '@material-ui/core/TextField'
 import {
     TableContainer, Table, Button, TableHead, TableRow, TableCell, TableBody
 } from '@material-ui/core'
-import ClassroomDetail from '../components/classroom-detail'
+import ClassroomDetail from '../components/historical-detail'
 import Fetch from '../utilities/fetch-datas'
-import '../styles/_classroom.scss'
+import '../styles/_historical.scss'
 import '../styles/_detail-user.scss'
 
-const variables = require('../utilities/variables').variables
-
-class ClassRoom extends Component {
+class Historical extends Component {
     constructor () {
         super()
         this.state = {
@@ -30,7 +28,7 @@ class ClassRoom extends Component {
     }
 
     getLangFile () {
-        return require('../lang/' + this.props.lang + '/classroom.json')
+        return require('../lang/' + this.props.lang + '/historical.json')
     }
 
     handleStartDateChange (event) {
@@ -161,4 +159,4 @@ class ClassRoom extends Component {
     }
 }
 
-export default ClassRoom
+export default Historical
