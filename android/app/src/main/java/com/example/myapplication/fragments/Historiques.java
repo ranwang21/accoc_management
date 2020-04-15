@@ -43,20 +43,14 @@ public class Historiques extends Fragment {
     EnfantAdapter enfantAdapter;
     ArrayList<User> users;
     ArrayList<Schedule> schedules;
-    String childrenRoleId;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_historique, container, false);
-        //today's date
+//        today's date
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         dateString = formatter.format(date);
-        ArrayList<Schedule> scheduleArrayList = ScheduleManager.getAll(getContext());
-//        for(Schedule s : scheduleArrayList){
-//            User u = UserManager.getById(getContext(),s.getId_user());
-//            Log.d("Json", "name " + u.getFirst_name()+ " date " + s.getDate() + " classroom " + s.getId_classroom());
-//        }
         //dates to display
         ArrayList<String> dateToDisplay = ScheduleManager.getUniquesDates(getContext(), dateString);
         // load childrens from bd
@@ -72,8 +66,8 @@ public class Historiques extends Fragment {
         }
         for (Schedule s : schedules) {
             User u = UserManager.getById(getContext(), s.getId_user());
-            if (u != null ) {
-                Log.d("Json", "name " + u.getFirst_name()+ " date " + s.getDate() + " classroom " + s.getId_classroom());
+            if (u != null) {
+                Log.d("Json", "name " + u.getFirst_name() + " date " + s.getDate() + " classroom " + s.getId_classroom());
                 users.add(u);
             }
         }

@@ -12,7 +12,7 @@ public class PostJson {
         HttpPostRequest httpPostRequest = new HttpPostRequest();
         try {
             String host = DataBaseHelper.URL_SERVER;
-            response = httpPostRequest.execute(host + routes, json).get();
+            response = httpPostRequest.execute(host + routes, json,token).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

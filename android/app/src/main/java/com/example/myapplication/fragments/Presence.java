@@ -48,92 +48,114 @@ import androidx.fragment.app.Fragment;
 
 
 public class Presence extends Fragment {
+
     ListView listView;
     CheckBox checkBox;
-    Button btns;
+    Button saveButton;
     String dateString;
     ArrayList<User> users;
-    ArrayList<Schedule>schedules;
-    ArrayList<ScheduleManager>scheduleManagers;
+    ArrayList<Schedule> schedules;
+    PresenceAdapter presenceAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        //this.schedules=new ArrayList<Schedule>();
-        //this.schedules.addAll(schedules);
-        //user set up
-        PresenceAdapter presenceAdapter;
-        final ArrayList<User>[] users = new ArrayList[]{new ArrayList<>()};
-        ArrayList<Role> roles = RoleManager.getAll(getContext());
-        for (Role r:roles){
-            if(r.getTitle().equals("children")){
-                users[0] = UserManager.getByRole(getContext(),r.get_id());
+        View view = inflater.inflate(R.layout.fragment_presence, container, false);
+        //today's date
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = new Date(System.currentTimeMillis());
+//        dateString = formatter.format(date);
+        dateString = "2020-04-06";
+        //load schedules and users
+        listView = view.findViewById(R.id.list_presence);
+        users = new ArrayList<>();
+        schedules = new ArrayList<>();
+        schedules = ScheduleManager.getByDate(getContext(), dateString);
+        if (schedules != null) {
+            for (Schedule s : schedules) {
+                User u = UserManager.getById(getContext(), s.getId_user());
+                users.add(u);
             }
+            presenceAdapter = new PresenceAdapter(getContext(), R.layout.fragment_presence_row, users);
+            presenceAdapter.setDate(dateString);
+            listView.setAdapter(presenceAdapter);
+            presenceAdapter.notifyDataSetChanged();
         }
-        if(users[0] !=null){
-            Log.d("Tag","success");
-        }
-        View view =inflater.inflate(R.layout.fragment_presence,container,false);
-        listView =view.findViewById(R.id.list_presence);
-
-        presenceAdapter=new PresenceAdapter(getContext(),R.layout.fragment_presence_row, users[0]);
-        listView.setAdapter(presenceAdapter);
-        presenceAdapter.notifyDataSetChanged();
-        checkBox=view.findViewById(R.id.checkBox1);
-        //spinner set up
-        Spinner spinner=view.findViewById(R.id.spinner_presence);
-        ArrayList<Classroom>classrooms= ClassroomManager.getAll(getContext());
-        ArrayList<String>listClassroom =new ArrayList<>();
+        //spinner classroom set up
+        Spinner spinner = view.findViewById(R.id.spinner_presence);
+        ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
+        ArrayList<String> listClassroom = new ArrayList<>();
         listClassroom.add("Tous");
-        for (Classroom c :classrooms){
+        for (Classroom c : classrooms) {
             listClassroom.add(c.getTitle());
         }
-        ArrayAdapter<String>arrayAdapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,listClassroom);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, listClassroom);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            //filtred spinner
-
+        //Save btn event
+        saveButton = view.findViewById(R.id.button_presence);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String classroomName = parent.getItemAtPosition(position).toString();
-                ArrayList<User> users =UserManager.getAll(getContext());
-                if(!classroomName.equals("Tous")){
-                    Classroom classroom =ClassroomManager.getByTitle(getContext(),classroomName);
-                    users=UserManager.getByIdClassroom(getContext(),classroom.get_id());
+            public void onClick(View v) {
+                ArrayList<Schedule> schedulesToPut = presenceAdapter.getSchedules();
+                for (Schedule s : schedulesToPut) {
+                    ScheduleManager.putToAPI(getContext(), s, Preferences.getToken(getContext()));
                 }
-                PresenceAdapter presenceAdapter =new PresenceAdapter(getContext(),R.layout.fragment_presence_row,users);
-                listView.setAdapter(presenceAdapter);
-                presenceAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
 
             }
         });
-
-
-
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_checked);
-        listView.setAdapter(listViewAdapter);
-
-
-
+        //spinner classroom event
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                users = new ArrayList<>();
+                schedules = new ArrayList<>();
+                String classroomName = parent.getItemAtPosition(position).toString();
+                if (!classroomName.equals("Tous")) {
+                    Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
+                    schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), dateString, classroom.get_id());
+                    if (schedules != null) {
+                        for (Schedule s : schedules) {
+                            String userId = s.getId_user();
+                            User u = UserManager.getById(getContext(), s.getId_user());
+                            if (u != null) {
+                                users.add(u);
+                            }
+                        }
+                    }
+                } else {
+                    ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
+                    for (Classroom c : classrooms) {
+                        ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), dateString, c.get_id());
+                        if (schedulesToInsert != null) {
+                            schedules.addAll(schedulesToInsert);
+                        }
+                    }
+                    if (schedules != null) {
+                        for (Schedule s : schedules) {
+                            User u = UserManager.getById(getContext(), s.getId_user());
+                            if (u != null) {
+                                users.add(u);
+                            }
+                        }
+                    }
+                }
+                presenceAdapter.clear();
+                presenceAdapter.addAll(users);
+                listView.setAdapter(presenceAdapter);
+                presenceAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         return view;
-
     }
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Presence");
     }
-
 }
 
