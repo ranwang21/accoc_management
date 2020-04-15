@@ -20,12 +20,6 @@ import { withCookies } from 'react-cookie'
 import '../styles/_dashbord.scss'
 const variables = require('../utilities/variables').variables
 
-/* function formatDate (date) {
-    const month = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-    return date.getFullYear() + '-' + month + '-' + day
-} */
-
 const isValidActor = ({ roleTitle, isValid }) => (roleTitle !== 'children' && isValid === true)
 const isInValidActor = ({ roleTitle, isValid }) => (roleTitle !== 'children' && isValid === false)
 const isChildren = ({ roleTitle }) => roleTitle === 'children'
