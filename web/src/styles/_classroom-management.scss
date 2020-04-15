@@ -32,7 +32,6 @@
             margin-bottom: 0.5em;
             transition: all 0.2s linear, height 0.2s linear;
             height: 15em;
-            cursor: pointer;
             &:hover {
                 background-color: #9fdfe0b7;
                 border-radius: 0.5em;
@@ -48,6 +47,9 @@
                 }
                 > p {
                     font-size: 1.2em;
+                    > span:last-of-type {
+                        font-size: 1.1em;
+                    }
                 }
             }
             > * {
@@ -55,12 +57,17 @@
                 padding: 0.3em 0.5em;
             }
             > h2 {
+                cursor: pointer;
                 padding-bottom: 1em;
                 text-transform: uppercase;
             }
             > p {
+                cursor: pointer;
                 display: flex;
                 justify-content: space-between;
+                > span:last-of-type {
+                    font-size: 1.3em;
+                }
             }
             > div {
                 display: flex;
@@ -114,7 +121,14 @@
         height: 65em;
         > div {
             > div {
-                width: 40%;
+                height: 20em;
+                width: 65%;
+                > * {
+                    height: calc(100% / 5);
+                }
+                > div {
+                    display: flex;
+                }
             }
         }
     }
@@ -123,7 +137,14 @@
     .classroom-management {
         > div {
             > div {
-                width: 40%;
+                height: 20em;
+                width: 35%;
+                > * {
+                    height: calc(100% / 5);
+                }
+                > div {
+                    display: flex;
+                }
             }
         }
     }

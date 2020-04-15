@@ -961,7 +961,7 @@ const updateUserImage = (token, user, file, callBack) => {
 }
 
 const getChildrens = (token, callBack) => {
-    fetch(HOST + '/users', {
+    fetch(HOST + '/roles', {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -969,15 +969,29 @@ const getChildrens = (token, callBack) => {
         }
     })
         .then(response => response.json())
-        .then(data => {
-            if(data.success) {
-                const childrens = data.data.filter(x => x.id_classroom !== null)
-                callBack(childrens)
+        .then(dataRoles => {
+            if(dataRoles.success) {
+                const childRole = dataRoles.data.filter(x => x.title === 'children')[0]
+                fetch(HOST + '/users', {
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + token
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.success) {
+                            const childrens = data.data.filter(x => x.id_role === childRole._id)
+                            callBack(childrens)
+                        }
+                    })
             }
         })
 }
 
 const getClassRooms = (token, callBack) => {
+
     fetch(HOST + '/classrooms', {
         headers: {
             Accept: 'application/json',
@@ -986,8 +1000,34 @@ const getClassRooms = (token, callBack) => {
         }
     })
         .then(response => response.json())
-        .then(data => {
-            callBack(data.data)
+        .then(dataClassRoom => {
+            fetch(HOST + '/roles', {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            })
+                .then(response => response.json())
+                .then(dataRoles => {
+                    if(dataRoles.success) {
+                        const childRole = dataRoles.data.filter(x => x.title === 'children')[0]
+                        fetch(HOST + '/users', {
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
+                                Authorization: 'Bearer ' + token
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data.success) {
+                                    const childrens = data.data.filter(x => x.id_role === childRole._id)
+                                    callBack(dataClassRoom.data, childrens)
+                                }
+                            })
+                    }
+                })
         })
 }
 
@@ -1022,33 +1062,15 @@ const addClassRoom = (token, classroom, callBack) => {
 }
 
 const deleteClassRoom = (token, classroom, callBack) => {
-    fetch(HOST + '/users', {
+    fetch(HOST + '/classrooms/' + classroom._id, {
+        method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + token
         }
     })
-        .then(response => response.json())
-        .then(dataUsers => {
-            if(dataUsers.success === true){
-                const users = dataUsers.data
-                const usersFilter = users.filter(x => x.id_classroom === classroom._id)
-                if(usersFilter.length === 0) {
-                    fetch(HOST + '/classrooms/' + classroom._id, {
-                        method: 'DELETE',
-                        headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + token
-                        }
-                    })
-                    .then(response => {callBack(true)})
-                } else {
-                    callBack(false)
-                }
-            }
-        })
+    .then(response => {callBack(true)})
 }
 
 const getClassRoomsAndCollaborater = (token, callBack) => {
