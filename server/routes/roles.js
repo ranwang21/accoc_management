@@ -16,7 +16,7 @@ const router = express.Router()
 router
   .route('/')
   .get(advancedResults(Role), getRoles)
-  .post(protect, authorize('admin', 'super_admin'), createRole)
+  .post(createRole)
 
 router
   .route('/:id')
