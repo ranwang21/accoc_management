@@ -36,7 +36,9 @@ const variables = {
     },
     cookies: {
         user: 'APISID',
-        token: 'RIKSGD'
+        token: 'RIKSGD',
+        password: 'WRTHPLLOK',
+        login: 'ODIUHFBC'
     },
     id: {
         loginRegister: {
@@ -65,6 +67,26 @@ const variables = {
             password: 'SHDGBCSJZ',
             confirmPassword: 'TGSVDCBHS',
             validation: 'E5S4F1CS52'
+        },
+        updateUser: {
+            sex: 'updateUser8R5D4GF1VD5',
+            female: 'updateUser8R5D4GF1VD51',
+            male: 'updateUser8R5D4GF1VD52',
+
+            last_name: 'updateUser8E5D4FDW185S',
+            first_name: 'updateUserQ8W7E4F2S8D',
+            email: 'updateUser9A62S41XC4D2F',
+            address: 'updateUser5141428422',
+
+            contacts: 'updateUserE85DF4CED521',
+            personal: 'updateUserE85DF4CED5211',
+            home: 'updateUserE85DF4CED5212',
+            work: 'updateUserE85DF4CED5213',
+            emergency: 'updateUserE85DF4CED5215',
+
+            oldPassword: 'updateUserSHDGBCSJZ',
+            newPassword: 'updateUserDGHGXFHCNS',
+            newConfirmPassword: 'updateUserTGSVDCBHS'
         },
         register: {
             sex: '8R5D4GF1VD5',

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Fetch from '../utilities/fetch-datas'
 import '../styles/_login.scss'
+import { withCookies } from 'react-cookie'
 import Loading from '../components/loading'
 import LockIcon from '@material-ui/icons/LockRounded'
 import { TextField, Button } from '@material-ui/core'
@@ -34,7 +35,8 @@ class Login extends Component {
     validateUser (datas) {
         if (datas.success) {
             this.setState({ error: false, loading: false })
-            this.props.handleConnectedEvent(event, datas.token)
+            this.props.cookies.set(variables.cookies.login, Fetch.encodeData({ password: this.password, email: this.email }), { path: '/' })
+            this.props.handleConnectedEvent(event, datas.token, this.password)
         } else this.setState({ error: true, loading: false })
     }
 
@@ -123,4 +125,4 @@ class Login extends Component {
         )
     }
 }
-export default Login
+export default withCookies(Login)

@@ -67,6 +67,9 @@ class Schedule extends Component {
         const generate = this.state.generation
         if (generate.startDate !== generate.endDate) {
             Fetch.schedule.add(this.props.cookies.get(variables.cookies.token), generate, this.fetchSchedules)
+            setTimeout(() => {
+                this.fetchSchedules()
+            }, 5000);
         }
     }
 
@@ -102,13 +105,15 @@ class Schedule extends Component {
         const user = this.state.users.filter(x => x._id === schedule.id_user)[0]
         const classroom = this.state.classrooms.filter(x => x._id === schedule.id_classroom)[0]
         return (
-            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={schedule._id}>
-                <TableCell> {user.last_name} </TableCell>
-                <TableCell> {user.first_name} </TableCell>
-                <TableCell> {classroom && classroom.title} </TableCell>
-                <TableCell align='right'> {dateFormat.toLocaleDateString()} </TableCell>
-                <TableCell align='center'> {schedule.is_absent ? 'OUI' : 'NON'} </TableCell>
-            </TableRow>
+            user && (
+                <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={schedule._id}>
+                    <TableCell> {user.last_name} </TableCell>
+                    <TableCell> {user.first_name} </TableCell>
+                    <TableCell> {classroom && classroom.title} </TableCell>
+                    <TableCell align='right'> {dateFormat.toLocaleDateString()} </TableCell>
+                    <TableCell align='center'> {schedule.is_absent ? 'OUI' : 'NON'} </TableCell>
+                </TableRow>
+            )
         )
     }
 

@@ -6,6 +6,7 @@
         "classroomManagement": "Classroom management",
         "scheduleManagement": "Schedules",
         "historical": "Historical",
+        "profile": "Profil",
         "prints": "Impressions",
         "logOut": "Sign Out"
     },
@@ -14,6 +15,7 @@
         "validation": "Validate registrations",
         "createAccount": "Register",
         "classroomManagement": "Classroom management",
+        "profile": "Profil",
         "logOut": "Sign Out"
     },
     "both": {

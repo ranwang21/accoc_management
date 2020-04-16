@@ -54,16 +54,10 @@ class MainContainer extends Component {
 
     onLangChanged (event) { this.setState({ lang: event.target.value }) }
 
-    checkCurrentUser (token, datas, role) {
+    checkCurrentUser (token, datas) {
         const { cookies } = this.props
         if (datas.success === true) {
-            const user = {
-                id: datas.data._id,
-                firstName: datas.data.first_name,
-                lastName: datas.data.last_name,
-                idRole: datas.data.id_role,
-                role: role
-            }
+            const user = { ...datas.data }
             cookies.set(variables.cookies.token, token, { path: '/' })
             cookies.set(variables.cookies.user, Fetch.encodeData(user), { path: '/' })
             this.setState({
@@ -80,13 +74,7 @@ class MainContainer extends Component {
     setCurrentUserInfos (token, datas, role) {
         const { cookies } = this.props
         if (datas.success === true) {
-            const user = {
-                id: datas.data._id,
-                firstName: datas.data.first_name,
-                lastName: datas.data.last_name,
-                idRole: datas.data.id_role,
-                role: role
-            }
+            const user = { ...data.data }
             cookies.set(variables.cookies.token, token, { path: '/' })
             cookies.set(variables.cookies.user, Fetch.encodeData(user), { path: '/' })
             this.setState({
@@ -120,7 +108,9 @@ class MainContainer extends Component {
         const { cookies } = this.props
 
         cookies.remove(variables.cookies.user)
+        cookies.remove(variables.cookies.login)
         cookies.remove(variables.cookies.token)
+        cookies.remove(variables.cookies.password)
         this.setState({
             isConnected: false,
             showSnack: true
@@ -145,7 +135,7 @@ class MainContainer extends Component {
         const langFile = this.getLangFile()
         let messageSnack = this.state.isConnected ? langFile.logInSnack : langFile.logOutSnack
         const currentUser = this.props.cookies.get(variables.cookies.user) || null
-        messageSnack = currentUser !== null ? messageSnack.replace('USERNAME', Fetch.decodeData(currentUser).firstName) : messageSnack
+        messageSnack = currentUser !== null ? messageSnack.replace('USERNAME', Fetch.decodeData(currentUser).first_name) : messageSnack
         return (
             <>
                 <ThemeProvider theme={theme}>

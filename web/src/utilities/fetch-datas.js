@@ -1,6 +1,7 @@
 'use-strict'
 
 const HOST = 'https://maison-aurore-api.herokuapp.com'
+//const HOST = 'http://localhost:8080'
 const jwt = require('jwt-simple')
 const secret = 'xxx'
 // TOKEN Encoder and decoder
@@ -18,17 +19,10 @@ const validateEmail = (email) => {
 }
 
 const checkIfEmailExist = (email, callBack) => {
-    fetch(HOST + '/logins')
+    fetch(HOST + '/logins/search/' + email)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            if(data.success){
-                const getted = data.data.filter(login => login.email === email)
-                callBack((getted.length > 0 ? true : false))
-            } else {
-                //callBack(true)
-                callBack(false)
-            }
+            callBack(data.success)
         })
 }
 
@@ -47,7 +41,6 @@ const authLogin = (email, password, callBack) => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             callBack(data)
         })
 }
@@ -81,7 +74,8 @@ const getCurrentUser = (token, callBack) => {
                 })
                     .then(response => response.json())
                     .then(data2 => {
-                        callBack(token, data, data2.data.title)
+                        data.data.role = data2.data.title
+                        callBack(token, data)
                     })
             } else {
                 callBack(data, '')
@@ -945,6 +939,81 @@ const updateUser = (token, user, callBack) => {
         .catch()
 }
 
+const updateUserEmail = (token, user, callBack) => {
+    fetch(HOST + '/auth/update-email/', {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        },
+        body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(data => { callBack(data) })
+    .catch()
+}
+
+const updateUserPassword = (token, user, callBack) => {
+    fetch(HOST + '/auth/update-password/', {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        },
+        body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(data => { callBack(data) })
+    .catch()
+}
+
+const updateUserProfile = (token, func, user, userEmail, userPassword, callBack) => {
+    fetch(HOST + '/users/'+ user._id, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        },
+        body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(dataUser => {
+        if(func.email !== null){
+            fetch(HOST + '/auth/update-email/', {
+                method: 'PUT',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify(userEmail)
+            })
+            .then(response => response.json())
+            .then(dataEmail => {})
+            .catch()
+        }
+        if(func.password !== null){
+            fetch(HOST + '/auth/update-password/', {
+                method: 'PUT',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify(userPassword)
+            })
+            .then(response => response.json())
+            .then(dataPassword => {})
+            .catch()
+        }
+        callBack(user, userEmail, userPassword)
+     })
+    .catch()
+}
+
 const updateUserImage = (token, user, file, callBack) => {
     const formData = new FormData()
     formData.append("file", file[0])
@@ -1180,7 +1249,7 @@ const addSchedule = (token, schedule, callBack) => {
             body: JSON.stringify(schedule)
         })
         .then(response => response.json())
-        .then(data => { callBack() })
+        .then(data => { console.log(data) })
         .catch()
 }
 
@@ -1239,6 +1308,9 @@ export default {
     createUsers,
     updateUserValidities,
     getAllSchedules,
+    auth: {
+        currentUser: getCurrentUser
+    },
     schedule: {
         get: getAllSchedules,
         user: getChildrenAndCollab,
@@ -1247,6 +1319,9 @@ export default {
     user: {
         get: getUser,
         update: updateUser,
+        updateEmail: updateUserEmail,
+        updatePassword: updateUserPassword,
+        updateProfile: updateUserProfile,
         delete: deleteUser,
         onlyChild: getChildrens
     },

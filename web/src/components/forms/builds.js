@@ -64,6 +64,7 @@ const phoneField = (fieldsConfig, propLang, lang, fields, errors, inputChange, i
                 required={fieldsConfig.name.required}
                 inputComponent={phoneMaskCustom}
             />
+            {errors[fieldsConfig.name] && (<p className='label-error2'>{lang[fieldsConfig.name].labelError}</p>)}
         </FormControl>
     )
 }
