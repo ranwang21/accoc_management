@@ -38,10 +38,13 @@ class DetailUser extends Component {
             showLoading: false,
             showEditLoading: false,
             allowEditable: false,
-            userEdited: {}
+            userEdited: {},
+            collaboratersEdited: null,
+            image: ''
         }
         this.divToPrint = React.createRef()
         this.time = 3000
+        this.setUserImage = this.setUserImage.bind(this)
         this.handleImageChange = this.handleImageChange.bind(this)
         this.setImage = this.setImage.bind(this)
         this.updateImage = this.updateImage.bind(this)
@@ -52,11 +55,16 @@ class DetailUser extends Component {
     }
 
     setEditedUser (user) {
-        this.setState({ userEdited: user })
+        this.setState({ userEdited: {...user} })
+    }
+
+    setUserImage(data){
+        this.setState({image: data.data})
     }
 
     componentDidMount () {
         Fetch.user.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.setEditedUser)
+        Fetch.image.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.setUserImage)
     }
 
     componentDidUpdate (prevProps) {
@@ -66,11 +74,16 @@ class DetailUser extends Component {
     }
 
     onEditFieldsChange (event, value, name, subName) {
+        let newValue = value
+        if (name === 'id_collaborater') {
+            newValue = value !== null ? value._id : null
+            this.setState({ collaboratersEdited: value })
+        }
         this.setState(state => {
             const userEdited = state.userEdited
             subName === null
-                ? userEdited[name] = value
-                : userEdited[name][0][subName] = value
+                ? userEdited[name] = newValue
+                : userEdited[name][0][subName] = newValue
 
             return {
                 userEdited: userEdited
@@ -79,6 +92,7 @@ class DetailUser extends Component {
     }
 
     updateImage (dataImage) {
+        this.setUserImage(dataImage)
         this.props.onChangeImage(this.props.userSelected, dataImage.data)
     }
 
@@ -154,7 +168,7 @@ class DetailUser extends Component {
                                 variant='text'
                                 component='label'
                             >
-                                <img src={user.img} alt='avatar' />
+                                <img src={this.state.image} alt='avatar' />
                                 {(this.props.menuSelected !== variables.menus.validation) && (
                                     <>
                                         <p><span>Cliquer pour changer</span></p>
@@ -168,11 +182,6 @@ class DetailUser extends Component {
                                     </>
                                 )}
                             </Button>
-                            {this.state.showLoading && (
-                                <div className='img-loading'>
-                                    <Loading lang={this.props.lang} />
-                                </div>
-                            )}
                             {this.state.fileUploadedSuccess && (
                                 <p className='upload-success'>Avatar mis a jour !!!</p>
                             )}

@@ -5,7 +5,7 @@ import { withCookies } from 'react-cookie'
 import Fetch from '../utilities/fetch-datas'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
 import GenerationIcon from '@material-ui/icons/Cached'
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, FormControl, InputLabel, Select, MenuItem, Button } from '@material-ui/core'
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, FormControl, InputLabel, Select, MenuItem, Button, Switch, FormControlLabel } from '@material-ui/core'
 import '../styles/_schedule.scss'
 
 const variables = require('../utilities/variables').variables
@@ -18,15 +18,18 @@ class Schedule extends Component {
             users: [],
             classrooms: [],
             classroomSelected: '',
+            checkedB: false,
             dateSelected: new Date(),
             generation: {
                 startDate: '',
                 endDate: ''
             }
         }
+        this.fetchSchedules = this.fetchSchedules.bind(this)
         this.setSchedules = this.setSchedules.bind(this)
         this.handleDateClick = this.handleDateClick.bind(this)
         this.handleGenerateClick = this.handleGenerateClick.bind(this)
+        this.handleSwitchDate = this.handleSwitchDate.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/schedule.json') }
@@ -50,6 +53,15 @@ class Schedule extends Component {
 
     setSchedules (dataSchedules) {
         console.log('new schedules fetch')
+        console.log(dataSchedules)
+
+        dataSchedules.map(x => {
+            const date = new Date(x.date)
+            const newDate = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate())
+            newDate.setDate(newDate.getDate() + 1);
+            x.date = newDate
+        })
+
         this.setState({
             schedules: dataSchedules.sort((a, b) => (a.date > b.date ? 1 : -1))
         })
@@ -101,6 +113,7 @@ class Schedule extends Component {
 
     buildRow (lang, schedule) {
         const dateFormat = new Date(schedule.date)
+
         const user = this.state.users.filter(x => x._id === schedule.id_user)[0]
         const classroom = this.state.classrooms.filter(x => x._id === schedule.id_classroom)[0]
         return (
@@ -131,13 +144,25 @@ class Schedule extends Component {
         const newList = [...this.state.schedules]
         const lastList = []
         if (newList !== null) {
+            const date = this.state.dateSelected
+            const newDate = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate())
+            newDate.setDate(newDate.getDate() + 1);
             newList.map(row => {
-                const ch1 = new Date(row.date).toLocaleDateString().search(this.state.dateSelected.toLocaleDateString())
+                let ch1 = 0
+                if (this.state.checkedB) {
+                    ch1 = new Date(row.date).toLocaleDateString().search(this.state.dateSelected.toLocaleDateString())
+                }
                 const ch2 = this.state.classroomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0
                 ch1 !== -1 && ch2 !== -1 && lastList.push(row)
             })
         }
         return lastList
+    }
+
+    handleSwitchDate(){
+        this.setState({
+            checkedB: !this.state.checkedB
+        })
     }
 
     render () {
@@ -189,12 +214,27 @@ class Schedule extends Component {
                     </div>
                 </div>
                 <div className='search-container'>
+                    <FormControlLabel
+                        value="start"
+                        control={
+                            <Switch
+                                checked={this.state.checkedB}
+                                onChange={this.handleSwitchDate}
+                                color="primary"
+                                name="checkedB"
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />}
+                        label="Rechercher par date"
+                        labelPlacement="start"
+                    />
+
                     <MuiPickersUtilsProvider
                         libInstance={moment} utils={MomentUtils}
                         locale={this.props.lang}
                     >
                         <KeyboardDatePicker
                             margin='dense'
+                            disabled={!this.state.checkedB}
                             label='date'
                             format='DD MMMM YYYY'
                             value={this.state.dateSelected}

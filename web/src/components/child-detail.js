@@ -89,7 +89,7 @@ class ChildDetail extends Component {
                         {(edit && (currentUserRole === 'super_admin' || currentUserRole === 'admin')) && (
                             <Autocomplete
                                 className='select  print-to-remove'
-                                onChange={(event, newValue) => this.props.handleEditChange(event, (newValue !== null ? newValue._id : null), 'id_collaborater', null)}
+                                onChange={(event, newValue) => this.props.handleEditChange(event, (newValue !== null ? newValue : null), 'id_collaborater', null)}
                                 options={collaboraters}
                                 getOptionLabel={(collaborater) => collaborater.first_name + ' ' + collaborater.last_name}
                                 renderInput={(params) => <TextField {...params} label='COLLABORATEURS' variant='filled' />}

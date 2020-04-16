@@ -51,13 +51,17 @@
         height: 4em;
         padding: 0.5em;
         margin-top: 1em;
-        > div {
+        > div,
+        > label {
             margin: 0 0.5em 0 0;
             width: 13em;
             height: 100%;
             > div {
                 height: 100%;
             }
+        }
+        > label {
+            width: 18em;
         }
     }
 

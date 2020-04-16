@@ -197,7 +197,7 @@ class Profile extends Component {
     render () {
         const lang = this.getLangFile()
         return (
-            <div className='create-admin'>
+            <div className='profile'>
                 <form className='' noValidate autoComplete='off'>
                     <h2>{lang.title}</h2>
                     <div className='fields'>

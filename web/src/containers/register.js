@@ -655,10 +655,10 @@ class RegisterContainer extends Component {
                 user.has_child = fields.has_child,
                 user.is_subscribed = fields.is_subscribed,
                 user.contact = [{
-                    personal: fields.contacts_personal,
-                    work: fields.contacts_work,
-                    home: fields.contacts_home,
-                    emergency: fields.contacts_emergency
+                    personal: Fetch.phoneIsValid(fields.contacts_personal) === true ? fields.contacts_personal : null,
+                    work: Fetch.phoneIsValid(fields.contacts_work) === true ? fields.contacts_work : null,
+                    home: Fetch.phoneIsValid(fields.contacts_home) === true ? fields.contacts_home : null,
+                    emergency: Fetch.phoneIsValid(fields.contacts_emergency) === true ? fields.contacts_emergency : null
                 }]
                 user.medical_info = []
                 user.school_info = []
@@ -752,23 +752,28 @@ class RegisterContainer extends Component {
         }
 
         savedUser (success, idUser) {
-            const nbrChild = this.state.nbrChild
-            if (this.props.currentActor !== actorsIds.collaborator) {
-                const childRole = 'children'
-                const childFields = this.state.childrenInscription.fields
-                const child = { child1 : null, child2 : null, child3 : null, child4 : null, child5 : null }
+            if(success === true) {
+                const nbrChild = this.state.nbrChild
+                if (this.props.currentActor !== actorsIds.collaborator) {
+                    const childRole = 'children'
+                    const childFields = this.state.childrenInscription.fields
+                    const child = { child1 : null, child2 : null, child3 : null, child4 : null, child5 : null }
 
-                child.child1 = nbrChild >= 1 ? this.getUserToSave({...childFields.step1}, this.state.roles, childRole) : null
-                child.child2 = nbrChild >= 2 ? this.getUserToSave({...childFields.step2}, this.state.roles, childRole) : null
-                child.child3 = nbrChild >= 3 ? this.getUserToSave({...childFields.step3}, this.state.roles, childRole) : null
-                child.child4 = nbrChild >= 4 ? this.getUserToSave({...childFields.step4}, this.state.roles, childRole) : null
-                child.child5 = nbrChild === 5 ? this.getUserToSave({...childFields.step5}, this.state.roles, childRole) : null
+                    child.child1 = nbrChild >= 1 ? this.getUserToSave({...childFields.step1}, this.state.roles, childRole) : null
+                    child.child2 = nbrChild >= 2 ? this.getUserToSave({...childFields.step2}, this.state.roles, childRole) : null
+                    child.child3 = nbrChild >= 3 ? this.getUserToSave({...childFields.step3}, this.state.roles, childRole) : null
+                    child.child4 = nbrChild >= 4 ? this.getUserToSave({...childFields.step4}, this.state.roles, childRole) : null
+                    child.child5 = nbrChild === 5 ? this.getUserToSave({...childFields.step5}, this.state.roles, childRole) : null
 
-                const childrens = Object.values(child).filter(x => x !== null)
-                Fetch.saveChildren(childrens, idUser, this.saveChildren)
+                    const childrens = Object.values(child).filter(x => x !== null)
+                    Fetch.saveChildren(childrens, idUser, this.saveChildren)
+                } else {
+                    console.log('user saved')
+                    this.setState({successRegister: true})
+                    this.props.onGetBack('register')
+                }
             } else {
-                console.log('user saved')
-                this.setState({successRegister: true})
+                console.log('Erreur Lors de la creation du login du user: '+ idUser)
             }
         }
 

@@ -172,6 +172,7 @@ class Dashbord extends Component {
 
             return { actors: actorsN }
         })
+        this.onUsersListChange()
     }
 
     switchToMenuSelected (lang) {
@@ -231,7 +232,6 @@ class Dashbord extends Component {
     }
 
     imageGetted (data) {
-        console.log(data.data)
         this.setState({ image: data.data })
     }
 
