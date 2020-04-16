@@ -17,6 +17,8 @@ class Schedule extends Component {
             schedules: [],
             users: [],
             classrooms: [],
+            classroomSelected: '',
+            dateSelected: new Date(),
             generation: {
                 startDate: '',
                 endDate: ''
@@ -30,10 +32,6 @@ class Schedule extends Component {
     getLangFile () { return require('../lang/' + this.props.lang + '/schedule.json') }
 
     fetchSchedules () {
-        Fetch.schedule.get(this.props.cookies.get(variables.cookies.token), this.setSchedules)
-    }
-
-    componentDidMount () {
         const date = new Date()
         this.setState({
             generation: {
@@ -41,15 +39,19 @@ class Schedule extends Component {
                 endDate: date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
             }
         })
-        this.fetchSchedules()
+        Fetch.schedule.get(this.props.cookies.get(variables.cookies.token), this.setSchedules)
         Fetch.schedule.user(this.props.cookies.get(variables.cookies.token), data => this.setState({ users: [...data] }))
         Fetch.classroom.getAll(this.props.cookies.get(variables.cookies.token), data => this.setState({ classrooms: [...data] }))
+    }
+
+    componentDidMount () {
+        this.fetchSchedules()
     }
 
     setSchedules (dataSchedules) {
         console.log('new schedules fetch')
         this.setState({
-            schedules: [...dataSchedules].sort((a, b) => (a.id_user > b.id_user ? 1 : -1))
+            schedules: dataSchedules.sort((a, b) => (a.date > b.date ? 1 : -1))
         })
     }
 
@@ -67,9 +69,6 @@ class Schedule extends Component {
         const generate = this.state.generation
         if (generate.startDate !== generate.endDate) {
             Fetch.schedule.add(this.props.cookies.get(variables.cookies.token), generate, this.fetchSchedules)
-            setTimeout(() => {
-                this.fetchSchedules()
-            }, 5000);
         }
     }
 
@@ -117,7 +116,32 @@ class Schedule extends Component {
         )
     }
 
+
+    handleSearchChange (newValue, name) {
+        if(name === 'classroomSelected'){
+            (newValue !== undefined) ? this.setState({ [name]: newValue }) : ''
+        } else {
+            this.setState({ [name]: newValue })
+        }
+    }
+
+    updateSchedulesList () {
+        let getIdClassRoom = this.state.classrooms.filter(classRoom => classRoom.title === this.state.classroomSelected)
+        getIdClassRoom = getIdClassRoom[0] ? getIdClassRoom[0] : this.state.classrooms[0]
+        const newList = [...this.state.schedules]
+        const lastList = []
+        if (newList !== null) {
+            newList.map(row => {
+                const ch1 = new Date(row.date).toLocaleDateString().search(this.state.dateSelected.toLocaleDateString())
+                const ch2 = this.state.classroomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0
+                ch1 !== -1 && ch2 !== -1 && lastList.push(row)
+            })
+        }
+        return lastList
+    }
+
     render () {
+        const schedules = this.updateSchedulesList()
         const lang = this.getLangFile()
         const startDate = this.state.generation.startDate === '' ? new Date() : new Date(this.state.generation.startDate)
         const endDate = this.state.generation.endDate === '' ? startDate : new Date(this.state.generation.endDate)
@@ -173,8 +197,8 @@ class Schedule extends Component {
                             margin='dense'
                             label='date'
                             format='DD MMMM YYYY'
-                            value={new Date()}
-                            onChange={null}
+                            value={this.state.dateSelected}
+                            onChange={event => this.handleSearchChange(event._d, 'dateSelected')}
                             KeyboardButtonProps={{
                                 'aria-label': 'change date'
                             }}
@@ -183,8 +207,8 @@ class Schedule extends Component {
                     <FormControl variant='filled'>
                         <InputLabel color='primary'>par salle</InputLabel>
                         <Select
-                            value=''
-                            onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
+                            value={this.state.classroomSelected}
+                            onChange={event => this.handleSearchChange(event.target.value, 'classroomSelected')}
                         >
                             <MenuItem value=''>
                                 <em>Toutes les salles</em>
@@ -198,8 +222,8 @@ class Schedule extends Component {
                 <TableContainer className='list-container table-list'>
                     <Table stickyHeader aria-label='sticky table'>
                         {this.buildHeader(lang)}
-                        {(this.state.schedules.length > 0 && this.state.users.length > 0 && this.state.classrooms.length > 0) && (
-                            <TableBody>{this.state.schedules.map(schedule => this.buildRow(lang, schedule))}</TableBody>
+                        {(schedules.length > 0 && this.state.users.length > 0 && this.state.classrooms.length > 0) && (
+                            <TableBody>{schedules.map(schedule => this.buildRow(lang, schedule))}</TableBody>
                         )}
                     </Table>
                 </TableContainer>

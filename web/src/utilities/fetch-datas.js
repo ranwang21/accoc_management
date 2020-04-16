@@ -1249,7 +1249,13 @@ const addSchedule = (token, schedule, callBack) => {
             body: JSON.stringify(schedule)
         })
         .then(response => response.json())
-        .then(data => { console.log(data) })
+        .then(data => {
+            if(data.success){
+                callBack()
+            } else {
+                console.log('error pendant la generation')
+            }
+        })
         .catch()
 }
 
