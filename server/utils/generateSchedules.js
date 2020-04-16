@@ -16,6 +16,7 @@ const getSchedules = async (res, datas) => {
 const generateSchedule = async (res, startDate, endDate, callBack) => {
   const classroomSchedules = await ClassroomSchedule.find().lean()
   const schedule = [] // Declare Array ici
+  let secondIndex = 0
 
   classroomSchedules.forEach(function(classroomSchedule, index) {
     classroomSchedule.id_day.forEach(async idDay => {
@@ -52,7 +53,10 @@ const generateSchedule = async (res, startDate, endDate, callBack) => {
         increment += 1
       }
       if (index + 1 === classroomSchedules.length) {
-        callBack(res, schedule)
+        secondIndex += 1
+        if (secondIndex === 2) {
+          callBack(res, schedule)
+        }
       }
     })
   })

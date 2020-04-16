@@ -6,7 +6,6 @@ const fileupload = require('express-fileupload')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 const xss = require('xss-clean')
-const rateLimit = require('express-rate-limit')
 const hpp = require('hpp')
 const cors = require('cors')
 const errorHandler = require('./middlewares/error')
@@ -28,13 +27,6 @@ app.use(mongoSanitize())
 app.use(helmet())
 app.use(xss())
 app.use(express.static('public'))
-
-// RATE LIMITING
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 mins
-  max: 100
-})
-app.use(limiter)
 
 // PREVENT HTTP PARAM POLLUTION
 app.use(hpp())

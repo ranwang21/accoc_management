@@ -25,7 +25,7 @@
         android:drawablePadding="10dp"
         android:hint="@string/txt_email"
         android:padding="15dp"
-        android:text="admin@gmail.com"
+        android:text="super_admin@gmail.com"
         android:textColor="@color/black"
         android:textColorHighlight="@color/white"
         android:textColorHint="@color/black" />
