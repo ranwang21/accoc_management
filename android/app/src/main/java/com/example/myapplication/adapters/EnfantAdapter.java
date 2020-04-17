@@ -35,7 +35,7 @@ public class EnfantAdapter extends ArrayAdapter<User> {
             ImageView img = (ImageView) convertView.findViewById(R.id.img_listView);
             TextView tv_nom = (TextView) convertView.findViewById(R.id.lv_nom);
             TextView tv_prenom = (TextView) convertView.findViewById(R.id.lv_prenom);
-            Button btn = convertView.findViewById(R.id.btn_suivi);
+//            Button btn = convertView.findViewById(R.id.btn_suivi);
             Glide.with(getContext()).load(user.getImg_url()).into(img);
             tv_nom.setText(user.getLast_name());
             tv_prenom.setText(user.getFirst_name());
