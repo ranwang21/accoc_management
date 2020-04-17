@@ -92,6 +92,7 @@ class Historical extends Component {
                         schedule.last_name = actor.last_name
                         schedule.photo = actor.photo
                         schedule.contact = actor.contact
+                        schedule.img = actor.img
                     }
                 })
                 matchedScheduleOfClassroom.push(schedule)

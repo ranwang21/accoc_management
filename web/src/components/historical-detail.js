@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { DialogTitle, DialogContent, Dialog, TableContainer, Table, TableBody, TableRow, TableCell, TableHead } from '@material-ui/core'
+import { DialogTitle, DialogContent, Dialog, TableContainer, Table, TableBody, TableRow, TableCell, TableHead, Avatar } from '@material-ui/core'
 import { withCookies } from 'react-cookie'
 
 class HistoricalDetail extends Component {
@@ -14,6 +14,7 @@ class HistoricalDetail extends Component {
     renderRow (schedule, lang) {
         return (
             <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={schedule._id}>
+                <TableCell><Avatar alt='Avatar' src={schedule.img} /></TableCell>
                 <TableCell> {schedule.date.substring(0, 10)} </TableCell>
                 <TableCell> {schedule.last_name} </TableCell>
                 <TableCell> {schedule.first_name} </TableCell>
@@ -44,6 +45,7 @@ class HistoricalDetail extends Component {
                         <Table stickyHeader aria-label='sticky table'>
                             <TableHead>
                                 <TableRow>
+                                    <TableCell />
                                     <TableCell>
                                         {lang.date}
                                     </TableCell>
