@@ -1,0 +1,39 @@
+@import "./base";
+.print {
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+    width: 40em;
+    background-color: rgba($color: #ffffff, $alpha: 0.6);
+    > * {
+        padding: 1em;
+    }
+    > h1 {
+        text-align: center;
+    }
+    > .div-titles {
+        label {
+            padding: 0em 1em;
+            border-radius: 0.5em;
+            transition: all 0.3s;
+            span {
+                font-size: 1.3em;
+            }
+            .MuiCheckbox-colorSecondary {
+                transition: all 0.3s;
+            }
+            .MuiCheckbox-colorSecondary.Mui-checked {
+                color: black;
+            }
+            &:hover {
+                background-color: $primaryColor;
+                color: $whiteColor;
+                .MuiCheckbox-colorSecondary {
+                    color: $whiteColor;
+                }
+            }
+        }
+    }
+    > .div-lists {
+    }
+}
