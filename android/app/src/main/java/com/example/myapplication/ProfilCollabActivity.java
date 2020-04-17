@@ -45,7 +45,7 @@ public class ProfilCollabActivity extends AppCompatActivity {
         tv_sexe = findViewById(R.id.tv_gender);
         tv_adress = findViewById(R.id.tv_address);
         image_collaborateur = findViewById(R.id.img_collab);
-        Button upload_image = findViewById(R.id.upload_img);
+//        Button upload_image = findViewById(R.id.upload_img);
         Intent i = getIntent();
         Bundle b = i.getBundleExtra("bundle");
         String id_user = b.getString("id_user");
@@ -61,64 +61,64 @@ public class ProfilCollabActivity extends AppCompatActivity {
         tv_adress.setText(address);
         tv_sexe.setText(sexe);
         Glide.with(getApplicationContext()).load(image).into(image_collaborateur);
-        image_collaborateur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
-            }
-        });
-        upload_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // uploadMultipart();
-            }
-        });
-    }
-    private void selectImage() {
-        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(ProfilCollabActivity.this);
-        builder.setTitle("Add Photo!");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo")) {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, TAKE_PICTURE_FROM_CAMERA);
-                    }
-                } else if (options[item].equals("Choose from Gallery")) {
-                    showFileChooser();
-                } else if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        builder.show();
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == TAKE_PICTURE_FROM_CAMERA) {
-                filePath = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                    Glide.with(getApplicationContext()).load(bitmap).centerCrop().apply(RequestOptions.circleCropTransform()).into(image_collaborateur);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else if (requestCode == PICK_IMAGE_REQUEST) {
-                filePath = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                    Glide.with(getApplicationContext()).load(bitmap).centerCrop().apply(RequestOptions.circleCropTransform()).into(image_collaborateur);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-    /* get image from path file*/
+//        image_collaborateur.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                selectImage();
+//            }
+//        });
+//        upload_image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // uploadMultipart();
+//            }
+//        });
+//    }
+//    private void selectImage() {
+//        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+//        AlertDialog.Builder builder = new AlertDialog.Builder(ProfilCollabActivity.this);
+//        builder.setTitle("Add Photo!");
+//        builder.setItems(options, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int item) {
+//                if (options[item].equals("Take Photo")) {
+//                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                        startActivityForResult(takePictureIntent, TAKE_PICTURE_FROM_CAMERA);
+//                    }
+//                } else if (options[item].equals("Choose from Gallery")) {
+//                    showFileChooser();
+//                } else if (options[item].equals("Cancel")) {
+//                    dialog.dismiss();
+//                }
+//            }
+//        });
+//        builder.show();
+//    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK) {
+//            if (requestCode == TAKE_PICTURE_FROM_CAMERA) {
+//                filePath = data.getData();
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                    Glide.with(getApplicationContext()).load(bitmap).centerCrop().apply(RequestOptions.circleCropTransform()).into(image_collaborateur);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            } else if (requestCode == PICK_IMAGE_REQUEST) {
+//                filePath = data.getData();
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                    Glide.with(getApplicationContext()).load(bitmap).centerCrop().apply(RequestOptions.circleCropTransform()).into(image_collaborateur);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+        /* get image from path file*/
     /*private String getPath(Uri uri) {
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         cursor.moveToFirst();
@@ -133,12 +133,12 @@ public class ProfilCollabActivity extends AppCompatActivity {
         cursor.close();
         return path;
     }*/
-    private void showFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
+//    private void showFileChooser() {
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+//    }
    /* public void uploadMultipart() {
         //getting the actual path of the image
         String path = getPath(filePath);
@@ -155,5 +155,6 @@ public class ProfilCollabActivity extends AppCompatActivity {
             Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }*/
+    }
 }
 

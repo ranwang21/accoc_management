@@ -61,10 +61,10 @@ public class Presence extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_presence, container, false);
         //today's date
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        Date date = new Date(System.currentTimeMillis());
-//        dateString = formatter.format(date);
-        dateString = "2020-04-06";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        dateString = formatter.format(date);
+
         //load schedules and users
         listView = view.findViewById(R.id.list_presence);
         users = new ArrayList<>();
