@@ -1,5 +1,5 @@
 {
-    "highAdmin": {
+    "highAdminVFGFV": {
         "allUsers": "Liste de tous les acteurs",
         "validation": "Valider des Inscriptions",
         "createAccount": "Inscription",
@@ -8,6 +8,16 @@
         "historical": "Historiques",
         "profile": "Profil",
         "prints": "Impressions",
+        "logOut": "Se déconnecter"
+    },
+    "highAdmin": {
+        "allUsers": "Liste de tous les acteurs",
+        "validation": "Valider des Inscriptions",
+        "createAccount": "Inscription",
+        "classroomManagement": "Gestion des salles",
+        "scheduleManagement": "Horaires",
+        "historical": "Historiques",
+        "profile": "Profil",
         "logOut": "Se déconnecter"
     },
     "admin": {

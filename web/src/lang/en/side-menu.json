@@ -1,5 +1,5 @@
 {
-    "highAdmin": {
+    "highAdminVFVFV": {
         "allUsers": "List of all actors",
         "validation": "Validate registrations",
         "createAccount": "Register",
@@ -8,6 +8,16 @@
         "historical": "Historical",
         "profile": "Profil",
         "prints": "Impressions",
+        "logOut": "Sign Out"
+    },
+    "highAdmin": {
+        "allUsers": "List of all actors",
+        "validation": "Validate registrations",
+        "createAccount": "Register",
+        "classroomManagement": "Classrooms management",
+        "scheduleManagement": "Schedules",
+        "historical": "Historical",
+        "profile": "Profil",
         "logOut": "Sign Out"
     },
     "admin": {
