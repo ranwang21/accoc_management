@@ -8,22 +8,24 @@ class HistoricalDetail extends Component {
     }
 
     componentDidMount () {
-        // console.log(this.props.actors)
+        console.log(this.props.matched)
     }
 
-    renderRow () {
-        const classRoom = this.props.classRoom
+    renderRow (schedule, lang) {
         return (
-            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={classRoom._id}>
-                <TableCell> 1 </TableCell>
-                <TableCell> 2 </TableCell>
-                <TableCell> 3 </TableCell>
+            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={schedule._id}>
+                <TableCell> {schedule.date.substring(0, 10)} </TableCell>
+                <TableCell> {schedule.last_name} </TableCell>
+                <TableCell> {schedule.first_name} </TableCell>
+                <TableCell> {schedule.contact[0].personal} </TableCell>
+                <TableCell> {schedule.is_absent ? lang.presence : lang.absence} </TableCell>
             </TableRow>
         )
     }
 
     render () {
         const lang = this.getLangFile()
+        const schedules = this.props.matched
         return (
             <Dialog
                 className='dialog'
@@ -43,17 +45,26 @@ class HistoricalDetail extends Component {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>
+                                        {lang.date}
+                                    </TableCell>
+                                    <TableCell>
                                         {lang.lastname}
                                     </TableCell>
                                     <TableCell>
                                         {lang.firstname}
                                     </TableCell>
                                     <TableCell>
+                                        {lang.phone}
+                                    </TableCell>
+                                    <TableCell>
                                         {lang.presence}
                                     </TableCell>
+
                                 </TableRow>
                             </TableHead>
-                            <TableBody />
+                            <TableBody>
+                                {schedules.map(schedule => this.renderRow(schedule, lang))}
+                            </TableBody>
                         </Table>
                     </TableContainer>
                 </DialogContent>

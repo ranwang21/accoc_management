@@ -2,5 +2,8 @@
     "lastname": "Last Name",
     "firstname": "First Name",
     "presence": "Presented",
-    "absence": "Absent"
+    "absence": "Absent",
+    "email": "Email",
+    "date": "Date",
+    "phone": "Phone"
 }

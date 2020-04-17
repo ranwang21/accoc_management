@@ -21,6 +21,7 @@ class Historical extends Component {
             onSearch: false,
             showDetail: false,
             matchedSchedules: [],
+            matchedSchedulesOfClassRoom: [],
             classroomSelected: null
         }
         this.setSchedules = this.setSchedules.bind(this)
@@ -45,7 +46,7 @@ class Historical extends Component {
 
     setSchedules (schedulesList) {
         this.setState({
-            schedules: [...schedulesList]
+            schedules: schedulesList
         })
     }
 
@@ -79,18 +80,32 @@ class Historical extends Component {
         return matchedSchedules
     }
 
-    filterActors (userId) {
+    filterActors (classRoom) {
         const actors = this.props.actors
         const matchedSchedules = this.state.matchedSchedules
-        const userIdsInMatchedSchedules = []
-        matchedSchedules.map(schedule => userIdsInMatchedSchedules.push(schedule.id_user))
-        actors.map(actor => {
-            if (userIdsInMatchedSchedules.includes(actor._id)) {
-                console.log('includes: ', actor._id)
-            } else { console.log(actor._id) }
+        const matchedScheduleOfClassroom = []
+        matchedSchedules.map(schedule => {
+            if (schedule.id_classroom === classRoom._id) {
+                actors.map(actor => {
+                    if (actor._id === schedule.id_user && schedule.id_classroom === classRoom._id) {
+                        schedule.first_name = actor.first_name
+                        schedule.last_name = actor.last_name
+                        schedule.photo = actor.photo
+                        schedule.contact = actor.contact
+                    }
+                })
+                matchedScheduleOfClassroom.push(schedule)
+            }
         })
-        console.log('all actors: ', this.props.actors)
-        console.log('matchedSchedules: ', this.state.matchedSchedules)
+        return matchedScheduleOfClassroom
+    }
+
+    findFirstName (schedule, actors) {
+        actors.map(actor => {
+            if (actor._id === schedule.id_user) {
+                return actor.first_name
+            } else return null
+        })
     }
 
     renderClassRooms () {
@@ -112,7 +127,11 @@ class Historical extends Component {
 
     handleShowDetail (classRoom) {
         // put showdetail in the callback to make sure classroomSelected state is set before showing detail page
-        this.setState({ classroomSelected: classRoom }, () => this.filterActors(), () => this.setState({ showDetail: true }))
+        this.setState({
+            classroomSelected: classRoom,
+            matchedSchedulesOfClassRoom: this.filterActors(classRoom),
+            showDetail: true
+        })
     }
 
     handleCloseDetail () {
@@ -162,14 +181,15 @@ class Historical extends Component {
                         </TableHead>
                         {this.state.onSearch ? this.renderClassRooms() : null}
                     </Table>
-                    {this.state.classroomSelected !== null && (
+                    {this.state.classroomSelected !== null ? (
                         <HistoricalDetail
                             open={this.state.showDetail}
                             onClose={this.handleCloseDetail}
                             classRoom={this.state.classroomSelected}
+                            matched={this.state.matchedSchedulesOfClassRoom}
                             lang={this.props.lang}
                         />
-                    )}
+                    ) : null}
                 </TableContainer>
             </form>
         )
