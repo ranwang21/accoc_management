@@ -195,7 +195,7 @@ class ClassRoomManagement extends Component {
 
     //#endregion
 
-    renderClassroom (classRoom) {
+    renderClassroom (lang, classRoom) {
         const childLength = this.state.childrens.filter(child => child.id_classroom === classRoom._id).length
         const schedules = this.state.scheduleClassroom.filter(x => x.id_classroom === classRoom._id)
         classRoom.idSchedule = schedules.length > 0 ? schedules[0]._id : null
@@ -204,20 +204,20 @@ class ClassRoomManagement extends Component {
         return (
             <div className='div-salle' key={classRoom._id}>
                 <h2 onClick={event => this.handleEditClick(event, classRoom, action.showList)}>{classRoom.title}</h2>
-                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Total des élèves</span><span>: {classRoom.childLength}</span></p>
-                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Nombre de place</span><span>: {classRoom.seat}</span></p>
-                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>Contact</span><span>: {classRoom.phone}</span></p>
+                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>{lang.childCount}</span><span>: {classRoom.childLength}</span></p>
+                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>{lang.seatCount}</span><span>: {classRoom.seat}</span></p>
+                <p onClick={event => this.handleEditClick(event, classRoom, action.showList)}><span>{lang.contact}</span><span>: {classRoom.phone}</span></p>
                 <div className='availability'>
-                    <p>Disponibilités</p>
+                    <p>{lang.availability}</p>
                     <p>
                         {classRoom.days.length > 0 && classRoom.days.map(x => {
                             const getDay = this.state.days.filter(day => day._id === x)
                             if(getDay.length > 0){
-                                return (<span key={x}>{getDay[0].title}</span>)
+                                return (<span key={x}>{lang.days[getDay[0].title]}</span>)
                             }
                         })}
                         {classRoom.days.length === 0 && (
-                            <span>pas de disponibilité</span>
+                            <span>{lang.notavailability}</span>
                         )}
                     </p>
                 </div>
@@ -228,7 +228,7 @@ class ClassRoomManagement extends Component {
                         color='secondary'
                         startIcon={<EditIcon />}
                     >
-                        Modifier
+                        {lang.btnEdit}
                     </Button>
                     <Button
                     className='btn-delete'
@@ -237,7 +237,7 @@ class ClassRoomManagement extends Component {
                         color='secondary'
                         startIcon={<DeleteIcon />}
                     >
-                        Supprimer
+                        {lang.btnDelete}
                     </Button>
                 </div>
             </div>
@@ -245,15 +245,15 @@ class ClassRoomManagement extends Component {
     }
 
     render () {
-        // const lang = this.getLangFile()
+        const lang = this.getLangFile()
         return (
             <>
             <div className='classroom'>
                 <Button variant='contained' className='btn-add-classroom' onClick={this.handleAddClick} color='primary'>
-                    Ajouter une nouvelle salle
+                    {lang.btnAdd}
                 </Button>
                 <div>
-                    {this.state.classrooms.map(classroom => this.renderClassroom(classroom))}
+                    {this.state.classrooms.map(classroom => this.renderClassroom(lang, classroom))}
                 </div>
 
                 <Dialog
@@ -264,15 +264,15 @@ class ClassRoomManagement extends Component {
                 >
                     <DialogTitle className='title' id='customized-dialog-title' onClose={this.handleCloseDialog}>
                     {this.state.editMode && (
-                        <>Modification {this.state.classroomSelected !== null && '('+this.state.classroomSelected.title+')'}</>
+                        <>{lang.formEditTitle} {this.state.classroomSelected !== null && '('+this.state.classroomSelected.title+')'}</>
                     )}
                     {!this.state.editMode && (
-                        <>Ajout {this.state.classroomSelected !== null && '('+this.state.classroomSelected.title+')'}</>
+                        <>{lang.formAddTitle} {this.state.classroomSelected !== null && '('+this.state.classroomSelected.title+')'}</>
                     )}
                     </DialogTitle>
                     <DialogContent dividers className='div-dialog-edit-classroom'>
                         {this.state.error && (
-                            <p className='error-classroom'>Veuillez renseigner tous les champs</p>
+                            <p className='error-classroom'>{lang.formError}</p>
                         )}
                         {this.state.classroomSelected !== null && (
                             <>
@@ -281,7 +281,7 @@ class ClassRoomManagement extends Component {
                                     type='text'
                                     color='primary'
                                     variant='filled'
-                                    label='Nom de la classe'
+                                    label={lang.nameClassroomLbl}
                                     autoFocus
                                     onChange={event => this.handleEditInputChange(event, 'title', null)}
                                     value={this.state.classroomSelected.title}
@@ -290,13 +290,13 @@ class ClassRoomManagement extends Component {
                                     type='number'
                                     color='primary'
                                     variant='filled'
-                                    label='Nombre de place'
+                                    label={lang.seatClassroomLbl}
                                     onChange={event => this.handleEditInputChange(event, 'seat', null)}
                                     value={this.state.classroomSelected.seat}
                                 />
 
                                 <FormControl>
-                                    <InputLabel>Contact</InputLabel>
+                                    <InputLabel>{lang.phoneClassroomLbl}</InputLabel>
                                     <Input
                                         onChange={event => this.handleEditInputChange(event, 'phone', null)}
                                         value={this.state.classroomSelected.phone}
@@ -312,7 +312,7 @@ class ClassRoomManagement extends Component {
                                                 onChange={event => this.handleEditInputChange(event, 'days', day._id)}
                                             />
                                         }
-                                        label={day.title.toUpperCase()}
+                                        label={lang.days[day.title]}
                                     />
                                 ))}
                             </>
@@ -321,12 +321,12 @@ class ClassRoomManagement extends Component {
                     <DialogActions className='dialog-footer'>
                         {this.state.editMode && (
                         <Button fullWidth onClick={event => this.handleActionClick(event, action.edit, this.state.classroomSelected)} color='primary'>
-                            Save changes
+                            {lang.formBtn}
                         </Button>
                         )}
                         {!this.state.editMode && (
                         <Button fullWidth onClick={event => this.handleActionClick(event, action.add, this.state.classroomSelected)} color='primary'>
-                            Ajouter
+                            {lang.formBtn}
                         </Button>
                         )}
                     </DialogActions>
@@ -339,12 +339,12 @@ class ClassRoomManagement extends Component {
                     open={this.state.showListDialog}
                 >
                 {this.state.childSelectedList.length === 0 && (
-                    <DialogTitle id="simple-dialog-title">Cette salle ne contient pas d'enfant</DialogTitle>
+                    <DialogTitle id="simple-dialog-title">{lang.emptyList}</DialogTitle>
                 )}
 
                 {this.state.childSelectedList.length > 0 && (
                     <>
-                    <DialogTitle id="simple-dialog-title">Liste des enfants</DialogTitle>
+                    <DialogTitle id="simple-dialog-title">{lang.listLabel}</DialogTitle>
                     <List>
                         {this.state.childSelectedList.map(child => (
                             <ListItem key={child._id} button onClick={() => console.log(child)}>
@@ -365,7 +365,7 @@ class ClassRoomManagement extends Component {
                 <Snack
                     show={this.state.showSnack}
                     duration={5000}
-                    message={'Suppression invalide: cette salle est associee a un ou plusieurs enfants'}
+                    message={lang.deleteError}
                     onClose={this.handleCloseSnack}
                     severity='error'
                 />

@@ -24,6 +24,8 @@ const fieldsState = {
     },
     errors: {
         sex: false,
+        firstName: false,
+        lastName: false,
         email: false,
         password: false,
         confirmPassword: false
@@ -99,6 +101,8 @@ class CreateAdmin extends Component {
         const fields = this.state.fields
         const newErrors = {
             sex: fields.sex === null,
+            lastName: fields.lastName === null,
+            firstName: fields.firstName === null,
             email: this.checkEmailValidity(),
             password: fields.password === null || fields.password !== fields.confirmPassword,
             confirmPassword: fields.confirmPassword === null || fields.password !== fields.confirmPassword
@@ -117,8 +121,7 @@ class CreateAdmin extends Component {
         this.setState({ loading: true })
         if(!this.checkValidation()){
             const fields = this.state.fields
-            fields.firstName = fields.firstName !== null ? fields.firstName : fields.firstName
-            fields.lastName = fields.lastName !== null ? fields.lastName.toUpperCase() : fields.lastName
+            fields.lastName = fields.lastName.toUpperCase()
 
             const idRole = this.props.roles.filter(x => x.title === 'admin')[0]._id
 

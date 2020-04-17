@@ -88,8 +88,6 @@ class TableListContainer extends Component {
             if (this.props.actorSelected === variables.role.child) {
                 headers.push({ id: 'allergies', label: lang.head.allergies, minWidth: 170 })
                 headers.push({ id: 'ecole', label: lang.head.school, minWidth: 170 })
-            }
-            if (this.props.actorSelected !== variables.role.admin) {
                 headers.push({ id: 'salle', label: lang.head.classRoom, minWidth: 170 })
             }
         }
@@ -133,10 +131,6 @@ class TableListContainer extends Component {
                     <>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {allergies} </TableCell>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {actor.school_info[0].name === null ? 'Pas defini' : actor.school_info[0].name} </TableCell>
-                    </>
-                )}
-                {(this.props.menuSelected !== variables.menus.validation && this.props.actorSelected !== variables.role.admin) && (
-                    <>
                         <TableCell onClick={(even) => this.handleShowDetail(even, actor)}> {classRoomTitle ? classRoomTitle.title : 'Non defini'} </TableCell>
                     </>
                 )}

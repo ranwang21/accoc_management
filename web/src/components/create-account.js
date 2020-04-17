@@ -35,6 +35,14 @@ class CreateAccount extends Component {
         Fetch.role.get(this.setRoles)
     }
 
+    componentDidUpdate (prevState) {
+        if (this.props.lang !== prevState.lang) {
+            const role = this.getCurrentUser().role
+            const list = role === variables.role.highAdmin ? this.getLangFile().addListForHighAdmin : this.getLangFile().addListForAdmin
+            this.setState({ addList: [...list] })
+        }
+    }
+
     getCurrentUser () {
         const currentUser = this.props.cookies.get(variables.cookies.user)
         return Fetch.decodeData(currentUser)

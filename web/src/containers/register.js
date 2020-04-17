@@ -273,10 +273,7 @@ class RegisterContainer extends Component {
         stepInformationsHasErrors () {
             const fields = this.state.informationsCoordonnees.fields
             let contactsError = true
-            if ((fields.contacts_personal !== null && fields.contacts_personal.replace(/\u2000/gi, '').length === 14) ||
-            (fields.contacts_home !== null && fields.contacts_home.replace(/\u2000/gi, '').length === 14) ||
-            (fields.contacts_work !== null && fields.contacts_work.replace(/\u2000/gi, '').length === 14) ||
-            (fields.contacts_emergency !== null && fields.contacts_emergency.replace(/\u2000/gi, '').length === 14)) {
+            if (fields.contacts_personal !== null || fields.contacts_home !== null || fields.contacts_work !== null || fields.contacts_emergency !== null) {
                 contactsError = false
             }
 
@@ -498,14 +495,18 @@ class RegisterContainer extends Component {
                     showNext: true
                 })
             } else if (currentElement.id === 'next') {
-                if(currentStep <= maxStep){
-                    !this[this.getFunctionErrorName(maxStep)]() && (
-                        this.setState({
-                            step: ++currentStep,
-                            showPrev: true,
-                            showNext: currentStep < maxStep
-                        })
-                    )
+                if(currentStep <= maxStep) {
+                    if (!this[this.getFunctionErrorName(maxStep)]()) {
+                        setTimeout(() => {
+                            if(this.state.informationsCoordonnees.errors.email === false) {
+                                this.setState({
+                                    step: ++currentStep,
+                                    showPrev: true,
+                                    showNext: currentStep < maxStep
+                                })
+                            }
+                        }, 500);
+                    }
                 }else{
                     this.setState({
                         step: maxStep,

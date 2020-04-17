@@ -57,7 +57,7 @@ const getMenuItemsByRole = (lang, role) => {
     case variables.role.parent:
         items = lang.parent
         break
-    case variables.role.collaborator:
+    case variables.role.collab:
         items = lang.collaborator
         break
     }

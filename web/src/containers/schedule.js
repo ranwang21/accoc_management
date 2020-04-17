@@ -18,6 +18,7 @@ class Schedule extends Component {
             users: [],
             classrooms: [],
             classroomSelected: '',
+            collaboraters: [],
             checkedB: false,
             dateSelected: new Date(),
             generation: {
@@ -43,8 +44,9 @@ class Schedule extends Component {
             }
         })
         Fetch.schedule.get(this.props.cookies.get(variables.cookies.token), this.setSchedules)
-        Fetch.schedule.user(this.props.cookies.get(variables.cookies.token), data => this.setState({ users: [...data] }))
+        Fetch.schedule.child(this.props.cookies.get(variables.cookies.token), data => this.setState({ users: [...data] }))
         Fetch.classroom.getAll(this.props.cookies.get(variables.cookies.token), data => this.setState({ classrooms: [...data] }))
+        Fetch.user.getCollaborater(this.props.cookies.get(variables.cookies.token), data => this.setState({ collaboraters: [...data] }))
     }
 
     componentDidMount () {
@@ -52,9 +54,6 @@ class Schedule extends Component {
     }
 
     setSchedules (dataSchedules) {
-        console.log('new schedules fetch')
-        console.log(dataSchedules)
-
         dataSchedules.map(x => {
             const date = new Date(x.date)
             const newDate = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate())
@@ -86,13 +85,12 @@ class Schedule extends Component {
 
     buildHeader (lang) {
         const headers = [
-            { id: 'nom', label: lang.head.lastName },
-            { id: 'prenom', label: lang.head.firstName },
-            { id: 'id_classroom', label: lang.head.firstName },
+            { id: 'child', label: lang.head.child  },
+            { id: 'collab', label: lang.head.collab },
+            { id: 'id_classroom', label: lang.head.classroom },
             { id: 'date', label: lang.head.date, align: 'right' },
             { id: 'is_absent', label: lang.head.isAbsent, align: 'center' }
         ]
-
         return (
             <TableHead>
                 <TableRow>
@@ -113,22 +111,22 @@ class Schedule extends Component {
 
     buildRow (lang, schedule) {
         const dateFormat = new Date(schedule.date)
-
         const user = this.state.users.filter(x => x._id === schedule.id_user)[0]
+        let collab = null
+        if(user) collab = this.state.collaboraters.filter(x => x._id === user.id_collaborater)[0]
         const classroom = this.state.classrooms.filter(x => x._id === schedule.id_classroom)[0]
         return (
             user && (
                 <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={schedule._id}>
-                    <TableCell> {user.last_name} </TableCell>
-                    <TableCell> {user.first_name} </TableCell>
+                    <TableCell> {user.last_name + ' ' + user.first_name} </TableCell>
+                    <TableCell> {collab.last_name + ' ' + collab.first_name} </TableCell>
                     <TableCell> {classroom && classroom.title} </TableCell>
                     <TableCell align='right'> {dateFormat.toLocaleDateString()} </TableCell>
-                    <TableCell align='center'> {schedule.is_absent ? 'OUI' : 'NON'} </TableCell>
+                    <TableCell align='center'> {schedule.is_absent ? lang.yes : lang.no} </TableCell>
                 </TableRow>
             )
         )
     }
-
 
     handleSearchChange (newValue, name) {
         if(name === 'classroomSelected'){
@@ -173,7 +171,7 @@ class Schedule extends Component {
         return (
             <div className='schedule'>
                 <div className='generate-container'>
-                    <p>generation des horaires</p>
+                    <p>{lang.generationTitle}</p>
                     <div>
                         <MuiPickersUtilsProvider
                             libInstance={moment} utils={MomentUtils}
@@ -182,7 +180,7 @@ class Schedule extends Component {
                             <KeyboardDatePicker
                                 minDate={new Date()}
                                 margin='dense'
-                                label='du'
+                                label={lang.from}
                                 format='DD MMMM YYYY'
                                 value={startDate}
                                 onChange={event => this.handleDateClick(event._d, 'startDate')}
@@ -193,7 +191,7 @@ class Schedule extends Component {
                             <KeyboardDatePicker
                                 minDate={startDate}
                                 margin='dense'
-                                label='au'
+                                label={lang.to}
                                 format='DD MMMM YYYY'
                                 value={endDate}
                                 onChange={event => this.handleDateClick(event._d, 'endDate')}
@@ -208,7 +206,7 @@ class Schedule extends Component {
                             color='default'
                             startIcon={<GenerationIcon />}
                         >
-                            GENERER
+                            {lang.btnGenerate}
                         </Button>
 
                     </div>
@@ -224,7 +222,7 @@ class Schedule extends Component {
                                 name="checkedB"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
                             />}
-                        label="Rechercher par date"
+                        label={lang.searchByDate}
                         labelPlacement="start"
                     />
 
@@ -235,7 +233,7 @@ class Schedule extends Component {
                         <KeyboardDatePicker
                             margin='dense'
                             disabled={!this.state.checkedB}
-                            label='date'
+                            label={lang.searchDate}
                             format='DD MMMM YYYY'
                             value={this.state.dateSelected}
                             onChange={event => this.handleSearchChange(event._d, 'dateSelected')}
@@ -245,13 +243,13 @@ class Schedule extends Component {
                         />
                     </MuiPickersUtilsProvider>
                     <FormControl variant='filled'>
-                        <InputLabel color='primary'>par salle</InputLabel>
+                        <InputLabel color='primary'>{lang.searchClassroom}</InputLabel>
                         <Select
                             value={this.state.classroomSelected}
                             onChange={event => this.handleSearchChange(event.target.value, 'classroomSelected')}
                         >
                             <MenuItem value=''>
-                                <em>Toutes les salles</em>
+                                <em>{lang.allClassroom}</em>
                             </MenuItem>
                             {this.state.classrooms.map(classRoom => (
                                 <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
@@ -262,7 +260,7 @@ class Schedule extends Component {
                 <TableContainer className='list-container table-list'>
                     <Table stickyHeader aria-label='sticky table'>
                         {this.buildHeader(lang)}
-                        {(schedules.length > 0 && this.state.users.length > 0 && this.state.classrooms.length > 0) && (
+                        {(schedules.length > 0 && this.state.users.length > 0 && this.state.classrooms.length > 0 && this.state.collaboraters.length > 0) && (
                             <TableBody>{schedules.map(schedule => this.buildRow(lang, schedule))}</TableBody>
                         )}
                     </Table>

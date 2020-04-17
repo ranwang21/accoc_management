@@ -3,7 +3,7 @@
         "allUsers": "List of all actors",
         "validation": "Validate registrations",
         "createAccount": "Register",
-        "classroomManagement": "Classroom management",
+        "classroomManagement": "Classrooms management",
         "scheduleManagement": "Schedules",
         "historical": "Historical",
         "profile": "Profil",
@@ -14,7 +14,7 @@
         "allUsers": "List of all actors",
         "validation": "Validate registrations",
         "createAccount": "Register",
-        "classroomManagement": "Classroom management",
+        "classroomManagement": "Classrooms management",
         "profile": "Profil",
         "logOut": "Sign Out"
     },

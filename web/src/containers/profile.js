@@ -218,7 +218,7 @@ class Profile extends Component {
                         </div>
                     </div>
                 </form>
-                <Snack show={this.state.showSnack} duration={3000} message='Modification effectuée avec succès' onClose={this.handleCloseSnack} severity='success' />
+                <Snack show={this.state.showSnack} duration={3000} message={lang.messageSnack} onClose={this.handleCloseSnack} severity='success' />
             </div>
         )
     }

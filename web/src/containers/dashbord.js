@@ -28,10 +28,14 @@ const upadteMenuSelectedByRole = (role) => {
     let select = null
     switch (role) {
     case variables.role.highAdmin:
+        select = variables.menus.allUsers
+        break
     case variables.role.admin:
         select = variables.menus.allUsers
         break
     case variables.role.both:
+        select = variables.menus.childList
+        break
     case variables.role.parent:
         select = variables.menus.childList
         break
@@ -51,7 +55,7 @@ class Dashbord extends Component {
             childrens: [],
             validActors: [],
             inValidActors: [],
-            menuItemSelected: variables.menus.allUsers,
+            menuItemSelected: '',
             showLogOutModal: false,
             requiredSaveValidationChange: false,
             showSnack: false,
@@ -99,11 +103,11 @@ class Dashbord extends Component {
         this.setState({
             menuItemSelected: upadteMenuSelectedByRole(this.getCurrentUser().role)
         })
-        Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
         const currentUser = this.getCurrentUser()
         if(currentUser.role === 'super_admin' || currentUser.role === 'admin') {
-            // Fetch all users, actors, and schedules
-            // Fetch.classRoom.get(this.props.cookies.get(variables.cookies.token), this.setClassRoom)
+            Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
+        } else {
+            this.setState({ showLoading: false })
         }
     }
 
@@ -211,11 +215,11 @@ class Dashbord extends Component {
         case variables.menus.prints:
             return (<Print lang={lang} />)
         case variables.menus.childList:
-            return (<Lists lang={lang} />)
+            return (<div />)
         case variables.menus.profile:
             return (<Profile lang={lang} />)
         case variables.menus.schedule:
-            return (<Schedule lang={lang} />)
+            return (<div />)
         default:
             return (<div className='table' />)
         }

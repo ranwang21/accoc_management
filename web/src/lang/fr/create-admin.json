@@ -15,10 +15,12 @@
         ]
     },
     "lastName": {
-        "label": "Nom"
+        "label": "Nom",
+        "labelError": "Obligatoire"
     },
     "firstName": {
-        "label": "Prénom"
+        "label": "Prénom",
+        "labelError": "Obligatoire"
     },
     "contactPersonal": {
         "label": "Numero personnel"

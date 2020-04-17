@@ -6,8 +6,9 @@ const jwt = require('jwt-simple')
 const secret = 'xxx'
 
 const phoneIsValid = (t) => {
-    var regex = /\ /g;
-    if(t !== null && t.length === 14 && regex.test(t)){
+    const regex = /\ /g;
+    const nbesp = t.split(' ').length - 1;
+    if(t !== null && t.length === 14 && nbesp === 1){
         return true
     }else return false
 }
@@ -32,6 +33,7 @@ const checkIfEmailExist = (email, callBack) => {
         .then(data => {
             callBack(data.success)
         })
+        .catch()
 }
 
 const authLogin = (email, password, callBack) => {
@@ -785,8 +787,8 @@ const deleteUser = (token, user) => {
     })
 }
 
-const getChildrenAndCollab = (token, callBack) => {
-    fetch(HOST + '/users', {
+const getChildrenWhoHasClassroom = (token, callBack) => {
+    fetch(HOST + '/roles?select=_id,title', {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -796,7 +798,52 @@ const getChildrenAndCollab = (token, callBack) => {
     .then(response => response.json())
     .then(data => {
         if(data.success){
-            callBack(data.data.filter(x => x.id_classroom !== null))
+            const rolesColabs = (data.data.filter(x => x.title === 'children'))
+
+            fetch(HOST + '/users?select=_id,first_name,last_name,id_role,id_collaborater', {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            .then(response => response.json())
+            .then(dataCollab => {
+                if(dataCollab.success){
+                    const childs = (dataCollab.data.filter(x => x.id_role === rolesColabs[0]._id))
+                    callBack(childs.filter(x => x.id_classroom !== null))
+                }
+            })
+        }
+    })
+}
+
+const getAllCollaborater = (token, callBack) => {
+    fetch(HOST + '/roles?select=_id,title', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            const rolesColabs = (data.data.filter(x => x.title === 'collaborater' || x.title === 'collab_parent'))
+            fetch(HOST + '/users?select=_id,first_name, last_name, id_role', {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            .then(response => response.json())
+            .then(dataCollab => {
+                if(dataCollab.success){
+                    const collabs = (dataCollab.data.filter(x => x.id_role === rolesColabs[0]._id || x.id_role ===  rolesColabs[1]._id))
+                    callBack(collabs)
+                }
+            })
         }
     })
 }
@@ -824,17 +871,18 @@ export default {
     },
     schedule: {
         get: getAllSchedules,
-        user: getChildrenAndCollab,
+        child: getChildrenWhoHasClassroom,
         add: addSchedule
     },
     user: {
         get: getUser,
+        getCollaborater: getAllCollaborater,
         update: updateUser,
         updateEmail: updateUserEmail,
         updatePassword: updateUserPassword,
         updateProfile: updateUserProfile,
         delete: deleteUser,
-        onlyChild: getChildrens
+        onlyChild: getChildrenWhoHasClassroom
     },
     login: {
         checkIfExist: checkIfEmailExist,

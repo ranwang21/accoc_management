@@ -1,8 +1,8 @@
 {
     "title": "Profile update",
     "sex": {
-        "label": "Titre",
-        "labelError": "Selectionner un titre",
+        "label": "Title",
+        "labelError": "Select a title",
         "options": [
             {
                 "value": "female",
@@ -15,44 +15,45 @@
         ]
     },
     "last_name": {
-        "label": "Nom",
-        "labelError": "Obligatoire"
+        "label": "Last name",
+        "labelError": "Required"
     },
     "first_name": {
-        "label": "Prénom",
-        "labelError": "Obligatoire"
+        "label": "First name",
+        "labelError": "Required"
     },
     "personal": {
-        "label": "Numero personnel",
-        "labelError": "Au moins un contact"
+        "label": "Personal number",
+        "labelError": "At least one contact"
     },
     "work": {
-        "label": "Numero de travail",
-        "labelError": "Au moins un contact"
+        "label": "Work number",
+        "labelError": "At least one contact"
     },
     "home": {
-        "label": "Numero de maison",
-        "labelError": "Au moins un contact"
+        "label": "Home number",
+        "labelError": "At least one contact"
     },
     "emergency": {
-        "label": "Numero d'urgence",
-        "labelError": "Au moins un contact"
+        "label": "Emergency number",
+        "labelError": "At least one contact"
     },
     "email": {
-        "label": "Adresse email",
-        "labelError": "Adresse email invalide"
+        "label": "E-mail adress",
+        "labelError": "Invalid email address"
     },
     "oldPassword": {
-        "label": "Ancien mot de passe",
-        "labelError": "Mot de passes invalide"
+        "label": "Password",
+        "labelError": "Invalid password"
     },
     "newPassword": {
-        "label": "Nouveau mot de passe",
-        "labelError": "Mot de passes différents"
+        "label": "New Password",
+        "labelError": "Different passwords"
     },
     "newConfirmPassword": {
-        "label": "Confirmer le nouveau mot de passe",
-        "labelError": "Mot de passes différents"
+        "label": "Confirm the new password",
+        "labelError": "Different passwords"
     },
-    "buttonLabel": "Edit"
+    "buttonLabel": "Modify the profile",
+    "messageSnack": "Modification successfully completed"
 }

@@ -88,7 +88,23 @@ class Table extends Component {
     }
 
     handleSearchChange () {
-        this.setState(state => { return { search: !state.search } })
+        this.setState(state => {
+            const search = state.search
+            if (search === true) {
+                return {
+                    search: !search,
+                    lastNameInput: '',
+                    firstNameInput: '',
+                    classRoomSelected: '',
+                    schoolInput: '',
+                    levelSelected: ''
+                }
+            } else {
+                return {
+                    search: !search
+                }
+            }
+        })
     }
 
     handleSearchInputChange (event, name) {
@@ -134,7 +150,7 @@ class Table extends Component {
                     const ch2 = row.last_name.toLowerCase().search(this.state.lastNameInput.toLowerCase())
                     if (this.getActorSelected() === variables.role.child) {
                         const ch3 = this.state.classRoomSelected !== '' ? row.id_classroom && row.id_classroom.search(getIdClassRoom._id) : 0
-                        const ch4 = this.state.levelSelected !== '' ? row.school_info.level === this.state.levelSelected : true
+                        const ch4 = this.state.levelSelected !== '' ? row.school_info[0].level === this.state.levelSelected : true
                         const name = row.school_info[0].name === null ? 'non defini' : row.school_info[0].name
                         const ch5 = name.toLowerCase().search(this.state.schoolInput.toLowerCase());
                         (ch1 !== -1 && ch2 !== -1 && ch3 !== -1 && ch4 === true && ch5 !== -1) && lastList.push(row)
@@ -217,39 +233,20 @@ class Table extends Component {
                                                 <em>Tous les niveaux</em>
                                             </MenuItem>
                                             <ListSubheader>Primaire</ListSubheader>
-                                            <MenuItem value='Primaire 1'>1er</MenuItem>
-                                            <MenuItem value='Primaire 2'>2e</MenuItem>
-                                            <MenuItem value='Primaire 3'>3e</MenuItem>
-                                            <MenuItem value='Primaire 4'>4e</MenuItem>
-                                            <MenuItem value='Primaire 5'>5e</MenuItem>
-                                            <MenuItem value='Primaire 6'>6e</MenuItem>
+                                            <MenuItem value='Primaire1'>1er</MenuItem>
+                                            <MenuItem value='Primaire2'>2e</MenuItem>
+                                            <MenuItem value='Primaire3'>3e</MenuItem>
+                                            <MenuItem value='Primaire4'>4e</MenuItem>
+                                            <MenuItem value='Primaire5'>5e</MenuItem>
+                                            <MenuItem value='Primaire6'>6e</MenuItem>
 
                                             <ListSubheader>Secondaire</ListSubheader>
-                                            <MenuItem value='Secondaire 1'>I</MenuItem>
-                                            <MenuItem value='Secondaire 2'>II</MenuItem>
-                                            <MenuItem value='Secondaire 3'>III</MenuItem>
-                                            <MenuItem value='Secondaire 4'>IV</MenuItem>
-                                            <MenuItem value='Secondaire 5'>V</MenuItem>
+                                            <MenuItem value='Secondaire1'>I</MenuItem>
+                                            <MenuItem value='Secondaire2'>II</MenuItem>
+                                            <MenuItem value='Secondaire3'>III</MenuItem>
+                                            <MenuItem value='Secondaire4'>IV</MenuItem>
+                                            <MenuItem value='Secondaire5'>V</MenuItem>
 
-                                        </Select>
-                                    </FormControl>
-                                </>
-                                )}
-
-                                {this.getActorSelected() === variables.role.collab && (
-                                <>
-                                    <FormControl variant='filled'>
-                                        <InputLabel color='primary'>par salle</InputLabel>
-                                        <Select
-                                            value={this.state.classRoomSelected}
-                                            onChange={event => this.handleSearchInputChange(event, 'classRoomSelected')}
-                                        >
-                                            <MenuItem value=''>
-                                                <em>Toutes les salles</em>
-                                            </MenuItem>
-                                            {this.state.classrooms.map(classRoom => (
-                                                <MenuItem key={classRoom._id} value={classRoom.title}>{classRoom.title}</MenuItem>
-                                            ))}
                                         </Select>
                                     </FormControl>
                                 </>
