@@ -53,10 +53,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         View menu = navigationView.getHeaderView(0);
-        ImageView imgProfile = menu.findViewById(R.id.img_drawer);
-        if (!Preferences.getUserImgUrl(this).isEmpty()) {
-            Glide.with(this).load(Preferences.getUserImgUrl(this)).into(imgProfile);
-        }
         TextView tv_name = menu.findViewById(R.id.name_drawer);
         tv_name.setText(Preferences.getUserFirstName(this) + " " + Preferences.getUserLastName(this));
         TextView tv_email = menu.findViewById(R.id.email_drawer);
