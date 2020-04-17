@@ -57,7 +57,7 @@ class Schedule extends Component {
         dataSchedules.map(x => {
             const date = new Date(x.date)
             const newDate = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate())
-            newDate.setDate(newDate.getDate() + 1);
+            newDate.setDate(newDate.getDate() + 1)
             x.date = newDate
         })
 
@@ -68,15 +68,16 @@ class Schedule extends Component {
 
     handleDateClick (date, name) {
         const newDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
-        this.setState({
-            generation: {
-                ...this.state.generation,
-                [name]: newDate
+        this.setState(state => {
+            const generation = state.generation
+            generation[name] = newDate
+            return {
+                generation: generation
             }
         })
     }
 
-    handleGenerateClick(){
+    handleGenerateClick () {
         const generate = this.state.generation
         if (generate.startDate !== generate.endDate) {
             Fetch.schedule.add(this.props.cookies.get(variables.cookies.token), generate, this.fetchSchedules)
@@ -85,7 +86,7 @@ class Schedule extends Component {
 
     buildHeader (lang) {
         const headers = [
-            { id: 'child', label: lang.head.child  },
+            { id: 'child', label: lang.head.child },
             { id: 'collab', label: lang.head.collab },
             { id: 'id_classroom', label: lang.head.classroom },
             { id: 'date', label: lang.head.date, align: 'right' },
@@ -113,7 +114,7 @@ class Schedule extends Component {
         const dateFormat = new Date(schedule.date)
         const user = this.state.users.filter(x => x._id === schedule.id_user)[0]
         let collab = null
-        if(user) collab = this.state.collaboraters.filter(x => x._id === user.id_collaborater)[0]
+        if (user) collab = this.state.collaboraters.filter(x => x._id === user.id_collaborater)[0]
         const classroom = this.state.classrooms.filter(x => x._id === schedule.id_classroom)[0]
         return (
             user && (
@@ -129,8 +130,10 @@ class Schedule extends Component {
     }
 
     handleSearchChange (newValue, name) {
-        if(name === 'classroomSelected'){
-            (newValue !== undefined) ? this.setState({ [name]: newValue }) : ''
+        if (name === 'classroomSelected') {
+            if (newValue !== undefined) {
+                this.setState({ classroomSelected: newValue })
+            }
         } else {
             this.setState({ [name]: newValue })
         }
@@ -144,7 +147,7 @@ class Schedule extends Component {
         if (newList !== null) {
             const date = this.state.dateSelected
             const newDate = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate())
-            newDate.setDate(newDate.getDate() + 1);
+            newDate.setDate(newDate.getDate() + 1)
             newList.map(row => {
                 let ch1 = 0
                 if (this.state.checkedB) {
@@ -157,7 +160,7 @@ class Schedule extends Component {
         return lastList
     }
 
-    handleSwitchDate(){
+    handleSwitchDate () {
         this.setState({
             checkedB: !this.state.checkedB
         })
@@ -213,17 +216,18 @@ class Schedule extends Component {
                 </div>
                 <div className='search-container'>
                     <FormControlLabel
-                        value="start"
+                        value='start'
                         control={
                             <Switch
                                 checked={this.state.checkedB}
                                 onChange={this.handleSwitchDate}
-                                color="primary"
-                                name="checkedB"
+                                color='primary'
+                                name='checkedB'
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />}
+                            />
+                        }
                         label={lang.searchByDate}
-                        labelPlacement="start"
+                        labelPlacement='start'
                     />
 
                     <MuiPickersUtilsProvider
