@@ -80,16 +80,15 @@ class Historical extends Component {
     }
 
     filterActors (userId) {
-        // TODO: filter actors by userId
-        // const actors = this.props.actors
-        // const matchedSchedules = this.state.matchedSchedules
-        // const userIdsInMatchedSchedules = []
-        // matchedSchedules.map(schedule => userIdsInMatchedSchedules.push(schedule.id_user))
-        // actors.map(actor => {
-        //     if (userIdsInMatchedSchedules.includes(actor._id)) {
-        //         console.log('includes: ', actor._id)
-        //     } else { console.log(actor._id) }
-        // })
+        const actors = this.props.actors
+        const matchedSchedules = this.state.matchedSchedules
+        const userIdsInMatchedSchedules = []
+        matchedSchedules.map(schedule => userIdsInMatchedSchedules.push(schedule.id_user))
+        actors.map(actor => {
+            if (userIdsInMatchedSchedules.includes(actor._id)) {
+                console.log('includes: ', actor._id)
+            } else { console.log(actor._id) }
+        })
         console.log('all actors: ', this.props.actors)
         console.log('matchedSchedules: ', this.state.matchedSchedules)
     }
