@@ -5,7 +5,6 @@ import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined'
 
-import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
 import Historical from './historical'
 import CreateAccount from '../components/create-account'

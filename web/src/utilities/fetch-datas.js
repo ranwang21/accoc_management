@@ -249,15 +249,6 @@ const getImage = (token, id, callBack) => {
         })
 }
 
-const getAddressFromGoogle = () => {
-    const API_KEY = 'AIzaSyCeyah5EQEjXMmGTgWi1lTQyORN4n4Wil0'
-    const input = '5217+Trans+island'
-    fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/output?input=' + input + '&key=' + API_KEY)
-        .then(response => response.json())
-        .then(data => {
-        })
-}
-
 const getUser = (token, id, callBack) => {
     fetch(HOST + '/users/' + id, {
         headers: {
@@ -858,7 +849,6 @@ export default {
     validateEmail,
     addUser,
     deleteLogin,
-    getAddressFromGoogle,
     getRolesAndDays,
     registerSaveUser,
     saveChildren,
