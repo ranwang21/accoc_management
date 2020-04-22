@@ -314,12 +314,14 @@
     }
 }
 .btn-delete {
+    border-radius: 10em !important;
     background-color: rgb(235, 83, 83) !important;
     &:hover {
         background-color: rgb(228, 28, 28) !important;
     }
 }
 .btn-edit {
+    border-radius: 10em !important;
     background-color: #e0e0e0 !important;
     color: rgba(0, 0, 0, 0.87) !important;
     &:hover {
@@ -327,6 +329,7 @@
     }
 }
 .btn-save {
+    border-radius: 10em !important;
     background-color: rgba($color: $secondaryColor, $alpha: 0.5) !important;
     color: #f0f0f0 !important;
     &:hover {
