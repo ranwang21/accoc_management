@@ -81,6 +81,9 @@
                 justify-content: space-around;
                 display: none;
                 transition: all 0.5s;
+                > button {
+                    border-radius: 10em;
+                }
             }
         }
 

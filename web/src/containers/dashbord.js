@@ -27,7 +27,7 @@ const upadteMenuSelectedByRole = (role) => {
     let select = null
     switch (role) {
     case variables.role.highAdmin:
-        select = variables.menus.allUsers
+        select = variables.menus.prints
         break
     case variables.role.admin:
         select = variables.menus.allUsers
@@ -78,10 +78,10 @@ class Dashbord extends Component {
 
     setActorLists (list) {
         this.setState({ showLoading: true })
-        const sortIds = (list.map(us => us._id)).sort()
+        const sortIds = (list.map(us => us._id))
         const sortUser = (sortIds.map(id => (list.filter(user => user._id === id))[0]))
         this.setState({
-            actors: [...sortUser],
+            actors: [...sortUser].sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1)),
             validActors: [...sortUser.filter(isValidActor)],
             inValidActors: [...sortUser.filter(isInValidActor)],
             childrens: [...sortUser.filter(isChildren)]
@@ -212,7 +212,7 @@ class Dashbord extends Component {
         case variables.menus.historical:
             return (<Historical lang={lang} actors={this.state.actors} />)
         case variables.menus.prints:
-            return (<Print lang={lang} />)
+            return (<Print lang={lang} allActors={this.state.actors} />)
         case variables.menus.childList:
             return (<div />)
         case variables.menus.profile:
@@ -243,7 +243,7 @@ class Dashbord extends Component {
         return (
             <div className='dashbord'>
                 <Snack show={this.state.showSnack} duration={5000} message={lang.messageRequiredSaveChangeSnack} onClose={this.handleCloseSnack} severity='warning' />
-                <div className='menu-mobile'>
+                <div className='menu-mobile remove'>
                     <Button
                         variant='outlined'
                         size='medium'
@@ -276,7 +276,7 @@ class Dashbord extends Component {
 
                 </div>
                 <SideMenu
-                    className='menu-desktop'
+                    className='menu-desktop remove'
                     lang={this.props.lang}
                     menuItemSelected={this.state.menuItemSelected}
                     handleClickMenu={this.onClickMenu}

@@ -78,7 +78,7 @@ class SideMenu extends Component {
         const lang = this.getLangFile()
         const items = getMenuItemsByRole(lang, this.getCurrentUser().role)
         return (
-            <div className='side-menu'>
+            <div className='side-menu remove'>
                 <List>
                     {Object.keys(items).map((item, index) =>
                         <ListItem
