@@ -13,7 +13,6 @@ import AdminDetail from './admin-detail'
 import ParentCollabDetail from './parent-collab-detail'
 import PrintDetail from 'react-to-print'
 import Fetch from '../utilities/fetch-datas'
-import Loading from './loading'
 import '../styles/_detail-user.scss'
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
 
@@ -55,11 +54,11 @@ class DetailUser extends Component {
     }
 
     setEditedUser (user) {
-        this.setState({ userEdited: {...user} })
+        this.setState({ userEdited: user })
     }
 
-    setUserImage(data){
-        this.setState({image: data.data})
+    setUserImage (data) {
+        this.setState({ image: data.data })
     }
 
     componentDidMount () {
@@ -70,7 +69,7 @@ class DetailUser extends Component {
     componentDidUpdate (prevProps) {
         if (this.props.userSelected !== prevProps.userSelected) {
             Fetch.user.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.setEditedUser)
-            this.setState({image: this.props.userSelected.img})
+            this.setState({ image: this.props.userSelected.img })
         }
     }
 
