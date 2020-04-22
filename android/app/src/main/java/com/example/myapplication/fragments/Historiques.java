@@ -60,7 +60,7 @@ public class Historiques extends Fragment {
         listView = view.findViewById(R.id.list_enfant_par_salle);
         for (Classroom c : classrooms) {
             if (!dateToDisplay.isEmpty()) {
-                ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), dateToDisplay.get(0), c.get_id());
+                ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroomandIsAbsent(getContext(), dateToDisplay.get(0), c.get_id());
                 if (schedulesToInsert != null) {
                     schedules.addAll(schedulesToInsert);
                 }
@@ -101,7 +101,7 @@ public class Historiques extends Fragment {
                     schedules = new ArrayList<>();
                     if (!selectedClassroom.equals("Tous")) {
                         Classroom classroom = ClassroomManager.getByTitle(getContext(), selectedClassroom);
-                        schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, classroom.get_id());
+                        schedules = ScheduleManager.getByDateAndIdClassroomandIsAbsent(getContext(), selectedDate, classroom.get_id());
                         if (schedules != null) {
                             for (Schedule s : schedules) {
                                 User u = UserManager.getById(getContext(), s.getId_user());
@@ -113,7 +113,7 @@ public class Historiques extends Fragment {
                     } else {
                         ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
                         for (Classroom c : classrooms) {
-                            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroomandIsAbsent(getContext(), selectedDate, c.get_id());
                             if (schedulesToInsert != null) {
                                 schedules.addAll(schedulesToInsert);
                             }
@@ -148,7 +148,7 @@ public class Historiques extends Fragment {
                     String selectedDate = spinner_date.getSelectedItem().toString();
                     if (!classroomName.equals("Tous")) {
                         Classroom classroom = ClassroomManager.getByTitle(getContext(), classroomName);
-                        schedules = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, classroom.get_id());
+                        schedules = ScheduleManager.getByDateAndIdClassroomandIsAbsent(getContext(), selectedDate, classroom.get_id());
                         if (schedules != null) {
                             for (Schedule s : schedules) {
                                 String userId = s.getId_user();
@@ -161,7 +161,7 @@ public class Historiques extends Fragment {
                     } else {
                         ArrayList<Classroom> classrooms = ClassroomManager.getAll(getContext());
                         for (Classroom c : classrooms) {
-                            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroom(getContext(), selectedDate, c.get_id());
+                            ArrayList<Schedule> schedulesToInsert = ScheduleManager.getByDateAndIdClassroomandIsAbsent(getContext(), selectedDate, c.get_id());
                             if (schedulesToInsert != null) {
                                 schedules.addAll(schedulesToInsert);
                             }

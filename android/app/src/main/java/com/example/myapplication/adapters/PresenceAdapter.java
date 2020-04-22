@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,23 +49,51 @@ public class PresenceAdapter extends ArrayAdapter<User> {
             Button btn = convertView.findViewById(R.id.button_presence);
             TextView Fname = convertView.findViewById(R.id.textView1);
             TextView Lname = convertView.findViewById(R.id.textView2);
-            final CheckBox cb = convertView.findViewById(R.id.checkBox1);
+            RadioGroup radioGroup = convertView.findViewById(R.id.radioPresence);
             ImageView img = convertView.findViewById(R.id.imageView3);
             Fname.setText(user.getFirst_name());
             Lname.setText(user.getLast_name());
             Glide.with(getContext()).load(user.getImg_url()).into(img);
-            boolean isFilled = false;
-            cb.setChecked(isFilled);
-            cb.setOnClickListener(new View.OnClickListener() {
+            int rbId = radioGroup.getCheckedRadioButtonId();
+            RadioButton rb = convertView.findViewById(rbId);
+            String rbValue = rb.getText().toString();
+            boolean is_absent = false;
+            if (rbValue.equals("Absent")) {
+                is_absent = true;
+            }
+            Schedule schedule = ScheduleManager.getByIdUserAndDate(getContext(), user.get_id(), date);
+            if (schedule != null) {
+                schedule.setIs_absent(is_absent);
+                schedules.add(schedule);
+            }
+            View finalConvertView = convertView;
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
-                public void onClick(View v) {
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    RadioButton rb = finalConvertView.findViewById(checkedId);
+                    String rbValue = rb.getText().toString();
+                    boolean is_absent = false;
+                    if (rbValue.equals("Absent")) {
+                        is_absent = true;
+                    }
                     Schedule schedule = ScheduleManager.getByIdUserAndDate(getContext(), user.get_id(), date);
                     if (schedule != null) {
-                        schedule.setIs_absent(cb.isChecked());
+                        schedule.setIs_absent(is_absent);
                         schedules.add(schedule);
                     }
                 }
             });
+//            cb.setChecked(isFilled);
+//            cb.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Schedule schedule = ScheduleManager.getByIdUserAndDate(getContext(), user.get_id(), date);
+//                    if (schedule != null) {
+//                        schedule.setIs_absent(cb.isChecked());
+//                        schedules.add(schedule);
+//                    }
+//                }
+//            });
         }
         return convertView;
     }
