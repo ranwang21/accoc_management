@@ -70,6 +70,7 @@ class DetailUser extends Component {
     componentDidUpdate (prevProps) {
         if (this.props.userSelected !== prevProps.userSelected) {
             Fetch.user.get(this.props.cookies.get(variables.cookies.token), this.props.userSelected._id, this.setEditedUser)
+            this.setState({image: this.props.userSelected.img})
         }
     }
 
