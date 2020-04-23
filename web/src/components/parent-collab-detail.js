@@ -11,7 +11,6 @@ class ParentCollabDetail extends Component {
 
     render () {
         const both = this.props.both
-        console.log(both)
         const yes = 'OUI'
         const no = 'NON'
         return (

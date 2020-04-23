@@ -183,6 +183,21 @@ const registerSaveUser = (user, userLogin, callBack) => {
         })
 }
 
+const saveChild = (child, callBack) => {
+    fetch(HOST + '/users', {
+        method: 'post',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(child)
+    })
+        .then(response => response.json())
+        .then(data => {
+            callBack(data)
+        })
+}
+
 const saveChildren = (childrens, idParent, callBack) => {
     childrens.map(child => {
         child.id_parent = [idParent]
@@ -200,6 +215,7 @@ const saveChildren = (childrens, idParent, callBack) => {
             })
     })
 }
+
 
 const getRolesAndDays = (callBack) => {
     fetch(HOST + '/roles')
@@ -246,15 +262,6 @@ const getImage = (token, id, callBack) => {
         .then(response => response.json())
         .then(data => {
             callBack(data)
-        })
-}
-
-const getAddressFromGoogle = () => {
-    const API_KEY = 'AIzaSyCeyah5EQEjXMmGTgWi1lTQyORN4n4Wil0'
-    const input = '5217+Trans+island'
-    fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/output?input=' + input + '&key=' + API_KEY)
-        .then(response => response.json())
-        .then(data => {
         })
 }
 
@@ -830,7 +837,7 @@ const getAllCollaborater = (token, callBack) => {
     .then(data => {
         if(data.success){
             const rolesColabs = (data.data.filter(x => x.title === 'collaborater' || x.title === 'collab_parent'))
-            fetch(HOST + '/users?select=_id,first_name, last_name, id_role', {
+            fetch(HOST + '/users?select=_id,first_name,last_name,id_role', {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
@@ -848,6 +855,38 @@ const getAllCollaborater = (token, callBack) => {
     })
 }
 
+
+const getAllChildren = (token, callBack) => {
+    fetch(HOST + '/roles?select=_id,title', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            const rolesColabs = (data.data.filter(x => x.title === 'children'))
+            fetch(HOST + '/users?select=_id,first_name,last_name,id_role', {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            .then(response => response.json())
+            .then(dataChildren => {
+                console.log(dataChildren)
+                if(dataChildren.success){
+                    const children = (dataChildren.data.filter(x => x.id_role === rolesColabs[0]._id || x.id_role ===  rolesColabs[1]._id))
+                    callBack(children)
+                }
+            })
+        }
+    })
+}
+
 export default {
     phoneIsValid,
     encodeData,
@@ -858,10 +897,10 @@ export default {
     validateEmail,
     addUser,
     deleteLogin,
-    getAddressFromGoogle,
     getRolesAndDays,
     registerSaveUser,
     saveChildren,
+    saveChild,
     getAllUsers,
     deleteAllUser,
     updateUserValidities,
@@ -876,6 +915,7 @@ export default {
     },
     user: {
         get: getUser,
+        children: getAllChildren,
         getCollaborater: getAllCollaborater,
         update: updateUser,
         updateEmail: updateUserEmail,

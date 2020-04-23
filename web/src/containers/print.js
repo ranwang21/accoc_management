@@ -1,25 +1,35 @@
 import React, { Component } from 'react'
-import { FormControlLabel, FormGroup, Checkbox, TableContainer, Table, TableHead, TableRow, TableCell } from '@material-ui/core'
-import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded'
-import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded'
+import { TableContainer, Table, TableHead, TableRow, TableCell, Button, TableBody, IconButton } from '@material-ui/core'
+import PrintIcon from '@material-ui/icons/Print'
+import PrintList from 'react-to-print'
 import '../styles/_print.scss'
+const variables = require('../utilities/variables').variables
+
+const isChildren = ({ roleTitle }) => roleTitle === 'children'
+const isCollaborater = ({ roleTitle }) => (roleTitle === 'collaborater' || roleTitle === 'collab_parent')
+const isParent = ({ roleTitle }) => (roleTitle === 'parent' || roleTitle === 'collab_parent')
 
 class Print extends Component {
     constructor () {
         super()
         this.state = {
+            allActors: [],
             listSelected: 0
         }
-        this.handleListSelected = this.handleListSelected.bind(this)
+        this.divToPrint = React.createRef()
+        this.divChildrenToPrint = React.createRef()
+        this.divCollabToPrint = React.createRef()
+        this.divParentToPrint = React.createRef()
+        this.handlePrintClick = this.handlePrintClick.bind(this)
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/print.json') }
 
-    handleListSelected (event, value) {
+    handlePrintClick (event, value) {
         this.setState({ listSelected: value })
     }
 
-    buildHeader (lang) {
+    buildHeader (lang, value) {
         const headers = [
             { id: 'nom', label: lang.head.lastName, minWidth: 170 },
             { id: 'prenom', label: lang.head.firstName, minWidth: 170 }
@@ -27,11 +37,11 @@ class Print extends Component {
         if (this.state.listSelected === lang.list.ofChild.value) {
 
         }
-        if (this.state.listSelected === lang.list.ofCollaborater.value) {
+        if (value === lang.list.ofCollaborater.value) {
             headers.push({ id: 'phone', label: lang.head.phone, minWidth: 170 })
             headers.push({ id: 'courriel', label: lang.head.courriel, minWidth: 170 })
         }
-        if (this.state.listSelected === lang.list.ofParent.value) {
+        if (value === lang.list.ofParent.value) {
             headers.push({ id: 'phone', label: lang.head.phone, minWidth: 170 })
             headers.push({ id: 'courriel', label: lang.head.courriel, minWidth: 170 })
         }
@@ -53,50 +63,99 @@ class Print extends Component {
         )
     }
 
+    getPhoneNumberByPriority (actor) {
+        if (actor.contact.length === 0) {
+            return 'Pas de contact'
+        } else {
+            const contact = actor.contact[0]
+            if (contact.personal !== null) return contact.personal
+            else if (contact.work !== null) return contact.work
+            else if (contact.home !== null) return contact.home
+            else if (contact.emergency !== null) return contact.emergency
+            else return 'Pas de contact'
+        }
+    }
+
+    buildRow (lang, actor, value) {
+        const getPhoneNumber = this.getPhoneNumberByPriority(actor)
+
+        return (
+            <TableRow hover role='checkbox' className='table-row' tabIndex={-1} key={actor._id}>
+                <TableCell> {actor.last_name.toUpperCase()} </TableCell>
+                <TableCell> {actor.first_name} </TableCell>
+                {(value === lang.list.ofParent.value || value === lang.list.ofCollaborater.value) && (
+                    <>
+                        <TableCell> {getPhoneNumber} </TableCell>
+                        <TableCell> {actor.email} </TableCell>
+                    </>
+                )}
+            </TableRow>
+        )
+    }
+
+    buildBody (lang, allActors, value) {
+        return (<TableBody>{allActors.map(actor => this.buildRow(lang, actor, value))}</TableBody>)
+    }
+
+    buildListItem (config, labelPrint, reference) {
+        return (
+            <div>
+                <h2>{config.label}</h2>
+                <PrintList
+                    trigger={() => (
+                        <Button
+                            variant='contained'
+                            color='secondary'
+                            startIcon={<PrintIcon />}
+                        >
+                            {labelPrint}
+                        </Button>)}
+                    content={() => reference}
+                />
+            </div>
+        )
+    }
+
+    buildListToPrint (lang, config, list, reference) {
+        return (
+            <div id='details-print' ref={el => (reference = el)} className='to-print'>
+                <div className='detail-head to-be-print'>LA MAISON D'AURORE</div>
+                <h2>{config.label}</h2>
+                <TableContainer className='table-list'>
+                    <Table stickyHeader aria-label='sticky table'>
+                        {this.buildHeader(lang, config.value)}
+                        {this.buildBody(lang, list, config.value)}
+                    </Table>
+                </TableContainer>
+                <div className='detail-footer to-be-print' />
+            </div>
+        )
+    }
+
     render () {
         const lang = this.getLangFile()
-        const allActors = []
+        const allActors = this.props.allActors
+        const childrens = allActors.filter(isChildren)
+        const collaboraters = allActors.filter(isCollaborater)
+        const parents = allActors.filter(isParent)
         return (
             <div className='print'>
-                <h1>{lang.title}</h1>
                 <div className='div-titles'>
-                    <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={this.state.listSelected === lang.list.ofChild.value}
-                                    onChange={event => this.handleListSelected(event, lang.list.ofChild.value)}
-                                    icon={<CheckBoxOutlineBlankRoundedIcon />}
-                                    checkedIcon={<VerifiedUserRoundedIcon />}
-                                />
-                            }
-                            label={lang.list.ofChild.label}
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={this.state.listSelected === lang.list.ofCollaborater.value}
-                                    onChange={event => this.handleListSelected(event, lang.list.ofCollaborater.value)}
-                                    icon={<CheckBoxOutlineBlankRoundedIcon />}
-                                    checkedIcon={<VerifiedUserRoundedIcon />}
-                                />
-                            }
-                            label={lang.list.ofCollaborater.label}
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={this.state.listSelected === lang.list.ofParent.value}
-                                    onChange={event => this.handleListSelected(event, lang.list.ofParent.value)}
-                                    icon={<CheckBoxOutlineBlankRoundedIcon />}
-                                    checkedIcon={<VerifiedUserRoundedIcon />}
-                                />
-                            }
-                            label={lang.list.ofParent.label}
-                        />
-                    </FormGroup>
+                    {this.buildListItem(lang.list.ofChild, lang.btnPrint, this.divChildrenToPrint)}
+                    {this.buildListItem(lang.list.ofCollaborater, lang.btnPrint, this.divCollabToPrint)}
+                    {this.buildListItem(lang.list.ofParent, lang.btnPrint, this.divParentToPrint)}
                 </div>
-                <div className='div-lists to-print' />
+                <div className='div-lists to-print'>
+                    <div ref={el => (this.divChildrenToPrint = el)}>
+                        {this.buildListToPrint(lang, lang.list.ofChild, childrens, this.divChildrenToPrint)}
+                    </div>
+                    <div ref={el => (this.divCollabToPrint = el)}>
+                        {this.buildListToPrint(lang, lang.list.ofCollaborater, collaboraters, this.divCollabToPrint)}
+                    </div>
+                    <div ref={el => (this.divParentToPrint = el)}>
+                        {this.buildListToPrint(lang, lang.list.ofParent, parents, this.divParentToPrint)}
+                    </div>
+                </div>
             </div>
         )
     }

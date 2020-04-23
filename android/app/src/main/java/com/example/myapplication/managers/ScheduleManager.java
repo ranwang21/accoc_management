@@ -35,7 +35,8 @@ public class ScheduleManager {
     private static final String queryGetByIdUser = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where id_user like ?";
     private static final String queryGetByIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where id_classroom like ?";
     private static final String queryGetByDate = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ?";
-    private static final String queryGetByDateAndIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ?";
+    private static final String queryGetByDateAndIdClassroomAndIsAbsent = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ? and is_absent = 0";
+    private static final String queryGetByDateAndIdClassroom = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date like ? and id_classroom like ? ";
     private static final String queryGetDistinctDates = "SELECT DISTINCT date FROM " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where date <= ? " + " order by date DESC";
     private static final String queryGetByIdUserAndDate = "select * from " + DataBaseHelper.SCHEDULE_TABLE_NAME + " where id_user like ? and date like ?";
     /**
@@ -208,6 +209,26 @@ public class ScheduleManager {
         ArrayList<Schedule> schedules = new ArrayList<>();
         SQLiteDatabase bd = ConnectionBD.getBd(context);
         Cursor cursor = bd.rawQuery(queryGetByDateAndIdClassroom, new String[]{date, idClassroom});
+        while (cursor.moveToNext()) {
+            boolean is_absent = false;
+            if (cursor.getInt(4) == 1) {
+                is_absent = true;
+            }
+            schedules.add(new Schedule(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    is_absent,
+                    cursor.getString(5))
+            );
+        }
+        ConnectionBD.close();
+        return schedules;
+    } public static ArrayList<Schedule> getByDateAndIdClassroomandIsAbsent(Context context, String date, String idClassroom) {
+        ArrayList<Schedule> schedules = new ArrayList<>();
+        SQLiteDatabase bd = ConnectionBD.getBd(context);
+        Cursor cursor = bd.rawQuery(queryGetByDateAndIdClassroomAndIsAbsent, new String[]{date, idClassroom});
         while (cursor.moveToNext()) {
             boolean is_absent = false;
             if (cursor.getInt(4) == 1) {

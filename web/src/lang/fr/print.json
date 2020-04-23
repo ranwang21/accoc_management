@@ -14,6 +14,7 @@
             "label": "Liste des parents"
         }
     },
+    "btnPrint": "imprimer",
     "head": {
         "lastName": "nom",
         "firstName": "prénom",

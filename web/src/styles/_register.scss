@@ -235,6 +235,28 @@
             }
         }
     }
+    > div.select-parent {
+        display: flex;
+        align-items: center;
+        > div.select {
+            width: 20em;
+        }
+        > p {
+            color: #f44336;
+            color: red;
+            margin: 0 1em;
+            font-size: 1.3rem;
+            line-height: 1.66;
+            letter-spacing: 0.03333em;
+        }
+        margin-bottom: 0.5em;
+    }
+    > button {
+        margin: 0.5em 0 0 0;
+        padding: 1em 2em;
+        width: 15em;
+        border-radius: 0.5em;
+    }
 }
 
 .registered {

@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.PresenceAdapter;
-import com.example.myapplication.adapters.checkboxAdapter;
+//import com.example.myapplication.adapters.checkboxAdapter;
 import com.example.myapplication.entities.Classroom;
 import com.example.myapplication.entities.Login;
 import com.example.myapplication.entities.Role;
@@ -99,6 +99,7 @@ public class Presence extends Fragment {
                 ArrayList<Schedule> schedulesToPut = presenceAdapter.getSchedules();
                 for (Schedule s : schedulesToPut) {
                     ScheduleManager.putToAPI(getContext(), s, Preferences.getToken(getContext()));
+                    Log.d("Json", "onClick: "+ s.getIs_absent());
                 }
                 Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
 

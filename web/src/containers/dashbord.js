@@ -5,16 +5,16 @@ import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined'
 
-import CalendarSchedule from '../components/calendar-schedule'
 import SideMenu from '../components/side-menu'
 import Historical from './historical'
-import CreateAccount from '../components/create-account'
+import CreateAccount from './create-account'
 import Schedule from './schedule'
 import Classroom from './classroom'
 import Profile from './profile'
 import Print from './print'
 import Snack from '../components/snack'
 import Lists from './list'
+import ChildList from '../components/parent-child'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_dashbord.scss'
@@ -28,7 +28,7 @@ const upadteMenuSelectedByRole = (role) => {
     let select = null
     switch (role) {
     case variables.role.highAdmin:
-        select = variables.menus.allUsers
+        select = variables.menus.createAccount
         break
     case variables.role.admin:
         select = variables.menus.allUsers
@@ -79,10 +79,10 @@ class Dashbord extends Component {
 
     setActorLists (list) {
         this.setState({ showLoading: true })
-        const sortIds = (list.map(us => us._id)).sort()
+        const sortIds = (list.map(us => us._id))
         const sortUser = (sortIds.map(id => (list.filter(user => user._id === id))[0]))
         this.setState({
-            actors: [...sortUser],
+            actors: [...sortUser].sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1)),
             validActors: [...sortUser.filter(isValidActor)],
             inValidActors: [...sortUser.filter(isInValidActor)],
             childrens: [...sortUser.filter(isChildren)]
@@ -205,7 +205,7 @@ class Dashbord extends Component {
                     handleImageChange={this.onUserChange}
                 />)
         case variables.menus.createAccount:
-            return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
+            return (<CreateAccount lang={lang} actors={this.state.actors} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
             return (<Classroom lang={lang} />)
         case variables.menus.scheduleManagement:
@@ -213,13 +213,13 @@ class Dashbord extends Component {
         case variables.menus.historical:
             return (<Historical lang={lang} actors={this.state.actors} />)
         case variables.menus.prints:
-            return (<Print lang={lang} />)
+            return (<Print lang={lang} allActors={this.state.actors} />)
         case variables.menus.childList:
-            return (<div />)
+            return (<ChildList lang={lang} />)
         case variables.menus.profile:
             return (<Profile lang={lang} />)
         case variables.menus.schedule:
-            return (<div />)
+            return (<Schedule lang={lang} />)
         default:
             return (<div className='table' />)
         }
@@ -244,7 +244,7 @@ class Dashbord extends Component {
         return (
             <div className='dashbord'>
                 <Snack show={this.state.showSnack} duration={5000} message={lang.messageRequiredSaveChangeSnack} onClose={this.handleCloseSnack} severity='warning' />
-                <div className='menu-mobile'>
+                <div className='menu-mobile remove'>
                     <Button
                         variant='outlined'
                         size='medium'
@@ -277,7 +277,7 @@ class Dashbord extends Component {
 
                 </div>
                 <SideMenu
-                    className='menu-desktop'
+                    className='menu-desktop remove'
                     lang={this.props.lang}
                     menuItemSelected={this.state.menuItemSelected}
                     handleClickMenu={this.onClickMenu}

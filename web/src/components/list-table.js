@@ -25,16 +25,11 @@ class TableListContainer extends Component {
         this.handleShowDetail = this.handleShowDetail.bind(this)
         this.handleCloseDetail = this.handleCloseDetail.bind(this)
         this.handleDeleteUser = this.handleDeleteUser.bind(this)
-        this.setDay = this.setDay.bind(this)
         this.renderShowDetail = this.renderShowDetail.bind(this)
     }
 
-    setDay (days) {
-        this.setState({ days: days })
-    }
-
     componentDidMount () {
-        Fetch.day.get(this.setDay)
+        Fetch.day.get(days => this.setState({days: [...days]}))
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/list-table.json') }
