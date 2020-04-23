@@ -28,10 +28,11 @@ const variables = {
         classroomManagement: 'KJHGFVDGWHSNGDH',
         scheduleManagement: 'GDHVFBNCDHGN',
         historical: 'OEIUHGDVFBEJDHBFV',
-        prints: 'RWFFABWSMND',
         childList: 'UHNDBVDHNBN',
+        childSchedule: 'OEIUHFGBCJES',
+        collabSchedule: 'EHDFHMSHZNDBN',
         profile: 'GESBVDBQUJA',
-        schedule: 'SGGHZGHNSJD',
+        prints: 'RWFFABWSMND',
         logOut: 'WIJSFBCHDS'
     },
     cookies: {

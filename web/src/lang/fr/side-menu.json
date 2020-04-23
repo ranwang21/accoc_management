@@ -19,18 +19,20 @@
         "logOut": "Se déconnecter"
     },
     "both": {
-        "childList": "Horaire de vos enfants",
-        "schedule": "Consulter votre Horaire",
+        "childList": "Détails de vos enfants",
+        "childSchedule": "Horaire de vos enfants",
+        "collabSchedule": "Consulter votre Horaire",
         "profile": "Profil",
         "logOut": "Se déconnecter"
     },
     "parent": {
-        "childList": "Horaire de vos enfants",
+        "childList": "Détails de vos enfants",
+        "childSchedule": "Horaire de vos enfants",
         "profile": "Profil",
         "logOut": "Se déconnecter"
     },
     "collaborator": {
-        "schedule": "Consulter votre Horaire",
+        "collabSchedule": "Consulter votre Horaire",
         "profile": "Profil",
         "logOut": "Se déconnecter"
     }

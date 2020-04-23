@@ -19,18 +19,20 @@
         "logOut": "Sign Out"
     },
     "both": {
-        "childList": "List of your children",
-        "schedule": "Consult your Schedule",
+        "childList": "Details of your children",
+        "childSchedule": "Schedule of your children",
+        "collabSchedule": "Consult your Schedule",
         "profile": "Profile",
         "logOut": "Sign Out"
     },
     "parent": {
-        "childList": "List of your children",
+        "childList": "Details of your children",
+        "childSchedule": "Schedule of your children",
         "profile": "Profile",
         "logOut": "Sign Out"
     },
     "collaborator": {
-        "schedule": "Consult your Schedule",
+        "collabSchedule": "Consult your Schedule",
         "profile": "Profile",
         "logOut": "Sign Out"
     }

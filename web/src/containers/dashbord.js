@@ -193,6 +193,7 @@ class Dashbord extends Component {
                     handleImageChange={this.onUserChange}
                     onUsersListChange={this.onUsersListChange}
                 />)
+
         case variables.menus.validation:
             return (
                 <Lists
@@ -204,22 +205,34 @@ class Dashbord extends Component {
                     handleBtnValidSave={this.onBtnValidSave}
                     handleImageChange={this.onUserChange}
                 />)
+
         case variables.menus.createAccount:
             return (<CreateAccount lang={lang} actors={this.state.actors} updateUsers={this.onUsersListChange} />)
+
         case variables.menus.classroomManagement:
             return (<Classroom lang={lang} />)
+
         case variables.menus.scheduleManagement:
             return (<Schedule lang={lang} />)
+
         case variables.menus.historical:
             return (<Historical lang={lang} actors={this.state.actors} />)
-        case variables.menus.prints:
-            return (<Print lang={lang} allActors={this.state.actors} />)
+
         case variables.menus.childList:
             return (<ChildList lang={lang} />)
+
+        case variables.menus.childSchedule:
+            return (<div />)
+
+        case variables.menus.collabSchedule:
+            return (<div />)
+
         case variables.menus.profile:
             return (<Profile lang={lang} />)
-        case variables.menus.schedule:
-            return (<Schedule lang={lang} />)
+
+        case variables.menus.prints:
+            return (<Print lang={lang} allActors={this.state.actors} />)
+
         default:
             return (<div className='table' />)
         }

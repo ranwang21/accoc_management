@@ -868,7 +868,7 @@ const getAllChildren = (token, callBack) => {
     .then(data => {
         if(data.success){
             const rolesColabs = (data.data.filter(x => x.title === 'children'))
-            fetch(HOST + '/users?select=_id,first_name,last_name,id_role', {
+            fetch(HOST + '/users', {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
@@ -877,9 +877,8 @@ const getAllChildren = (token, callBack) => {
             })
             .then(response => response.json())
             .then(dataChildren => {
-                console.log(dataChildren)
                 if(dataChildren.success){
-                    const children = (dataChildren.data.filter(x => x.id_role === rolesColabs[0]._id || x.id_role ===  rolesColabs[1]._id))
+                    const children = (dataChildren.data.filter(x => x.id_role === rolesColabs[0]._id))
                     callBack(children)
                 }
             })

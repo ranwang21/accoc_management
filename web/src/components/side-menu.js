@@ -35,7 +35,9 @@ const getMenuIcon = (menu) => {
         return (<ListIcon />)
     case variables.menus.profile:
         return (<DetailsIcon />)
-    case variables.menus.schedule:
+    case variables.menus.childSchedule:
+        return (<ScheduleIcon />)
+    case variables.menus.collabSchedule:
         return (<ScheduleIcon />)
     case variables.menus.logOut:
         return (<LogOutIcon />)
