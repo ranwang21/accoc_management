@@ -26,7 +26,7 @@ router
 router
   .route('/:id')
   .get(protect, getSchedule)
-  .put(protect, authorize('admin', 'super_admin'), updateSchedule)
+  .put(protect, updateSchedule)
   .delete(protect, authorize('admin', 'super_admin'), deleteSchedule)
 
 module.exports = router
