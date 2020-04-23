@@ -7,7 +7,7 @@ import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined'
 
 import SideMenu from '../components/side-menu'
 import Historical from './historical'
-import CreateAccount from '../components/create-account'
+import CreateAccount from './create-account'
 import Schedule from './schedule'
 import Classroom from './classroom'
 import Profile from './profile'
@@ -27,7 +27,7 @@ const upadteMenuSelectedByRole = (role) => {
     let select = null
     switch (role) {
     case variables.role.highAdmin:
-        select = variables.menus.prints
+        select = variables.menus.createAccount
         break
     case variables.role.admin:
         select = variables.menus.allUsers
@@ -204,7 +204,7 @@ class Dashbord extends Component {
                     handleImageChange={this.onUserChange}
                 />)
         case variables.menus.createAccount:
-            return (<CreateAccount lang={lang} updateUsers={this.onUsersListChange} />)
+            return (<CreateAccount lang={lang} actors={this.state.actors} updateUsers={this.onUsersListChange} />)
         case variables.menus.classroomManagement:
             return (<Classroom lang={lang} />)
         case variables.menus.scheduleManagement:

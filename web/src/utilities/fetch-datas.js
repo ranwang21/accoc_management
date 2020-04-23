@@ -183,6 +183,21 @@ const registerSaveUser = (user, userLogin, callBack) => {
         })
 }
 
+const saveChild = (child, callBack) => {
+    fetch(HOST + '/users', {
+        method: 'post',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(child)
+    })
+        .then(response => response.json())
+        .then(data => {
+            callBack(data)
+        })
+}
+
 const saveChildren = (childrens, idParent, callBack) => {
     childrens.map(child => {
         child.id_parent = [idParent]
@@ -200,6 +215,7 @@ const saveChildren = (childrens, idParent, callBack) => {
             })
     })
 }
+
 
 const getRolesAndDays = (callBack) => {
     fetch(HOST + '/roles')
@@ -852,6 +868,7 @@ export default {
     getRolesAndDays,
     registerSaveUser,
     saveChildren,
+    saveChild,
     getAllUsers,
     deleteAllUser,
     updateUserValidities,

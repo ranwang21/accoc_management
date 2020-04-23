@@ -143,7 +143,10 @@ class DetailUser extends Component {
         }
     }
 
+    getLangFile () { return require('../lang/' + this.props.lang + '/detail-user.json') }
+
     render () {
+        const lang = this.getLangFile()
         const user = this.props.userSelected
         const allergies = (user.medical_info.length > 0 && user.medical_info[0].allergies !== null) ? user.medical_info[0].allergies : "Pas d'allergies"
         const date = (user && user.birthday !== null) ? new Date(user.birthday).toLocaleDateString() : 'Pas defini'
@@ -159,9 +162,9 @@ class DetailUser extends Component {
                 fullWidth
                 disableBackdropClick={this.state.allowEditable}
             >
-                <DialogTitle id='scroll-dialog-title' className='title'>Fiche d'Informations {this.state.allowEditable && '(Modification en cour)'}</DialogTitle>
+                <DialogTitle id='scroll-dialog-title' className='title'>{lang.modalTitle1} {this.state.allowEditable && lang.modalTitle2}</DialogTitle>
                 <DialogContent id='details-print' className='div-dialog' ref={el => (this.divToPrint = el)}>
-                    <div className='detail-head to-be-print'>LA MAISON D'AURORE</div>
+                    <div className='detail-head to-be-print'>{lang.homeTitle}</div>
                     <div className={this.state.showEditLoading ? 'detail-user loading-effect' : 'detail-user'}>
                         <div className='image'>
                             <Button
@@ -171,7 +174,7 @@ class DetailUser extends Component {
                                 <img src={this.state.image} alt='avatar' />
                                 {(this.props.menuSelected !== variables.menus.validation) && (
                                     <>
-                                        <p><span>Cliquer pour changer</span></p>
+                                        <p><span>{lang.imgClickLabel}</span></p>
                                         <input
                                             className='print-to-remove'
                                             onChange={this.handleImageChange}
@@ -183,10 +186,10 @@ class DetailUser extends Component {
                                 )}
                             </Button>
                             {this.state.fileUploadedSuccess && (
-                                <p className='upload-success'>Avatar mis a jour !!!</p>
+                                <p className='upload-success'>{lang.imgUpdated}</p>
                             )}
                             {this.state.fileUploadedError && (
-                                <p className='upload-error'>Erreur lors du telechargement de l'image</p>
+                                <p className='upload-error'>{lang.imgError}</p>
                             )}
                         </div>
                         <div className='details-personnelles'>
@@ -195,13 +198,13 @@ class DetailUser extends Component {
                             </div>
                             {user.roleTitle !== variables.role.admin && (
                                 <div>
-                                    <p>Date de naissance:</p>
+                                    <p>{lang.dateLabel}:</p>
                                     <p>{date}</p>
                                 </div>
                             )}
                             {user.roleTitle === variables.role.child && (
                                 <div>
-                                    <p>Allergies:</p>
+                                    <p>{lang.allergiesLabel}:</p>
                                     <p>{allergies === null ? "Pas d'allergies" : allergies}</p>
                                 </div>
                             )}
@@ -214,7 +217,7 @@ class DetailUser extends Component {
                                             type='text'
                                             color='primary'
                                             variant='filled'
-                                            label='Last name'
+                                            label={lang.lastNameLabel}
                                             onChange={event => this.onEditFieldsChange(event, event.target.value, 'last_name', null)}
                                             value={this.state.userEdited.last_name !== null ? this.state.userEdited.last_name : ''}
                                         />
@@ -222,7 +225,7 @@ class DetailUser extends Component {
                                             type='text'
                                             color='primary'
                                             variant='filled'
-                                            label='First name'
+                                            label={lang.firstNameLabel}
                                             onChange={event => this.onEditFieldsChange(event, event.target.value, 'first_name', null)}
                                             value={this.state.userEdited.first_name !== null ? this.state.userEdited.first_name : ''}
                                         />
@@ -234,7 +237,7 @@ class DetailUser extends Component {
                                                 format='DD MMMM YYYY'
                                                 openTo='year'
                                                 views={['year', 'month', 'date']}
-                                                label='Birthday'
+                                                label={lang.birthdayLabel}
                                                 minDate={getAgeLimit(100)}
                                                 maxDate={getAgeLimit(5)}
                                                 value={this.state.userEdited.birthday !== null ? this.state.userEdited.birthday : getAgeLimit(10)}
@@ -285,7 +288,7 @@ class DetailUser extends Component {
                                 className='btn-edit'
                                 startIcon={<CancelIcon />}
                             >
-                                Annuler
+                                {lang.btnCancel}
                             </Button>
                             <Button
                                 onClick={event => this.handleBtnClick(event, action.save)}
@@ -294,7 +297,7 @@ class DetailUser extends Component {
                                 className='btn-save'
                                 startIcon={<SaveIcon />}
                             >
-                                Enregistrer
+                                {lang.btnSave}
                             </Button>
                         </>
                         )}
@@ -309,18 +312,20 @@ class DetailUser extends Component {
                                     className='btn-edit'
                                     startIcon={<EditIcon />}
                                 >
-                                    Edit
+                                    {lang.btnEdit}
                                 </Button>
                             )}
-                            <Button
-                                onClick={event => this.handleBtnClick(event, action.delete)}
-                                variant='contained'
-                                color='secondary'
-                                className='btn-delete'
-                                startIcon={<DeleteIcon />}
-                            >
-                                Delete
-                            </Button>
+                            {(user.roleTitle === variables.role.admin) && (
+                                <Button
+                                    onClick={event => this.handleBtnClick(event, action.delete)}
+                                    variant='contained'
+                                    color='secondary'
+                                    className='btn-delete'
+                                    startIcon={<DeleteIcon />}
+                                >
+                                    {lang.btnDelete}
+                                </Button>
+                            )}
                         </>
                         )}
                     </div>
