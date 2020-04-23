@@ -25,12 +25,7 @@ router.use('/:userId/schedules', SchedulesRouter)
 
 router
   .route('/')
-  .get(
-    advancedResults(User),
-    protect,
-    authorize('admin', 'super_admin'),
-    getUsers
-  )
+  .get(advancedResults(User), protect, getUsers)
   .post(createUser)
 
 router
