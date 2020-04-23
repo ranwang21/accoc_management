@@ -14,6 +14,7 @@ import Profile from './profile'
 import Print from './print'
 import Snack from '../components/snack'
 import Lists from './list'
+import ChildList from '../components/parent-child'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_dashbord.scss'
@@ -214,11 +215,11 @@ class Dashbord extends Component {
         case variables.menus.prints:
             return (<Print lang={lang} allActors={this.state.actors} />)
         case variables.menus.childList:
-            return (<div />)
+            return (<ChildList lang={lang} />)
         case variables.menus.profile:
             return (<Profile lang={lang} />)
         case variables.menus.schedule:
-            return (<div />)
+            return (<Schedule lang={lang} />)
         default:
             return (<div className='table' />)
         }

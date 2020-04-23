@@ -837,7 +837,7 @@ const getAllCollaborater = (token, callBack) => {
     .then(data => {
         if(data.success){
             const rolesColabs = (data.data.filter(x => x.title === 'collaborater' || x.title === 'collab_parent'))
-            fetch(HOST + '/users?select=_id,first_name, last_name, id_role', {
+            fetch(HOST + '/users?select=_id,first_name,last_name,id_role', {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
@@ -849,6 +849,38 @@ const getAllCollaborater = (token, callBack) => {
                 if(dataCollab.success){
                     const collabs = (dataCollab.data.filter(x => x.id_role === rolesColabs[0]._id || x.id_role ===  rolesColabs[1]._id))
                     callBack(collabs)
+                }
+            })
+        }
+    })
+}
+
+
+const getAllChildren = (token, callBack) => {
+    fetch(HOST + '/roles?select=_id,title', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            const rolesColabs = (data.data.filter(x => x.title === 'children'))
+            fetch(HOST + '/users?select=_id,first_name,last_name,id_role', {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            .then(response => response.json())
+            .then(dataChildren => {
+                console.log(dataChildren)
+                if(dataChildren.success){
+                    const children = (dataChildren.data.filter(x => x.id_role === rolesColabs[0]._id || x.id_role ===  rolesColabs[1]._id))
+                    callBack(children)
                 }
             })
         }
@@ -883,6 +915,7 @@ export default {
     },
     user: {
         get: getUser,
+        children: getAllChildren,
         getCollaborater: getAllCollaborater,
         update: updateUser,
         updateEmail: updateUserEmail,
