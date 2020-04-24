@@ -753,6 +753,22 @@ const getAllSchedules = (token, callBack) => {
     })
 }
 
+const getAllChildSchedules = (token, idChild, callBack) => {
+    fetch(HOST + '/users/' + idChild + '/schedules', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success){
+            callBack(data.data)
+        }
+    })
+}
+
 const addSchedule = (token, schedule, callBack) => {
         fetch(HOST + '/schedules', {
             method: 'POST',
@@ -909,6 +925,7 @@ export default {
     },
     schedule: {
         get: getAllSchedules,
+        forChild: getAllChildSchedules,
         child: getChildrenWhoHasClassroom,
         add: addSchedule
     },
