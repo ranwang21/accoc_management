@@ -15,12 +15,7 @@ const router = express.Router({ mergeParams: true })
 
 router
   .route('/')
-  .get(
-    protect,
-    authorize('admin', 'super_admin'),
-    advancedResults(Schedule),
-    getSchedules
-  )
+  .get(protect, advancedResults(Schedule), getSchedules)
   .post(protect, authorize('admin', 'super_admin'), createSchedule)
 
 router
