@@ -16,6 +16,8 @@ import Snack from '../components/snack'
 import Lists from './list'
 import ChildList from './child-list'
 import RegisterChild from '../components/register-child'
+import ChildSchedule from './child-schedule'
+import CollabSchedule from './collab-schedule'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_dashbord.scss'
@@ -251,10 +253,10 @@ class Dashbord extends Component {
             return (<ChildList lang={lang} childList={this.state.childList} fetchChild={this.fetchChild} />)
 
         case variables.menus.childSchedule:
-            return (<div />)
+            return (<ChildSchedule lang={lang} childList={this.state.childList} fetchChild={this.fetchChild} />)
 
         case variables.menus.collabSchedule:
-            return (<div />)
+            return (<CollabSchedule lang={lang} />)
 
         case variables.menus.registerChild:
             return (<RegisterChild lang={this.props.lang} actors={this.state.actors} onShowLoginForm={null} onGetBack={this.onUsersListChange} />)
