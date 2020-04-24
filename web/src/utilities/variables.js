@@ -31,6 +31,7 @@ const variables = {
         childList: 'UHNDBVDHNBN',
         childSchedule: 'OEIUHFGBCJES',
         collabSchedule: 'EHDFHMSHZNDBN',
+        registerChild: 'OEIUYGDXVDBWNSJXN',
         profile: 'GESBVDBQUJA',
         prints: 'RWFFABWSMND',
         logOut: 'WIJSFBCHDS'

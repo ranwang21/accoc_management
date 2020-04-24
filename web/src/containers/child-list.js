@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
-import '../styles/_parent-child.scss'
+import '../styles/_child-list.scss'
 import { ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, Divider, ExpansionPanelActions, Button, TextareaAutosize } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/EditOutlined'
 const variables = require('../utilities/variables').variables
@@ -14,42 +14,16 @@ class ParentChild extends Component {
             childSelected: null,
             expanded: null
         }
-        this._isMounted = false
-        this.setChildList = this.setChildList.bind(this)
         this.handleEditChild = this.handleEditChild.bind(this)
         this.handleEditChange = this.handleEditChange.bind(this)
         this.childEdited = this.childEdited.bind(this)
     }
 
-    setChildList (datas) {
-        if (this._isMounted) {
-            const idParent = this.getCurrentUser()._id
-            const newChildList = []
-            datas.map(x => { x.id_parent.map(y => { y === idParent && newChildList.push(x) }) })
-            this.setState({ childList: newChildList.sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1)) })
-        }
-    }
-
-    fetchChild () {
-        Fetch.user.children(this.props.cookies.get(variables.cookies.token), this.setChildList)
-    }
-
     componentDidMount () {
-        this._isMounted = true
-        this.fetchChild()
         this.setState({ childSelected: null })
     }
 
-    componentWillUnmount () {
-        this._isMounted = false
-    }
-
-    getLangFile () { return require('../lang/' + this.props.lang + '/parent-child.json') }
-
-    getCurrentUser () {
-        const currentUser = this.props.cookies.get(variables.cookies.user)
-        return Fetch.decodeData(currentUser)
-    }
+    getLangFile () { return require('../lang/' + this.props.lang + '/child-list.json') }
 
     handleEditChild () {
         this.state.childSelected !== null && Fetch.user.update(this.props.cookies.get(variables.cookies.token), this.state.childSelected, this.childEdited)
@@ -57,12 +31,14 @@ class ParentChild extends Component {
 
     childEdited (data) {
         if (data.success) {
-            this.fetchChild()
+            // this.props.fetchChild()
         }
     }
 
     handleChange (event, newChild) {
-        this.setState({ childSelected: newChild })
+        if (newChild !== null) {
+            this.setState({ childSelected: newChild })
+        }
     }
 
     handleEditChange (event, newValue, name) {
@@ -127,9 +103,10 @@ class ParentChild extends Component {
 
     render () {
         const lang = this.getLangFile()
+        const childList = this.props.childList
         return (
             <div className='parent-child'>
-                {this.state.childList.length > 0 && this.state.childList.map(child => this.buildChildList(lang, child))}
+                {childList.length > 0 && childList.map(child => this.buildChildList(lang, child))}
             </div>
         )
     }

@@ -22,12 +22,14 @@
         "childList": "Détails de vos enfants",
         "childSchedule": "Horaire de vos enfants",
         "collabSchedule": "Consulter votre Horaire",
+        "registerChild": "Inscrire un enfant",
         "profile": "Profil",
         "logOut": "Se déconnecter"
     },
     "parent": {
         "childList": "Détails de vos enfants",
         "childSchedule": "Horaire de vos enfants",
+        "registerChild": "Inscrire un enfant",
         "profile": "Profil",
         "logOut": "Se déconnecter"
     },

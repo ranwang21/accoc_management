@@ -14,7 +14,8 @@ import Profile from './profile'
 import Print from './print'
 import Snack from '../components/snack'
 import Lists from './list'
-import ChildList from '../components/parent-child'
+import ChildList from './child-list'
+import RegisterChild from '../components/register-child'
 import Fetch from '../utilities/fetch-datas'
 import { withCookies } from 'react-cookie'
 import '../styles/_dashbord.scss'
@@ -28,7 +29,7 @@ const upadteMenuSelectedByRole = (role) => {
     let select = null
     switch (role) {
     case variables.role.highAdmin:
-        select = variables.menus.createAccount
+        select = variables.menus.allUsers
         break
     case variables.role.admin:
         select = variables.menus.allUsers
@@ -55,6 +56,7 @@ class Dashbord extends Component {
             childrens: [],
             validActors: [],
             inValidActors: [],
+            childList: [],
             menuItemSelected: '',
             showLogOutModal: false,
             requiredSaveValidationChange: false,
@@ -64,6 +66,7 @@ class Dashbord extends Component {
             showLoading: true
         }
         this.currentUser = null
+        this.setChildList = this.setChildList.bind(this)
         this.onhandleDateChange = this.onhandleDateChange.bind(this)
         this.onClickMenu = this.onClickMenu.bind(this)
         this.handleCloseLogOut = this.handleCloseLogOut.bind(this)
@@ -75,6 +78,24 @@ class Dashbord extends Component {
         this.setActorLists = this.setActorLists.bind(this)
         this.onUsersListChange = this.onUsersListChange.bind(this)
         this.onUserChange = this.onUserChange.bind(this)
+        this.fetchChild = this.fetchChild.bind(this)
+    }
+
+    setChildList (datas) {
+        this.setState({ showLoading: true })
+
+        const idParent = this.getCurrentUser()._id
+        const newChildList = []
+        datas.map(x => { x.id_parent.map(y => { y === idParent && newChildList.push(x) }) })
+        this.setState({ childList: newChildList.sort((a, b) => (a.last_name.toUpperCase() > b.last_name.toUpperCase() ? 1 : -1)) })
+
+        setTimeout(() => {
+            this.setState({ showLoading: false })
+        }, 500)
+    }
+
+    fetchChild () {
+        Fetch.user.children(this.props.cookies.get(variables.cookies.token), this.setChildList)
     }
 
     setActorLists (list) {
@@ -107,7 +128,7 @@ class Dashbord extends Component {
         if(currentUser.role === 'super_admin' || currentUser.role === 'admin') {
             Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
         } else {
-            this.setState({ showLoading: false })
+            this.fetchChild()
         }
     }
 
@@ -161,7 +182,15 @@ class Dashbord extends Component {
     }
 
     onUsersListChange () {
-        Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
+        const currentUser = this.getCurrentUser()
+        if(currentUser.role === 'super_admin' || currentUser.role === 'admin') {
+            Fetch.getAllUsers(this.props.cookies.get(variables.cookies.token), this.setActorLists)
+        } else {
+            this.fetchChild()
+            this.setState({
+                menuItemSelected: upadteMenuSelectedByRole(this.getCurrentUser().role)
+            })
+        }
     }
 
     onUserChange(user, img){
@@ -219,13 +248,16 @@ class Dashbord extends Component {
             return (<Historical lang={lang} actors={this.state.actors} />)
 
         case variables.menus.childList:
-            return (<ChildList lang={lang} />)
+            return (<ChildList lang={lang} childList={this.state.childList} fetchChild={this.fetchChild} />)
 
         case variables.menus.childSchedule:
             return (<div />)
 
         case variables.menus.collabSchedule:
             return (<div />)
+
+        case variables.menus.registerChild:
+            return (<RegisterChild lang={this.props.lang} actors={this.state.actors} onShowLoginForm={null} onGetBack={this.onUsersListChange} />)
 
         case variables.menus.profile:
             return (<Profile lang={lang} />)

@@ -5,8 +5,11 @@ import '../styles/_register.scss'
 import { Button, TextField } from '@material-ui/core'
 import SaveIcon from '@material-ui/icons/SaveOutlined'
 import { Autocomplete } from '@material-ui/lab'
+import { withCookies } from 'react-cookie'
+const variables = require('../utilities/variables').variables
 
 const closeId = require('../utilities/variables').variables.id.loginRegister.showLogin
+const isParent = ({ roleTitle, isValid }) => ((roleTitle === 'parent' || roleTitle === 'collab_parent') && isValid === true)
 
 const types = {
     date: 'dateField',
@@ -54,7 +57,8 @@ const initialiseState = {
         }
     },
     roles: [],
-    idParent: null
+    idParent: null,
+    disabledInput: false
 }
 
 class RegisterContainer extends Component {
@@ -72,6 +76,13 @@ class RegisterContainer extends Component {
 
     componentDidMount () {
         Fetch.getRolesAndDays(this.setRolesAndDays)
+        const currentUser = this.getCurrentUser()
+        if (currentUser.role !== 'super_admin' && currentUser.role !== 'admin') {
+            this.setState({
+                disabledInput: true,
+                idParent: currentUser._id
+            })
+        }
     }
 
     getLangFile () { return require('../lang/' + this.props.lang + '/register.json') }
@@ -196,10 +207,20 @@ class RegisterContainer extends Component {
         Fetch.saveChild(child, this.saveChildren)
     }
 
+    getCurrentUser () {
+        const currentUser = this.props.cookies.get(variables.cookies.user)
+        return Fetch.decodeData(currentUser)
+    }
+
     saveChildren (success) {
         if (success.success) {
             this.setState({ successRegister: true })
-            this.props.onGetBack('register')
+            const currentUser = this.getCurrentUser()
+            if (currentUser.role === 'super_admin' || currentUser.role === 'admin') {
+                this.props.onGetBack('register')
+            } else {
+                this.props.onGetBack()
+            }
         } else {
             console.log('erreur')
             alert("Une erreur est survenu lors de l'enregistrement ")
@@ -210,26 +231,29 @@ class RegisterContainer extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const parents = (this.props.parents && this.props.parents !== null) ? this.props.parents : []
+        const parents = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isParent) : []
         return (
             <div className='register-container'>
                 {this.props.onShowLoginForm !== null && (
                     <div className='div-back' id={closeId} onClick={this.handleRessetStepAndRedirect}>{lang.back}</div>
                 )}
-                <div className='select-parent'>
-                    <Autocomplete
-                        className='select  print-to-remove'
-                        onChange={(event, newValue) => this.handleGetIdParent(event, (newValue !== null ? newValue._id : null))}
-                        options={parents}
-                        getOptionLabel={(parents) => parents.first_name + ' ' + parents.last_name}
-                        renderInput={(params) => <TextField {...params} label='CHOISISSEZ LE PARENT' variant='filled' />}
-                    />
-                    {this.state.idParent === null && (
-                        <p>Veuillez choisir le parent</p>
-                    )}
-                </div>
+                {!this.state.disabledInput && (
+                    <div className='select-parent'>
+                        <Autocomplete
+                            disabled={this.state.disabledInput}
+                            className='select  print-to-remove'
+                            onChange={(event, newValue) => this.handleGetIdParent(event, (newValue !== null ? newValue._id : null))}
+                            options={parents}
+                            getOptionLabel={(parents) => parents.first_name + ' ' + parents.last_name}
+                            renderInput={(params) => <TextField {...params} label='CHOISISSEZ LE PARENT' variant='filled' />}
+                        />
+                        {this.state.idParent === null && (
+                            <p>Veuillez choisir le parent</p>
+                        )}
+                    </div>
+                )}
                 <div className='form-container'>
-                    <div className='forms'>
+                    <div className='forms form-for-parent'>
                         <div>
                             <ChildrenInscription
                                 lang={this.props.lang}
@@ -256,4 +280,4 @@ class RegisterContainer extends Component {
     }
 }
 
-export default RegisterContainer
+export default withCookies(RegisterContainer)

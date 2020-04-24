@@ -7,7 +7,6 @@ import { withCookies } from 'react-cookie'
 import '../styles/_create-account.scss'
 
 const variables = require('../utilities/variables').variables
-const isParent = ({ roleTitle, isValid }) => ((roleTitle === 'parent' || roleTitle === 'collab_parent') && isValid === true)
 
 class CreateAccount extends Component {
     constructor () {
@@ -82,10 +81,10 @@ class CreateAccount extends Component {
         )
     }
 
-    switchToAddOption (parents) {
+    switchToAddOption () {
         switch (this.state.actorSelected) {
         case variables.actors.children:
-            return (<RegisterChild lang={this.props.lang} parents={parents} onShowLoginForm={null} onGetBack={this.handleRetour} />)
+            return (<RegisterChild lang={this.props.lang} actors={this.props.actors} onShowLoginForm={null} onGetBack={this.handleRetour} />)
         case variables.actors.collaborator:
             return (<Register lang={this.props.lang} onShowLoginForm={null} currentActor={variables.id.registerStart.check.collaborator} onGetBack={this.handleRetour} />)
         case variables.actors.parent:
@@ -99,7 +98,6 @@ class CreateAccount extends Component {
 
     render () {
         const lang = this.getLangFile()
-        const parents = (this.props.actors && this.props.actors !== null) ? this.props.actors.filter(isParent) : []
         return (
             <div className='create-account'>
                 <div className='showAddDiv' ref={this.addDiv}>
@@ -110,7 +108,7 @@ class CreateAccount extends Component {
                         <div className='add-container'>
                             <div className='retour' onClick={this.handleRetour}>{lang.back}</div>
                             <div className='contain'>
-                                {this.switchToAddOption(parents)}
+                                {this.switchToAddOption()}
                             </div>
                         </div>
                     )}

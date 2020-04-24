@@ -22,12 +22,14 @@
         "childList": "Details of your children",
         "childSchedule": "Schedule of your children",
         "collabSchedule": "Consult your Schedule",
+        "registerChild": "register a child",
         "profile": "Profile",
         "logOut": "Sign Out"
     },
     "parent": {
         "childList": "Details of your children",
         "childSchedule": "Schedule of your children",
+        "registerChild": "register a child",
         "profile": "Profile",
         "logOut": "Sign Out"
     },
