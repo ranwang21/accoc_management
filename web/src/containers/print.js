@@ -97,28 +97,9 @@ class Print extends Component {
         return (<TableBody>{allActors.map(actor => this.buildRow(lang, actor, value))}</TableBody>)
     }
 
-    buildListItem (config, labelPrint, reference) {
+    buildListToPrint (lang, config, list) {
         return (
-            <div>
-                <h2>{config.label}</h2>
-                <PrintList
-                    trigger={() => (
-                        <Button
-                            variant='contained'
-                            color='secondary'
-                            startIcon={<PrintIcon />}
-                        >
-                            {labelPrint}
-                        </Button>)}
-                    content={() => reference}
-                />
-            </div>
-        )
-    }
-
-    buildListToPrint (lang, config, list, reference) {
-        return (
-            <div id='details-print' ref={el => (reference = el)} className='to-print'>
+            <div id='details-print' className='to-print'>
                 <div className='detail-head to-be-print'>LA MAISON D'AURORE</div>
                 <h2>{config.label}</h2>
                 <TableContainer className='table-list'>
@@ -141,19 +122,60 @@ class Print extends Component {
         return (
             <div className='print'>
                 <div className='div-titles'>
-                    {this.buildListItem(lang.list.ofChild, lang.btnPrint, this.divChildrenToPrint)}
-                    {this.buildListItem(lang.list.ofCollaborater, lang.btnPrint, this.divCollabToPrint)}
-                    {this.buildListItem(lang.list.ofParent, lang.btnPrint, this.divParentToPrint)}
+                    <div>
+                        <h2>{lang.list.ofChild.label}</h2>
+                        <PrintList
+                            trigger={() => (
+                                <Button
+                                    variant='contained'
+                                    color='secondary'
+                                    startIcon={<PrintIcon />}
+                                >
+                                    {lang.btnPrint}
+                                </Button>)}
+                            content={() => this.divChildrenToPrint}
+                        />
+                    </div>
+
+                    <div>
+                        <h2>{lang.list.ofCollaborater.label}</h2>
+                        <PrintList
+                            trigger={() => (
+                                <Button
+                                    variant='contained'
+                                    color='secondary'
+                                    startIcon={<PrintIcon />}
+                                >
+                                    {lang.btnPrint}
+                                </Button>)}
+                            content={() => this.divCollabToPrint}
+                        />
+                    </div>
+
+                    <div>
+                        <h2>{lang.list.ofParent.label}</h2>
+                        <PrintList
+                            trigger={() => (
+                                <Button
+                                    variant='contained'
+                                    color='secondary'
+                                    startIcon={<PrintIcon />}
+                                >
+                                    {lang.btnPrint}
+                                </Button>)}
+                            content={() => this.divParentToPrint}
+                        />
+                    </div>
                 </div>
                 <div className='div-lists to-print'>
                     <div ref={el => (this.divChildrenToPrint = el)}>
-                        {this.buildListToPrint(lang, lang.list.ofChild, childrens, this.divChildrenToPrint)}
+                        {this.buildListToPrint(lang, lang.list.ofChild, childrens)}
                     </div>
                     <div ref={el => (this.divCollabToPrint = el)}>
-                        {this.buildListToPrint(lang, lang.list.ofCollaborater, collaboraters, this.divCollabToPrint)}
+                        {this.buildListToPrint(lang, lang.list.ofCollaborater, collaboraters)}
                     </div>
                     <div ref={el => (this.divParentToPrint = el)}>
-                        {this.buildListToPrint(lang, lang.list.ofParent, parents, this.divParentToPrint)}
+                        {this.buildListToPrint(lang, lang.list.ofParent, parents)}
                     </div>
                 </div>
             </div>
