@@ -23,3 +23,6 @@ FrontEnd: ReactJS, React Router, MaterialUI, Webpack, JWT
 ## Installation
 Open the folder with the console, type `npm install` + enter. After the installation finished, type `npm run dev` + enter, wait the browser opens.
 Now you can see the connection page, you can use your credentials to login.
+
+## Preview
+![](preview/Capture.PNG)
